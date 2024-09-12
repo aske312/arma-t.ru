@@ -1,0 +1,386 @@
+/* Стили для заголовка секции */
+
+pre { /* DEBUG */
+    color: red;
+}
+
+.section-title {
+    background: url('/local/img/block/pattern.png') no-repeat center;
+    background-size: cover; /* Заполнение всей доступной области без растягивания */
+    color: #fff;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+    width: 1300px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+    height: 100%; /* Высота контейнера */
+}
+
+.section-title h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.section-title p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #ddd;
+}
+
+/* Основная контейнерная сетка */
+.catalog-container {
+    display: flex;
+    padding: 10px;
+    background-color: #fff;
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+    height: 100%; /* Высота контейнера */
+    overflow: hidden; /* Обрезка выходящих элементов */
+    font-family: Montserrat-Regular;
+    border-radius: 5px;
+}
+
+/* Стили для бокового меню */
+.catalog-sidebar {
+    flex: 0 0 250px;
+    padding-right: 5px;
+    border-right: 1px solid #ddd;
+}
+
+.catalog-sidebar h2 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333;
+    /* cursor: pointer; */
+}
+
+.catalog-menu {
+    /* border-top: 1px solid #ddd; */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.catalog-menu li {
+    margin-bottom: 10px;
+}
+
+.catalog-menu a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+    display: block;
+    transition: color 0.3s;
+}
+
+.catalog-menu a:hover {
+    color: #0056b3;
+}
+
+.category-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 800px); /* Рассчитываем ширину для двух столбцов */
+    margin: 10px;
+    padding: 1px;
+    cursor: pointer;
+    width: 250px;
+    height: 75px;
+    background: white; /* #162139; */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.category-block:hover {
+    border-radius: 5px;
+    box-shadow: 0 0 5px #191970;
+}
+
+.category-block img {
+    text-align: center;
+    justify-content: center;
+    margin: 0 5px; /* Отступы сверху и снизу */
+    max-height: 55px;
+    max-width: 55px; *//* Ширина изображения */
+    margin-right: 10px; /* Отступ между изображением и текстом */
+}
+
+.category-text {
+    font-weight: bold;
+    color: #333;
+    margin: 0 10px; /* Отступы сверху и снизу */
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0; /* Занимаем всё доступное пространство */
+    font-size: 14px; /* Размер текста */
+    font-family: Montserrat-Regular;
+}
+
+/* Стили для основной части каталога */
+.catalog-content {
+    flex: 1;
+    padding-left: 10px;
+}
+
+/* Стили для фильтров */
+.filters {
+    background-color: #f5f7fa; /* Фон для выделения таблицы */
+    padding: 10px;
+    border-top: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку, если они не помещаются */
+    gap: 10px; /* Отступы между фильтрами */
+}
+
+.filters label {
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px; /* Отступ между текстом и селектом */
+}
+
+.filters select {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    font-family: Montserrat-Regular;
+    color: #333;
+    margin: 10px 0;
+}
+
+.filters table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.filters th {
+    text-align: left;
+    font-weight: normal;
+    font-size: 14px;
+    color: #555;
+    padding: 5px 10px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.filters th:last-child {
+    border-right: none;
+}
+
+/* Стили для чекбокса выбора всех товаров */
+.select-all {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+
+.select-all input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.select-all button.catalog-add-all {
+    margin-left: auto;
+    padding: 8px 12px;
+    background-color: #007bff;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.select-all button.catalog-add-all:hover {
+    background-color: #218838;
+}
+
+/* Стили для списка товаров */
+.catalog-items {
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.catalog-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.catalog-item:hover {
+    border-radius: 5px;
+    box-shadow: 0 0 5px #191970;
+}
+
+.catalog-item-header {
+    display: flex;
+    align-items: center;
+}
+
+.catalog-item-header img.catalog-item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-right: 20px;
+}
+
+.catalog-item-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left; /* Центрируем контент по горизонтали */
+    /* text-align: center; */
+    text-align: left;
+}
+
+.catalog-item-info h3.catalog-item-name {
+    /* margin: 0; */
+    margin: 10px 0; /* Отступы сверху и снизу */
+    font-size: 18px;
+    color: #333;
+}
+
+/* Стили для артикула и доступности товара */
+.catalog-item-info p {
+    margin: 0 10px 0 0;
+    font-size: 14px;
+    color: #555;
+    display: inline-block;
+}
+
+.catalog-item-info p span {
+    margin-left: 40px; /* Добавляем отступ между артикулом и наличием */
+}
+
+
+.catalog-item-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin: 30px 0; /* Отступы сверху и снизу */
+}
+
+/* Стили для свойства catalog-item-price */
+.catalog-item-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px; /* Отступ сверху */
+}
+
+.catalog-item-controls button.catalog-item-add-to-cart {
+    padding: 8px 12px;
+    background-color: #007bff;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: bottom;
+    white-space: nowrap; /* Запрещаем перенос текста */
+    overflow: hidden; /* Скрываем текст, выходящий за границы кнопки */
+    text-overflow: ellipsis; /* Добавляем троеточие, если текст обрезается */
+}
+
+.catalog-item-controls button.catalog-item-add-to-cart:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для таблицы свойств товаров */
+.catalog-item-properties {
+    margin-top: 10px;
+    background-color: #f5f7fa; /* Фон для выделения таблицы */
+    padding: 10px;
+    border-top: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.catalog-item-properties table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.catalog-item-properties th {
+    text-align: left;
+    font-weight: normal;
+    font-size: 14px;
+    color: #555;
+    padding: 5px 10px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.catalog-item-properties th:last-child {
+    border-right: none;
+}
+
+.pagination {
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.pagination .text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    font-family: Montserrat-Regular;
+    color: #333;
+    margin: 10px 0;
+}
+
+.pagination .text b{
+    margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #007BFF;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.pagination .current {
+    background-color: #007BFF;
+    color: #fff;
+    border-color: #007BFF;
+    cursor: default;
+}
+
+.pagination .disabled {
+    color: #999;
+    cursor: not-allowed;
+}
+
+.pagination .disabled:hover {
+    background-color: transparent;
+}
