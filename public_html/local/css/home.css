@@ -12,12 +12,12 @@
 	}
 
 /********* Стили для слайдера *********/
-/* Стили для секции */
+/* Основной контейнер слайдера */
 .section1 {
     background-color: #162139;
     padding: 20px 0;
 }
-/* Основной контейнер слайдера */
+/* Обертка слайдера */
 .slider-wrapper {
     display: flex;
     justify-content: center;
@@ -50,9 +50,20 @@
 }
 /* Каждый отдельный слайд */
 .slide {
+    position: relative;
     min-width: 100%;
     height: 100%;
-    position: relative;
+}
+/* Затемненная область для текста */
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Затемнение по всей области */
+    z-index: 1;
 }
 /* Изображение слайда */
 .slide img {
@@ -64,14 +75,16 @@
 /* Текст внутри слайда */
 .slide-text {
     position: absolute;
-    bottom: 50px;
-    left: 50px;
+    top: 20px; /* Отступ от верха */
+    left: 50%;
+    transform: translateX(-50%);
     color: white;
-    font-size: 32px;
-    background: rgba(0, 0, 0, 0.5);
+    font-size: 40px;
+    background: rgba(0, 0, 0, 0.5); /* Небольшое затемнение под текстом */
     padding: 10px 20px;
     border-radius: 5px;
-    max-width: 50%;
+    z-index: 2; /* Текст поверх затемнения */
+    text-align: center;
 }
 /* Точки для навигации */
 .dots {

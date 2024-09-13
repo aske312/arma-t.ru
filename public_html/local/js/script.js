@@ -9,27 +9,23 @@ let slideIndex = 1;
 let slides = document.getElementsByClassName("slide");
 let dots = document.getElementsByClassName("dot");
 
+// Функция отображения слайдов
 function showSlides(n) {
-    // Если слайдов больше чем slideIndex, начать с первого слайда
     if (n > slides.length) {
         slideIndex = 1;
     }
-    // Если меньше, начать с последнего
     if (n < 1) {
         slideIndex = slides.length;
     }
 
-    // Скрываем все слайды
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
 
-    // Убираем активные точки
     for (let i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
 
-    // Показываем текущий слайд и активируем точку
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
 }
@@ -37,28 +33,29 @@ function showSlides(n) {
 // Инициализация
 showSlides(slideIndex);
 
-// Функция для перехода на следующий слайд
-function nextSlide() {
-    showSlides(slideIndex += 1);
-}
+// Автоматическое переключение слайдов каждые 5 секунд
+let slideInterval = setInterval(function() {
+    showSlides(++slideIndex);
+}, 5000);
 
-// Функция для перехода на определённый слайд
+// Функция для перехода на конкретный слайд при клике на точку
 function currentSlide(n) {
-    showSlides(slideIndex = n);
+    clearInterval(slideInterval);
+    slideIndex = n;
+    showSlides(slideIndex);
+    slideInterval = setInterval(function() {
+        showSlides(++slideIndex);
+    }, 5000); // Перезапуск таймера
 }
 
-// Автоматическая смена слайдов
-let slideInterval = setInterval(nextSlide, 5000);
-
-// Остановить автоматическую смену слайдов при клике на точку
+// Добавляем событие на точки для переключения слайдов
 for (let i = 0; i < dots.length; i++) {
     dots[i].addEventListener('click', function() {
-        clearInterval(slideInterval);
         currentSlide(i + 1);
-        slideInterval = setInterval(nextSlide, 5000);  // Перезапуск таймера
     });
 }
 
+//***** index.php catalog *****//
 // Функция перехода на каталог по секциям
 function redirectToSection(sectionId) {
     window.location.href = '/catalog/catalog.php?SECTION_ID=' + sectionId;
