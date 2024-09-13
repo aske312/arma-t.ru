@@ -50,14 +50,6 @@ function currentSlide(n) {
     showSlides();
 }
 
-// Добавляем события для кликов по точкам
-for (let i = 0; i < dots.length; i++) {
-    dots[i].addEventListener('click', function() {
-        currentSlide(i + 1); // При клике переходим на нужный слайд
-    });
-}
-
-
 //***** index.php catalog *****//
 // Функция перехода на каталог по секциям
 function redirectToSection(sectionId) {
