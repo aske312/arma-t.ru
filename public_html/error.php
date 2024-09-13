@@ -1,5 +1,5 @@
 
-<?php Asset::getInstance()->addCss("/local/css/error.css");  //css ?>
+
 
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ru">
@@ -7,6 +7,7 @@
 		<title>arma-t.ru | error page</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8">
+		<?php Asset::getInstance()->addCss("/local/css/error.css");  //css ?>
 		<script type="application/ld+json">{
 			"@context": "http://schema.org",
 			"@type": "Organization",
