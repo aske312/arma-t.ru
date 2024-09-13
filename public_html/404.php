@@ -1,4 +1,7 @@
 <!-- <?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');?> -->
+<?php
+Asset::getInstance()->addCss("/local/css/error.css");  //css
+?>
 
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ru">
