@@ -1,4 +1,4 @@
-<?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');?>
+<!-- <?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');?> -->
 
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ru">
@@ -91,4 +91,4 @@
 	</body>
 </html>
 
-<?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');?>
+<!-- <?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');?> -->
