@@ -25,8 +25,25 @@ $sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, $
 $arResult['SECTIONS'] = [];
 while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
+}
+
+// Подключаем модуль инфоблоков
+if (CModule::IncludeModule('iblock')) {
+    // Параметры инфоблока
+    $arSelect = ["ID", "NAME", "PREVIEW_PICTURE", "PREVIEW_TEXT"];
+    $arFilter = ["IBLOCK_ID" => $IBLOCK_ID, "ACTIVE" => "Y"]; // Укажите ID инфоблока
+
+    $res = CIBlockElement::GetList(["SORT" => "ASC"], $arFilter, false, false, $arSelect);
+    while ($arItem = $res->GetNext()) {
+        $imgPath = CFile::GetPath($arItem["PREVIEW_PICTURE"]);
+        $slides[] = [
+            "TEXT" => $arItem["PREVIEW_TEXT"],
+            "IMG" => $imgPath,
+        ];
+    }
 }?>
 
+<!--
 <div class="section section1">
 	<div class="slider-wrapper">
 		<div class="slider-container">
@@ -53,6 +70,30 @@ while ($section = $sections->Fetch()) {
 				</div>
 				<div class="dots">
                     <span class="dot"></span> <span class="dot"></span> <span class="dot"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div class="section section1">
+	<div class="slider-wrapper">
+		<div class="slider-container">
+			<div class="slider">
+				<div class="slides">
+                    <?php foreach ($slides as $slide): ?>
+					<div class="slide">
+                        <img alt="Slide" src="<?= $slide['IMG'] ?>">
+						<div class="slide-text">
+							<?= $slide['TEXT'] ?>
+						</div>
+					</div>
+                    <?php endforeach; ?>
+				</div>
+				<div class="dots">
+                    <?php foreach ($slides as $index => $slide): ?>
+                    <span class="dot" onclick="currentSlide(<?= $index+1 ?>)"></span>
+                    <?php endforeach; ?>
 				</div>
 			</div>
 		</div>
