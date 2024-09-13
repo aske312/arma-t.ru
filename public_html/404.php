@@ -16,7 +16,7 @@
 			"sameAs": [
 					"https://t.me/aske312",
 					"https://vk.com/aske312",
-					"https://github.com/aske312/achif.online"]}</script>
+					"https://github.com/aske312/arma-t.ru"]}</script>
 	</head>
 	<body class="u-body u-stick-footer u-xl-mode">
 		<header class="u-clearfix u-header u-sticky u-sticky-b03a" id="sec-88d6">
