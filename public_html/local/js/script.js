@@ -10,52 +10,42 @@ let slides = document.getElementsByClassName("slide");
 let dots = document.getElementsByClassName("dot");
 
 // Функция для показа слайдов
-function showSlides(n) {
-    if (n >= slides.length) {
-        slideIndex = 0; // Если дошли до конца, возвращаемся к первому слайду
-    } else if (n < 0) {
-        slideIndex = slides.length - 1; // Если индекс меньше 0, показываем последний слайд
-    } else {
-        slideIndex = n; // Устанавливаем текущий индекс
-    }
-
+function showSlides() {
     // Скрываем все слайды
     for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        slides[i].style.display = "none";  // Скрываем каждый слайд
     }
 
     // Убираем активные классы у всех точек
     for (let i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
+        dots[i].className = dots[i].className.replace(" active", ""); // Убираем класс 'active' у всех точек
+    }
+
+    // Увеличиваем индекс слайда
+    slideIndex++;
+
+    // Если индекс слайда больше количества слайдов — обнуляем его
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
     }
 
     // Показываем текущий слайд и активируем соответствующую точку
-    slides[slideIndex].style.display = "block";
-    dots[slideIndex].className += " active";
+    slides[slideIndex - 1].style.display = "block";  // Отображаем нужный слайд
+    dots[slideIndex - 1].className += " active";  // Делаем точку активной
 }
 
 // Инициализация первого слайда
-showSlides(slideIndex);
+showSlides();
 
 // Автоматическое переключение каждые 5 секунд
-let slideInterval = setInterval(function() {
-    showSlides(slideIndex + 1); // Переходим на следующий слайд
-}, 5000);
+let slideInterval = setInterval(showSlides, 5000);
 
 // Переключение на конкретный слайд по клику на точку
 function currentSlide(n) {
-    clearInterval(slideInterval); // Останавливаем автоматическое переключение
-    showSlides(n); // Показываем выбранный слайд
-    slideInterval = setInterval(function() {
-        showSlides(slideIndex + 1); // Перезапускаем автоматическое переключение
-    }, 5000);
-}
-
-// Добавляем события клика для точек
-for (let i = 0; i < dots.length; i++) {
-    dots[i].addEventListener('click', function() {
-        currentSlide(i); // Переход на слайд с индексом i
-    });
+    clearInterval(slideInterval);  // Останавливаем автоматическое переключение
+    slideIndex = n;  // Устанавливаем текущий индекс слайда
+    showSlides();  // Показываем выбранный слайд
+    slideInterval = setInterval(showSlides, 5000);  // Перезапускаем автоматическое переключение
 }
 
 //***** index.php catalog *****//
