@@ -33,8 +33,8 @@
                         <a href="/#Cash">Оплата</a>
                     </nav>
                         <?php $APPLICATION->IncludeComponent(
-                            "",
                             "search",
+                            "",
                             Array(
                                 "ACTION_VARIABLE" => "action",
                                 "AJAX_MODE" => "N",
