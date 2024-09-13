@@ -134,6 +134,8 @@
 		margin: 85px;
 	}
 	.block-item img {
+	    justify-content: center;
+		align-items: center;
 		display: block;
 		margin-right: 20px;
 	}
