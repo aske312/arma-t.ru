@@ -59,7 +59,7 @@ if (CModule::IncludeModule('iblock')) {
                 </div>
                 <div class="dots">
                     <?php foreach ($slides as $index => $slide): ?>
-                    <span class="dot" onclick="currentSlide(<?= $index + 1 ?>)"></span>
+                    <span class="dot" onclick="currentSlide(<?= $index ?>)"></span>
                     <?php endforeach; ?>
                 </div>
             </div>
