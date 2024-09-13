@@ -139,8 +139,11 @@
 		display: block;
 		/* margin-right: 20px; */
 	}
+	.block-image {
+	    align-items: center;
+	}
 	.item-text {
-		color: red;
+		color: white;
 		margin-top: 15px;
 		font-size: 24px;
 		line-height: 1.6;

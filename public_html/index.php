@@ -81,7 +81,7 @@ while ($section = $sections->Fetch()) {
 <div class="section section3" id="Dostavka">
 	<div class="block">
 		<div class="block-item">
-			<div style="text-align: center;">
+			<div class="block-image">
                 <img alt="Image 1" src="/local/img/block/res1.png">
 			</div>
 			<div class="item-text">
@@ -90,7 +90,7 @@ while ($section = $sections->Fetch()) {
 			</div>
 		</div>
 		<div class="block-item">
-			<div style="text-align: center;">
+			<div class="block-image">
                 <img alt="Image 2" src="/local/img/block/res2.png">
 			</div>
 			<div class="item-text">
@@ -99,7 +99,7 @@ while ($section = $sections->Fetch()) {
 			</div>
 		</div>
 		<div class="block-item">
-			<div style="text-align: center;">
+			<div class="block-image">
                 <img alt="Image 3" src="/local/img/block/res3.png">
 			</div>
 			<div class="item-text">
