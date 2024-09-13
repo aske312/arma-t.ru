@@ -34,7 +34,7 @@ function showSlides() {
     dots[slideIndex - 1].className += ' active';
 
     // Автоматическое переключение слайдов через 5 секунд
-    setTimeout(showSlides, 5000);
+    setTimeout(showSlides, 15000);
 }
 
 // Инициализация слайдера при загрузке страницы
