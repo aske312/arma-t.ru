@@ -131,13 +131,13 @@
 		margin-bottom: 50px;
 	}
 	.block-item {
+        justify-content: center;
+		align-items: center;
 		margin: 85px;
 	}
 	.block-item img {
-	    justify-content: center;
-		align-items: center;
 		display: block;
-		margin-right: 20px;
+		/* margin-right: 20px; */
 	}
 	.item-text {
 		color: white;
