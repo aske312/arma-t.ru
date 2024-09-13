@@ -62,8 +62,8 @@
         left: 50%; /* Центрируем по горизонтали */
         transform: translate(-50%, -50%); /* Сдвигаем на половину ширины и высоты для точного центрирования */
         width: 60%; /* Ширина затемненной области */
-        height: 80%; /* Высота затемненной области */
-        background: rgba(0, 0, 0, 0.1); /* Цвет затемнения */
+        height: 90%; /* Высота затемненной области */
+        background: rgba(0, 0, 0, 0.2); /* Цвет затемнения */
         z-index: 1;
         display: flex;
         justify-content: center;
@@ -79,7 +79,7 @@
     /* Текст внутри слайда */
     .slide-text {
         position: absolute;
-        top: 20px; /* Отступ от верха */
+        top: 40px; /* Отступ от верха */
         left: 50%;
         transform: translateX(-50%);
         color: white;
