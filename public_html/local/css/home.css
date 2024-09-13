@@ -55,18 +55,18 @@
     height: 100%;
 }
 /* Затемненная область для текста */
-/*.slide::before {
+.slide::before {
     content: '';
     position: absolute;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    top: 0;
-    width: 60%;
+    margin: 0;
+    width: 80%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
     z-index: 1;
-} */
+}
 /* Изображение слайда */
 .slide img {
     width: 100%;
