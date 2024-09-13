@@ -11,10 +11,6 @@
     <?$APPLICATION->ShowHead();?>
     <title><?$APPLICATION->ShowTitle();?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <!-- <link rel="stylesheet" href="/local/css/header_styles.css"> -->
-    <!-- <link rel="stylesheet" href="/local/css/home_styles.css"> -->
-    <!-- <link rel="stylesheet" href="/local/css/footer_styles.css"> -->
-    <!-- <script src="/local/js/script.js" defer></script> -->
 </head>
     <body>
         <div id="panel"> <?$APPLICATION->ShowPanel();?> </div>
@@ -32,6 +28,7 @@
                         <a href="/#Dostavka">Доставка</a>
                         <a href="/#Cash">Оплата</a>
                     </nav>
+                    <!--
                         <?php $APPLICATION->IncludeComponent(
                             "search",
                             "",
@@ -83,7 +80,7 @@
                                 "USE_SEARCH_RESULT_ORDER" => "N",
                                 "USE_TITLE_RANK" => "N"
                             )
-                        );?>
+                        );?> -->
                 </div>
                 <div class="contact-info">
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
