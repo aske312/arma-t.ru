@@ -5,9 +5,9 @@ function toggleMenu() {
 }
 
 //***** index.php *****//
-let slideIndex = 0; // Изначально показываем первый слайд
-let slides = document.getElementsByClassName('slide'); // Все слайды
-let dots = document.getElementsByClassName('dot'); // Все точки
+let slideIndex = 0; // Изначальный индекс слайда
+let slides = document.getElementsByClassName('slide'); // Получаем все слайды
+let dots = document.getElementsByClassName('dot'); // Получаем все точки
 
 // Функция для показа слайдов
 function showSlides() {
@@ -32,22 +32,49 @@ function showSlides() {
     // Показываем текущий слайд и активируем соответствующую точку
     slides[slideIndex - 1].style.display = 'block';
     dots[slideIndex - 1].className += ' active';
+}
 
-    // Автоматическое переключение слайдов через 5 секунд
-    setTimeout(showSlides, 15000);
+// Функция автоматического переключения слайдов
+function startAutoSlide() {
+    slideInterval = setInterval(function() {
+        showSlides();
+    }, 5000); // Интервал переключения - 5 секунд
+}
+
+// Остановка автоматического переключения слайдов
+function stopAutoSlide() {
+    clearInterval(slideInterval);
+}
+
+// Переключение на конкретный слайд при клике на точку
+function currentSlide(n) {
+    // Останавливаем автоматическое переключение
+    stopAutoSlide();
+
+    // Устанавливаем индекс слайда
+    slideIndex = n;
+
+    // Показываем выбранный слайд
+    showSlides();
+
+    // Перезапускаем автоматическое переключение слайдов
+    startAutoSlide();
 }
 
 // Инициализация слайдера при загрузке страницы
 window.onload = function() {
-    showSlides(); // Запускаем слайдер сразу
+    // Показываем первый слайд
+    showSlides();
+
+    // Запускаем автоматическое переключение слайдов
+    startAutoSlide();
 };
 
-// Функция для ручного переключения слайдов через точки
-function currentSlide(n) {
-    slideIndex = n; // Устанавливаем текущий индекс слайда
-    // Сбрасываем таймер автопереключения и показываем выбранный слайд
-    clearTimeout(slideInterval);
-    showSlides();
+// Добавляем события клика для точек (dots)
+for (let i = 0; i < dots.length; i++) {
+    dots[i].addEventListener('click', function() {
+        currentSlide(i + 1);  // При клике переходим на слайд с индексом i
+    });
 }
 
 //***** index.php catalog *****//
