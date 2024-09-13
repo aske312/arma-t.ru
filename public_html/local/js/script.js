@@ -18,7 +18,7 @@ function showSlides() {
 
     // Убираем активные классы у всех точек
     for (let i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", ""); // Убираем класс 'active' у всех точек
+        dots[i].className = dots[i].className.replace("active", ""); // Убираем класс 'active' у всех точек
     }
 
     // Увеличиваем индекс слайда
@@ -31,7 +31,7 @@ function showSlides() {
 
     // Показываем текущий слайд и активируем соответствующую точку
     slides[slideIndex - 1].style.display = "block";  // Отображаем нужный слайд
-    dots[slideIndex - 1].className += " active";  // Делаем точку активной
+    dots[slideIndex - 1].className += "active";  // Делаем точку активной
 }
 
 // Инициализация первого слайда
