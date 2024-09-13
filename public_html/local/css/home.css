@@ -137,10 +137,11 @@
 	}
 	.block-item img {
 		display: block;
-		/* margin-right: 20px; */
 	}
 	.block-image {
-	    align-items: center;
+	    display: flex;
+        justify-content: center;
+		align-items: center;
 	}
 	.item-text {
 		color: white;
