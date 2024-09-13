@@ -33,7 +33,7 @@
                         <a href="/#Cash">Оплата</a>
                     </nav>
                         <?php $APPLICATION->IncludeComponent(
-                            "bitrix:catalog.search",
+                            "",
                             "search",
                             Array(
                                 "ACTION_VARIABLE" => "action",
