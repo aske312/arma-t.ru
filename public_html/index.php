@@ -100,11 +100,6 @@ if (CModule::IncludeModule('iblock')) {
 	</div>
 </div>
 
-<script>
-console.log(slides);  // Проверяем, загружаются ли слайды
-console.log(dots);    // Проверяем, загружаются ли точки
-</script>
-
  <!-- -->
 
 <div class="section section2" id="Company">

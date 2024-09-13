@@ -44,7 +44,6 @@
     /* Контейнер слайдов */
     .slides {
         display: flex;
-        transition: transform 0.5s ease-in-out;
         width: 100%;
         height: 100%;
     }
@@ -53,21 +52,18 @@
         position: relative;
         min-width: 100%;
         height: 100%;
+        display: none; /* Все слайды скрыты по умолчанию */
     }
     /* Затемненная область для текста */
     .slide::before {
         content: '';
         position: absolute;
-        top: 50%;
-        left: 50%; /* Центрируем по горизонтали */
-        transform: translate(-50%, -50%); /* Сдвигаем на половину ширины и высоты для точного центрирования */
-        width: 80%; /* Ширина затемненной области */
-        height: 97%; /* Высота затемненной области */
-        background: rgba(0, 0, 0, 0.1); /* Цвет затемнения */
+        top: 0;
+        left: 0;
+        width: 80%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); /* Цвет затемнения */
         z-index: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
     /* Изображение слайда */
     .slide img {
@@ -84,9 +80,6 @@
         transform: translateX(-50%);
         color: white;
         font-size: 40px;
-        /* background: rgba(0, 0, 0, 0.5); /* Небольшое затемнение под текстом */
-        padding: 10px 20px;
-        border-radius: 5px;
         z-index: 2; /* Текст поверх затемнения */
         text-align: center;
     }
@@ -109,7 +102,6 @@
     .active, .dot:hover {
         background-color: #717171;
     }
-
 /********* Текст вторым блоком *********/
 	.section2 {
 		background-color: white; /* #DCDCDC; */
