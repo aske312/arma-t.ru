@@ -62,10 +62,9 @@
     align-items: center;
     border-radius: 5px;
     top: 0;
-    left: 0;
     width: 60%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Затемнение по всей области */
+    background: rgba(0, 0, 0, 0.1); /* Затемнение по всей области */
     z-index: 1;
 }
 /* Изображение слайда */
