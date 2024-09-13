@@ -31,7 +31,7 @@ while ($section = $sections->Fetch()) {
 if (CModule::IncludeModule('iblock')) {
     // Параметры инфоблока
     $arSelect = ["ID", "NAME", "PREVIEW_PICTURE", "PREVIEW_TEXT"];
-    $arFilter = ["IBLOCK_ID" => $IBLOCK_ID, "ACTIVE" => "Y"];
+    $arFilter = ["IBLOCK_ID" => 2, "ACTIVE" => "Y"];
 
     $res = CIBlockElement::GetList(["SORT" => "ASC"], $arFilter, false, false, $arSelect);
     while ($arItem = $res->GetNext()) {
@@ -86,7 +86,7 @@ if (CModule::IncludeModule('iblock')) {
 
 <!-- -->
 
-<div class="section section3" id="Dostavka">
+<div class="section section3" id="Delivery ">
 	<div class="block">
 		<div class="block-item">
 			<div class="block-image">

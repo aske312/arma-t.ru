@@ -25,7 +25,7 @@
                         <a href="/#Company">О компании</a>
                         <a href="/catalog/">Каталог</a>
                         <a href="/#Contact">Контакты</a>
-                        <a href="/#Dostavka">Доставка</a>
+                        <a href="/#Delivery">Доставка</a>
                         <a href="/#Cash">Оплата</a>
                     </nav>
                     <!--
