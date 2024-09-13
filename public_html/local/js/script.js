@@ -6,40 +6,57 @@ function toggleMenu() {
 
 //***** index.php *****//
 let slideIndex = 1;
-showSlides(slideIndex);
-let slideInterval = setInterval(nextSlide, 5000);
-
-function nextSlide() {
-    showSlides(slideIndex += 1);
-}
-
-function currentSlide(n) {
-    clearInterval(slideInterval);
-    showSlides(slideIndex = n);
-    slideInterval = setInterval(nextSlide, 5000);
-}
+let slides = document.getElementsByClassName("slide");
+let dots = document.getElementsByClassName("dot");
 
 function showSlides(n) {
-    let slides = document.getElementsByClassName("slide");
-    let dots = document.getElementsByClassName("dot");
-
+    // Если слайдов больше чем slideIndex, начать с первого слайда
     if (n > slides.length) {
         slideIndex = 1;
     }
+    // Если меньше, начать с последнего
     if (n < 1) {
         slideIndex = slides.length;
     }
 
+    // Скрываем все слайды
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
 
+    // Убираем активные точки
     for (let i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
 
+    // Показываем текущий слайд и активируем точку
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
+}
+
+// Инициализация
+showSlides(slideIndex);
+
+// Функция для перехода на следующий слайд
+function nextSlide() {
+    showSlides(slideIndex += 1);
+}
+
+// Функция для перехода на определённый слайд
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+// Автоматическая смена слайдов
+let slideInterval = setInterval(nextSlide, 5000);
+
+// Остановить автоматическую смену слайдов при клике на точку
+for (let i = 0; i < dots.length; i++) {
+    dots[i].addEventListener('click', function() {
+        clearInterval(slideInterval);
+        currentSlide(i + 1);
+        slideInterval = setInterval(nextSlide, 5000);  // Перезапуск таймера
+    });
 }
 
 // Функция перехода на каталог по секциям
