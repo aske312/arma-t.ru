@@ -34,7 +34,7 @@
                     </nav>
                         <?php $APPLICATION->IncludeComponent(
                             "bitrix:catalog.search",
-                            "search_bar",
+                            "search",
                             Array(
                                 "ACTION_VARIABLE" => "action",
                                 "AJAX_MODE" => "N",

@@ -31,7 +31,7 @@ while ($section = $sections->Fetch()) {
 if (CModule::IncludeModule('iblock')) {
     // Параметры инфоблока
     $arSelect = ["ID", "NAME", "PREVIEW_PICTURE", "PREVIEW_TEXT"];
-    $arFilter = ["IBLOCK_ID" => $IBLOCK_ID, "ACTIVE" => "Y"]; // Укажите ID инфоблока
+    $arFilter = ["IBLOCK_ID" => $IBLOCK_ID, "ACTIVE" => "Y"];
 
     $res = CIBlockElement::GetList(["SORT" => "ASC"], $arFilter, false, false, $arSelect);
     while ($arItem = $res->GetNext()) {
@@ -42,39 +42,6 @@ if (CModule::IncludeModule('iblock')) {
         ];
     }
 }?>
-
-<!--
-<div class="section section1">
-	<div class="slider-wrapper">
-		<div class="slider-container">
-			<div class="slider">
-				<div class="slides">
-					<div class="slide">
-                        <img alt="Slide 1" src="/local/img/head_title/steel-slide_10.jpg">
-						<div class="slide-text">
-							 АРМА-Т - надежный поставщик для вашего предприятия
-						</div>
-					</div>
-					<div class="slide">
-                        <img alt="Slide 2" src="/local/img/head_title/steel-slide_8.jpg">
-						<div class="slide-text">
-
-						</div>
-					</div>
-					<div class="slide">
-                        <img alt="Slide 3" src="/local/img/head_title/steel-slide_9.jpg">
-						<div class="slide-text">
-
-						</div>
-					</div>
-				</div>
-				<div class="dots">
-                    <span class="dot"></span> <span class="dot"></span> <span class="dot"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div> -->
 
 <div class="section section1">
 	<div class="slider-wrapper">
@@ -97,15 +64,10 @@ if (CModule::IncludeModule('iblock')) {
             <span class="dot"></span>
             <?php endforeach; ?>
         </div>
-        <!-- <div class="dots">
-            <?php foreach ($slides as $index => $slide): ?>
-            <span class="dot" onclick="currentSlide(<?= $index ?>)"></span>
-            <?php endforeach; ?>
-        </div>-->
 	</div>
 </div>
 
- <!-- -->
+<!-- -->
 
 <div class="section section2" id="Company">
 	<div class="container">

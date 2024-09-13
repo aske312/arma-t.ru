@@ -251,12 +251,4 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             </div>
         </div>
 
-    <?php
-//        echo '<pre>';
-//            print_r($arParams['IBLOCK_ID']);
-//            print_r($arResult['FILTER_PROPERTIES']);
-//        echo '</pre>';
-//            print_r($arResult['FILTER_PROPERTIES']['EL_BODY_MATERIAL']['VALUES']);
-    ?>
-
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
