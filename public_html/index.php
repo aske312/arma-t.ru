@@ -44,27 +44,27 @@ if (CModule::IncludeModule('iblock')) {
 }?>
 
 <div class="section section1">
-	<div class="slider-wrapper">
-		<div class="slider-container">
-			<div class="slider">
-				<div class="slides">
+    <div class="slider-wrapper">
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slides">
                     <?php foreach ($slides as $slide): ?>
-					<div class="slide">
+                    <div class="slide">
                         <img alt="Slide" src="<?= $slide['IMG'] ?>">
-						<div class="slide-text">
-							<?= $slide['TEXT'] ?>
-						</div>
-					</div>
-                    <?php endforeach; ?>
-				</div>
-                <div class="dots">
-                    <?php foreach ($slides as $index => $slide): ?>
-                    <span class="dot"></span>
+                        <div class="slide-text">
+                            <?= $slide['TEXT'] ?>
+                        </div>
+                    </div>
                     <?php endforeach; ?>
                 </div>
-			</div>
-		</div>
-	</div>
+                <div class="dots">
+                    <?php foreach ($slides as $index => $slide): ?>
+                    <span class="dot" onclick="currentSlide(<?= $index + 1 ?>)"></span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- -->
