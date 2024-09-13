@@ -5,54 +5,41 @@ function toggleMenu() {
 }
 
 //***** index.php *****//
-let slideIndex = 1;
+let slideIndex = 0;
 let slides = document.getElementsByClassName("slide");
 let dots = document.getElementsByClassName("dot");
 
-// Функция отображения слайдов
-function showSlides(n) {
-    if (n > slides.length) {
+// Функция для показа слайда
+function showSlides() {
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  // Скрыть все слайды
+    }
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");  // Убрать класс active у всех точек
+    }
+
+    // Циклически переключаем слайды
+    slideIndex++;
+    if (slideIndex > slides.length) {
         slideIndex = 1;
     }
-    if (n < 1) {
-        slideIndex = slides.length;
-    }
 
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
+    slides[slideIndex - 1].style.display = "block";  // Показать текущий слайд
+    dots[slideIndex - 1].className += " active";  // Сделать точку активной
 }
 
-// Инициализация
-showSlides(slideIndex);
+// Инициализация первого слайда
+showSlides();
 
-// Автоматическое переключение слайдов каждые 5 секунд
-let slideInterval = setInterval(function() {
-    showSlides(++slideIndex);
-}, 5000);
+// Автоматическое переключение каждые 5 секунд
+let slideInterval = setInterval(showSlides, 5000);
 
-// Функция для перехода на конкретный слайд при клике на точку
+// Функция для ручного переключения слайдов
 function currentSlide(n) {
-    clearInterval(slideInterval);
-    slideIndex = n;
-    showSlides(slideIndex);
-    slideInterval = setInterval(function() {
-        showSlides(++slideIndex);
-    }, 5000); // Перезапуск таймера
-}
-
-// Добавляем событие на точки для переключения слайдов
-for (let i = 0; i < dots.length; i++) {
-    dots[i].addEventListener('click', function() {
-        currentSlide(i + 1);
-    });
+    clearInterval(slideInterval);  // Остановить автоматическое переключение
+    slideIndex = n - 1;  // Устанавливаем индекс слайда
+    showSlides();  // Показать выбранный слайд
+    slideInterval = setInterval(showSlides, 5000);  // Перезапуск автоматического переключения
 }
 
 //***** index.php catalog *****//
