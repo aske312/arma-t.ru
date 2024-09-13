@@ -7,9 +7,6 @@
 		<title>arma-t.ru | error page</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="{% static 'css\def_base.css' %}" media="screen">
-		<link rel="stylesheet" href="{% static 'css\default.css' %}" media="screen">
-		<script class="u-script" type="text/javascript" src="{% static 'js\jquery.js' %}" defer=""></script>
 		<script type="application/ld+json">{
 			"@context": "http://schema.org",
 			"@type": "Organization",
