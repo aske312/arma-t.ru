@@ -304,8 +304,8 @@
         background-color: #2654A2;
     }
     .file-icon {
-        width: 32px;
-        height: 32px;
+        /* width: 32px; */
+        /* height: 32px; */
         margin-right: 10px;
     }
     .contact-form p {
