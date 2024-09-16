@@ -168,7 +168,8 @@ if (CModule::IncludeModule('iblock')) {
                 <label for="file" class="file-label">
                     <img src="local/img/block/file0-pn.png" alt="Файл" class="file-icon">
                 </label>
-                <input type="file" id="file" name="file" style="display:none;">
+                <input type="file" id="file" name="file[]" multiple style="display:none;">
+                <span id="fileCount">Файлы: 0</span>
 
                 <!-- Кнопка отправки формы -->
                 <button type="submit">Отправить</button>
@@ -182,11 +183,58 @@ if (CModule::IncludeModule('iblock')) {
 </div>
 
 <script>
+    document.getElementById('file').addEventListener('change', function(event) {
+        const fileInput = event.target;
+        const files = fileInput.files;
+        const fileCountSpan = document.getElementById('fileCount');
+        const maxFiles = 3; // Максимум 3 файла
+        const maxSize = 2 * 1024 * 1024; // Максимум 2MB на файл
+        const allowedFormats = ['image/jpeg', 'image/png', 'application/pdf']; // Разрешённые форматы
+
+        let totalFiles = files.length;
+        let validFiles = 0;
+        let errorMessage = '';
+
+        if (totalFiles > maxFiles) {
+            errorMessage = `Максимум ${maxFiles} файлов.`;
+            totalFiles = 0; // сброс количества файлов
+        } else {
+            for (let i = 0; i < totalFiles; i++) {
+                const file = files[i];
+                if (!allowedFormats.includes(file.type)) {
+                    errorMessage = `Разрешены только форматы: JPEG, PNG, PDF.`;
+                    totalFiles = 0;
+                    break;
+                }
+                if (file.size > maxSize) {
+                    errorMessage = `Файл ${file.name} превышает 2MB.`;
+                    totalFiles = 0;
+                    break;
+                }
+                validFiles++;
+            }
+        }
+
+        // Если есть ошибка, показываем её, иначе обновляем счётчик
+        if (errorMessage) {
+            alert(errorMessage);
+            fileInput.value = ''; // Сбрасываем выбор файлов
+            fileCountSpan.textContent = 'Файлы: 0';
+        } else {
+            fileCountSpan.textContent = `Файлы: ${validFiles}`;
+        }
+    });
+
     document.getElementById('contactForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        // Получение данных формы, включая файл
-        var formData = new FormData(this);
+        const formData = new FormData(this);
+        const files = document.getElementById('file').files;
+
+        if (files.length === 0) {
+            alert('Прикрепите хотя бы один файл.');
+            return;
+        }
 
         // AJAX-запрос для отправки данных на сервер
         fetch('send.php', {
@@ -199,6 +247,7 @@ if (CModule::IncludeModule('iblock')) {
                 document.getElementById('formMessage').style.display = 'block';
                 document.getElementById('formErrorMessage').style.display = 'none';
                 this.reset();  // Сбрасываем форму
+                document.getElementById('fileCount').textContent = 'Файлы: 0';
             } else {
                 throw new Error(data.error);
             }

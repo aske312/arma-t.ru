@@ -320,6 +320,12 @@
     .file-icon {
         margin-right: 10px;
     }
+    /* Счётчик файлов */
+    #fileCount {
+        font-size: 14px;
+        margin-left: 10px;
+        color: #fff;
+    }
 
     /* Сообщения об успешной/неуспешной отправке */
     #formMessage, #formErrorMessage {
