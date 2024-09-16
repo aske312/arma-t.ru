@@ -186,26 +186,36 @@ if (CModule::IncludeModule('iblock')) {
 
 <script>
 document.getElementById("contactForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Останавливаем отправку формы
 
+    // Собираем данные формы
     var formData = new FormData(this);
 
+    // Очищаем сообщения перед новой отправкой
+    document.getElementById("formMessage").style.display = "none";
+    document.getElementById("formErrorMessage").style.display = "none";
+
+    // Отправляем данные через fetch API
     fetch("send.php", {
         method: "POST",
         body: formData
     })
-    .then(response => response.json())
+    .then(response => response.json()) // Преобразуем ответ в JSON
     .then(data => {
         if (data.status === "success") {
+            // Показать сообщение об успешной отправке
             document.getElementById("formMessage").style.display = "block";
             document.getElementById("formErrorMessage").style.display = "none";
         } else {
+            // Показать сообщение об ошибке
+            document.getElementById("formErrorMessage").innerText = data.message;
             document.getElementById("formErrorMessage").style.display = "block";
             document.getElementById("formMessage").style.display = "none";
         }
     })
     .catch(error => {
         console.error("Ошибка:", error);
+        document.getElementById("formErrorMessage").innerText = "Произошла ошибка при отправке формы.";
         document.getElementById("formErrorMessage").style.display = "block";
         document.getElementById("formMessage").style.display = "none";
     });
