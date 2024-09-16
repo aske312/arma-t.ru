@@ -156,16 +156,17 @@ if (CModule::IncludeModule('iblock')) {
 
 <div class="section section5" id="Cash">
     <div class="form-container" id="Form">
-        <form class="contact-form" id="contactForm">
+        <form class="contact-form" id="contactForm" enctype="multipart/form-data">
             <h2>Оставить заявку</h2>
             <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
             <input type="email" id="email" name="email" placeholder="e-mail" required>
             <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий" required></textarea>
+            <input type="file" id="file" name="file">
             <button type="submit">Отправить</button>
         </form>
-        <div id="formMessage" style="display:none; color:green;"> Ваше сообщение отправлено! </div>
-        <div id="formErrorMessage" style="display:none; color:red;"> Произошла ошибка, попробуйте еще раз. </div>
+        <div id="formMessage" style="display:none; color:green; margin-top: 20px;">Ваше сообщение отправлено!</div>
+        <div id="formErrorMessage" style="display:none; color:red; margin-top: 20px;">Произошла ошибка, попробуйте еще раз.</div>
     </div>
 </div>
 
@@ -173,7 +174,7 @@ if (CModule::IncludeModule('iblock')) {
     document.getElementById('contactForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        // Получение данных формы
+        // Получение данных формы, включая файл
         var formData = new FormData(this);
 
         // AJAX-запрос для отправки данных на сервер
