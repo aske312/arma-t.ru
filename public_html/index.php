@@ -175,7 +175,7 @@ if (CModule::IncludeModule('iblock')) {
             </div>
 
             <!-- Сообщения об успешной/неуспешной отправке -->
-            <div id="formMessage" >Ваше сообщение отправлено!</div>
+            <div id="formMessage" >Ваше обращение получено!<br>Наш специалист свяжеться с вами в близжайшее время!</div>
             <div id="formErrorMessage" >Произошла ошибка, попробуйте еще раз.</div>
         </form>
     </div>
