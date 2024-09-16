@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Настройки почты
-    $to = 'your-email@sweb.ru';  // Здесь ваш email на хостинге sweb.ru
+    $to = 'support@arma-t.ru';  // Здесь ваш email на хостинге sweb.ru
     $headers = "From: no-reply@your-domain.ru\r\n" .
                "Reply-To: $email\r\n" .
                "Content-Type: text/plain; charset=utf-8\r\n";
