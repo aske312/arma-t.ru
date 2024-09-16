@@ -190,7 +190,7 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
 
     var formData = new FormData(this);
 
-    fetch("/local/templates/your_template/send.php", {
+    fetch("send.php", {
         method: "POST",
         body: formData
     })
