@@ -185,7 +185,7 @@ if (CModule::IncludeModule('iblock')) {
 
 
 <script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
+document.getElementById("contactForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
     var formData = new FormData(this);
@@ -211,16 +211,16 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
     });
 });
 
-if ($files['size'][$key] > 5242880) { // 5MB ограничение
-    echo json_encode(["status" => "error", "message" => "Размер файла слишком велик"]);
-    exit;
-}
 $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
 if (!in_array($files['type'][$key], $allowedTypes)) {
     echo json_encode(["status" => "error", "message" => "Неверный формат файла"]);
     exit;
 }
 
+if ($files['size'][$key] > 5242880) { // Ограничение на 5MB
+    echo json_encode(["status" => "error", "message" => "Размер файла слишком велик"]);
+    exit;
+}
 </script>
 
 <!-- -->
