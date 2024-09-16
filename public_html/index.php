@@ -164,9 +164,9 @@ if (CModule::IncludeModule('iblock')) {
             <textarea id="message" name="message" rows="5" placeholder="Комментарий" required></textarea>
             <button type="submit">Отправить</button>
         </form>
+        <div id="formMessage" style="display:none; color:green;"> Ваше сообщение отправлено! </div>
+        <div id="formErrorMessage" style="display:none; color:red;"> Произошла ошибка, попробуйте еще раз. </div>
     </div>
-    <div id="formMessage" style="display:none; color:green;"> Ваше сообщение отправлено! </div>
-    <div id="formErrorMessage" style="display:none; color:red;"> Произошла ошибка, попробуйте еще раз. </div>
 </div>
 
 <script>
