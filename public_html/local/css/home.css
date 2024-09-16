@@ -300,6 +300,8 @@
     /* Стили для кнопки выбора файла */
     .file-label {
         cursor: pointer;
+        border-radius: 5px;
+        background-color: #2654A2;
     }
     .file-icon {
         width: 32px;
