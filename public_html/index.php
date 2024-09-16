@@ -185,7 +185,7 @@ if (CModule::IncludeModule('iblock')) {
 
 
 <script>
-document.getElementById("contactForm").addEventListener("submit", function (e) {
+document.getElementById("contactForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
     var formData = new FormData(this);
