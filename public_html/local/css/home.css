@@ -306,30 +306,22 @@
         align-items: center;
 		justify-content: center;
         background-color: #2654A2;
+        padding: 8px 15px;
+        border: none;
+        font-size: 16px;
     }
+    /*
+    .file-label img{
+        width: 32px;
+        height: 32px;
+    }
+    */
     .file-label:hover {
         background-color: #0056b3;
     }
     .file-icon {
-        /* width: 32px; */
-        /* height: 32px; */
         margin-right: 10px;
     }
-    /*
-    .contact-form p {
-        padding: 8px 15px;
-        background-color: #2654A2;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-    .contact-form p:hover {
-        background-color: #0056b3;
-    }
-    */
 
     /* Сообщения об успешной/неуспешной отправке */
     #formMessage, #formErrorMessage {
