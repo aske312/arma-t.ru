@@ -162,11 +162,22 @@ if (CModule::IncludeModule('iblock')) {
             <input type="email" id="email" name="email" placeholder="e-mail" required>
             <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий" required></textarea>
-            <input type="file" id="file" name="file">
-            <button type="submit">Отправить</button>
+
+            <div class="form-actions">
+                <!-- Кнопка для выбора файла -->
+                <label for="file" class="file-label">
+                    <img src="path-to-your-image/file-icon.png" alt="Файл" class="file-icon">
+                </label>
+                <input type="file" id="file" name="file" style="display:none;">
+
+                <!-- Кнопка отправки формы -->
+                <button type="submit">Отправить</button>
+            </div>
+
+            <!-- Сообщения об успешной/неуспешной отправке -->
+            <div id="formMessage" style="display:none; color:green; margin-top: 20px;">Ваше сообщение отправлено!</div>
+            <div id="formErrorMessage" style="display:none; color:red; margin-top: 20px;">Произошла ошибка, попробуйте еще раз.</div>
         </form>
-        <div id="formMessage" style="display:none; color:green; margin-top: 20px;">Ваше сообщение отправлено!</div>
-        <div id="formErrorMessage" style="display:none; color:red; margin-top: 20px;">Произошла ошибка, попробуйте еще раз.</div>
     </div>
 </div>
 
