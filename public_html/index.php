@@ -156,7 +156,7 @@ if (CModule::IncludeModule('iblock')) {
 
 <div class="section section5" id="Cash">
     <div class="form-container" id="Form">
-        <form class="contact-form" id="contactForm" action="#" method="post">
+        <form class="contact-form" id="contactForm">
             <h2>Оставить заявку</h2>
             <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
             <input type="email" id="email" name="email" placeholder="e-mail" required>
@@ -176,18 +176,19 @@ if (CModule::IncludeModule('iblock')) {
         // Получение данных формы
         var formData = new FormData(this);
 
-        // Имитируем отправку данных на сервер (замените на реальный запрос, если потребуется)
-        fetch('https://example.com/send-form', {
+        // AJAX-запрос для отправки данных на сервер
+        fetch('send.php', {
             method: 'POST',
             body: formData
         })
-        .then(response => {
-            if (response.ok) {
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
                 document.getElementById('formMessage').style.display = 'block';
                 document.getElementById('formErrorMessage').style.display = 'none';
                 this.reset();  // Сбрасываем форму
             } else {
-                throw new Error('Ошибка отправки формы');
+                throw new Error(data.error);
             }
         })
         .catch(error => {
