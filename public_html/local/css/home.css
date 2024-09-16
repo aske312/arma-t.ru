@@ -310,12 +310,10 @@
         border: none;
         font-size: 16px;
     }
-    /*
     .file-label img{
         width: 32px;
         height: 32px;
     }
-    */
     .file-label:hover {
         background-color: #0056b3;
     }
