@@ -3,8 +3,6 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\Mail\Event;
 use Bitrix\Main\Application;
 
-header('Content-Type: application/json; charset=utf-8');
-
 // Проверяем подключение Битрикса
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
