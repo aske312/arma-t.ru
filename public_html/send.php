@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Заголовки письма с кодировкой
-    $headers = "From: no-reply@example.com\r\n";
+    $headers = "From: support@arma-t.ru\r\n";
     $headers .= "Reply-To: $email\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
