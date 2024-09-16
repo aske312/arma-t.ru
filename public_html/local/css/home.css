@@ -316,13 +316,11 @@
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        width: 175px;
         margin-left: 10px;
     }
     .contact-form p:hover {
         background-color: #0056b3;
     }
-
 
     /* Сообщения об успешной/неуспешной отправке */
     #formMessage, #formErrorMessage {
