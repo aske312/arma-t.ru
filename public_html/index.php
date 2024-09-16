@@ -166,7 +166,7 @@ if (CModule::IncludeModule('iblock')) {
             <div class="form-actions">
                 <!-- Кнопка для выбора файла -->
                 <label for="file" class="file-label">
-                    <p>Добавить реквизиты</p> <!-- <img src="local/img/block/file0-pn.png" alt="Файл" class="file-icon"> -->
+                    <img src="local/img/block/file0-pn.png" alt="Файл" class="file-icon">
                 </label>
                 <input type="file" id="file" name="file" style="display:none;">
 
