@@ -170,7 +170,32 @@ if (CModule::IncludeModule('iblock')) {
 </div>
 
 <script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
 
+        // Получение данных формы
+        var formData = new FormData(this);
+
+        // AJAX-запрос для отправки данных на сервер
+        fetch('send.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('formMessage').style.display = 'block';
+                document.getElementById('formErrorMessage').style.display = 'none';
+                this.reset();  // Сбрасываем форму
+            } else {
+                throw new Error(data.error);
+            }
+        })
+        .catch(error => {
+            document.getElementById('formErrorMessage').style.display = 'block';
+            document.getElementById('formMessage').style.display = 'none';
+        });
+    });
 </script>
 
 <!-- -->
