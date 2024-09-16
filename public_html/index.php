@@ -166,7 +166,7 @@ if (CModule::IncludeModule('iblock')) {
             <div class="form-actions">
                 <!-- Кнопка для выбора файла -->
                 <input type="file" id="file" name="file[]" multiple style="display:none;">
-                <span id="fileCount">Добавьте файл</span>
+                <span id="fileCount">Добавьте файл </span>
                 <label for="file" class="file-label">
                     <img src="local/img/block/file0-pn.png" alt="Файл" class="file-icon">
                 </label>
@@ -219,9 +219,9 @@ if (CModule::IncludeModule('iblock')) {
         if (errorMessage) {
             alert(errorMessage);
             fileInput.value = ''; // Сбрасываем выбор файлов
-            fileCountSpan.textContent = 'Файлы: 0';
+            fileCountSpan.textContent = 'Файлы: 0 ';
         } else {
-            fileCountSpan.textContent = `Файлы: ${validFiles}`;
+            fileCountSpan.textContent = `Добавлено: ${validFiles} `;
         }
     });
 
