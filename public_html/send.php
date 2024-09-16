@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Username = 'support@arma-t.ru'; // Ваш SMTP логин
         $mail->Password = 'SUS5SA94DcFY66H*'; // Ваш SMTP пароль
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 465; // Порт
+        $mail->Port = 587; // Порт
 
         // Получатель и отправитель
         $mail->setFrom('no-reply@arma-t.ru', 'Отправитель');
