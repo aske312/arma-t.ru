@@ -41,7 +41,90 @@ if (CModule::IncludeModule('iblock')) {
             "IMG" => $imgPath,
         ];
     }
-}?>
+}
+
+// Mail Module
+$APPLICATION->IncludeComponent(
+    "bitrix:main.feedback",
+    "",
+    array(
+        "USE_CAPTCHA" => "Y", // Использовать CAPTCHA
+        "OK_TEXT" => "Ваше сообщение успешно отправлено", // Текст при успешной отправке
+        "EMAIL_TO" => "support@arma-t.ru", // Email, на который отправляются сообщения
+        "REQUIRED_FIELDS" => array("NAME", "EMAIL", "MESSAGE"), // Поля, обязательные для заполнения
+        "EVENT_MESSAGE_ID" => array("7"), // ID почтового события
+    )
+);
+
+// Подключение к Битрикс REST API
+$queryUrl = 'https://your-bitrix24-url/rest/1/your-webhook-token/crm.lead.add.json';
+$queryData = http_build_query(array(
+    'fields' => array(
+        "TITLE" => "Новый лид с сайта",
+        "NAME" => $_POST['name'],
+        "EMAIL" => array(
+            array("VALUE" => $_POST['email'], "VALUE_TYPE" => "WORK")
+        ),
+        "PHONE" => array(
+            array("VALUE" => $_POST['phone'], "VALUE_TYPE" => "WORK")
+        ),
+        "COMMENTS" => $_POST['message'],
+        "SOURCE_ID" => "WEB" // Указание источника лида
+    ),
+    'params' => array("REGISTER_SONET_EVENT" => "Y") // Добавляем запись в живую ленту
+));
+
+// Инициализация CURL
+$curl = curl_init();
+curl_setopt_array($curl, array(
+    CURLOPT_SSL_VERIFYPEER => 0,
+    CURLOPT_POST => 1,
+    CURLOPT_HEADER => 0,
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => $queryUrl,
+    CURLOPT_POSTFIELDS => $queryData,
+));
+
+// Выполнение запроса
+$result = curl_exec($curl);
+curl_close($curl);
+
+// Обработка результата
+$response = json_decode($result, true);
+if (isset($response['error'])) {
+    echo "Ошибка: " . $response['error_description'];
+} else {
+    echo "Лид успешно создан!";
+}
+
+
+$file = $_FILES['file'];
+
+// Сначала загружаем файл в Битрикс
+$fileUploadUrl = 'https://your-bitrix24-url/rest/1/your-webhook-token/disk.storage.uploadfile.json';
+$fileData = array('file' => new \CURLFile($file['tmp_name'], $file['type'], $file['name']));
+
+$curl = curl_init();
+curl_setopt_array($curl, array(
+    CURLOPT_SSL_VERIFYPEER => 0,
+    CURLOPT_POST => 1,
+    CURLOPT_HEADER => 0,
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => $fileUploadUrl,
+    CURLOPT_POSTFIELDS => $fileData,
+));
+
+$fileResult = curl_exec($curl);
+curl_close($curl);
+
+$fileResponse = json_decode($fileResult, true);
+
+if (isset($fileResponse['result'])) {
+    // Теперь файл можно прикрепить к лиду
+    $fileId = $fileResponse['result']['FILE_ID'];
+    // Добавление файла в лид (как выше с добавлением лида)
+}
+?>
 
 <div class="section section1">
     <div class="slider-wrapper">
@@ -161,12 +244,12 @@ if (CModule::IncludeModule('iblock')) {
             <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
             <input type="email" id="email" name="email" placeholder="e-mail" required>
             <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
-            <textarea id="message" name="message" rows="5" placeholder="Комментарий" required></textarea>
+            <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
             <div class="form-actions">
                 <!-- Кнопка для выбора файла -->
                 <input type="file" id="file" name="file[]" multiple style="display:none;">
-                <span id="fileCount">Добавь реквизиты</span>
+                <span id="fileCount">Добавь файл</span>
                 <label for="file" class="file-label">
                     <img src="local/img/block/file0-pn.png" alt="Файл" class="file-icon">
                 </label>
@@ -176,87 +259,124 @@ if (CModule::IncludeModule('iblock')) {
             </div>
 
             <!-- Сообщения об успешной/неуспешной отправке -->
-            <div id="formMessage" >Ваше обращение получено!<br>Наш специалист свяжеться с вами в близжайшее время!</div>
-            <div id="formErrorMessage" >Произошла ошибка, попробуйте еще раз.</div>
+            <div id="formMessage">Ваше обращение получено!<br>Наш специалист свяжется с вами в ближайшее время!</div>
+            <div id="formErrorMessage">Произошла ошибка, попробуйте еще раз.</div>
         </form>
     </div>
 </div>
 
+
 <script>
-    document.getElementById('file').addEventListener('change', function(event) {
-        const fileInput = event.target;
-        const files = fileInput.files;
-        const fileCountSpan = document.getElementById('fileCount');
-        const maxFiles = 3; // Максимум 3 файла
-        const maxSize = 2 * 1024 * 1024; // Максимум 2MB на файл
-        const allowedFormats = ['image/jpeg', 'image/png', 'application/pdf']; // Разрешённые форматы
+//     document.getElementById('file').addEventListener('change', function(event) {
+//         const fileInput = event.target;
+//         const files = fileInput.files;
+//         const fileCountSpan = document.getElementById('fileCount');
+//         const maxFiles = 3; // Максимум 3 файла
+//         const maxSize = 2 * 1024 * 1024; // Максимум 2MB на файл
+//         const allowedFormats = ['image/jpeg', 'image/png', 'application/pdf']; // Разрешённые форматы
+//
+//         let totalFiles = files.length;
+//         let validFiles = 0;
+//         let errorMessage = '';
+//
+//         if (totalFiles > maxFiles) {
+//             errorMessage = `Максимум ${maxFiles} файлов.`;
+//             totalFiles = 0; // сброс количества файлов
+//         } else {
+//             for (let i = 0; i < totalFiles; i++) {
+//                 const file = files[i];
+//                 if (!allowedFormats.includes(file.type)) {
+//                     errorMessage = `Разрешены только форматы: JPEG, PNG, PDF.`;
+//                     totalFiles = 0;
+//                     break;
+//                 }
+//                 if (file.size > maxSize) {
+//                     errorMessage = `Файл ${file.name} превышает 2MB.`;
+//                     totalFiles = 0;
+//                     break;
+//                 }
+//                 validFiles++;
+//             }
+//         }
+//
+//         // Если есть ошибка, показываем её, иначе обновляем счётчик
+//         if (errorMessage) {
+//             alert(errorMessage);
+//             fileInput.value = ''; // Сбрасываем выбор файлов
+//             fileCountSpan.textContent = 'Добавить реквизиты';
+//         } else {
+//             fileCountSpan.textContent = `Добавлено: ${validFiles} `;
+//         }
+//     });
+//
+//     document.getElementById('contactForm').addEventListener('submit', function(event) {
+//         event.preventDefault();
+//
+//         const formData = new FormData(this);
+//         const files = document.getElementById('file').files;
+//
+//         if (files.length === 0) {
+//             alert('Прикрепите хотя бы один файл.');
+//             return;
+//         }
+//
+//         // AJAX-запрос для отправки данных на сервер
+//         fetch('send.php', {
+//             method: 'POST',
+//             body: formData
+//         })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.success) {
+//                 document.getElementById('formMessage').style.display = 'block';
+//                 document.getElementById('formErrorMessage').style.display = 'none';
+//                 this.reset();  // Сбрасываем форму
+//                 document.getElementById('fileCount').textContent = 'Добавить реквизиты';
+//             } else {
+//                 throw new Error(data.error);
+//             }
+//         })
+//         .catch(error => {
+//             document.getElementById('formErrorMessage').style.display = 'block';
+//             document.getElementById('formMessage').style.display = 'none';
+//         });
+//     });
 
-        let totalFiles = files.length;
-        let validFiles = 0;
-        let errorMessage = '';
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-        if (totalFiles > maxFiles) {
-            errorMessage = `Максимум ${maxFiles} файлов.`;
-            totalFiles = 0; // сброс количества файлов
+    var formData = new FormData(this);
+
+    fetch("/local/templates/your_template/send.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            document.getElementById("formMessage").style.display = "block";
+            document.getElementById("formErrorMessage").style.display = "none";
         } else {
-            for (let i = 0; i < totalFiles; i++) {
-                const file = files[i];
-                if (!allowedFormats.includes(file.type)) {
-                    errorMessage = `Разрешены только форматы: JPEG, PNG, PDF.`;
-                    totalFiles = 0;
-                    break;
-                }
-                if (file.size > maxSize) {
-                    errorMessage = `Файл ${file.name} превышает 2MB.`;
-                    totalFiles = 0;
-                    break;
-                }
-                validFiles++;
-            }
+            document.getElementById("formErrorMessage").style.display = "block";
+            document.getElementById("formMessage").style.display = "none";
         }
-
-        // Если есть ошибка, показываем её, иначе обновляем счётчик
-        if (errorMessage) {
-            alert(errorMessage);
-            fileInput.value = ''; // Сбрасываем выбор файлов
-            fileCountSpan.textContent = 'Добавить реквизиты';
-        } else {
-            fileCountSpan.textContent = `Добавлено: ${validFiles} `;
-        }
+    })
+    .catch(error => {
+        console.error("Ошибка:", error);
+        document.getElementById("formErrorMessage").style.display = "block";
+        document.getElementById("formMessage").style.display = "none";
     });
+});
 
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const formData = new FormData(this);
-        const files = document.getElementById('file').files;
-
-        if (files.length === 0) {
-            alert('Прикрепите хотя бы один файл.');
-            return;
-        }
-
-        // AJAX-запрос для отправки данных на сервер
-        fetch('send.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('formMessage').style.display = 'block';
-                document.getElementById('formErrorMessage').style.display = 'none';
-                this.reset();  // Сбрасываем форму
-                document.getElementById('fileCount').textContent = 'Добавить реквизиты';
-            } else {
-                throw new Error(data.error);
-            }
-        })
-        .catch(error => {
-            document.getElementById('formErrorMessage').style.display = 'block';
-            document.getElementById('formMessage').style.display = 'none';
-        });
-    });
+if ($files['size'][$key] > 5242880) { // 5MB ограничение
+    echo json_encode(["status" => "error", "message" => "Размер файла слишком велик"]);
+    exit;
+}
+$allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+if (!in_array($files['type'][$key], $allowedTypes)) {
+    echo json_encode(["status" => "error", "message" => "Неверный формат файла"]);
+    exit;
+}
 </script>
 
 <!-- -->
