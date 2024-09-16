@@ -1,70 +1,118 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = trim($_POST["name"]);
-    $email = trim($_POST["email"]);
-    $subject = trim($_POST["subject"]);
-    $message = trim($_POST["message"]);
+// Установим заголовок для возвращаемого JSON
+header('Content-Type: application/json');
 
-    // Валидация полей
-    if (empty($name) || empty($email) || empty($subject) || empty($message)) {
-        echo json_encode(['success' => false, 'error' => 'Заполните все поля']);
+// Массив для хранения сообщений
+$response = array();
+
+// Проверяем, есть ли данные в POST-запросе
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Проверка полей формы
+    $name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : null;
+    $email = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) : null;
+    $subject = isset($_POST['subject']) ? htmlspecialchars($_POST['subject']) : null;
+    $message = isset($_POST['message']) ? htmlspecialchars($_POST['message']) : null;
+
+    // Проверяем, что все поля заполнены
+    if (!$name || !$email || !$subject || !$message) {
+        $response['success'] = false;
+        $response['error'] = "Все поля обязательны для заполнения.";
+        echo json_encode($response);
         exit;
     }
 
-    // Проверка файла
-    $file_attached = false;
-    if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
-        $file_tmp = $_FILES['file']['tmp_name'];
-        $file_name = $_FILES['file']['name'];
-        $file_type = $_FILES['file']['type'];
-        $file_size = $_FILES['file']['size'];
-        $file_attached = true;
+    // Обработка файлов (если они есть)
+    $allowedFormats = ['image/jpeg', 'image/png', 'application/pdf'];
+    $maxSize = 2 * 1024 * 1024; // 2MB
+    $maxFiles = 3;
 
-        // Ограничение на размер файла (например, 2MB)
-        if ($file_size > 2 * 1024 * 1024) {
-            echo json_encode(['success' => false, 'error' => 'Файл слишком большой (максимум 2MB)']);
+    // Если файлы прикреплены
+    if (isset($_FILES['file']) && count($_FILES['file']['name']) > 0) {
+        // Проверяем количество файлов
+        if (count($_FILES['file']['name']) > $maxFiles) {
+            $response['success'] = false;
+            $response['error'] = "Максимум 3 файла.";
+            echo json_encode($response);
             exit;
+        }
+
+        // Массив для хранения путей загруженных файлов
+        $uploadedFiles = array();
+
+        for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
+            $fileName = $_FILES['file']['name'][$i];
+            $fileTmpName = $_FILES['file']['tmp_name'][$i];
+            $fileSize = $_FILES['file']['size'][$i];
+            $fileType = $_FILES['file']['type'][$i];
+            $fileError = $_FILES['file']['error'][$i];
+
+            // Проверяем ошибки загрузки
+            if ($fileError !== UPLOAD_ERR_OK) {
+                $response['success'] = false;
+                $response['error'] = "Ошибка загрузки файла $fileName.";
+                echo json_encode($response);
+                exit;
+            }
+
+            // Проверяем формат файла
+            if (!in_array($fileType, $allowedFormats)) {
+                $response['success'] = false;
+                $response['error'] = "Формат файла $fileName не поддерживается.";
+                echo json_encode($response);
+                exit;
+            }
+
+            // Проверяем размер файла
+            if ($fileSize > $maxSize) {
+                $response['success'] = false;
+                $response['error'] = "Файл $fileName превышает максимальный размер в 2MB.";
+                echo json_encode($response);
+                exit;
+            }
+
+            // Путь для сохранения файла
+            $uploadDir = 'uploads/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true); // Создаём директорию, если её нет
+            }
+
+            // Уникальное имя для файла
+            $filePath = $uploadDir . uniqid() . '_' . basename($fileName);
+
+            // Перемещаем файл из временной директории
+            if (move_uploaded_file($fileTmpName, $filePath)) {
+                $uploadedFiles[] = $filePath; // Добавляем файл в список загруженных
+            } else {
+                $response['success'] = false;
+                $response['error'] = "Ошибка сохранения файла $fileName.";
+                echo json_encode($response);
+                exit;
+            }
         }
     }
 
-    // Настройки почты
-    $to = 'your-email@sweb.ru';  // Здесь ваш email на хостинге sweb.ru
-    $headers = "From: no-reply@your-domain.ru\r\n" .
-               "Reply-To: $email\r\n" .
-               "Content-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\"\r\n";
+    // Теперь можно обработать отправку письма (например, через mail() или другой сервис)
+    // В примере используем стандартную функцию mail()
+    $to = "support@arma-t.ru"; // Замените на ваш email
+    $subject = "Новая заявка: $subject";
+    $body = "Имя: $name\nEmail: $email\nКомпания: $subject\nСообщение: $message\n";
 
-    $subject_mail = "Заявка с сайта: $subject";
-
-    // Основное сообщение
-    $body_message = "Имя: $name\nE-mail: $email\nКомпания: $subject\nСообщение: $message";
-
-    // Если файл прикреплен, добавляем его в тело письма
-    if ($file_attached) {
-        $attachment = chunk_split(base64_encode(file_get_contents($file_tmp)));
-        $body = "
-            --PHP-mixed-$random_hash
-            Content-Type: text/plain; charset=\"utf-8\"
-            Content-Transfer-Encoding: 7bit
-
-            $body_message
-
-            --PHP-mixed-$random_hash
-            Content-Type: $file_type; name=\"$file_name\"
-            Content-Transfer-Encoding: base64
-            Content-Disposition: attachment
-
-            $attachment
-            --PHP-mixed-$random_hash--";
-    } else {
-        // Если файл не прикреплен, просто отправляем текстовое сообщение
-        $body = $body_message;
+    // Добавляем информацию о файлах в сообщение
+    if (!empty($uploadedFiles)) {
+        $body .= "\nПрикрепленные файлы:\n";
+        foreach ($uploadedFiles as $file) {
+            $body .= $file . "\n";
+        }
     }
 
-    // Отправка почты
-    if (mail($to, $subject_mail, $body, $headers)) {
-        echo json_encode(['success' => true]);
+    // Отправляем письмо (без файлов)
+    if (mail($to, $subject, $body)) {
+        $response['success'] = true;
     } else {
-        echo json_encode(['success' => false, 'error' => 'Ошибка при отправке сообщения']);
+        $response['success'] = false;
+        $response['error'] = "Ошибка отправки письма.";
     }
+
+    echo json_encode($response);
+    exit;
 }
-?>
