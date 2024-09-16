@@ -307,6 +307,9 @@
 		justify-content: center;
         background-color: #2654A2;
     }
+    .file-label:hover {
+        background-color: #0056b3;
+    }
     .file-icon {
         /* width: 32px; */
         /* height: 32px; */
