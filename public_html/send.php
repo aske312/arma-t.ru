@@ -1,6 +1,6 @@
 <?php
 // Установим заголовок для возвращаемого JSON
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 // Массив для хранения сообщений
 $response = array();
