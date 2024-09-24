@@ -168,10 +168,10 @@ if (CModule::IncludeModule('iblock')) {
             <div class="form-actions">
 
                 <label class="file-label">
+                    <span id="fileCount" style="display:none;">Файлы: 0</span>
                     <img src="/local/img/block/file0-pn.png" alt="file icon">
                     <input type="file" id="files" name="files[]" accept=".pdf,.docx,.txt" multiple style="display:none;">
                 </label>
-                <span id="fileCount" style="display:none;">Файлы: 0</span>
             </div>
 
             <button type="submit" id="submitButton">Отправить</button>
