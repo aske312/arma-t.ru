@@ -217,6 +217,7 @@
 		width: 450px;
 		height: 160px;
 		background: white; /* #162139; */
+		border-radius: 5px;
 	}
 	.category-block:hover {
 		border-radius: 5px;

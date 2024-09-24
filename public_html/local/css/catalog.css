@@ -79,8 +79,8 @@ pre { /* DEBUG */
 
 .category-block {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
     width: calc(100% - 800px); /* Рассчитываем ширину для двух столбцов */
     margin: 10px;
     padding: 1px;
