@@ -41,6 +41,7 @@
                 </div>
             </div>
         </header>
+        <!-- BODY -->
 
 <!--
 //                        $APPLICATION->IncludeComponent(

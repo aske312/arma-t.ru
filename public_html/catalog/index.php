@@ -137,38 +137,40 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
 ?>
 
-<!-- BODY -->
-<div class="section-title">
-    <h2>Список каталога</h2>
-    <p>Выберете раздел, или фильтр</p>
-</div>
+        <!-- BODY -->
+        <div class="section-title">
+            <h2>Список каталога</h2>
+            <p>Выберете раздел, или фильтр</p>
+        </div>
 
-<div class="catalog-container">
-    <!-- Боковое меню категорий -->
-    <div class="catalog-sidebar">
-        <ul id="catalog-menu" class="catalog-menu">
-            <?php if (!empty($arResult['SECTIONS'])): ?>
-            <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-            <li>
-                <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
-                    <?php if ($arSection['PICTURE']): ?>
-                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                    <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                    <?php else: ?><img alt="Нет изображения" src="/local/img/no_image.png"><?php endif; ?>
-                    <div class="category-text"> <?= $arSection['NAME']; ?> </div>
-                </div>
-            </li><?php endforeach; ?><?php endif; ?>
-        </ul>
-    </div>
+        <div class="catalog-container">
 
-    <!-- Основная часть каталога -->
-    <div class="catalog-content">
-        <!-- Фильтры -->
-        <div class="filters">
-            <form method="GET" action="">
-                <table>
-                    <?php if (!empty($arResult['FILTER_PROPERTIES'])): ?>
-                        <?php foreach ($arResult['FILTER_PROPERTIES'] as $propertyCode => $property): ?>
+            <!-- Боковое меню категорий -->
+            <div class="catalog-sidebar">
+                <ul id="catalog-menu" class="catalog-menu">
+                    <?php if (!empty($arResult['SECTIONS'])): ?>
+                    <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+                    <li>
+                        <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                            <?php if ($arSection['PICTURE']): ?>
+                            <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                            <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
+                            <?php else: ?><img alt="Нет изображения" src="/local/img/no_image.png"><?php endif; ?>
+                            <div class="category-text"> <?= $arSection['NAME']; ?> </div>
+                        </div>
+                    </li><?php endforeach; ?><?php endif; ?>
+                </ul>
+            </div>
+
+            <!-- Основная часть каталога -->
+            <div class="catalog-content">
+
+                <!-- Фильтры -->
+                <div class="filters">
+                    <form method="GET" action="">
+                        <table>
+                            <?php if (!empty($arResult['FILTER_PROPERTIES'])): ?>
+                            <?php foreach ($arResult['FILTER_PROPERTIES'] as $propertyCode => $property): ?>
                             <th>
                                 <?= $property['NAME']; ?>
                                 <select name="<?= $propertyCode; ?>">
@@ -179,28 +181,28 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
-                            </th>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </table>
-                <button type="submit">Применить фильтр</button>
-            </form>
-        </div>
+                            </th><?php endforeach; ?><?php endif; ?>
+                        </table>
+                        <button type="submit">Применить фильтр</button>
+                    </form>
+                </div>
 
-        <!-- Чекбокс для выбора всех товаров -->
-        <div class="select-all">
-            <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
-            <label for="select-all">Выбрать все</label>
-            <button class="catalog-add-all">В корзину</button>
-        </div>
+                <!-- Чекбокс для выбора всех товаров -->
+                <div class="select-all">
+                    <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
+                    <label for="select-all">Выбрать все</label>
+                    <button class="catalog-add-all">В корзину</button>
+                </div>
 
                 <!-- Список элементов каталога  -->
                 <div class="catalog-items">
-                    <?php while ($ob = $res->GetNextElement()):
-                    $arFields = $ob->GetFields();
-                    $arProps = $ob->GetProperties();
-                    foreach ($arResult['SECTIONS'] as $arSection):
-                    if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
+                    <?php
+                        while ($ob = $res->GetNextElement()):
+                        $arFields = $ob->GetFields();
+                        $arProps = $ob->GetProperties();
+                        foreach ($arResult['SECTIONS'] as $arSection):
+                        if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
+                    ?>
                     <div class="catalog-item" onclick="redirectToDetail(<?= $arSection['ID']; ?>, <?= $arFields['ID']; ?>)">
                         <div class="catalog-item-header">
                             <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
@@ -211,40 +213,39 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <img alt="Нет изображения" src="/local/img/no_image.png">
                             <?php endif; ?>
                             <div class="catalog-item-info">
-                            <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
-                            <p>Артикул: <?= $arProps['EL_ARTICUL']['VALUE']; ?>
-                            <span><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
-                            <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
+                                <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
+                                <p>Артикул: <?= $arProps['EL_ARTICUL']['VALUE']; ?>
+                                <span><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
+                                <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
+                            </div>
+                            <div class="catalog-item-controls">
+                                <button class="catalog-item-add-to-cart" onclick="event.stopPropagation(); addToCart(<?= $arFields['ID']; ?>);">
+                                    В корзину
+                                </button>
+                            </div>
                         </div>
-                        <div class="catalog-item-controls">
-                            <button class="catalog-item-add-to-cart" onclick="event.stopPropagation(); addToCart(<?= $arFields['ID']; ?>);">
-                                В корзину
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Краткое описание элемента  -->
-                    <div class="catalog-item-properties">
-                        <table>
-                            <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
-                            <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
-                            <th>Диаметр DN: <?= $arProps['EL_DIAMETER_DN']['VALUE']; ?>мм</th>
-                            <th>Давление PN: <?= $arProps['EL_PRESSURE_PN']['VALUE']; ?>кгс/см²</th>
-                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
-                        </table>
+                        <!-- Краткое описание элемента  -->
+                        <div class="catalog-item-properties">
+                            <table>
+                                <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
+                                <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
+                                <th>Диаметр DN: <?= $arProps['EL_DIAMETER_DN']['VALUE']; ?>мм</th>
+                                <th>Давление PN: <?= $arProps['EL_PRESSURE_PN']['VALUE']; ?>кгс/см²</th>
+                                <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                            </table>
+                        </div>
                     </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php endwhile; ?>
                 </div>
-                <?php endif; ?>
-                <?php endforeach; ?>
-                <?php endwhile; ?>
-            </div>
 
-            <!-- Пагинация  -->
-            <div class="pagination">
-                <?= $arResult['NAV_STRING']; ?>
+                <!-- Пагинация  -->
+                <div class="pagination">
+                    <?= $arResult['NAV_STRING']; ?>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
