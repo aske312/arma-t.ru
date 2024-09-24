@@ -148,22 +148,16 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <div class="catalog-sidebar">
         <ul id="catalog-menu" class="catalog-menu">
             <?php if (!empty($arResult['SECTIONS'])): ?>
-                <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-                    <li>
-                        <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
-                            <?php if ($arSection['PICTURE']): ?>
-                                <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                                <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                            <?php else: ?>
-                                <img alt="Нет изображения" src="/local/img/no_image.png">
-                            <?php endif; ?>
-                            <div class="category-text">
-                                <?= $arSection['NAME']; ?>
-                            </div>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+            <li>
+                <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                    <?php if ($arSection['PICTURE']): ?>
+                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                    <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
+                    <?php else: ?><img alt="Нет изображения" src="/local/img/no_image.png"><?php endif; ?>
+                    <div class="category-text"> <?= $arSection['NAME']; ?> </div>
+                </div>
+            </li><?php endforeach; ?><?php endif; ?>
         </ul>
     </div>
 
@@ -250,5 +244,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <?= $arResult['NAV_STRING']; ?>
             </div>
         </div>
+    </div>
+</div>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
