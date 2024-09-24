@@ -24,6 +24,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </body>
     </html>";
 
+    // Обработка файлов
+    if (!empty($_FILES['files']['name'][0])) {
+        for ($i = 0; $i < count($_FILES['files']['name']); $i++) {
+            $file_name = $_FILES['files']['name'][$i];
+            $file_tmp_name = $_FILES['files']['tmp_name'][$i];
+            $file_size = $_FILES['files']['size'][$i];
+            $file_type = $_FILES['files']['type'][$i];
+            $file_error = $_FILES['files']['error'][$i];
+
+            // Ограничения на тип файлов
+            $allowed_types = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+            if (in_array($file_type, $allowed_types) && $file_error == 0) {
+                $file_content = chunk_split(base64_encode(file_get_contents($file_tmp_name)));
+                $body .= "--boundary\r\n";
+                $body .= "Content-Type: $file_type; name=\"$file_name\"\r\n";
+                $body .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n";
+                $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+                $body .= "$file_content\r\n\r\n";
+            } else {
+                echo "Ошибка загрузки файла $file_name";
+                exit;
+            }
+        }
+    }
+
+    $body .= "--boundary--";
+
     if (mail($to, $subject, $body, $headers)) {
         http_response_code(200);  // Сообщение об успешной отправке
     } else {
