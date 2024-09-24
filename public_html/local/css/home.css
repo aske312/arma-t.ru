@@ -293,7 +293,7 @@
     /* Блок для кнопок отправки и выбора файла */
     .form-actions {
         display: flex;
-        align-items: center;
+        align-items: right;
         justify-content: flex-start;
         gap: 10px; /* Добавляем небольшой отступ между элементами */
     }
