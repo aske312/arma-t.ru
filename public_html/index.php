@@ -166,7 +166,6 @@ if (CModule::IncludeModule('iblock')) {
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
             <div class="form-actions">
-
                 <label class="file-label">
                     <span id="fileCount" style="display:none;">Файлы: 0</span>
                     <img src="/local/img/block/file0-pn.png" alt="file icon">
