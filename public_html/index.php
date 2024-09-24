@@ -185,6 +185,39 @@ if (CModule::IncludeModule('iblock')) {
     </div>
 </div>
 
+<script>
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();  // Предотвращаем перезагрузку страницы
+
+    var formData = new FormData(this);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'send.php', true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById('formMessage').style.display = 'block';
+            document.getElementById('formErrorMessage').style.display = 'none';
+        } else {
+            document.getElementById('formErrorMessage').style.display = 'block';
+            document.getElementById('formMessage').style.display = 'none';
+        }
+    };
+
+    xhr.send(formData);  // Отправляем данные формы
+});
+
+// Обновление счётчика файлов при выборе
+document.getElementById('files').addEventListener('change', function () {
+    var fileCount = this.files.length;
+    if (fileCount > 3) {
+        alert("Вы можете загрузить не более 3 файлов.");
+        this.value = '';  // Очищаем поле
+    } else {
+        document.getElementById('fileCount').textContent = "Файлы: " + fileCount;
+    }
+});
+</script>
+
 <!-- -->
 
 <?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');?>
