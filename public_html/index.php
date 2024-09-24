@@ -166,56 +166,54 @@ if (CModule::IncludeModule('iblock')) {
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
             <div class="form-actions">
-                <span id="fileCount">Файлы: 0</span>
+                <span id="fileCount" style="display:none;">Файлы: 0</span>
                 <label class="file-label">
-                    <img src="file-icon.png" alt="file icon">
+                    <img src="/local/img/block/file0-pn.png" alt="file icon">
                     <input type="file" id="files" name="files[]" accept=".pdf,.docx,.txt" multiple style="display:none;">
                 </label>
-                <div id="fileInfo" style="display:none;">
-                    Загрузите файлы (до 3 файлов, форматы: PDF, DOCX, TXT)
-                </div>
             </div>
 
             <button type="submit" id="submitButton">Отправить</button>
-
-            <!-- Сообщения о статусе формы -->
-            <div id="formMessage" class="form-success">Ваше сообщение было успешно отправлено!</div>
-            <div id="formErrorMessage" class="form-error">Произошла ошибка при отправке сообщения.</div>
         </form>
     </div>
 </div>
 
 <script>
-document.getElementById('contactForm').addEventListener('submit', function (e) {
-    e.preventDefault();  // Предотвращаем перезагрузку страницы
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+        e.preventDefault();  // Предотвращаем перезагрузку страницы
 
-    var formData = new FormData(this);
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'send.php', true);
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'send.php', true);
 
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            document.getElementById('formMessage').style.display = 'block';
-            document.getElementById('formErrorMessage').style.display = 'none';
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Очистка формы после успешной отправки
+                document.getElementById('contactForm').reset();
+                document.getElementById('fileCount').style.display = 'none';  // Скрываем счётчик файлов
+                alert('Ваше сообщение было успешно отправлено!');
+            } else {
+                alert('Произошла ошибка при отправке сообщения.');
+            }
+        };
+
+        xhr.send(formData);  // Отправляем данные формы
+    });
+
+    // Обновление счётчика файлов при выборе
+    document.getElementById('files').addEventListener('change', function () {
+        var fileCount = this.files.length;
+        if (fileCount > 3) {
+            alert("Вы можете загрузить не более 3 файлов.");
+            this.value = '';  // Очищаем поле
+            document.getElementById('fileCount').style.display = 'none';
+        } else if (fileCount > 0) {
+            document.getElementById('fileCount').textContent = "Файлы: " + fileCount;
+            document.getElementById('fileCount').style.display = 'inline';
         } else {
-            document.getElementById('formErrorMessage').style.display = 'block';
-            document.getElementById('formMessage').style.display = 'none';
+            document.getElementById('fileCount').style.display = 'none';
         }
-    };
-
-    xhr.send(formData);  // Отправляем данные формы
-});
-
-// Обновление счётчика файлов при выборе
-document.getElementById('files').addEventListener('change', function () {
-    var fileCount = this.files.length;
-    if (fileCount > 3) {
-        alert("Вы можете загрузить не более 3 файлов.");
-        this.value = '';  // Очищаем поле
-    } else {
-        document.getElementById('fileCount').textContent = "Файлы: " + fileCount;
-    }
-});
+    });
 </script>
 
 <!-- -->
