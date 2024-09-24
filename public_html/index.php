@@ -157,17 +157,30 @@ if (CModule::IncludeModule('iblock')) {
 
 <div class="section section5" id="Cash">
     <div class="form-container" id="Form">
-        <form class="contact-form" action="send.php" method="post" enctype="multipart/form-data">
+        <form class="contact-form" id="contactForm" method="post" enctype="multipart/form-data">
             <h2>Оставить заявку</h2>
+
             <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
             <input type="email" id="email" name="email" placeholder="e-mail" required>
             <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
-            <div class="file-upload">
-                <label for="file">Загрузите файлы (до 3 файлов, форматы: PDF, DOCX, TXT):</label>
-                <input type="file" name="files[]" accept=".pdf,.docx,.txt" multiple>
+
+            <div class="form-actions">
+                <label class="file-label">
+                    <img src="file-icon.png" alt="file icon">
+                    <input type="file" id="files" name="files[]" accept=".pdf,.docx,.txt" multiple style="display:none;">
+                </label>
+                <span id="fileCount">Файлы: 0</span>
+                <div id="fileInfo" style="display:none;">
+                    Загрузите файлы (до 3 файлов, форматы: PDF, DOCX, TXT)
+                </div>
             </div>
-            <button type="submit">Отправить</button>
+
+            <button type="submit" id="submitButton">Отправить</button>
+
+            <!-- Сообщения о статусе формы -->
+            <div id="formMessage" class="form-success">Ваше сообщение было успешно отправлено!</div>
+            <div id="formErrorMessage" class="form-error">Произошла ошибка при отправке сообщения.</div>
         </form>
     </div>
 </div>

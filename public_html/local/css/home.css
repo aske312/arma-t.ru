@@ -293,7 +293,7 @@
     /* Блок для кнопок отправки и выбора файла */
     .form-actions {
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
         align-items: center;
     }
 
@@ -303,29 +303,43 @@
         width: 20px;
         height: 20px;
         border-radius: 5px;
+        display: flex;
         align-items: center;
-		justify-content: center;
+        justify-content: center;
         background-color: #2654A2;
         padding: 8px 15px;
         border: none;
         font-size: 16px;
+        position: relative;
     }
-    .file-label img{
+
+    .file-label img {
         width: 20px;
         height: 20px;
     }
+
     .file-label:hover {
         background-color: #0056b3;
     }
-    .file-icon {
-        margin-right: 10px;
+
+    /* Сообщение о форматах файлов при наведении на кнопку */
+    .file-label:hover #fileInfo {
+        display: inline-block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #2654A2;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 14px;
     }
+
     /* Счётчик файлов */
     #fileCount {
         font-size: 14px;
         margin-left: 10px;
         color: #fff;
-        margin-right: 20px;
     }
 
     /* Сообщения об успешной/неуспешной отправке */
@@ -333,7 +347,15 @@
         margin-top: 20px;
         font-size: 16px;
         color: white;
-        display:none;
+        display: none;
+    }
+
+    #formMessage {
+        color: green;
+    }
+
+    #formErrorMessage {
+        color: red;
     }
 
 /******** Мобильная версия *************/
