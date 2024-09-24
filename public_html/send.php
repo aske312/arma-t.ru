@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body .= "--boundary--";
 
     $to = "support@arma-t.ru";  // Укажите ваш email
-    $subject = "Application from $subject;
+    $subject = "Application from $subject";
 
     if (mail($to, $subject, $body, $headers)) {
         http_response_code(200);  // Сообщение об успешной отправке
