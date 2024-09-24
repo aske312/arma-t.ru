@@ -9,11 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $headers = "From: $email\r\n";
     $headers .= "Reply-To: $email\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $headers .= "Content-Type: multipart/mixed; boundary=\"boundary\"\r\n";
 
-    $to = "support@arma-t.ru";  // Укажите ваш email
-    $subject = "Новая заявка с формы";
-    $body = "
+    // Тело письма с разделителем для вложений
+    $body = "--boundary\r\n";
+    $body .= "Content-Type: text/html; charset=UTF-8\r\n\r\n";
+    $body .= "
     <html>
     <body>
         <h2>Заявка с формы обратной связи</h2>
@@ -22,34 +23,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p><strong>Компания:</strong> $subject</p>
         <p><strong>Сообщение:</strong> $message</p>
     </body>
-    </html>";
+    </html>\r\n";
 
-    // Обработка файлов
-    if (!empty($_FILES['files']['name'][0])) {
-        for ($i = 0; $i < count($_FILES['files']['name']); $i++) {
-            $file_name = $_FILES['files']['name'][$i];
-            $file_tmp_name = $_FILES['files']['tmp_name'][$i];
-            $file_size = $_FILES['files']['size'][$i];
-            $file_type = $_FILES['files']['type'][$i];
-            $file_error = $_FILES['files']['error'][$i];
+    // Добавляем прикрепленные файлы
+    foreach ($_FILES['files']['tmp_name'] as $index => $tmpFilePath) {
+        if ($_FILES['files']['error'][$index] === UPLOAD_ERR_OK) {
+            $fileName = $_FILES['files']['name'][$index];
+            $fileData = file_get_contents($tmpFilePath);
+            $fileType = $_FILES['files']['type'][$index];
 
-            // Ограничения на тип файлов
-            $allowed_types = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
-            if (in_array($file_type, $allowed_types) && $file_error == 0) {
-                $file_content = chunk_split(base64_encode(file_get_contents($file_tmp_name)));
-                $body .= "--boundary\r\n";
-                $body .= "Content-Type: $file_type; name=\"$file_name\"\r\n";
-                $body .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n";
-                $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
-                $body .= "$file_content\r\n\r\n";
-            } else {
-                echo "Ошибка загрузки файла $file_name";
-                exit;
-            }
+            $body .= "--boundary\r\n";
+            $body .= "Content-Type: $fileType; name=\"$fileName\"\r\n";
+            $body .= "Content-Disposition: attachment; filename=\"$fileName\"\r\n";
+            $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+            $body .= chunk_split(base64_encode($fileData)) . "\r\n";
         }
     }
 
     $body .= "--boundary--";
+
+    $to = "support@arma-t.ru";  // Укажите ваш email
+    $subject = "Новая заявка с формы";
 
     if (mail($to, $subject, $body, $headers)) {
         http_response_code(200);  // Сообщение об успешной отправке

@@ -293,9 +293,9 @@
     /* Блок для кнопок отправки и выбора файла */
     .form-actions {
         display: flex;
-        align-items: right;
-        justify-content: flex-start;
-        gap: 10px; /* Добавляем небольшой отступ между элементами */
+        align-items: center;
+        justify-content: flex-start;  /* Выровнять элементы по левому краю */
+        gap: 10px;  /* Добавляем небольшой отступ между элементами */
     }
 
     /* Стили для кнопки выбора файла */
@@ -339,6 +339,35 @@
 
     #submitButton:hover {
         background-color: #0056b3;
+    }
+
+    /* Контейнер для списка файлов */
+    #fileList {
+        margin-top: 10px;
+        color: white;
+    }
+
+    .file-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .file-item span {
+        margin-right: 10px;
+    }
+
+    .delete-file {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .delete-file:hover {
+        background-color: #c0392b;
     }
 
 /******** Мобильная версия *************/
