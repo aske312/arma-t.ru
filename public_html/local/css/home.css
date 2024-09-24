@@ -293,8 +293,8 @@
     /* Блок для кнопок отправки и выбора файла */
     .form-actions {
         display: flex;
-        align-items: center;
-        justify-content: flex-start;  /* Выровнять элементы по левому краю */
+        align-items: right;
+        justify-content: right;  /* Выровнять элементы по левому краю */
         gap: 10px;  /* Добавляем небольшой отступ между элементами */
     }
 
