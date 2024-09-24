@@ -31,7 +31,7 @@ while ($section = $sections->Fetch()) {
 if (CModule::IncludeModule('iblock')) {
     // Параметры инфоблока
     $arSelect = ["ID", "NAME", "PREVIEW_PICTURE", "PREVIEW_TEXT"];
-    $arFilter = ["IBLOCK_ID" => 2, "ACTIVE" => "Y"];
+    $arFilter = ["IBLOCK_ID" => 1, "ACTIVE" => "Y"];
 
     $res = CIBlockElement::GetList(["SORT" => "ASC"], $arFilter, false, false, $arSelect);
     while ($arItem = $res->GetNext()) {
