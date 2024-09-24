@@ -166,14 +166,13 @@ if (CModule::IncludeModule('iblock')) {
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
             <div class="form-actions">
+                <span id="fileCount" style="display:none;">Файлы: 0</span>
                 <label class="file-label">
-                    <span id="fileCount" style="display:none;">Файлы: 0</span>
                     <img src="/local/img/block/file0-pn.png" alt="file icon">
                     <input type="file" id="files" name="files[]" accept=".pdf,.docx,.txt" multiple style="display:none;">
                 </label>
+                <button type="submit" id="submitButton">Отправить</button>
             </div>
-
-            <button type="submit" id="submitButton">Отправить</button>
         </form>
     </div>
 </div>

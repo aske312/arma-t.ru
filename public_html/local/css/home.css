@@ -294,22 +294,22 @@
     .form-actions {
         display: flex;
         align-items: center;
+        justify-content: flex-start;
+        gap: 10px; /* Добавляем небольшой отступ между элементами */
     }
 
     /* Стили для кнопки выбора файла */
     .file-label {
         cursor: pointer;
-        width: 20px;
-        height: 20px;
-        border-radius: 5px;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: #2654A2;
         padding: 8px 15px;
         border: none;
+        border-radius: 5px;
         font-size: 16px;
-        margin-right: 10px;
+        color: white;
     }
 
     .file-label img {
@@ -325,7 +325,6 @@
     #fileCount {
         font-size: 14px;
         color: #fff;
-        margin-right: 10px;
     }
 
     /* Кнопка отправки формы */
