@@ -166,11 +166,11 @@ if (CModule::IncludeModule('iblock')) {
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
             <div class="form-actions">
+                <span id="fileCount">Файлы: 0</span>
                 <label class="file-label">
                     <img src="file-icon.png" alt="file icon">
                     <input type="file" id="files" name="files[]" accept=".pdf,.docx,.txt" multiple style="display:none;">
                 </label>
-                <span id="fileCount">Файлы: 0</span>
                 <div id="fileInfo" style="display:none;">
                     Загрузите файлы (до 3 файлов, форматы: PDF, DOCX, TXT)
                 </div>
