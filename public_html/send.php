@@ -1,68 +1,67 @@
 <?php
-use Bitrix\Main\Loader;
-use Bitrix\Main\Mail\Event;
-use Bitrix\Main\Application;
-use Bitrix\Main\IO\File;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $subject = htmlspecialchars($_POST['subject']);
+    $message = htmlspecialchars($_POST['message']);
 
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+    // Проверка на обязательные поля
+    if (empty($name) || empty($email) || empty($subject)) {
+        echo "Пожалуйста, заполните все обязательные поля.";
+        exit;
+    }
 
-// Подключаем модуль почты
-Loader::includeModule("main");
+    // Формирование заголовков письма
+    $to = "support@arma-t.ru";  // Укажите ваш email
+    $from = $email;
+    $subject_email = "Новая заявка от $name ($subject)";
 
-$request = Application::getInstance()->getContext()->getRequest();
-$response = [];
+    $headers = "From: $from\r\n";
+    $headers .= "Reply-To: $from\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: multipart/mixed; boundary=\"boundary\"\r\n";
 
-// Получаем данные формы
-$name = htmlspecialchars(trim($request->getPost("name")));
-$email = htmlspecialchars(trim($request->getPost("email")));
-$subject = htmlspecialchars(trim($request->getPost("subject")));
-$message = htmlspecialchars(trim($request->getPost("message")));
-$files = $request->getFile("file");
+    // Основное сообщение
+    $body = "--boundary\r\n";
+    $body .= "Content-Type: text/plain; charset=utf-8\r\n";
+    $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+    $body .= "Имя: $name\r\n";
+    $body .= "Email: $email\r\n";
+    $body .= "Название компании: $subject\r\n";
+    $body .= "Комментарий: $message\r\n\r\n";
 
-// Проверка обязательных полей
-if (!$name || !$email || !$subject) {
-    $response = ["status" => "error", "message" => "Заполните обязательные поля!"];
-    echo json_encode($response);
-    exit;
-}
+    // Обработка файлов
+    if (!empty($_FILES['files']['name'][0])) {
+        for ($i = 0; $i < count($_FILES['files']['name']); $i++) {
+            $file_name = $_FILES['files']['name'][$i];
+            $file_tmp_name = $_FILES['files']['tmp_name'][$i];
+            $file_size = $_FILES['files']['size'][$i];
+            $file_type = $_FILES['files']['type'][$i];
+            $file_error = $_FILES['files']['error'][$i];
 
-// Формируем массив для почтового события
-$arFields = [
-    "NAME" => $name,
-    "EMAIL" => $email,
-    "SUBJECT" => $subject,
-    "MESSAGE" => $message ?: "Комментарий отсутствует",
-];
-
-// Обработка прикрепленных файлов
-$attachments = [];
-if ($files && is_array($files["tmp_name"])) {
-    foreach ($files["tmp_name"] as $key => $tmpName) {
-        if (is_uploaded_file($tmpName)) {
-            $fileArray = \CFile::MakeFileArray($tmpName);
-            $fileArray['name'] = $files['name'][$key];
-            $fileID = \CFile::SaveFile($fileArray, "feedback_files");
-            if ($fileID) {
-                $attachments[] = $fileID;
+            // Ограничения на тип файлов
+            $allowed_types = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+            if (in_array($file_type, $allowed_types) && $file_error == 0) {
+                $file_content = chunk_split(base64_encode(file_get_contents($file_tmp_name)));
+                $body .= "--boundary\r\n";
+                $body .= "Content-Type: $file_type; name=\"$file_name\"\r\n";
+                $body .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n";
+                $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+                $body .= "$file_content\r\n\r\n";
+            } else {
+                echo "Ошибка загрузки файла $file_name";
+                exit;
             }
         }
     }
+
+    $body .= "--boundary--";
+
+    // Отправка письма
+    if (mail($to, $subject_email, $body, $headers)) {
+        echo "Ваше сообщение было успешно отправлено!";
+    } else {
+        echo "Произошла ошибка при отправке сообщения.";
+    }
 }
-
-// Отправляем почтовое событие с файлами (если есть)
-$result = Event::sendImmediate([
-    "EVENT_NAME" => "FORM_FEEDBACK",
-    "LID" => "s1",
-    "C_FIELDS" => $arFields,
-    "FILE" => $attachments, // Добавляем вложения, если они есть
-]);
-
-// Проверяем результат и отправляем ответ
-if ($result) {
-    $response = ["status" => "success", "message" => "Заявка успешно отправлена"];
-} else {
-    $response = ["status" => "error", "message" => "Ошибка при отправке"];
-}
-
-echo json_encode($response);
 ?>

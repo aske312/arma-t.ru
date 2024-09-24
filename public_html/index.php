@@ -157,81 +157,20 @@ if (CModule::IncludeModule('iblock')) {
 
 <div class="section section5" id="Cash">
     <div class="form-container" id="Form">
-        <form class="contact-form" id="contactForm" enctype="multipart/form-data">
+        <form class="contact-form" action="send.php" method="post" enctype="multipart/form-data">
             <h2>Оставить заявку</h2>
             <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
             <input type="email" id="email" name="email" placeholder="e-mail" required>
             <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
-
-            <div class="form-actions">
-                <!-- Кнопка для выбора файла -->
-                <input type="file" id="file" name="file[]" multiple style="display:none;">
-                <span id="fileCount">Добавь файл</span>
-                <label for="file" class="file-label">
-                    <img src="local/img/block/file0-pn.png" alt="Файл" class="file-icon">
-                </label>
-
-                <!-- Кнопка отправки формы -->
-                <button type="submit">Отправить</button>
+            <div class="file-upload">
+                <label for="file">Загрузите файлы (до 3 файлов, форматы: PDF, DOCX, TXT):</label>
+                <input type="file" name="files[]" accept=".pdf,.docx,.txt" multiple>
             </div>
-
-            <!-- Сообщения об успешной/неуспешной отправке -->
-            <div id="formMessage">Ваше обращение получено!<br>Наш специалист свяжется с вами в ближайшее время!</div>
-            <div id="formErrorMessage">Произошла ошибка, попробуйте еще раз.</div>
+            <button type="submit">Отправить</button>
         </form>
     </div>
 </div>
-
-
-<script>
-document.getElementById("contactForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // Останавливаем отправку формы
-
-    // Собираем данные формы
-    var formData = new FormData(this);
-
-    // Очищаем сообщения перед новой отправкой
-    document.getElementById("formMessage").style.display = "none";
-    document.getElementById("formErrorMessage").style.display = "none";
-
-    // Отправляем данные через fetch API
-    fetch("send.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.json()) // Преобразуем ответ в JSON
-    .then(data => {
-        if (data.status === "success") {
-            // Показать сообщение об успешной отправке
-            document.getElementById("formMessage").style.display = "block";
-            document.getElementById("formErrorMessage").style.display = "none";
-        } else {
-            // Показать сообщение об ошибке
-            document.getElementById("formErrorMessage").innerText = data.message;
-            document.getElementById("formErrorMessage").style.display = "block";
-            document.getElementById("formMessage").style.display = "none";
-        }
-    })
-    .catch(error => {
-        console.error("Ошибка:", error);
-        document.getElementById("formErrorMessage").innerText = "Произошла ошибка при отправке формы.";
-        document.getElementById("formErrorMessage").style.display = "block";
-        document.getElementById("formMessage").style.display = "none";
-    });
-});
-
-$allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-if (!in_array($files['type'][$key], $allowedTypes)) {
-    echo json_encode(["status" => "error", "message" => "Неверный формат файла"]);
-    exit;
-}
-
-if ($files['size'][$key] > 5242880) { // Ограничение на 5MB
-    echo json_encode(["status" => "error", "message" => "Размер файла слишком велик"]);
-    exit;
-}
-</script>
 
 <!-- -->
 
