@@ -6,14 +6,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = htmlspecialchars($_POST['message']);
 
     // Заголовки для отправки письма с кодировкой UTF-8
+    $boundary = md5(time());
     $headers = "From: $email\r\n";
     $headers .= "Reply-To: $email\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: multipart/mixed; boundary=\"boundary\"\r\n";
+    $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
 
     // Тело письма с разделителем для вложений
-    $body = "--boundary\r\n";
-    $body .= "Content-Type: text/html; charset=UTF-8\r\n\r\n";
+    $body = "--$boundary\r\n";
+    $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
     $body .= "
     <html>
     <body>
@@ -26,21 +28,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </html>\r\n";
 
     // Добавляем прикрепленные файлы
-    foreach ($_FILES['files']['tmp_name'] as $index => $tmpFilePath) {
-        if ($_FILES['files']['error'][$index] === UPLOAD_ERR_OK) {
-            $fileName = $_FILES['files']['name'][$index];
-            $fileData = file_get_contents($tmpFilePath);
-            $fileType = $_FILES['files']['type'][$index];
+    if (isset($_FILES['files'])) {
+        foreach ($_FILES['files']['tmp_name'] as $index => $tmpFilePath) {
+            if ($_FILES['files']['error'][$index] === UPLOAD_ERR_OK) {
+                $fileName = $_FILES['files']['name'][$index];
+                $fileData = file_get_contents($tmpFilePath);
+                $fileType = $_FILES['files']['type'][$index];
 
-            $body .= "--boundary\r\n";
-            $body .= "Content-Type: $fileType; name=\"$fileName\"\r\n";
-            $body .= "Content-Disposition: attachment; filename=\"$fileName\"\r\n";
-            $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
-            $body .= chunk_split(base64_encode($fileData)) . "\r\n";
+                $body .= "--$boundary\r\n";
+                $body .= "Content-Type: $fileType; name=\"$fileName\"\r\n";
+                $body .= "Content-Disposition: attachment; filename=\"$fileName\"\r\n";
+                $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+                $body .= chunk_split(base64_encode($fileData)) . "\r\n";
+            }
         }
     }
 
-    $body .= "--boundary--";
+    $body .= "--$boundary--";
 
     $to = "support@arma-t.ru";  // Укажите ваш email
     $subject = "Application from $subject";

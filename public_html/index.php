@@ -166,7 +166,6 @@ if (CModule::IncludeModule('iblock')) {
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
             <div class="form-actions">
-                <span id="fileCount" style="display:none;">Файлы: 0</span>
                 <label class="file-label">
                     <img src="/local/img/block/file0-pn.png" alt="file icon">
                     <input type="file" id="files" name="files[]" accept=".pdf,.docx,.txt" multiple style="display:none;">
@@ -192,7 +191,6 @@ if (CModule::IncludeModule('iblock')) {
             if (xhr.status === 200) {
                 // Очистка формы после успешной отправки
                 document.getElementById('contactForm').reset();
-                document.getElementById('fileCount').style.display = 'none';  // Скрываем счётчик файлов
                 document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
                 alert('Ваше сообщение было успешно отправлено!');
             } else {
@@ -203,44 +201,32 @@ if (CModule::IncludeModule('iblock')) {
         xhr.send(formData);  // Отправляем данные формы
     });
 
-    // Обновление счётчика файлов и вывод списка файлов
+    // Обновление списка файлов и вывод списка файлов
     document.getElementById('files').addEventListener('change', function () {
-        var fileCount = this.files.length;
         var fileList = document.getElementById('fileList');
-
         fileList.innerHTML = '';  // Очищаем список перед обновлением
 
-        if (fileCount > 3) {
-            alert("Вы можете загрузить не более 3 файлов.");
-            this.value = '';  // Очищаем поле
-            document.getElementById('fileCount').style.display = 'none';
-        } else if (fileCount > 0) {
-            document.getElementById('fileCount').textContent = "Файлы: " + fileCount;
-            document.getElementById('fileCount').style.display = 'inline';
+        // Выводим список файлов с возможностью удаления
+        for (var i = 0; i < this.files.length; i++) {
+            var file = this.files[i];
+            var fileItem = document.createElement('div');
+            fileItem.classList.add('file-item');
 
-            // Выводим список файлов с возможностью удаления
-            for (var i = 0; i < fileCount; i++) {
-                var file = this.files[i];
-                var fileItem = document.createElement('div');
-                fileItem.classList.add('file-item');
+            var fileName = document.createElement('span');
+            fileName.textContent = file.name;
 
-                var fileName = document.createElement('span');
-                fileName.textContent = file.name;
+            var deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-file');
+            deleteButton.textContent = 'Удалить';
+            deleteButton.addEventListener('click', function () {
+                fileItem.remove();  // Удаляем файл из списка
+                // Логика для удаления файла из FormData не реализована в стандартном API,
+                // если необходимо, придется перезаписывать FormData без удаленного файла.
+            });
 
-                var deleteButton = document.createElement('button');
-                deleteButton.classList.add('delete-file');
-                deleteButton.textContent = 'Удалить';
-                deleteButton.addEventListener('click', function () {
-                    fileItem.remove();  // Удаляем файл из списка
-                    // Логика для удаления файла из FormData не реализована в стандартном API
-                });
-
-                fileItem.appendChild(fileName);
-                fileItem.appendChild(deleteButton);
-                fileList.appendChild(fileItem);
-            }
-        } else {
-            document.getElementById('fileCount').style.display = 'none';
+            fileItem.appendChild(fileName);
+            fileItem.appendChild(deleteButton);
+            fileList.appendChild(fileItem);
         }
     });
 </script>

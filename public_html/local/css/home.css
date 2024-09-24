@@ -289,7 +289,6 @@
     .contact-form button:hover {
         background-color: #0056b3;
     }
-
     /* Блок для кнопок отправки и выбора файла */
     .form-actions {
         display: flex;
@@ -319,12 +318,6 @@
 
     .file-label:hover {
         background-color: #0056b3;
-    }
-
-    /* Счётчик файлов */
-    #fileCount {
-        font-size: 14px;
-        color: #fff;
     }
 
     /* Кнопка отправки формы */
