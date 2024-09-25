@@ -132,7 +132,6 @@ nav a:hover, nav a:focus {
     top: 0;
     left: 0;
     right: 0;
-    background-color: white; /* Цвет фона для меню */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Тень для фиксации */
 }
 
