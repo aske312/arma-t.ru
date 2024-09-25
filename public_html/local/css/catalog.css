@@ -366,10 +366,11 @@ pre { /* DEBUG */
 
 .pagination a, .pagination span {
     display: inline-block;
+    background-color: #2654A2;
     margin: 0 5px;
     padding: 8px 12px;
     font-size: 14px;
-    color: #007BFF;
+    color: #fff;
     text-decoration: none;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -377,7 +378,7 @@ pre { /* DEBUG */
 }
 
 .pagination a:hover {
-    background-color: #007BFF;
+    background-color: #0056b3;
     color: #fff;
 }
 
