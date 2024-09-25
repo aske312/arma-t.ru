@@ -109,7 +109,6 @@ $res = CIBlockElement::GetList(
 
 $res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default");
-?>
 
 
 //echo '<pre>'; // Открываем тег <pre> для форматированного вывода
@@ -132,6 +131,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 //
 //echo '</pre>'; // Закрываем тег <pre>
 
+?>
 
         <!-- BODY -->
         <div class="section-title">
