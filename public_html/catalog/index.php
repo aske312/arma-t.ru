@@ -10,7 +10,7 @@ Loader::includeModule('iblock');
 Asset::getInstance()->addCss("/local/css/catalog.css");
 Asset::getInstance()->addCss("/local/css/header.css");
 Asset::getInstance()->addCss("/local/css/footer.css");
-Asset::getInstance()->addJs("/local/js/script.js");
+Asset::getInstance()->addJs("script.js");
 
 // Получение списка секций для бокового меню
 $sectionsFilter = [
