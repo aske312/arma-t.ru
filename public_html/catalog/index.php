@@ -243,22 +243,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         </div>
 
         <script>
-            function addSelectedToCart() {
-                const checkboxes = document.querySelectorAll(".catalog-item-checkbox:checked");
-                checkboxes.forEach(checkbox => {
-                    const itemId = checkbox.getAttribute("data-id");
-                    const itemArticul = checkbox.getAttribute("data-articul");
-                    const itemPrice = parseFloat(checkbox.getAttribute("data-price"));
-                    addToCart(itemId, itemArticul, itemPrice);
-                });
-            }
-
-            function toggleSelectAll(source) {
-                const checkboxes = document.querySelectorAll(".catalog-item-checkbox");
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = source.checked;
-                });
-            }
         </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
