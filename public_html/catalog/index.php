@@ -47,11 +47,10 @@ $sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, [
 while ($section = $sections->Fetch()) {
     $elementFilter = [
         'IBLOCK_ID' => $arParams['IBLOCK_ID'],
-        'SECTION_ID' => $sectionId,
+        'SECTION_ID' => $section['ID'], // Исправлено для корректного получения всех элементов
         'ACTIVE' => 'Y',
         'INCLUDE_SUBSECTIONS' => 'Y',
     ];
-
 
     $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
     $res = CIBlockElement::GetList([], $elementFilter, false, false, $elementSelect);
@@ -60,9 +59,6 @@ while ($section = $sections->Fetch()) {
     while ($ob = $res->GetNextElement()) {
         $arFields = $ob->GetFields();
         $arProps = $ob->GetProperties();
-
-//        echo "\nСвойства элемента:\n";
-//        print_r($arProps[$propertyCode]['VALUE']); // Вывод всех свойств элемента
 
         foreach ($filterProperties as $propertyCode) {
             $value = $arProps[$propertyCode]['VALUE'];
@@ -90,11 +86,11 @@ foreach ($arResult['FILTER_PROPERTIES'] as &$property) {
 // Применение фильтров к элементам каталога
 $elementFilter = [
     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
-    'SECTION_ID' => $arParams['SECTION_ID'],
     'ACTIVE' => 'Y',
     'INCLUDE_SUBSECTIONS' => 'Y',
 ];
 
+// Убираем SECTION_ID, чтобы получить все элементы
 foreach ($filterProperties as $propertyCode) {
     if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
         $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
@@ -112,7 +108,8 @@ $res = CIBlockElement::GetList(
 );
 
 $res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
-$arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default"); // Генерация строки навигации
+$arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default");
+?>
 
 
 //echo '<pre>'; // Открываем тег <pre> для форматированного вывода
@@ -135,7 +132,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 //
 //echo '</pre>'; // Закрываем тег <pre>
 
-?>
 
         <!-- BODY -->
         <div class="section-title">
