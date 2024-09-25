@@ -17,14 +17,8 @@ pre { /* DEBUG */
 }
 
 .section-title h2 {
-    margin: 0; /* Fixed h2*/
-    margin-top: 5px;
-    padding: 10px 20px;
-    background-color: #2654A2;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1em;
+    margin: 0;
+    font-size: 24px;
 }
 
 .section-title p {
@@ -183,6 +177,19 @@ pre { /* DEBUG */
     border-right: none;
 }
 
+.filters button {
+    padding: 10px 20px;
+    background-color: #2654A2;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.filters button:hover {
+    background-color: #0056b3;
+}
+
 /* Стили для чекбокса выбора всех товаров */
 .select-all {
     margin-bottom: 20px;
@@ -297,8 +304,6 @@ pre { /* DEBUG */
     color: #fff;
     cursor: pointer;
     font-size: 1em;
-    background-color: #2654A2;
-    /* transition: background-color 0.3s; */
     text-align: bottom;
     white-space: nowrap; /* Запрещаем перенос текста */
     overflow: hidden; /* Скрываем текст, выходящий за границы кнопки */
