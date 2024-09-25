@@ -85,19 +85,15 @@
                 <div class="contact-info">
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
+
                     <!-- Корзина -->
-                    <div class="cart-wrapper">
-                        <button class="cart-btn" onclick="toggleCart()">Корзина</button>
-                        <div id="cart" class="cart-dropdown hidden">
-                            <div class="cart-info">
-                                В корзине: <span id="cart-count">0</span>
-                            </div>
-                            <ul id="cart-items"></ul>
-                            <div class="cart-total">
-                                Итого: <span id="cart-total-price">0</span> руб.
-                            </div>
+                    <div class="basket-container">
+                        <button id="basketButton" style="display:none;" onclick="toggleBasketDropdown()">В Корзине: <span id="basketCount">0</span></button>
+                        <div id="basketDropdown" class="basket-dropdown" style="display:none;">
+                            <div id="basketItems"></div>
+                            <div id="basketTotal"></div>
                             <button onclick="checkout()">Оформить заказ</button>
-                            <button onclick="clearCart()">Очистить корзину</button>
+                            <button onclick="clearBasket()">Очистить корзину</button>
                         </div>
                     </div>
                 </div>
@@ -117,6 +113,110 @@
                     header.classList.remove("fixed");
                 }
             }
+
+            // Переключение отображения корзины
+            function toggleBasketDropdown() {
+                const basketDropdown = document.getElementById('basketDropdown');
+                basketDropdown.style.display = basketDropdown.style.display === 'none' ? 'block' : 'none';
+            }
+
+            // Функция для добавления товара в корзину
+            function addToCart(itemId) {
+                const basket = getBasket();
+                const item = basket.find(i => i.id === itemId);
+
+                if (item) {
+                    item.count++;
+                } else {
+                    basket.push({ id: itemId, count: 1 });
+                }
+
+                saveBasket(basket);
+                updateBasketUI();
+            }
+
+            // Получение корзины из LocalStorage
+            function getBasket() {
+                const basket = localStorage.getItem('basket');
+                return basket ? JSON.parse(basket) : [];
+            }
+
+            // Сохранение корзины в LocalStorage
+            function saveBasket(basket) {
+                localStorage.setItem('basket', JSON.stringify(basket));
+            }
+
+            // Очистка корзины
+            function clearBasket() {
+                localStorage.removeItem('basket');
+                updateBasketUI();
+            }
+
+            // Обновление пользовательского интерфейса корзины
+            function updateBasketUI() {
+                const basket = getBasket();
+                const basketButton = document.getElementById('basketButton');
+                const basketCount = document.getElementById('basketCount');
+                const basketItems = document.getElementById('basketItems');
+                const basketTotal = document.getElementById('basketTotal');
+
+                if (basket.length === 0) {
+                    basketButton.style.display = 'none';
+                    basketDropdown.style.display = 'none';
+                } else {
+                    basketButton.style.display = 'block';
+                    basketCount.innerText = basket.reduce((sum, item) => sum + item.count, 0);
+                    basketItems.innerHTML = basket.map(item => `
+                        <div>
+                            Товар: ${item.id}, Количество: ${item.count}
+                            <button onclick="removeFromCart(${item.id})">-</button>
+                            <button onclick="increaseCart(${item.id})">+</button>
+                        </div>
+                    `).join('');
+                    const totalPrice = basket.reduce((sum, item) => sum + (getItemPrice(item.id) * item.count), 0);
+                    basketTotal.innerText = 'Общая цена: ' + totalPrice + ' руб.';
+                }
+            }
+
+            // Увеличение количества товаров в корзине
+            function increaseCart(itemId) {
+                const basket = getBasket();
+                const item = basket.find(i => i.id === itemId);
+                if (item) {
+                    item.count++;
+                    saveBasket(basket);
+                    updateBasketUI();
+                }
+            }
+
+            // Уменьшение количества товаров в корзине
+            function removeFromCart(itemId) {
+                const basket = getBasket();
+                const itemIndex = basket.findIndex(i => i.id === itemId);
+                if (itemIndex > -1) {
+                    if (basket[itemIndex].count > 1) {
+                        basket[itemIndex].count--;
+                    } else {
+                        basket.splice(itemIndex, 1);
+                    }
+                    saveBasket(basket);
+                    updateBasketUI();
+                }
+            }
+
+            // Получение цены товара (это просто пример, вместо этого нужно запросить цену из данных товара)
+            function getItemPrice(itemId) {
+                return 100; // заменить на реальную цену товара
+            }
+
+            // Оформление заказа (переход на страницу оформления заказа)
+            function checkout() {
+                alert('Переход на страницу оформления заказа');
+                // Реализуйте переход на страницу оформления заказа
+            }
+
+            // Инициализация корзины при загрузке страницы
+            document.addEventListener('DOMContentLoaded', updateBasketUI);
         </script>
 
         <style>
