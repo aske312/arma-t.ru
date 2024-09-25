@@ -4,6 +4,19 @@ function toggleMenu() {
     nav.classList.toggle('menu-open');
 }
 
+window.onscroll = function() {stickyHeader()};
+
+var header = document.getElementById("siteHeader");
+var sticky = header.offsetTop;
+
+function stickyHeader() {
+    if (window.pageYOffset > sticky) {
+        header.classList.add("fixed");
+    } else {
+        header.classList.remove("fixed");
+    }
+}
+
 //***** index.php *****//
 let slideIndex = 0; // Изначальный индекс слайда
 let slides = document.getElementsByClassName('slide'); // Получаем все слайды
