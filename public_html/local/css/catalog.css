@@ -178,6 +178,7 @@ pre { /* DEBUG */
 }
 
 .filters button {
+    margin-top: 5px;
     padding: 10px 20px;
     background-color: #2654A2;
     border: none;
@@ -211,7 +212,6 @@ pre { /* DEBUG */
     color: #fff;
     cursor: pointer;
     font-size: 1em;
-    /* transition: background-color 0.3s; */
 }
 
 .select-all button.catalog-add-all:hover {
