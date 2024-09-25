@@ -112,7 +112,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- BODY -->
         <div class="section-title">
             <h2>Список каталога</h2>
-            <p>Выберете раздел, или фильтр</p>
+            <p>Выберите раздел, или фильтр</p>
         </div>
 
         <div class="catalog-container">
@@ -162,15 +162,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         while ($ob = $res->GetNextElement()):
                         $arFields = $ob->GetFields();
                         $arProps = $ob->GetProperties();
-                        foreach ($arResult['SECTIONS'] as $arSection):
-                        if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
                     ?>
-                    <div class="catalog-item">
+                    <div class="catalog-item" onclick="window.location.href='<?= $arFields['DETAIL_PAGE_URL'] ?>'">
                         <div class="catalog-item-header">
                             <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
-                            <?php if ($arSection['PICTURE']): ?>
-                            <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                            <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
+                            <?php if ($arFields['PREVIEW_PICTURE']): ?>
+                            <?php $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']); ?>
+                            <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                             <?php else: ?>
                             <img alt="Нет изображения" src="/local/img/no_image.png">
                             <?php endif; ?>
@@ -186,8 +184,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                         </div>
                     </div>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
                     <?php endwhile; ?>
                 </div>
 
