@@ -47,7 +47,7 @@ $sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, [
 while ($section = $sections->Fetch()) {
     $elementFilter = [
         'IBLOCK_ID' => $arParams['IBLOCK_ID'],
-        'SECTION_ID' => $section['ID'],
+        'SECTION_ID' => $section['ID'], // Исправлено для корректного получения всех элементов
         'ACTIVE' => 'Y',
         'INCLUDE_SUBSECTIONS' => 'Y',
     ];
@@ -55,6 +55,7 @@ while ($section = $sections->Fetch()) {
     $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
     $res = CIBlockElement::GetList([], $elementFilter, false, false, $elementSelect);
 
+    // Проход по каждому элементу
     while ($ob = $res->GetNextElement()) {
         $arFields = $ob->GetFields();
         $arProps = $ob->GetProperties();
@@ -89,6 +90,7 @@ $elementFilter = [
     'INCLUDE_SUBSECTIONS' => 'Y',
 ];
 
+// Убираем SECTION_ID, чтобы получить все элементы
 foreach ($filterProperties as $propertyCode) {
     if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
         $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
@@ -101,127 +103,144 @@ $res = CIBlockElement::GetList(
     [$arParams['ELEMENT_SORT_FIELD'] => $arParams['ELEMENT_SORT_ORDER']],
     $elementFilter,
     false,
-    ['nPageSize' => 10],
+    ['nPageSize' => 10],  // Ограничение вывода до 10 позиций
     $elementSelect
 );
 
-$res->NavStart(10);
+$res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default");
+
+
+//echo '<pre>'; // Открываем тег <pre> для форматированного вывода
+//
+//while ($ob = $res->GetNextElement()) {
+//    $arFields = $ob->GetFields();      // Основные поля элемента
+//    $arProps = $ob->GetProperties();   // Свойства элемента
+//
+//    echo "Элемент ID: " . $arFields['ID'] . "\n";
+//    echo "Название: " . $arFields['NAME'] . "\n";
+//
+//    echo "\nПоля элемента:\n";
+//    print_r($arFields); // Вывод всех полей элемента
+//
+//    echo "\nСвойства элемента:\n";
+//    print_r($arProps); // Вывод всех свойств элемента
+//
+//    echo "\n------------------------\n"; // Разделитель для удобства
+//}
+//
+//echo '</pre>'; // Закрываем тег <pre>
+
 ?>
 
         <!-- BODY -->
         <div class="section-title">
             <h2>Список каталога</h2>
-            <p>Выберите раздел, или фильтр</p>
+            <p>Выберете раздел, или фильтр</p>
         </div>
 
         <div class="catalog-container">
 
+            <!-- Боковое меню категорий -->
             <div class="catalog-sidebar">
                 <ul id="catalog-menu" class="catalog-menu">
                     <?php if (!empty($arResult['SECTIONS'])): ?>
                     <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
                     <li>
-                        <div class="category-block" onclick="redirectToSection(<?= $arSection['ID'] ?>)">
-                            <a href="<?= $arSection['SECTION_PAGE_URL'] ?>">
-                                <img src="<?= CFile::GetPath($arSection['PICTURE']) ?>" alt="<?= $arSection['NAME'] ?>">
-                                <span><?= $arSection['NAME'] ?></span>
-                            </a>
+                        <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                            <?php if ($arSection['PICTURE']): ?>
+                            <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                            <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
+                            <?php else: ?><img alt="Нет изображения" src="/local/img/no_image.png"><?php endif; ?>
+                            <div class="category-text"> <?= $arSection['NAME']; ?> </div>
                         </div>
-                    </li>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
+                    </li><?php endforeach; ?><?php endif; ?>
                 </ul>
             </div>
 
+            <!-- Основная часть каталога -->
             <div class="catalog-content">
 
+                <!-- Фильтры -->
                 <div class="filters">
-                    <h3>Фильтры</h3>
-                    <?php foreach ($arResult['FILTER_PROPERTIES'] as $property): ?>
-                    <div class="filter-group">
-                        <h4><?= $property['NAME'] ?></h4>
-                        <select onchange="applyFilter(this)">
-                            <option value="all">Все</option>
-                            <?php foreach ($property['VALUES'] as $value): ?>
-                            <option value="<?= $value ?>"><?= $value ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <?php endforeach; ?>
+                    <form method="GET" action="">
+                        <table>
+                            <?php if (!empty($arResult['FILTER_PROPERTIES'])): ?>
+                            <?php foreach ($arResult['FILTER_PROPERTIES'] as $propertyCode => $property): ?>
+                            <th>
+                                <?= $property['NAME']; ?>
+                                <select name="<?= $propertyCode; ?>">
+                                    <option value="all">Все</option>
+                                    <?php foreach ($property['VALUES'] as $value): ?>
+                                        <option value="<?= htmlspecialchars($value); ?>" <?= isset($_GET[$propertyCode]) && $_GET[$propertyCode] == $value ? 'selected' : ''; ?>>
+                                            <?= htmlspecialchars($value); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </th><?php endforeach; ?><?php endif; ?>
+                        </table>
+                        <button type="submit">Применить фильтр</button>
+                    </form>
                 </div>
 
+                <!-- Чекбокс для выбора всех товаров -->
                 <div class="select-all">
                     <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
                     <label for="select-all">Выбрать все</label>
-                    <button class="catalog-add-all" onclick="addAllToCart()">В корзину</button>
+                    <button class="catalog-add-all">В корзину</button>
                 </div>
 
+                <!-- Список элементов каталога  -->
                 <div class="catalog-items">
                     <?php
                         while ($ob = $res->GetNextElement()):
                         $arFields = $ob->GetFields();
                         $arProps = $ob->GetProperties();
+                        foreach ($arResult['SECTIONS'] as $arSection):
+                        if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
                     ?>
-                    <div class="catalog-item" onclick="window.location.href='<?= $arFields['DETAIL_PAGE_URL'] ?>'">
+                    <div class="catalog-item" onclick="redirectToDetail(<?= $arSection['ID']; ?>, <?= $arFields['ID']; ?>)">
                         <div class="catalog-item-header">
                             <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
-                            <?php if ($arFields['PREVIEW_PICTURE']): ?>
-                            <?php $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']); ?>
-                            <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
+                            <?php if ($arSection['PICTURE']): ?>
+                            <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                            <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
                             <?php else: ?>
                             <img alt="Нет изображения" src="/local/img/no_image.png">
                             <?php endif; ?>
                             <div class="catalog-item-info">
                                 <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
-                                <p>Артикул: <?= $arProps['EL_ARTICUL']['VALUE']; ?></p>
+                                <p>Артикул: <?= $arProps['EL_ARTICUL']['VALUE']; ?>
+                                <span><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
                                 <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
                             </div>
                             <div class="catalog-item-controls">
-                                <button class="catalog-item-add-to-cart" onclick="event.stopPropagation(); addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_ARTICUL']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>);">
+                                <button class="catalog-item-add-to-cart" onclick="event.stopPropagation(); addToCart(<?= $arFields['ID']; ?>);">
                                     В корзину
                                 </button>
                             </div>
                         </div>
+
+                        <!-- Краткое описание элемента  -->
+                        <div class="catalog-item-properties">
+                            <table>
+                                <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
+                                <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
+                                <th>Диаметр DN: <?= $arProps['EL_DIAMETER_DN']['VALUE']; ?>мм</th>
+                                <th>Давление PN: <?= $arProps['EL_PRESSURE_PN']['VALUE']; ?>кгс/см²</th>
+                                <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                            </table>
+                        </div>
                     </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                     <?php endwhile; ?>
                 </div>
 
+                <!-- Пагинация  -->
                 <div class="pagination">
                     <?= $arResult['NAV_STRING']; ?>
                 </div>
             </div>
         </div>
-
-        <script>
-            function addAllToCart() {
-                const checkboxes = document.querySelectorAll('.catalog-item-checkbox:checked');
-                checkboxes.forEach(checkbox => {
-                    const itemId = checkbox.id.split('-')[1];
-                    const article = document.querySelector(`#item-${itemId} .catalog-item-name`).innerText;
-                    const price = parseFloat(document.querySelector(`#item-${itemId} .catalog-item-price`).innerText);
-                    addToCart(itemId, article, price);
-                });
-            }
-
-            function toggleSelectAll(selectAllCheckbox) {
-                const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = selectAllCheckbox.checked;
-                });
-            }
-
-            function applyFilter(select) {
-                const property = select.previousElementSibling.innerText;
-                const value = select.value;
-                const url = new URL(window.location.href);
-                if (value === 'all') {
-                    url.searchParams.delete(property);
-                } else {
-                    url.searchParams.set(property, value);
-                }
-                window.location.href = url.toString();
-            }
-        </script>
-
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
