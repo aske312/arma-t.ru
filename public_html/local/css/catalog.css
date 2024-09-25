@@ -191,18 +191,18 @@ pre { /* DEBUG */
 
 .select-all button.catalog-add-all {
     margin-left: auto;
-    padding: 8px 12px;
-    background-color: #007bff;
-    font-size: 16px;
-    color: #fff;
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #2654A2;
     border: none;
-    border-radius: 4px;
+    color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 1em;
+    /* transition: background-color 0.3s; */
 }
 
 .select-all button.catalog-add-all:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
 /* Стили для списка товаров */
@@ -284,14 +284,15 @@ pre { /* DEBUG */
 }
 
 .catalog-item-controls button.catalog-item-add-to-cart {
-    padding: 8px 12px;
-    background-color: #007bff;
-    font-size: 16px;
-    color: #fff;
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #2654A2;
     border: none;
-    border-radius: 4px;
+    color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 1em;
+    background-color: #2654A2;
+    /* transition: background-color 0.3s; */
     text-align: bottom;
     white-space: nowrap; /* Запрещаем перенос текста */
     overflow: hidden; /* Скрываем текст, выходящий за границы кнопки */
