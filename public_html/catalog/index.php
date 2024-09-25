@@ -187,7 +187,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <div class="select-all">
                     <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
                     <label for="select-all">Выбрать все</label>
-                    <button class="catalog-add-all">В корзину</button>
+                    <button class="catalog-add-all" onclick="addSelectedToCart()">В корзину</button>
                 </div>
 
                 <!-- Список элементов каталога  -->
@@ -201,7 +201,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     ?>
                     <div class="catalog-item" onclick="redirectToDetail(<?= $arSection['ID']; ?>, <?= $arFields['ID']; ?>)">
                         <div class="catalog-item-header">
-                            <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
+                            <input type="checkbox" class="catalog-item-checkbox" data-id="<?= $arFields['ID']; ?>" data-articul="<?= $arProps['EL_ARTICUL']['VALUE']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">
                             <?php if ($arSection['PICTURE']): ?>
                             <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
                             <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
@@ -215,9 +215,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
                             </div>
                             <div class="catalog-item-controls">
-                                <button class="catalog-item-add-to-cart" onclick="event.stopPropagation(); addToCart(<?= $arFields['ID']; ?>);">
-                                    В корзину
-                                </button>
+                                <button class="catalog-item-add-to-cart" onclick="addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_ARTICUL']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>)">В корзину</button>
                             </div>
                         </div>
 
@@ -243,4 +241,24 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 </div>
             </div>
         </div>
+
+        <script>
+            function addSelectedToCart() {
+                const checkboxes = document.querySelectorAll(".catalog-item-checkbox:checked");
+                checkboxes.forEach(checkbox => {
+                    const itemId = checkbox.getAttribute("data-id");
+                    const itemArticul = checkbox.getAttribute("data-articul");
+                    const itemPrice = parseFloat(checkbox.getAttribute("data-price"));
+                    addToCart(itemId, itemArticul, itemPrice);
+                });
+            }
+
+            function toggleSelectAll(source) {
+                const checkboxes = document.querySelectorAll(".catalog-item-checkbox");
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = source.checked;
+                });
+            }
+        </script>
+
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>

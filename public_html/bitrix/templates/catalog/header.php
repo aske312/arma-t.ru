@@ -85,6 +85,21 @@
                 <div class="contact-info">
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
+                    <!-- Корзина -->
+                    <div class="cart-wrapper">
+                        <button class="cart-btn" onclick="toggleCart()">Корзина</button>
+                        <div id="cart" class="cart-dropdown hidden">
+                            <div class="cart-info">
+                                В корзине: <span id="cart-count">0</span>
+                            </div>
+                            <ul id="cart-items"></ul>
+                            <div class="cart-total">
+                                Итого: <span id="cart-total-price">0</span> руб.
+                            </div>
+                            <button onclick="checkout()">Оформить заказ</button>
+                            <button onclick="clearCart()">Очистить корзину</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -102,4 +117,100 @@
                     header.classList.remove("fixed");
                 }
             }
+
+            // Корзина
+            let cart = [];
+
+            function toggleCart() {
+                const cartDropdown = document.getElementById("cart");
+                cartDropdown.classList.toggle("hidden");
+            }
+
+            function addToCart(itemId, itemArticul, itemPrice) {
+                const existingItem = cart.find(item => item.id === itemId);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ id: itemId, articul: itemArticul, price: itemPrice, quantity: 1 });
+                }
+                updateCart();
+            }
+
+            function updateCart() {
+                const cartCount = document.getElementById("cart-count");
+                const cartItems = document.getElementById("cart-items");
+                const cartTotalPrice = document.getElementById("cart-total-price");
+
+                cartCount.innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartItems.innerHTML = cart.map(item => `
+                    <li>
+                        ${item.articul} — ${item.quantity} шт. — ${item.price * item.quantity} руб.
+                        <button onclick="changeQuantity(${item.id}, -1)">-</button>
+                        <button onclick="changeQuantity(${item.id}, 1)">+</button>
+                    </li>
+                `).join('');
+
+                cartTotalPrice.innerText = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            }
+
+            function changeQuantity(itemId, delta) {
+                const item = cart.find(item => item.id === itemId);
+                if (item) {
+                    item.quantity += delta;
+                    if (item.quantity <= 0) {
+                        cart = cart.filter(item => item.id !== itemId);
+                    }
+                    updateCart();
+                }
+            }
+
+            function clearCart() {
+                cart = [];
+                updateCart();
+            }
+
+            function checkout() {
+                alert("Оформление заказа");
+                // здесь будет логика для оформления заказа
+            }
         </script>
+
+        <style>
+            .cart-wrapper {
+                position: relative;
+                display: inline-block;
+            }
+
+            .cart-dropdown {
+                display: none;
+                position: absolute;
+                right: 0;
+                background: white;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+                width: 300px;
+                padding: 10px;
+            }
+
+            .cart-dropdown.hidden {
+                display: none;
+            }
+
+            .cart-info, .cart-total {
+                margin: 10px 0;
+            }
+
+            #cart-items {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            #cart-items li {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+
+            .cart-btn {
+                margin-left: 10px;
+            }
+        </style>
