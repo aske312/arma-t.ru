@@ -114,6 +114,37 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <div class="section-title">
             <h2>Список каталога</h2>
             <p>Выберете раздел, или фильтр</p>
+            <?php
+
+                 session_start();
+
+                // Если корзина пуста
+                if (empty($_SESSION['CART'])) {
+                    echo "<h2>Ваша корзина пуста</h2>";
+                } else {
+                    echo "<h2>Ваша корзина</h2>";
+                    echo '<table class="cart-table">';
+                    echo '<tr><th>Артикул</th><th>Цена</th><th>Количество</th><th>Итого</th><th>Удалить</th></tr>';
+
+                    $totalPrice = 0;
+
+                    foreach ($_SESSION['CART'] as $productId => $product) {
+                        $itemTotalPrice = $product['PRICE'] * $product['QUANTITY'];
+                        $totalPrice += $itemTotalPrice;
+
+                        echo '<tr>';
+                        echo '<td>' . htmlspecialchars($product['ARTICUL']) . '</td>';
+                        echo '<td>' . number_format($product['PRICE'], 2, '.', '') . ' руб.</td>';
+                        echo '<td>' . $product['QUANTITY'] . '</td>';
+                        echo '<td>' . number_format($itemTotalPrice, 2, '.', '') . ' руб.</td>';
+                        echo '<td><button onclick="removeFromCart(' . $productId . ')">Удалить</button></td>';
+                        echo '</tr>';
+                    }
+
+                    echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
+                    echo '</table>';
+                }
+            ?>
         </div>
 
         <div class="catalog-container">
