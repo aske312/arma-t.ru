@@ -220,6 +220,74 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 </div>
             </div>
         </div>
+        <script>
+            function toggleMenu() {
+                var nav = document.getElementById('mainNav');
+                nav.classList.toggle('menu-open');
+            }
+            window.onscroll = function() {stickyHeader()};
 
+            var header = document.getElementById("siteHeader");
+            var sticky = header.offsetTop;
+
+            function stickyHeader() {
+                if (window.pageYOffset > sticky) {
+                    header.classList.add("fixed");
+                } else {
+                    header.classList.remove("fixed");
+                }
+            }
+
+            // Функция для добавления отдельного товара в корзину
+            function addToCart(id, articul, price) {
+                // Имитация добавления товара в корзину
+                console.log("Товар добавлен в корзину:", id, articul, price);
+
+                // Ваша логика для работы с корзиной (например, отправка данных на сервер через AJAX)
+                // Пример:
+                /*
+                $.ajax({
+                    type: 'POST',
+                    url: '/local/ajax/add_to_cart.php',
+                    data: { id: id, articul: articul, price: price },
+                    success: function(response) {
+                        alert("Товар добавлен в корзину!");
+                    }
+                });
+                */
+            }
+
+            // Функция для выбора всех товаров
+            function toggleSelectAll(checkbox) {
+                const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
+                checkboxes.forEach(item => {
+                    item.checked = checkbox.checked;
+                });
+            }
+
+            // Функция для добавления выбранных товаров в корзину
+            function addSelectedToCart() {
+                const selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
+
+                if (selectedItems.length === 0) {
+                    alert('Выберите хотя бы один товар!');
+                    return;
+                }
+
+                selectedItems.forEach(item => {
+                    const id = item.getAttribute('data-id');
+                    const articul = item.getAttribute('data-articul');
+                    const price = item.getAttribute('data-price');
+
+                    // Добавляем каждый выбранный товар в корзину
+                    addToCart(id, articul, price);
+                });
+            }
+
+            // Функция для редиректа на страницу категории при клике на категорию
+            function redirectToSection(sectionId) {
+                window.location.href = `/catalog/?SECTION_ID=${sectionId}`;
+            }
+        </script>
 <!-- FOOTER -->
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
