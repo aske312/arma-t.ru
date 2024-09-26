@@ -118,6 +118,9 @@ if (empty($_SESSION['CART'])) {
                     <!-- Корзина -->
                     <div class="basket-container">
                     <?php
+
+                         session_start();
+
                         // Если корзина пуста
                         if (empty($_SESSION['CART'])) {
                             echo "<h2>Ваша корзина пуста</h2>";
@@ -144,7 +147,7 @@ if (empty($_SESSION['CART'])) {
                             echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
                             echo '</table>';
                         }
-                        ?>
+                    ?>
                         <!--
                         <button id="basketButton" style="display:none;" onclick="toggleBasketDropdown()">В Корзине: <span id="basketCount">0</span></button>
                         <div id="basketDropdown" class="basket-dropdown" style="display:none;">
