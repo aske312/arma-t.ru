@@ -236,11 +236,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
             // Функция для добавления отдельного товара в корзину
             function addToCart(id, articul, price) {
-                alert('Выбрано ' + id, articul, price);
+                alert('Выбрано ' + id + ',' + articul + ',' + price);
                 $.ajax({
                     type: 'POST',
                     url: 'add_to_cart.php',
-                    data: { id: id, articul:articul, price: price },
+                    data: { id:id, articul:articul, price:price },
                     dataType: 'json',
                     success: function(response) {
                         if (response.success) {
