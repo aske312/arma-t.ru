@@ -109,6 +109,32 @@ $res = CIBlockElement::GetList(
 $res->NavStart(10);
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default");
 
+// Если корзина пуста
+if (empty($_SESSION['CART'])) {
+    echo "<h2>Ваша корзина пуста</h2>";
+} else {
+    echo "<h2>Ваша корзина</h2>";
+    echo '<table class="cart-table">';
+    echo '<tr><th>Артикул</th><th>Цена</th><th>Количество</th><th>Итого</th><th>Удалить</th></tr>';
+
+    $totalPrice = 0;
+
+    foreach ($_SESSION['CART'] as $productId => $product) {
+        $itemTotalPrice = $product['PRICE'] * $product['QUANTITY'];
+        $totalPrice += $itemTotalPrice;
+
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($product['ARTICUL']) . '</td>';
+        echo '<td>' . number_format($product['PRICE'], 2, '.', '') . ' руб.</td>';
+        echo '<td>' . $product['QUANTITY'] . '</td>';
+        echo '<td>' . number_format($itemTotalPrice, 2, '.', '') . ' руб.</td>';
+        echo '<td><button onclick="removeFromCart(' . $productId . ')">Удалить</button></td>';
+        echo '</tr>';
+    }
+
+    echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
+    echo '</table>';
+}
 ?>
 
         <!-- BODY -->
@@ -239,7 +265,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             function addToCart(id, articul, price) {
                 $.ajax({
                     type: 'POST',
-                    url: '/local/ajax/add_to_cart.php',
+                    url: 'add_to_cart.php',
                     data: { id: id, articul: articul, price: price },
                     dataType: 'json',
                     success: function(response) {
@@ -288,7 +314,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             function removeFromCart(productId) {
                 $.ajax({
                     type: 'POST',
-                    url: '/local/ajax/remove_from_cart.php',
+                    url: 'remove_from_cart.php',
                     data: { id: productId },
                     success: function(response) {
                         alert('Товар удален из корзины');
