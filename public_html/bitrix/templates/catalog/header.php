@@ -128,17 +128,3 @@ if (empty($_SESSION['CART'])) {
                 </div>
             </div>
         </header>
-        <!-- Скрипт для удаления товаров из корзины -->
-        <script>
-        function removeFromCart(productId) {
-            $.ajax({
-                type: 'POST',
-                url: '/local/ajax/remove_from_cart.php',
-                data: { id: productId },
-                success: function(response) {
-                    alert('Товар удален из корзины');
-                    location.reload(); // Перезагрузка страницы
-                }
-            });
-        }
-        </script>
