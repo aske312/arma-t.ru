@@ -242,21 +242,4 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             </div>
         </div>
 
-        <script>
-            // Функция для добавления выбранных товаров в корзину
-            document.querySelector('.catalog-add-all').addEventListener('click', function() {
-                const checkboxes = document.querySelectorAll('.catalog-item-checkbox:checked');
-                checkboxes.forEach(function(checkbox) {
-                    const itemId = checkbox.id.replace('item-', '');
-                    addToCart(itemId);
-                });
-            });
-
-            // Функция для выделения всех товаров
-            function toggleSelectAll(source) {
-                const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
-                checkboxes.forEach(checkbox => checkbox.checked = source.checked);
-            }
-        </script>
-
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
