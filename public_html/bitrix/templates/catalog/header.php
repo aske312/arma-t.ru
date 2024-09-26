@@ -106,47 +106,108 @@ Asset::getInstance()->addJs("/local/js/script.js");
                 </div>
             </div>
         </header>
-
         <script>
+            // Переключение отображения корзины
+            function toggleBasketDropdown() {
+                const basketDropdown = document.getElementById('basketDropdown');
+                basketDropdown.style.display = basketDropdown.style.display === 'none' ? 'block' : 'none';
+            }
 
+            // Функция для добавления товара в корзину
+            function addToCart(itemId) {
+                const basket = getBasket();
+                const item = basket.find(i => i.id === itemId);
+
+                if (item) {
+                    item.count++;
+                } else {
+                    basket.push({ id: itemId, count: 1 });
+                }
+
+                saveBasket(basket);
+                updateBasketUI();
+            }
+
+            // Получение корзины из LocalStorage
+            function getBasket() {
+                const basket = localStorage.getItem('basket');
+                return basket ? JSON.parse(basket) : [];
+            }
+
+            // Сохранение корзины в LocalStorage
+            function saveBasket(basket) {
+                localStorage.setItem('basket', JSON.stringify(basket));
+            }
+
+            // Очистка корзины
+            function clearBasket() {
+                localStorage.removeItem('basket');
+                updateBasketUI();
+            }
+
+            // Обновление пользовательского интерфейса корзины
+            function updateBasketUI() {
+                const basket = getBasket();
+                const basketButton = document.getElementById('basketButton');
+                const basketCount = document.getElementById('basketCount');
+                const basketItems = document.getElementById('basketItems');
+                const basketTotal = document.getElementById('basketTotal');
+
+                if (basket.length === 0) {
+                    basketButton.style.display = 'none';
+                    basketDropdown.style.display = 'none';
+                } else {
+                    basketButton.style.display = 'block';
+                    basketCount.innerText = basket.reduce((sum, item) => sum + item.count, 0);
+                    basketItems.innerHTML = basket.map(item => `
+                        <div>
+                            Товар: ${item.id}, Количество: ${item.count}
+                            <button onclick="removeFromCart(${item.id})">-</button>
+                            <button onclick="increaseCart(${item.id})">+</button>
+                        </div>
+                    `).join('');
+                    const totalPrice = basket.reduce((sum, item) => sum + (getItemPrice(item.id) * item.count), 0);
+                    basketTotal.innerText = 'Общая цена: ' + totalPrice + ' руб.';
+                }
+            }
+
+            // Увеличение количества товаров в корзине
+            function increaseCart(itemId) {
+                const basket = getBasket();
+                const item = basket.find(i => i.id === itemId);
+                if (item) {
+                    item.count++;
+                    saveBasket(basket);
+                    updateBasketUI();
+                }
+            }
+
+            // Уменьшение количества товаров в корзине
+            function removeFromCart(itemId) {
+                const basket = getBasket();
+                const itemIndex = basket.findIndex(i => i.id === itemId);
+                if (itemIndex > -1) {
+                    if (basket[itemIndex].count > 1) {
+                        basket[itemIndex].count--;
+                    } else {
+                        basket.splice(itemIndex, 1);
+                    }
+                    saveBasket(basket);
+                    updateBasketUI();
+                }
+            }
+
+            // Получение цены товара (это просто пример, вместо этого нужно запросить цену из данных товара)
+            function getItemPrice(itemId) {
+                return 100; // заменить на реальную цену товара
+            }
+
+            // Оформление заказа (переход на страницу оформления заказа)
+            function checkout() {
+                alert('Переход на страницу оформления заказа');
+                // Реализуйте переход на страницу оформления заказа
+            }
+
+            // Инициализация корзины при загрузке страницы
+            document.addEventListener('DOMContentLoaded', updateBasketUI);
         </script>
-
-        <style>
-            .cart-wrapper {
-                position: relative;
-                display: inline-block;
-            }
-
-            .cart-dropdown {
-                display: none;
-                position: absolute;
-                right: 0;
-                background: white;
-                box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-                width: 300px;
-                padding: 10px;
-            }
-
-            .cart-dropdown.hidden {
-                display: none;
-            }
-
-            .cart-info, .cart-total {
-                margin: 10px 0;
-            }
-
-            #cart-items {
-                list-style-type: none;
-                padding: 0;
-            }
-
-            #cart-items li {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 10px;
-            }
-
-            .cart-btn {
-                margin-left: 10px;
-            }
-        </style>

@@ -7,10 +7,10 @@ use Bitrix\Main\Page\Asset;
 Loader::includeModule('iblock');
 
 // Подключение стилей и скриптов
-Asset::getInstance()->addCss("/local/css/catalog.css");
-Asset::getInstance()->addCss("/local/css/header.css");
-Asset::getInstance()->addCss("/local/css/footer.css");
-Asset::getInstance()->addJs("/local/js/script.js");
+//Asset::getInstance()->addCss("/local/css/catalog.css");
+//Asset::getInstance()->addCss("/local/css/header.css");
+//Asset::getInstance()->addCss("/local/css/footer.css");
+//Asset::getInstance()->addJs("/local/js/script.js");
 
 // Получение списка секций для бокового меню
 $sectionsFilter = [
@@ -243,6 +243,20 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         </div>
 
         <script>
+            // Функция для добавления выбранных товаров в корзину
+            document.querySelector('.catalog-add-all').addEventListener('click', function() {
+                const checkboxes = document.querySelectorAll('.catalog-item-checkbox:checked');
+                checkboxes.forEach(function(checkbox) {
+                    const itemId = checkbox.id.replace('item-', '');
+                    addToCart(itemId);
+                });
+            });
+
+            // Функция для выделения всех товаров
+            function toggleSelectAll(source) {
+                const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
+                checkboxes.forEach(checkbox => checkbox.checked = source.checked);
+            }
         </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
