@@ -5,18 +5,10 @@
             <div class="cont-info">
                 <h2>Контакты</h2>
                 <div class="cont-details">
-                    <p>
-                         Тел.: +7 (000) 000-00-00
-                    </p>
-                    <p>
-                         Почта: support@arma-t.ru
-                    </p>
-                    <p>
-                         00000, г. Москва
-                    </p>
-                    <p>
-                         ул. ХХХХХХХХХХ, 00
-                    </p>
+                    <p>Тел.: +7 (000) 000-00-00</p>
+                    <p>Почта: support@arma-t.ru</p>
+                    <p>00000, г. Москва</p>
+                    <p>ул. ХХХХХХХХХХ, 00</p>
                 </div>
             </div>
             <div class="map">
@@ -26,9 +18,7 @@
     </div>
     <div class="section footer-title">
         <div class="developer-credit">
-            <p>
-                 Сайт разработан ХХХХХХХХХХ
-            </p>
+            <p>Сайт разработан ХХХХХХХХХХ</p>
         </div>
     </div>
 <!-- -->
