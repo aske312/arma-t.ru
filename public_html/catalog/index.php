@@ -138,7 +138,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <!-- Основная часть каталога -->
             <div class="catalog-content">
 
-                <!-- Фильтры -->
+                <!-- Фильтры
                 <div class="filters">
                     <form method="GET" action="">
                         <table>
@@ -158,7 +158,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         </table>
                         <button type="submit">Применить фильтр</button>
                     </form>
-                </div>
+                </div> -->
 
                 <!-- Чекбокс для выбора всех товаров -->
                 <div class="select-all">
