@@ -207,9 +207,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </table>
                         </div>
 
-                        <!-- Кнопка добавления в корзину -->
-                        <button class="catalog-item-add-to-cart">Добавить в корзину</button>
-
                     </div><?php endif; ?><?php endforeach; ?><?php endwhile; ?>
 
                     <!-- Пагинация -->
@@ -240,21 +237,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
             // Функция для добавления отдельного товара в корзину
             function addToCart(id, articul, price) {
-                // Имитация добавления товара в корзину
-                console.log("Товар добавлен в корзину:", id, articul, price);
-
-                // Ваша логика для работы с корзиной (например, отправка данных на сервер через AJAX)
-                // Пример:
-                /*
                 $.ajax({
                     type: 'POST',
                     url: '/local/ajax/add_to_cart.php',
                     data: { id: id, articul: articul, price: price },
+                    dataType: 'json',
                     success: function(response) {
-                        alert("Товар добавлен в корзину!");
+                        if (response.success) {
+                            alert(response.success);
+                        } else if (response.error) {
+                            alert(response.error);
+                        }
                     }
                 });
-                */
             }
 
             // Функция для выбора всех товаров
@@ -289,5 +284,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 window.location.href = `/catalog/?SECTION_ID=${sectionId}`;
             }
         </script>
+
 <!-- FOOTER -->
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
