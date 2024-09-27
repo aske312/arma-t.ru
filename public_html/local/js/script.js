@@ -33,7 +33,7 @@ function redirectToSection(sectionId) {
 //************ Корзина товаров **************//
 
 // Добавление товара в корзину
-document.querySelectorAll('.add-to-cart').forEach(function (button) {
+document.querySelectorAll('.catalog-item-add-to-cart').forEach(function (button) {
     button.addEventListener('click', function () {
         var productId = this.getAttribute('data-id');
         var productArticle = this.getAttribute('data-article');
