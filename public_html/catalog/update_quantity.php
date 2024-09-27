@@ -1,4 +1,5 @@
 <?php
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 session_start();
 
 $request = Context::getCurrent()->getRequest();
@@ -12,4 +13,6 @@ if (isset($_SESSION['BASKET'][$productId])) {
 
 // Возвращаем обновленные данные корзины
 echo json_encode(array_values($_SESSION['BASKET']));
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
 ?>

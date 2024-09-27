@@ -114,55 +114,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <div class="section-title">
             <h2>Список каталога</h2>
             <p>Выберете раздел, или фильтр</p>
-            <?php
-//                  session_start();
-//
-//                 // Если корзина пуста
-//                 if (empty($_SESSION['CART'])) {
-//                     echo "<h2>Ваша корзина пуста</h2>";
-//                 } else {
-//                     echo "<h2>Ваша корзина</h2>";
-//                     echo '<table class="cart-table">';
-//                     echo '<tr><th>Артикул</th><th>Цена</th><th>Количество</th><th>Итого</th><th>Удалить</th></tr>';
-//
-//                     $totalPrice = 0;
-//
-//                     foreach ($_SESSION['CART'] as $productId => $product) {
-//                         $itemTotalPrice = $product['PRICE'] * $product['QUANTITY'];
-//                         $totalPrice += $itemTotalPrice;
-//
-//                         echo '<tr>';
-//                         echo '<td>' . htmlspecialchars($product['ARTICUL']) . '</td>';
-//                         echo '<td>' . number_format($product['PRICE'], 2, '.', '') . ' руб.</td>';
-//                         echo '<td>' . $product['QUANTITY'] . '</td>';
-//                         echo '<td>' . number_format($itemTotalPrice, 2, '.', '') . ' руб.</td>';
-//                         echo '<td><button onclick="removeFromCart(' . $productId . ')">Удалить</button></td>';
-//                         echo '</tr>';
-//                     }
-//
-//                     echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
-//                     echo '</table>';
-//                 }
-            ?>
-            <div class="basket">
-                <h3>Корзина</h3>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Товар</th>
-                        <th>Количество</th>
-                        <th>Цена</th>
-                        <th>Сумма</th>
-                    </tr>
-                    </thead>
-                    <tbody id="basket-items">
-                    <!-- Товары будут добавлены динамически -->
-                    </tbody>
-                </table>
-                <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
-                <button id="checkout">Оформить заказ</button>
-                <button id="clear-cart">Очистить корзину</button>
-            </div>
         </div>
 
         <div class="catalog-container">
@@ -242,7 +193,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                             <div class="catalog-item-controls">
                                 <button class="catalog-item-add-to-cart" onclick="addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_ARTICUL']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>)">В корзину</button>
-                                <button class="add-to-cart" data-id="<?= $arFields['ID'] ?>">Добавить в корзину</button>
+                                <button class="add-to-cart" data-id="<?= $arFields['ID']; ?>" data-articul="<?= $arProps['EL_ARTICUL']['VALUE']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">Добавить в корзину</button>
                             </div>
                         </div>
 
@@ -361,7 +312,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             });
 
             // Добавление товара в корзину (AJAX)
-            function addToCart(productId) {
+            function addToCart(productId, article, price) {
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', 'add_to_cart.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

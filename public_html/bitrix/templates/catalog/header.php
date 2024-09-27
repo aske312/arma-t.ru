@@ -1,33 +1,4 @@
-<?php if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
-session_start();
-
-// Если корзина пуста
-if (empty($_SESSION['CART'])) {
-    echo "<h2>Ваша корзина пуста</h2>";
-} else {
-    echo "<h2>Ваша корзина</h2>";
-    echo '<table class="cart-table">';
-    echo '<tr><th>Артикул</th><th>Цена</th><th>Количество</th><th>Итого</th><th>Удалить</th></tr>';
-
-    $totalPrice = 0;
-
-    foreach ($_SESSION['CART'] as $productId => $product) {
-        $itemTotalPrice = $product['PRICE'] * $product['QUANTITY'];
-        $totalPrice += $itemTotalPrice;
-
-        echo '<tr>';
-        echo '<td>' . htmlspecialchars($product['ARTICUL']) . '</td>';
-        echo '<td>' . number_format($product['PRICE'], 2, '.', '') . ' руб.</td>';
-        echo '<td>' . $product['QUANTITY'] . '</td>';
-        echo '<td>' . number_format($itemTotalPrice, 2, '.', '') . ' руб.</td>';
-        echo '<td><button onclick="removeFromCart(' . $productId . ')">Удалить</button></td>';
-        echo '</tr>';
-    }
-
-    echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
-    echo '</table>';
-}
-?>
+<?php if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die(); ?>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -117,14 +88,25 @@ if (empty($_SESSION['CART'])) {
 
                     <!-- Корзина -->
                     <div class="basket-container">
-                        <!--
-                        <button id="basketButton" style="display:none;" onclick="toggleBasketDropdown()">В Корзине: <span id="basketCount">0</span></button>
-                        <div id="basketDropdown" class="basket-dropdown" style="display:none;">
-                            <div id="basketItems"></div>
-                            <div id="basketTotal"></div>
-                            <button onclick="checkout()">Оформить заказ</button>
-                            <button onclick="clearBasket()">Очистить корзину</button>
-                        </div> -->
+                        <div class="basket">
+                            <h3>Корзина</h3>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Товар</th>
+                                    <th>Количество</th>
+                                    <th>Цена</th>
+                                    <th>Сумма</th>
+                                </tr>
+                                </thead>
+                                <tbody id="basket-items">
+                                <!-- Товары будут добавлены динамически -->
+                                </tbody>
+                            </table>
+                            <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
+                            <button id="checkout">Оформить заказ</button>
+                            <button id="clear-cart">Очистить корзину</button>
+                        </div>
                     </div>
                 </div>
             </div>
