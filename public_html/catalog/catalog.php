@@ -11,7 +11,7 @@ Loader::includeModule('iblock');
 Asset::getInstance()->addCss("/local/css/catalog.css");
 Asset::getInstance()->addCss("/local/css/header.css");
 Asset::getInstance()->addCss("/local/css/footer.css");
-Asset::getInstance()->addJs("/local/js/script.js");
+// Asset::getInstance()->addJs("/local/js/script.js"); not work
 
 // Берем значение секции
 $sectionId = intval($_GET['SECTION_ID']);
@@ -231,7 +231,7 @@ echo '</pre>'; // Закрываем тег <pre>
 
     <div class="catalog-content">
 
-        <!-- Фильтры -->
+        <!-- Фильтры
         <div class="filters">
             <form method="GET" action="">
                 <table>
@@ -253,7 +253,7 @@ echo '</pre>'; // Закрываем тег <pre>
                 </table>
                 <button type="submit">Применить фильтр</button>
             </form>
-        </div>
+        </div> -->
 
         <!-- Чекбокс для выбора всех товаров -->
         <div class="select-all">

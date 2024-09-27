@@ -115,35 +115,34 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <h2>Список каталога</h2>
             <p>Выберете раздел, или фильтр</p>
             <?php
-
-                 session_start();
-
-                // Если корзина пуста
-                if (empty($_SESSION['CART'])) {
-                    echo "<h2>Ваша корзина пуста</h2>";
-                } else {
-                    echo "<h2>Ваша корзина</h2>";
-                    echo '<table class="cart-table">';
-                    echo '<tr><th>Артикул</th><th>Цена</th><th>Количество</th><th>Итого</th><th>Удалить</th></tr>';
-
-                    $totalPrice = 0;
-
-                    foreach ($_SESSION['CART'] as $productId => $product) {
-                        $itemTotalPrice = $product['PRICE'] * $product['QUANTITY'];
-                        $totalPrice += $itemTotalPrice;
-
-                        echo '<tr>';
-                        echo '<td>' . htmlspecialchars($product['ARTICUL']) . '</td>';
-                        echo '<td>' . number_format($product['PRICE'], 2, '.', '') . ' руб.</td>';
-                        echo '<td>' . $product['QUANTITY'] . '</td>';
-                        echo '<td>' . number_format($itemTotalPrice, 2, '.', '') . ' руб.</td>';
-                        echo '<td><button onclick="removeFromCart(' . $productId . ')">Удалить</button></td>';
-                        echo '</tr>';
-                    }
-
-                    echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
-                    echo '</table>';
-                }
+//                  session_start();
+//
+//                 // Если корзина пуста
+//                 if (empty($_SESSION['CART'])) {
+//                     echo "<h2>Ваша корзина пуста</h2>";
+//                 } else {
+//                     echo "<h2>Ваша корзина</h2>";
+//                     echo '<table class="cart-table">';
+//                     echo '<tr><th>Артикул</th><th>Цена</th><th>Количество</th><th>Итого</th><th>Удалить</th></tr>';
+//
+//                     $totalPrice = 0;
+//
+//                     foreach ($_SESSION['CART'] as $productId => $product) {
+//                         $itemTotalPrice = $product['PRICE'] * $product['QUANTITY'];
+//                         $totalPrice += $itemTotalPrice;
+//
+//                         echo '<tr>';
+//                         echo '<td>' . htmlspecialchars($product['ARTICUL']) . '</td>';
+//                         echo '<td>' . number_format($product['PRICE'], 2, '.', '') . ' руб.</td>';
+//                         echo '<td>' . $product['QUANTITY'] . '</td>';
+//                         echo '<td>' . number_format($itemTotalPrice, 2, '.', '') . ' руб.</td>';
+//                         echo '<td><button onclick="removeFromCart(' . $productId . ')">Удалить</button></td>';
+//                         echo '</tr>';
+//                     }
+//
+//                     echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
+//                     echo '</table>';
+//                 }
             ?>
         </div>
 
@@ -249,6 +248,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         </div>
 
         <script>
+
             // Функция плавующего меню
             function toggleMenu() {
                 var nav = document.getElementById('mainNav');
@@ -277,7 +277,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
             // Функция для редиректа на страницу категории при клике на категорию
             function redirectToSection(sectionId) {
-                window.location.href = `/catalog/?SECTION_ID=${sectionId}`;
+                window.location.href = `/catalog/catalog.php?SECTION_ID=${sectionId}`;
             }
 
             // Функция для добавления отдельного товара в корзину
@@ -329,6 +329,94 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 //                     }
 //                 });
 //             }
+
+//             document.addEventListener('DOMContentLoaded', function () {
+
+            // Добавление товара в корзину
+            document.querySelectorAll('.add-to-cart').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var productId = this.getAttribute('data-id');
+                    addToCart(productId);
+                });
+            });
+
+            // Добавление товара в корзину (AJAX)
+            function addToCart(productId) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'add_to_cart.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        updateCart(JSON.parse(xhr.responseText));
+                    }
+                };
+                xhr.send('id=' + productId);
+            }
+
+            // Обновление корзины
+            function updateCart(basketData) {
+                var basketItems = document.getElementById('basket-items');
+                basketItems.innerHTML = '';
+
+                var totalPrice = 0;
+
+                basketData.forEach(function (item) {
+                    var row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.name}</td>
+                        <td><input type="number" value="${item.quantity}" min="1" class="quantity" data-id="${item.id}"></td>
+                        <td>${item.price}</td>
+                        <td>${item.total}</td>
+                    `;
+                    basketItems.appendChild(row);
+
+                    totalPrice += item.total;
+                });
+
+                document.getElementById('total-price').textContent = totalPrice;
+
+                // Изменение количества товара
+                document.querySelectorAll('.quantity').forEach(function (input) {
+                    input.addEventListener('change', function () {
+                        var productId = this.getAttribute('data-id');
+                        var quantity = this.value;
+                        updateQuantity(productId, quantity);
+                    });
+                });
+            }
+
+            // Обновление количества товара (AJAX)
+            function updateQuantity(productId, quantity) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'update_quantity.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        updateCart(JSON.parse(xhr.responseText));
+                    }
+                };
+                xhr.send('id=' + productId + '&quantity=' + quantity);
+            }
+
+            // Очистка корзины
+            document.getElementById('clear-cart').addEventListener('click', function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'clear_cart.php', true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        updateCart([]);
+                    }
+                };
+                xhr.send();
+            });
+
+            // Оформление заказа
+            document.getElementById('checkout').addEventListener('click', function () {
+                window.location.href = '/checkout/';
+            });
+
+//             });
+
         </script>
 
 <!-- FOOTER -->
