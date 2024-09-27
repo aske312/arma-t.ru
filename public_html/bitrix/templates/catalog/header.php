@@ -11,7 +11,7 @@
     <?$APPLICATION->ShowHead();?>
     <title><?$APPLICATION->ShowTitle();?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <script src="/local/js/script.js"></script>
+    <link rel="script" href="/local/js/script.js"/>
 </head>
     <body>
         <div id="panel"> <?$APPLICATION->ShowPanel();?> </div>
