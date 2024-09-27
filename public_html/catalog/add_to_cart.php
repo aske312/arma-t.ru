@@ -2,34 +2,27 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
 use Bitrix\Main\Context;
-use Bitrix\Main\Loader;
 
 session_start();
 
-Loader::includeModule('iblock');
-
 $request = Context::getCurrent()->getRequest();
 $productId = intval($request->getPost('id'));
-$productId = intval($request->getPost('id'));
-$productId = intval($request->getPost('id'));
+$productArticle = $request->getPost('article');
+$productPrice = floatval($request->getPost('price'));
 
-// Получаем информацию о товаре
-$arSelect = ["ID", "NAME", "PRICE"];
-$arFilter = ["IBLOCK_ID" => 2, "ID" => $productId];
-$res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
-
-if ($item = $res->Fetch()) {
-    if (!isset($_SESSION['BASKET'][$productId])) {
-        $_SESSION['BASKET'][$productId] = [
-            'name' => $item['NAME'],
-            'price' => $item['PRICE'],
-            'quantity' => 1,
-            'total' => $item['PRICE'],
-        ];
-    } else {
-        $_SESSION['BASKET'][$productId]['quantity']++;
-        $_SESSION['BASKET'][$productId]['total'] = $_SESSION['BASKET'][$productId]['quantity'] * $item['PRICE'];
-    }
+// Проверяем, есть ли такой товар в корзине
+if (!isset($_SESSION['BASKET'][$productId])) {
+    $_SESSION['BASKET'][$productId] = [
+        'id' => $productId,
+        'name' => $productId, // Вы можете также добавить название, если оно нужно
+        'article' => $productArticle,
+        'price' => $productPrice,
+        'quantity' => 1,
+        'total' => $productPrice,
+    ];
+} else {
+    $_SESSION['BASKET'][$productId]['quantity']++;
+    $_SESSION['BASKET'][$productId]['total'] = $_SESSION['BASKET'][$productId]['quantity'] * $productPrice;
 }
 
 // Возвращаем обновленные данные корзины

@@ -38,15 +38,17 @@ function redirectToSection(sectionId) {
 //************ Корзина товаров **************//
 
 // Добавление товара в корзину
-document.querySelectorAll('.catalog-item-add-to-cart').forEach(function (button) {
+document.querySelectorAll('.add-to-cart').forEach(function (button) {
     button.addEventListener('click', function () {
         var productId = this.getAttribute('data-id');
-        addToCart(productId);
+        var productArticle = this.getAttribute('data-article');
+        var productPrice = this.getAttribute('data-price');
+        addToCart(productId, productArticle, productPrice);
     });
 });
 
 // Добавление товара в корзину (AJAX)
-function addToCart(productId, article, price) {
+function addToCart(productId, productArticle, productPrice) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'add_to_cart.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -55,7 +57,7 @@ function addToCart(productId, article, price) {
             updateCart(JSON.parse(xhr.responseText));
         }
     };
-    xhr.send('id=' + productId);
+    xhr.send('id=' + productId + '&article=' + productArticle + '&price=' + productPrice);
 }
 
 // Обновление корзины
@@ -69,6 +71,7 @@ function updateCart(basketData) {
         var row = document.createElement('tr');
         row.innerHTML = `
             <td>${item.name}</td>
+            <td>${item.article}</td>
             <td><input type="number" value="${item.quantity}" min="1" class="quantity" data-id="${item.id}"></td>
             <td>${item.price}</td>
             <td>${item.total}</td>
