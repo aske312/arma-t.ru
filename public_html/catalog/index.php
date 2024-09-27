@@ -10,7 +10,7 @@ Loader::includeModule('iblock');
 Asset::getInstance()->addCss("/local/css/catalog.css");
 Asset::getInstance()->addCss("/local/css/header.css");
 Asset::getInstance()->addCss("/local/css/footer.css");
-// Asset::getInstance()->addJs("/local/js/script.js");
+Asset::getInstance()->addJs("/local/js/script.js");
 
 // Получение списка секций для бокового меню
 $sectionsFilter = [
@@ -114,6 +114,29 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <div class="section-title">
             <h2>Список каталога</h2>
             <p>Выберете раздел, или фильтр</p>
+
+            <!-- Корзина -->
+            <div class="basket">
+                <h3>Корзина</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Артикул</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                    </tr>
+                    </thead>
+                    <tbody id="basket-items">
+
+                    <!-- Товары будут добавлены динамически -->
+                    </tbody>
+                </table>
+                <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
+                <button id="checkout">Оформить заказ</button>
+                <button id="clear-cart">Очистить корзину</button>
+            </div>
         </div>
 
         <div class="catalog-container">
