@@ -1,35 +1,6 @@
 <?php
-// require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-//
-// session_start();
-//
-// // Получение данных из POST-запроса
-// $productId = intval($_POST['id']);
-// $articul = htmlspecialchars($_POST['articul']);
-// $price = floatval($_POST['price']);
-//
-// // Добавление товара в корзину
-// if (!isset($_SESSION['CART'][$productId])) {
-//     $_SESSION['CART'][$productId] = [
-//         'ARTICUL' => $articul,
-//         'PRICE' => $price,
-//         'QUANTITY' => 1,
-//     ];
-//     $response = ['success' => 'Товар добавлен в корзину'];
-// } else {
-//     // Увеличение количества, если товар уже в корзине
-//     $_SESSION['CART'][$productId]['QUANTITY'] += 1;
-//     $response = ['success' => 'Количество товара увеличено'];
-// }
-//
-// // Возврат результата в формате JSON
-// echo json_encode($response);
-// exit;
-//
-// require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
-?>
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-<?php
 use Bitrix\Main\Context;
 use Bitrix\Main\Loader;
 
@@ -60,4 +31,37 @@ if ($item = $res->Fetch()) {
 
 // Возвращаем обновленные данные корзины
 echo json_encode(array_values($_SESSION['BASKET']));
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
+?>
+
+<?php
+// require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+//
+// session_start();
+//
+// // Получение данных из POST-запроса
+// $productId = intval($_POST['id']);
+// $articul = htmlspecialchars($_POST['articul']);
+// $price = floatval($_POST['price']);
+//
+// // Добавление товара в корзину
+// if (!isset($_SESSION['CART'][$productId])) {
+//     $_SESSION['CART'][$productId] = [
+//         'ARTICUL' => $articul,
+//         'PRICE' => $price,
+//         'QUANTITY' => 1,
+//     ];
+//     $response = ['success' => 'Товар добавлен в корзину'];
+// } else {
+//     // Увеличение количества, если товар уже в корзине
+//     $_SESSION['CART'][$productId]['QUANTITY'] += 1;
+//     $response = ['success' => 'Количество товара увеличено'];
+// }
+//
+// // Возврат результата в формате JSON
+// echo json_encode($response);
+// exit;
+//
+// require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
 ?>
