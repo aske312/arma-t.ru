@@ -247,7 +247,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 </div>
             </div>
         </div>
+
         <script>
+            // Функция плавующего меню
             function toggleMenu() {
                 var nav = document.getElementById('mainNav');
                 nav.classList.toggle('menu-open');
@@ -265,24 +267,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 }
             }
 
-            // Функция для добавления отдельного товара в корзину
-            function addToCart(id, articul, price) {
-                alert('Выбрано ' + id + ',' + articul + ',' + price);
-                $.ajax({
-                    type: 'POST',
-                    url: 'add_to_cart.php',
-                    data: { id:id, articul:articul, price:price },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.success) {
-                            alert(response.success);
-                        } else if (response.error) {
-                            alert(response.error);
-                        }
-                    }
-                });
-            }
-
             // Функция для выбора всех товаров
             function toggleSelectAll(checkbox) {
                 const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
@@ -291,42 +275,60 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 });
             }
 
-            // Функция для добавления выбранных товаров в корзину
-            function addSelectedToCart() {
-                const selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
-
-                if (selectedItems.length === 0) {
-                    alert('Выберите хотя бы один товар!');
-                    return;
-                }
-
-                selectedItems.forEach(item => {
-                    const id = item.getAttribute('data-id');
-                    const articul = item.getAttribute('data-articul');
-                    const price = item.getAttribute('data-price');
-
-                    // Добавляем каждый выбранный товар в корзину
-                    addToCart(id, articul, price);
-                });
-            }
-
             // Функция для редиректа на страницу категории при клике на категорию
             function redirectToSection(sectionId) {
                 window.location.href = `/catalog/?SECTION_ID=${sectionId}`;
             }
 
+            // Функция для добавления отдельного товара в корзину
+//             function addToCart(id, articul, price) {
+//                 alert('Выбрано ' + id + ',' + articul + ',' + price);
+//                 $.ajax({
+//                     type: 'POST',
+//                     url: 'add_to_cart.php',
+//                     data: { id:id, articul:articul, price:price },
+//                     dataType: 'json',
+//                     success: function(response) {
+//                         if (response.success) {
+//                             alert(response.success);
+//                         } else if (response.error) {
+//                             alert(response.error);
+//                         }
+//                     }
+//                 });
+//             }
+
+            // Функция для добавления выбранных товаров в корзину
+//             function addSelectedToCart() {
+//                 const selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
+//
+//                 if (selectedItems.length === 0) {
+//                     alert('Выберите хотя бы один товар!');
+//                     return;
+//                 }
+//
+//                 selectedItems.forEach(item => {
+//                     const id = item.getAttribute('data-id');
+//                     const articul = item.getAttribute('data-articul');
+//                     const price = item.getAttribute('data-price');
+//
+//                     // Добавляем каждый выбранный товар в корзину
+//                     addToCart(id, articul, price);
+//                 });
+//             }
+
             // Скрипт для удаления товаров из корзины
-            function removeFromCart(productId) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'remove_from_cart.php',
-                    data: { id: productId },
-                    success: function(response) {
-                        alert('Товар удален из корзины');
-                        location.reload(); // Перезагрузка страницы
-                    }
-                });
-            }
+//             function removeFromCart(productId) {
+//                 $.ajax({
+//                     type: 'POST',
+//                     url: 'remove_from_cart.php',
+//                     data: { id: productId },
+//                     success: function(response) {
+//                         alert('Товар удален из корзины');
+//                         location.reload(); // Перезагрузка страницы
+//                     }
+//                 });
+//             }
         </script>
 
 <!-- FOOTER -->
