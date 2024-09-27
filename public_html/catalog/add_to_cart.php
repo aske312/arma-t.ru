@@ -5,9 +5,12 @@ use Bitrix\Main\Context;
 use Bitrix\Main\Loader;
 
 session_start();
+
 Loader::includeModule('iblock');
 
 $request = Context::getCurrent()->getRequest();
+$productId = intval($request->getPost('id'));
+$productId = intval($request->getPost('id'));
 $productId = intval($request->getPost('id'));
 
 // Получаем информацию о товаре
