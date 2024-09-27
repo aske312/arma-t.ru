@@ -4,9 +4,6 @@
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
 
-use Bitrix\Main\Context; // Корзина тест
-use Bitrix\Main\Loader; // Корзина тест
-
 Loader::includeModule('iblock');
 
 // Подключение стилей и скриптов
@@ -118,54 +115,36 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <h2>Список каталога</h2>
             <p>Выберете раздел, или фильтр</p>
             <?php
-//                  session_start();
-//
-//                 // Если корзина пуста
-//                 if (empty($_SESSION['CART'])) {
-//                     echo "<h2>Ваша корзина пуста</h2>";
-//                 } else {
-//                     echo "<h2>Ваша корзина</h2>";
-//                     echo '<table class="cart-table">';
-//                     echo '<tr><th>Артикул</th><th>Цена</th><th>Количество</th><th>Итого</th><th>Удалить</th></tr>';
-//
-//                     $totalPrice = 0;
-//
-//                     foreach ($_SESSION['CART'] as $productId => $product) {
-//                         $itemTotalPrice = $product['PRICE'] * $product['QUANTITY'];
-//                         $totalPrice += $itemTotalPrice;
-//
-//                         echo '<tr>';
-//                         echo '<td>' . htmlspecialchars($product['ARTICUL']) . '</td>';
-//                         echo '<td>' . number_format($product['PRICE'], 2, '.', '') . ' руб.</td>';
-//                         echo '<td>' . $product['QUANTITY'] . '</td>';
-//                         echo '<td>' . number_format($itemTotalPrice, 2, '.', '') . ' руб.</td>';
-//                         echo '<td><button onclick="removeFromCart(' . $productId . ')">Удалить</button></td>';
-//                         echo '</tr>';
-//                     }
-//
-//                     echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
-//                     echo '</table>';
-//                 }
+
+                 session_start();
+
+                // Если корзина пуста
+                if (empty($_SESSION['CART'])) {
+                    echo "<h2>Ваша корзина пуста</h2>";
+                } else {
+                    echo "<h2>Ваша корзина</h2>";
+                    echo '<table class="cart-table">';
+                    echo '<tr><th>Артикул</th><th>Цена</th><th>Количество</th><th>Итого</th><th>Удалить</th></tr>';
+
+                    $totalPrice = 0;
+
+                    foreach ($_SESSION['CART'] as $productId => $product) {
+                        $itemTotalPrice = $product['PRICE'] * $product['QUANTITY'];
+                        $totalPrice += $itemTotalPrice;
+
+                        echo '<tr>';
+                        echo '<td>' . htmlspecialchars($product['ARTICUL']) . '</td>';
+                        echo '<td>' . number_format($product['PRICE'], 2, '.', '') . ' руб.</td>';
+                        echo '<td>' . $product['QUANTITY'] . '</td>';
+                        echo '<td>' . number_format($itemTotalPrice, 2, '.', '') . ' руб.</td>';
+                        echo '<td><button onclick="removeFromCart(' . $productId . ')">Удалить</button></td>';
+                        echo '</tr>';
+                    }
+
+                    echo '<tr><td colspan="3">Общая стоимость:</td><td>' . number_format($totalPrice, 2, '.', '') . ' руб.</td></tr>';
+                    echo '</table>';
+                }
             ?>
-            <div class="basket">
-                <h3>Корзина</h3>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Товар</th>
-                        <th>Количество</th>
-                        <th>Цена</th>
-                        <th>Сумма</th>
-                    </tr>
-                    </thead>
-                    <tbody id="basket-items">
-                    <!-- Товары будут добавлены динамически -->
-                    </tbody>
-                </table>
-                <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
-                <button id="checkout">Оформить заказ</button>
-                <button id="clear-cart">Очистить корзину</button>
-            </div>
         </div>
 
         <div class="catalog-container">
@@ -245,7 +224,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                             <div class="catalog-item-controls">
                                 <button class="catalog-item-add-to-cart" onclick="addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_ARTICUL']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>)">В корзину</button>
-                                <button class="add-to-cart" data-id="<?= $arFields['ID'] ?>">Добавить в корзину</button>
                             </div>
                         </div>
 
@@ -270,12 +248,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             </div>
         </div>
         <script>
-            // Плавающее меню
             function toggleMenu() {
                 var nav = document.getElementById('mainNav');
                 nav.classList.toggle('menu-open');
             }
-
             window.onscroll = function() {stickyHeader()};
 
             var header = document.getElementById("siteHeader");
@@ -290,153 +266,67 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
 
             // Функция для добавления отдельного товара в корзину
-//             function addToCart(id, articul, price) {
-//                 // alert('Выбрано ' + id + ',' + articul + ',' + price);
-//                 $.ajax({
-//                     type: 'POST',
-//                     url: 'add_to_cart.php',
-//                     data: { id:id, articul:articul, price:price },
-//                     dataType: 'json',
-//                     success: function(response) {
-//                         if (response.success) {
-//                             alert(response.success);
-//                         } else if (response.error) {
-//                             alert(response.error);
-//                         }
-//                     }
-//                 });
-//             }
+            function addToCart(id, articul, price) {
+                alert('Выбрано ' + id + ',' + articul + ',' + price);
+                $.ajax({
+                    type: 'POST',
+                    url: 'add_to_cart.php',
+                    data: { id:id, articul:articul, price:price },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.success);
+                        } else if (response.error) {
+                            alert(response.error);
+                        }
+                    }
+                });
+            }
 
             // Функция для выбора всех товаров
-//             function toggleSelectAll(checkbox) {
-//                 const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
-//                 checkboxes.forEach(item => {
-//                     item.checked = checkbox.checked;
-//                 });
-//             }
+            function toggleSelectAll(checkbox) {
+                const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
+                checkboxes.forEach(item => {
+                    item.checked = checkbox.checked;
+                });
+            }
 
             // Функция для добавления выбранных товаров в корзину
-//             function addSelectedToCart() {
-//                 const selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
-//
-//                 if (selectedItems.length === 0) {
-//                     alert('Выберите хотя бы один товар!');
-//                     return;
-//                 }
-//
-//                 selectedItems.forEach(item => {
-//                     const id = item.getAttribute('data-id');
-//                     const articul = item.getAttribute('data-articul');
-//                     const price = item.getAttribute('data-price');
-//
-//                     // Добавляем каждый выбранный товар в корзину
-//                     addToCart(id, articul, price);
-//                 });
-//             }
+            function addSelectedToCart() {
+                const selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
+
+                if (selectedItems.length === 0) {
+                    alert('Выберите хотя бы один товар!');
+                    return;
+                }
+
+                selectedItems.forEach(item => {
+                    const id = item.getAttribute('data-id');
+                    const articul = item.getAttribute('data-articul');
+                    const price = item.getAttribute('data-price');
+
+                    // Добавляем каждый выбранный товар в корзину
+                    addToCart(id, articul, price);
+                });
+            }
 
             // Функция для редиректа на страницу категории при клике на категорию
-//             function redirectToSection(sectionId) {
-//                 window.location.href = `/catalog/?SECTION_ID=${sectionId}`;
-//             }
+            function redirectToSection(sectionId) {
+                window.location.href = `/catalog/?SECTION_ID=${sectionId}`;
+            }
 
             // Скрипт для удаления товаров из корзины
-//             function removeFromCart(productId) {
-//                 $.ajax({
-//                     type: 'POST',
-//                     url: 'remove_from_cart.php',
-//                     data: { id: productId },
-//                     success: function(response) {
-//                         alert('Товар удален из корзины');
-//                         location.reload(); // Перезагрузка страницы
-//                     }
-//                 });
-//             }
-
-                // Test SRC
-//             document.addEventListener('DOMContentLoaded', function () {
-//                 // Добавление товара в корзину
-//                 document.querySelectorAll('.add-to-cart').forEach(function (button) {
-//                     button.addEventListener('click', function () {
-//                         var productId = this.getAttribute('data-id');
-//                         addToCart(productId);
-//                     });
-//                 });
-//
-//                 // Добавление товара в корзину (AJAX)
-//                 function addToCart(productId) {
-//                     var xhr = new XMLHttpRequest();
-//                     xhr.open('POST', 'add_to_cart.php', true);
-//                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-//                     xhr.onreadystatechange = function () {
-//                         if (xhr.readyState == 4 && xhr.status == 200) {
-//                             updateCart(JSON.parse(xhr.responseText));
-//                         }
-//                     };
-//                     xhr.send('id=' + productId);
-//                 }
-//
-//                 // Обновление корзины
-//                 function updateCart(basketData) {
-//                     var basketItems = document.getElementById('basket-items');
-//                     basketItems.innerHTML = '';
-//
-//                     var totalPrice = 0;
-//
-//                     basketData.forEach(function (item) {
-//                         var row = document.createElement('tr');
-//                         row.innerHTML = `
-//                             <td>${item.name}</td>
-//                             <td><input type="number" value="${item.quantity}" min="1" class="quantity" data-id="${item.id}"></td>
-//                             <td>${item.price}</td>
-//                             <td>${item.total}</td>
-//                         `;
-//                         basketItems.appendChild(row);
-//
-//                         totalPrice += item.total;
-//                     });
-//
-//                     document.getElementById('total-price').textContent = totalPrice;
-//
-//                     // Изменение количества товара
-//                     document.querySelectorAll('.quantity').forEach(function (input) {
-//                         input.addEventListener('change', function () {
-//                             var productId = this.getAttribute('data-id');
-//                             var quantity = this.value;
-//                             updateQuantity(productId, quantity);
-//                         });
-//                     });
-//                 }
-//
-//                 // Обновление количества товара (AJAX)
-//                 function updateQuantity(productId, quantity) {
-//                     var xhr = new XMLHttpRequest();
-//                     xhr.open('POST', 'update_quantity.php', true);
-//                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-//                     xhr.onreadystatechange = function () {
-//                         if (xhr.readyState == 4 && xhr.status == 200) {
-//                             updateCart(JSON.parse(xhr.responseText));
-//                         }
-//                     };
-//                     xhr.send('id=' + productId + '&quantity=' + quantity);
-//                 }
-//
-//                 // Очистка корзины
-//                 document.getElementById('clear-cart').addEventListener('click', function () {
-//                     var xhr = new XMLHttpRequest();
-//                     xhr.open('POST', 'clear_cart.php', true);
-//                     xhr.onreadystatechange = function () {
-//                         if (xhr.readyState == 4 && xhr.status == 200) {
-//                             updateCart([]);
-//                         }
-//                     };
-//                     xhr.send();
-//                 });
-//
-//                 // Оформление заказа
-//                 document.getElementById('checkout').addEventListener('click', function () {
-//                     window.location.href = '/checkout/';
-//                 });
-//             });
+            function removeFromCart(productId) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'remove_from_cart.php',
+                    data: { id: productId },
+                    success: function(response) {
+                        alert('Товар удален из корзины');
+                        location.reload(); // Перезагрузка страницы
+                    }
+                });
+            }
         </script>
 
 <!-- FOOTER -->
