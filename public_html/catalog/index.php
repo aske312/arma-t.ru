@@ -216,7 +216,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                             <div class="catalog-item-controls">
                                 <!-- <button class="catalog-item-add-to-cart" onclick="addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_ARTICUL']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>)">В корзину</button> -->
-                                <button class="catalog-item-add-to-cart" data-id="<?= $ob['ID'] ?>" data-article="<?= $arProps['EL_ARTICUL']['VALUE'] ?>"  data-price="<?= $arProps['EL_PRICE']['VALUE'] ?>">В корзину</button>
+                                <button class="catalog-item-add-to-cart" data-id="<?= $ob['ID']; ?>" data-article="<?= $arProps['EL_ARTICUL']['VALUE']; ?>"  data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
                             </div>
                         </div>
 
