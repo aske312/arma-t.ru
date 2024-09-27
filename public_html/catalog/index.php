@@ -144,6 +144,25 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 //                     echo '</table>';
 //                 }
             ?>
+            <div class="basket">
+                <h3>Корзина</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                    </tr>
+                    </thead>
+                    <tbody id="basket-items">
+                    <!-- Товары будут добавлены динамически -->
+                    </tbody>
+                </table>
+                <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
+                <button id="checkout">Оформить заказ</button>
+                <button id="clear-cart">Очистить корзину</button>
+            </div>
         </div>
 
         <div class="catalog-container">
@@ -223,6 +242,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                             <div class="catalog-item-controls">
                                 <button class="catalog-item-add-to-cart" onclick="addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_ARTICUL']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>)">В корзину</button>
+                                <button class="add-to-cart" data-id="<?= $arFields['ID'] ?>">Добавить в корзину</button>
                             </div>
                         </div>
 
