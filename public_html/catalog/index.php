@@ -192,8 +192,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
                             </div>
                             <div class="catalog-item-controls">
-                                <!-- <button class="catalog-item-add-to-cart" onclick="addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_ARTICUL']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>)">В корзину</button> -->
-                                <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-article="<?= $arProps['EL_ARTICUL']['VALUE']; ?>"  data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
+                                <!-- <button class="catalog-item-add-to-cart" onclick="addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_SH_NAME']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>)">В корзину</button> -->
+                                <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-article="<?= $arProps['EL_SH_NAME']['VALUE']; ?>"  data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
                             </div>
                         </div>
 

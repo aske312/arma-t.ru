@@ -145,13 +145,13 @@ nav a:hover, nav a:focus {
 .basket-popup {
     position: fixed;
     right: 20px;
-    top: 150px;
+    top: 140px;
     width: auto;
     background-color: #1E2A45; /* Используем темный фон в тон основной цветовой гамме */
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    padding: 15px;
+    padding: 1px;
     color: white;
 }
 
