@@ -317,6 +317,22 @@ if (CModule::IncludeModule('iblock')) {
             currentSlide(i + 1);  // При клике переходим на слайд с индексом i
         });
     }
+
+    // Отображение корзины
+    function toggleBasket() {
+        var basketDropdown = document.getElementById('basketDropdown');
+        basketDropdown.classList.toggle('visible');
+    }
+
+    // Скроем корзину, если клик произошел вне её области
+    document.addEventListener('click', function(event) {
+        var basket = document.getElementById('basketDropdown');
+        var basketButton = document.querySelector('.basket-toggle');
+
+        if (!basket.contains(event.target) && !basketButton.contains(event.target)) {
+            basket.classList.remove('visible');
+        }
+    });
 </script>
 
 <!-- -->
