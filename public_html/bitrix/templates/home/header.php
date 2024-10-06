@@ -87,7 +87,6 @@
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
                     <!-- Корзина -->
-                    <?php if ($cartItemCount > 0): // Проверка, есть ли товары в корзине ?>
                     <div class="basket-container">
                         <button class="basket-toggle" onclick="toggleBasket()">Корзина (<?php echo $cartItemCount; ?>)</button>
                         <div class="basket-dropdown" id="basketDropdown">
@@ -110,7 +109,6 @@
                             <button id="clear-cart">Очистить корзину</button>
                         </div>
                     </div>
-                    <?php endif; ?>
 
                 </div>
             </div>
