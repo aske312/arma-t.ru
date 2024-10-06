@@ -136,32 +136,38 @@ nav a:hover, nav a:focus {
 }
 
 /******** Корзина *******/
-.basket-dropdown {
-    display: none; /* Корзина скрыта по умолчанию */
-    position: absolute;
-    background-color: white;
-    color: black;
+/* Скрытое всплывающее окно */
+.hidden {
+    display: none;
+}
+
+/* Стиль для выпадающего окна корзины */
+.basket-popup {
+    position: fixed;
+    right: 20px;
+    top: 50px;
     width: 300px;
+    background-color: white;
     border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
     padding: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.basket-container {
-    position: relative;
-}
-
-.basket-container .basket-toggle {
-    background-color: #2654A2;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1em;
+/* Стили для кнопки */
+#basket-button {
+    position: fixed;
+    right: 20px;
+    top: 10px;
     padding: 10px 20px;
+    background-color: #f7b42c;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
-.basket-dropdown.visible {
-    display: block; /* Показываем выпадающую корзину */
+#basket-button:hover {
+    background-color: #e89c19;
 }
 
 /********* Кнопка-гамбургер *********/

@@ -86,29 +86,60 @@
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
-                    <!-- Корзина -->
-                    <div class="basket">
-                        <h3>Корзина</h3>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Товар</th>
-                                <th>Артикул</th>
-                                <th>Количество</th>
-                                <th>Цена</th>
-                                <th>Сумма</th>
-                            </tr>
-                            </thead>
-                            <tbody id="basket-items">
+                    <!-- Кнопка корзины -->
+                    <button id="basket-button">Показать корзину</button>
 
-                            <!-- Товары будут добавлены динамически -->
-                            </tbody>
-                        </table>
-                        <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
-                        <button id="checkout">Оформить заказ</button>
-                        <button id="clear-cart">Очистить корзину</button>
+                    <!-- Корзина -->
+                    <div id="basket-popup" class="basket-popup hidden">
+                        <div class="basket">
+                            <h3>Корзина</h3>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Товар</th>
+                                    <th>Артикул</th>
+                                    <th>Количество</th>
+                                    <th>Цена</th>
+                                    <th>Сумма</th>
+                                </tr>
+                                </thead>
+                                <tbody id="basket-items">
+                                    <!-- Товары будут добавлены динамически -->
+                                </tbody>
+                            </table>
+                            <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
+                            <button id="checkout">Оформить заказ</button>
+                            <button id="clear-cart">Очистить корзину</button>
+                        </div>
+                        <!-- Сообщение, если товаров нет -->
+                        <p id="empty-message" class="hidden">В корзине нет товаров.</p>
                     </div>
 
                 </div>
             </div>
         </header>
+
+        <script>
+            document.getElementById('basket-button').addEventListener('click', function () {
+                const basketPopup = document.getElementById('basket-popup');
+                const basketItems = document.getElementById('basket-items');
+                const emptyMessage = document.getElementById('empty-message');
+
+                // Проверяем, есть ли товары в корзине
+                if (basketItems.children.length === 0) {
+                    emptyMessage.classList.remove('hidden');
+                    basketPopup.classList.add('hidden');
+                    alert("В корзине нет товаров.");
+                } else {
+                    emptyMessage.classList.add('hidden');
+                    basketPopup.classList.toggle('hidden');
+                }
+            });
+
+            // Пример для очистки корзины (для демонстрации)
+            document.getElementById('clear-cart').addEventListener('click', function () {
+                document.getElementById('basket-items').innerHTML = '';
+                document.getElementById('total-price').textContent = '0';
+                alert("Корзина очищена.");
+            });
+        </script>
