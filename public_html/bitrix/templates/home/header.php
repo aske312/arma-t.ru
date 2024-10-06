@@ -88,7 +88,7 @@
 
                     <!-- Корзина -->
                     <div class="basket-container">
-                        <button class="basket-toggle" onclick="toggleBasket()">Корзина (<?php echo $cartItemCount; ?>)</button>
+                        <button class="basket-toggle"> Корзина </button>
                         <div class="basket-dropdown" id="basketDropdown">
                             <table>
                                 <thead>
@@ -101,7 +101,8 @@
                                 </tr>
                                 </thead>
                                 <tbody id="basket-items">
-                                    <!-- Товары будут добавлены динамически -->
+
+                                <!-- Товары будут добавлены динамически -->
                                 </tbody>
                             </table>
                             <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
