@@ -200,6 +200,12 @@ nav a:hover, nav a:focus {
     color: #fff;
 }
 
+.basket-items h4{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Сообщение об отсутствии товаров */
 #empty-message {
     text-align: center;
