@@ -143,10 +143,10 @@ nav a:hover, nav a:focus {
 
 /* Стиль для выпадающего окна корзины */
 .basket-popup {
-    /* position: fixed; */
+    position: relative;
     right: 20px;
     top: 50px;
-    width: 300px;
+    width: auto;
     background-color: #1E2A45; /* Используем темный фон в тон основной цветовой гамме */
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

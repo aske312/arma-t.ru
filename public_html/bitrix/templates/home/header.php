@@ -100,7 +100,6 @@
                                     <th>Артикул</th>
                                     <th>Количество</th>
                                     <th>Цена</th>
-                                    <th>Сумма</th>
                                 </tr>
                                 </thead>
                                 <tbody id="basket-items">
