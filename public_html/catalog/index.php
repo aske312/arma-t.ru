@@ -193,7 +193,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                             <div class="catalog-item-controls">
                                 <!-- <button class="catalog-item-add-to-cart" onclick="addToCart(<?= $arFields['ID']; ?>, '<?= $arProps['EL_SH_NAME']['VALUE']; ?>', <?= $arProps['EL_PRICE']['VALUE']; ?>)">В корзину</button> -->
-                                <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-article="<?= $arProps['EL_SH_NAME']['VALUE']; ?>"  data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
+                                <!-- <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-article="<?= $arProps['EL_SH_NAME']['VALUE']; ?>"  data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button> -->
+                                <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>">В корзину</button>
                             </div>
                         </div>
 
@@ -252,19 +253,16 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
 
             //************ Корзина товаров **************//
-
             // Добавление товара в корзину
             document.querySelectorAll('.catalog-item-add-to-cart').forEach(function (button) {
                 button.addEventListener('click', function () {
                     var productId = this.getAttribute('data-id');
-                    var productArticle = this.getAttribute('data-article');
-                    var productPrice = this.getAttribute('data-price');
-                    addToCart(productId, productArticle, productPrice);
+                    addToCart(productId);
                 });
             });
 
             // Добавление товара в корзину (AJAX)
-            function addToCart(productId, productArticle, productPrice) {
+            function addToCart(productId) {
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', 'add_to_cart.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -273,7 +271,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         updateCart(JSON.parse(xhr.responseText));
                     }
                 };
-                xhr.send('id=' + productId + '&article=' + productArticle + '&price=' + productPrice);
+                xhr.send('id=' + productId);
             }
 
             // Обновление корзины
@@ -284,17 +282,20 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 var totalPrice = 0;
 
                 basketData.forEach(function (item) {
-                    var row = document.createElement('tr');
+                    var row = document.createElement('div');
+                    row.classList.add('basket-item');
                     row.innerHTML = `
-                        <td>${item.name}</td>
-                        <td>${item.article}</td>
-                        <td><input type="number" value="${item.quantity}" min="1" class="quantity" data-id="${item.id}"></td>
-                        <td>${item.price}</td>
-                        <td>${item.total}</td>
+                        <div class="item-details">
+                            <img src="${item.picture}" alt="${item.name}" class="item-picture">
+                            <h4 class="item-name">${item.name}</h4>
+                            <p class="item-price">Цена: ${item.price} руб.</p>
+                            <p class="item-quantity">Количество: <input type="number" value="${item.quantity}" min="1" class="quantity" data-id="${item.id}"></p>
+                            <p class="item-total-price">Стоимость: ${item.price * item.quantity} руб.</p>
+                        </div>
                     `;
                     basketItems.appendChild(row);
 
-                    totalPrice += item.total;
+                    totalPrice += item.price * item.quantity;
                 });
 
                 document.getElementById('total-price').textContent = totalPrice;
@@ -338,6 +339,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             document.getElementById('checkout').addEventListener('click', function () {
                 window.location.href = '/checkout/';
             });
+
         </script>
 
 <!-- FOOTER -->
