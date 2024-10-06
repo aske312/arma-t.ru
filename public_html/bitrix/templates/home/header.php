@@ -91,52 +91,28 @@
 
                     <!-- Корзина -->
                     <div id="basket-popup" class="basket-popup hidden">
+                        <!-- Сообщение, если товаров нет -->
                         <div class="basket">
                             <h3>Корзина</h3>
-
-                            <!-- Секция для товаров -->
-                            <div id="basket-items">
-                                <?php if (!empty($cartItems)) : ?>
-                                    <?php foreach ($cartItems as $item) : ?>
-                                        <?php
-                                            // Получаем данные о товаре
-                                            $itemID = $item['ID'];
-                                            $itemName = $item['EL_SH_NAME'];
-                                            $itemPrice = $item['EL_PRICE'];
-                                            $itemQuantity = $item['QUANTITY'];
-                                            $itemPicture = !empty($item['EL_PICTURE']) ? $item['EL_PICTURE'] : '/path/to/default/section/picture.jpg'; // Если нет изображения, используем изображение раздела
-                                            $itemTotalPrice = $itemPrice * $itemQuantity;
-                                        ?>
-                                        <!-- Карточка товара -->
-                                        <div class="basket-item">
-                                            <img src="<?= $itemPicture ?>" alt="<?= $itemName ?>" class="item-picture">
-                                            <div class="item-details">
-                                                <h4 class="item-name"><?= $itemName ?></h4>
-                                                <p class="item-price">Цена: <?= $itemPrice ?> руб.</p>
-                                                <p class="item-quantity">Количество: <?= $itemQuantity ?></p>
-                                                <p class="item-total-price">Стоимость: <?= $itemTotalPrice ?> руб.</p>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                <?php else : ?>
-                                    <!-- Сообщение, если товаров нет -->
-                                    <p id="empty-message">В корзине нет товаров.</p>
-                                <?php endif; ?>
-                            </div>
-
-                            <p>Итоговая стоимость: <span id="total-price">
-                                <?php
-                                $totalPrice = 0;
-                                foreach ($cartItems as $item) {
-                                    $totalPrice += $item['EL_PRICE'] * $item['QUANTITY'];
-                                }
-                                echo $totalPrice;
-                                ?>
-                            </span> руб.</p>
-
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Товар</th>
+                                    <th>Артикул</th>
+                                    <th>Количество</th>
+                                    <th>Цена</th>
+                                    <th>Стоимость</th>
+                                </tr>
+                                </thead>
+                                <tbody id="basket-items">
+                                    <!-- Товары будут добавлены динамически -->
+                                </tbody>
+                            </table>
+                            <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
                             <button id="checkout">Оформить заказ</button>
                             <button id="clear-cart">Очистить корзину</button>
                         </div>
+                        <p id="empty-message" class="hidden">В корзине нет товаров.</p>
                     </div>
 
                 </div>
