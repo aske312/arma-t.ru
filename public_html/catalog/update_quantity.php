@@ -3,17 +3,15 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 
 session_start();
 
-$request = Context::getCurrent()->getRequest();
-$productId = intval($request->getPost('id'));
-$quantity = intval($request->getPost('quantity'));
+$productId = intval($_POST['id']);
+$quantity = intval($_POST['quantity']);
 
-if (isset($_SESSION['BASKET'][$productId])) {
-    $_SESSION['BASKET'][$productId]['quantity'] = $quantity;
-    $_SESSION['BASKET'][$productId]['total'] = $_SESSION['BASKET'][$productId]['price'] * $quantity;
+if (isset($_SESSION['CART'][$productId])) {
+    $_SESSION['CART'][$productId]['quantity'] = $quantity;
+
+    // Возвращаем обновленные данные корзины
+    echo json_encode(array_values($_SESSION['CART']));
 }
-
-// Возвращаем обновленные данные корзины
-echo json_encode(array_values($_SESSION['BASKET']));
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
 ?>

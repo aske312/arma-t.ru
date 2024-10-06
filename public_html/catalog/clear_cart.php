@@ -1,5 +1,5 @@
 <?php
 session_start();
-$_SESSION['BASKET'] = [];
+unset($_SESSION['CART']);
 echo json_encode([]);
 ?>

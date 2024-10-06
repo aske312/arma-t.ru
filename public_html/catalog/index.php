@@ -339,7 +339,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             document.getElementById('checkout').addEventListener('click', function () {
                 window.location.href = '/checkout/';
             });
-
         </script>
 
 <!-- FOOTER -->
