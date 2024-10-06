@@ -143,7 +143,7 @@ nav a:hover, nav a:focus {
 
 /* Стиль для выпадающего окна корзины */
 .basket-popup {
-    position: relative;
+    position: absolut;
     right: 20px;
     top: 50px;
     width: auto;
