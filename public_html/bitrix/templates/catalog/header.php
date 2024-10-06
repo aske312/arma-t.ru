@@ -33,35 +33,6 @@
                 <div class="contact-info">
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
-
-                    <div class="section-title">
-                        <h2>Список каталога</h2>
-                        <p>Выберете раздел, или фильтр</p>
-
-                        <!-- Корзина -->
-                        <div class="basket">
-                            <h3>Корзина</h3>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Товар</th>
-                                    <th>Артикул</th>
-                                    <th>Количество</th>
-                                    <th>Цена</th>
-                                    <th>Сумма</th>
-                                </tr>
-                                </thead>
-                                <tbody id="basket-items">
-
-                                <!-- Товары будут добавлены динамически -->
-                                </tbody>
-                            </table>
-                            <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
-                            <button id="checkout">Оформить заказ</button>
-                            <button id="clear-cart">Очистить корзину</button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </header>
