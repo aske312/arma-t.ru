@@ -338,6 +338,22 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             document.getElementById('checkout').addEventListener('click', function () {
                 window.location.href = '/checkout/';
             });
+
+            // Отображение корзины
+            function toggleBasket() {
+                var basketDropdown = document.getElementById('basketDropdown');
+                basketDropdown.classList.toggle('visible');
+            }
+
+            // Скроем корзину, если клик произошел вне её области
+            document.addEventListener('click', function(event) {
+                var basket = document.getElementById('basketDropdown');
+                var basketButton = document.querySelector('.basket-toggle');
+
+                if (!basket.contains(event.target) && !basketButton.contains(event.target)) {
+                    basket.classList.remove('visible');
+                }
+            });
         </script>
 
 <!-- FOOTER -->
