@@ -91,31 +91,33 @@
 
                     <!-- Корзина -->
                     <div id="basket-popup" class="basket-popup hidden">
-                        <div class="basket">
-                            <h3>Корзина</h3>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Товар</th>
-                                    <th>Артикул</th>
-                                    <th>Количество</th>
-                                    <th>Цена</th>
-                                </tr>
-                                </thead>
-                                <tbody id="basket-items">
-                                    <!-- Товары будут добавлены динамически -->
-                                </tbody>
-                            </table>
-                            <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
-                            <button id="checkout">Оформить заказ</button>
-                            <button id="clear-cart">Очистить корзину</button>
-                        </div>
                         <!-- Сообщение, если товаров нет -->
                         <p id="empty-message" class="hidden">В корзине нет товаров.</p>
                     </div>
 
                 </div>
             </div>
+
+            <div class="basket">
+                <h3>Корзина</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Артикул</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                    </tr>
+                    </thead>
+                    <tbody id="basket-items">
+                        <!-- Товары будут добавлены динамически -->
+                    </tbody>
+                </table>
+                <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
+                <button id="checkout">Оформить заказ</button>
+                <button id="clear-cart">Очистить корзину</button>
+            </div>
+
         </header>
 
         <script>
