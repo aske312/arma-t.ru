@@ -87,28 +87,48 @@
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
                     <!-- Корзина -->
-                    <div class="basket">
-                        <h3>Корзина</h3>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Товар</th>
-                                <th>Артикул</th>
-                                <th>Количество</th>
-                                <th>Цена</th>
-                                <th>Сумма</th>
-                            </tr>
-                            </thead>
-                            <tbody id="basket-items">
-
-                            <!-- Товары будут добавлены динамически -->
-                            </tbody>
-                        </table>
-                        <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
-                        <button id="checkout">Оформить заказ</button>
-                        <button id="clear-cart">Очистить корзину</button>
+                    <?php if ($cartItemCount > 0): // Проверка, есть ли товары в корзине ?>
+                    <div class="basket-container">
+                        <button class="basket-toggle" onclick="toggleBasket()">Корзина (<?php echo $cartItemCount; ?>)</button>
+                        <div class="basket-dropdown" id="basketDropdown">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Товар</th>
+                                    <th>Артикул</th>
+                                    <th>Количество</th>
+                                    <th>Цена</th>
+                                    <th>Сумма</th>
+                                </tr>
+                                </thead>
+                                <tbody id="basket-items">
+                                    <!-- Товары будут добавлены динамически -->
+                                </tbody>
+                            </table>
+                            <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
+                            <button id="checkout">Оформить заказ</button>
+                            <button id="clear-cart">Очистить корзину</button>
+                        </div>
                     </div>
+                    <?php endif; ?>
 
                 </div>
             </div>
         </header>
+
+        <script>
+            function toggleBasket() {
+                var basketDropdown = document.getElementById('basketDropdown');
+                basketDropdown.classList.toggle('visible');
+            }
+
+            // Скроем корзину, если клик произошел вне её области
+            document.addEventListener('click', function(event) {
+                var basket = document.getElementById('basketDropdown');
+                var basketButton = document.querySelector('.basket-toggle');
+
+                if (!basket.contains(event.target) && !basketButton.contains(event.target)) {
+                    basket.classList.remove('visible');
+                }
+            });
+        </script>

@@ -135,6 +135,35 @@ nav a:hover, nav a:focus {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Тень для фиксации */
 }
 
+/******** Корзина *******/
+.basket-dropdown {
+    display: none; /* Корзина скрыта по умолчанию */
+    position: absolute;
+    background-color: white;
+    color: black;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.basket-container {
+    position: relative;
+}
+
+.basket-container .basket-toggle {
+    background-color: #2654A2;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 10px 20px;
+}
+
+.basket-dropdown.visible {
+    display: block; /* Показываем выпадающую корзину */
+}
+
 /********* Кнопка-гамбургер *********/
 .menu-toggle {
     display: block; /* Кнопка отображается по умолчанию */
