@@ -92,7 +92,7 @@ pre { /* DEBUG */
     border-radius: 5px;
 }
 
-.category-block .active {
+.category-block.active {
     border-radius: 5px;
     box-shadow: 0 0 5px #191970;
 }
