@@ -211,7 +211,8 @@ echo '</pre>'; // Закрываем тег <pre>
         <ul id="catalog-menu" class="catalog-menu">
             <?php if (!empty($arResult['SECTIONS'])): ?>
             <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-            <li>
+            <?php $isActive = ($arSection['ID'] == $currentSectionID) ? 'active' : ''; ?>
+            <li class="<?= $isActive; ?>">
                 <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
                     <?php if ($arSection['PICTURE']): ?>
                     <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
@@ -219,10 +220,10 @@ echo '</pre>'; // Закрываем тег <pre>
                     <?php else: ?><img alt="Нет изображения" src="/local/img/no_image.png"><?php endif; ?>
                     <div class="category-text"> <?= $arSection['NAME']; ?> </div>
                 </div>
-            </li><?php endforeach; ?><?php endif; ?>
+            </li>
+            <?php endforeach; ?><?php endif; ?>
         </ul>
     </div>
-
 
     <div class="catalog-content">
 
