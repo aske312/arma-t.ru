@@ -105,25 +105,27 @@ Asset::getInstance()->addJs("/local/js/script.js");
                     <button id="basket-button">Корзина</button>
 
                     <!-- Корзина -->
-                    <div class="basket">
-                        <h3>Корзина</h3>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Картинка</th>
-                                <th>Товар</th>
-                                <th>Количество</th>
-                                <th>Цена</th>
-                                <th>Стоимость</th>
-                            </tr>
-                            </thead>
-                            <tbody id="basket-items">
-                                <!-- Товары будут добавляться динамически -->
-                            </tbody>
-                        </table>
-                        <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
-                        <button id="checkout">Оформить заказ</button>
-                        <button id="clear-cart">Очистить корзину</button>
+                    <div id="basket-popup" class="basket-popup hidden">
+                        <div class="basket">
+                            <h3>Корзина</h3>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Картинка</th>
+                                    <th>Товар</th>
+                                    <th>Количество</th>
+                                    <th>Цена</th>
+                                    <th>Стоимость</th>
+                                </tr>
+                                </thead>
+                                <tbody id="basket-items">
+                                    <!-- Товары будут добавляться динамически -->
+                                </tbody>
+                            </table>
+                            <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
+                            <button id="checkout">Оформить заказ</button>
+                            <button id="clear-cart">Очистить корзину</button>
+                        </div>
                     </div>
 
                 </div>
