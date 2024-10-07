@@ -1,4 +1,11 @@
-<?php if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();?>
+<?php if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
+
+// Подключение модулей и стилей
+use Bitrix\Main\Loader;
+use Bitrix\Main\Page\Asset;
+
+Asset::getInstance()->addJs("/local/js/script.js");
+?>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -109,26 +116,5 @@
         </header>
 
         <script>
-            document.getElementById('basket-button').addEventListener('click', function () {
-                const basketPopup = document.getElementById('basket-popup');
-                const basketItems = document.getElementById('basket-items');
-                const emptyMessage = document.getElementById('empty-message');
 
-                // Проверяем, есть ли товары в корзине
-                if (basketItems.children.length === 0) {
-                    emptyMessage.classList.remove('hidden');
-                    basketPopup.classList.add('hidden');
-                    alert("В корзине нет товаров.");
-                } else {
-                    emptyMessage.classList.add('hidden');
-                    basketPopup.classList.toggle('hidden');
-                }
-            });
-
-            // Пример для очистки корзины (для демонстрации)
-            document.getElementById('clear-cart').addEventListener('click', function () {
-                document.getElementById('basket-items').innerHTML = '';
-                document.getElementById('total-price').textContent = '0';
-                alert("Корзина очищена.");
-            });
         </script>
