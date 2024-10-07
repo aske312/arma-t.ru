@@ -214,7 +214,7 @@ echo '</pre>'; // Закрываем тег <pre>
             <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
             <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
             <li class="<?= $isActive; ?>">
-                <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                <div class="category-block <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
                     <?php if ($arSection['PICTURE']): ?>
                     <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
                     <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
