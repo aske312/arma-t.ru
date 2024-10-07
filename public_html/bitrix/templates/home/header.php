@@ -26,6 +26,7 @@ Asset::getInstance()->addJs("/local/js/script.js");
     <title><?$APPLICATION->ShowTitle();?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script> <!-- cookie -->
+    <script src="/js/script.js"></script>
 </head>
     <body>
         <div id="panel"> <?$APPLICATION->ShowPanel();?> </div>
@@ -119,24 +120,3 @@ Asset::getInstance()->addJs("/local/js/script.js");
                 </div>
             </div>
         </header>
-
-        <script>
-            // Функции плавующего меню
-            function toggleMenu() {
-                var nav = document.getElementById('mainNav');
-                nav.classList.toggle('menu-open');
-            }
-
-            window.onscroll = function() {stickyHeader()};
-
-            var header = document.getElementById("siteHeader");
-            var sticky = header.offsetTop;
-
-            function stickyHeader() {
-                if (window.pageYOffset > sticky) {
-                    header.classList.add("fixed");
-                } else {
-                    header.classList.remove("fixed");
-                }
-            }
-        </script>
