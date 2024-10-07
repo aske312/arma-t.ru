@@ -136,74 +136,34 @@ nav a:hover, nav a:focus {
 }
 
 /********* Корзина *********/
-/* Скрытое всплывающее окно */
+.cart-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    color: #000;
+}
+
 .hidden {
     display: none;
 }
 
-/* Стиль для выпадающего окна корзины */
-.basket-popup {
-    position: fixed;
-    right: 20px;
-    top: 140px;
-    width: auto;
-    background-color: #1E2A45; /* Используем темный фон в тон основной цветовой гамме */
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    padding: 1px;
-    color: white;
-}
-
-/* Стили для кнопки */
-#basket-button {
-    /*position: ; */
-    right: 20px;
-    top: 10px;
-    padding: 10px 20px;
-    background-color: #2654A2; /* Цвет кнопки в тон существующего стиля */
+#cart-button {
+    position: relative;
+    background-color: #28a745;
     color: white;
     border: none;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
 }
 
-#basket-button:hover {
-    background-color: #0056b3; /* Добавляем hover эффект */
-}
-
-/* Стили для элементов корзины */
-.basket h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.basket table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 10px;
-}
-
-.basket table th, .basket table td {
-    border: 1px solid #ccc;
-    padding: 5px;
-    text-align: center;
-}
-
-.basket table th {
-    background-color: #2E3D5C;
-    color: white;
-}
-
-.basket table td {
-    background-color: #1E2A45;
-    color: #fff;
-}
-
-.basket-items h4{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+#cart-button:hover {
+    background-color: #218838;
 }
 
 /* Сообщение об отсутствии товаров */
