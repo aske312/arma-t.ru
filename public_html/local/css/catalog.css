@@ -65,11 +65,6 @@ pre { /* DEBUG */
     margin-bottom: 10px;
 }
 
-.catalog-menu li.active {
-    border-radius: 5px;
-    box-shadow: 0 0 5px #191970;
-}
-
 .catalog-menu a {
     text-decoration: none;
     color: #007bff;
@@ -95,6 +90,11 @@ pre { /* DEBUG */
     background: white; /* #162139; */
     border: 1px solid #ddd;
     border-radius: 5px;
+}
+
+.category-block .active {
+    border-radius: 5px;
+    box-shadow: 0 0 5px #191970;
 }
 
 .category-block:hover {
