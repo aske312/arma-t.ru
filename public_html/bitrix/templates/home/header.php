@@ -25,6 +25,7 @@ Asset::getInstance()->addJs("/local/js/script.js");
     <?$APPLICATION->ShowHead();?>
     <title><?$APPLICATION->ShowTitle();?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script> <!-- cookie -->
 </head>
     <body>
         <div id="panel"> <?$APPLICATION->ShowPanel();?> </div>
@@ -104,18 +105,25 @@ Asset::getInstance()->addJs("/local/js/script.js");
                     <button id="basket-button">Корзина</button>
 
                     <!-- Корзина -->
-                    <div id="basket-popup" class="basket-popup hidden">
-                        <!-- Сообщение, если товаров нет -->
-                        <div class="basket">
-                            <h3>Корзина</h3>
-                            <div id="basket-items">
-                                <!-- Товары будут добавлены динамически через AJAX -->
-                            </div>
-                            <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
-                            <button id="checkout">Оформить заказ</button>
-                            <button id="clear-cart">Очистить корзину</button>
-                        </div>
-                        <p id="empty-message" class="hidden">В корзине нет товаров.</p>
+                    <div class="basket">
+                        <h3>Корзина</h3>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Картинка</th>
+                                <th>Товар</th>
+                                <th>Количество</th>
+                                <th>Цена</th>
+                                <th>Стоимость</th>
+                            </tr>
+                            </thead>
+                            <tbody id="basket-items">
+                                <!-- Товары будут добавляться динамически -->
+                            </tbody>
+                        </table>
+                        <p>Итоговая стоимость: <span id="total-price">0</span> руб.</p>
+                        <button id="checkout">Оформить заказ</button>
+                        <button id="clear-cart">Очистить корзину</button>
                     </div>
 
                 </div>

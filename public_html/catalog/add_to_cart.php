@@ -1,40 +1,29 @@
-<?php
-// Подключаем необходимые модули
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-use Bitrix\Main\Loader;
-Loader::includeModule("iblock");
+// Подключаемся к Битрикс и получаем данные по ID товара
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+    $productId = intval($_POST['id']);
 
-// Получаем ID товара из POST-запроса
-$productId = intval($_POST['id']);
+    // Получаем товар из инфоблока (пример)
+    $product = CIBlockElement::GetByID($productId)->GetNext();
 
-// Проверяем, что ID валидный
-if ($productId > 0) {
-    // Получаем товар из инфоблока "catalog"
-    $arSelect = ["ID", "NAME", "DETAIL_PICTURE", "CATALOG_PRICE_1"];
-    $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените IBLOCK_ID на ID вашего инфоблока
-    $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
-    
-    if ($arItem = $res->GetNext()) {
-        // Получаем изображение
-        $pictureSrc = !empty($arItem["DETAIL_PICTURE"]) ? CFile::GetPath($arItem["DETAIL_PICTURE"]) : '/path/to/default/picture.jpg';
-
-        // Формируем данные товара
-        $item = [
-            'id' => $arItem["ID"],
-            'name' => $arItem["NAME"],
-            'picture' => $pictureSrc,
-            'price' => $arItem["CATALOG_PRICE_1"],
-            'quantity' => 1, // по умолчанию количество 1
+    // Если товар найден, получаем данные
+    if ($product) {
+        $response = [
+            'id' => $product['ID'],
+            'name' => $product['EL_SH_NAME'],  // Краткое название
+            'article' => $product['ARTICLE'],  // Артикул
+            'price' => $product['EL_PRICE'] ?? 0,  // Цена
+            'picture' => CFile::GetPath($product['EL_PICTURE']),  // Картинка
+            'section_picture' => CFile::GetPath($product['SECTION_PICTURE'])  // Картинка раздела
         ];
-
-        // Добавляем товар в сессию (или базу данных)
-        $_SESSION['CART'][$arItem["ID"]] = $item;
-
-        // Возвращаем данные корзины
-        echo json_encode(array_values($_SESSION['CART']));
+    } else {
+        $response = [
+            'error' => 'Товар не найден'
+        ];
     }
+
+    echo json_encode($response);
 }
 
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
-?>
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php"); ?>
