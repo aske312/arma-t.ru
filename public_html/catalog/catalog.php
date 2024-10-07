@@ -209,9 +209,10 @@ echo '</pre>'; // Закрываем тег <pre>
     <!-- Боковое меню категорий -->
     <div class="catalog-sidebar">
         <ul id="catalog-menu" class="catalog-menu">
-            <?php if (!empty($arResult['SECTIONS'])): ?>
+            <?php $sectionId = intval($_GET['SECTION_ID']); // Получаем ID активной секции из запроса
+            if (!empty($arResult['SECTIONS'])): ?>
             <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-            <?php $isActive = ($arSection['ID'] == $currentSectionID) ? 'active' : ''; ?>
+            <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
             <li class="<?= $isActive; ?>">
                 <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
                     <?php if ($arSection['PICTURE']): ?>
