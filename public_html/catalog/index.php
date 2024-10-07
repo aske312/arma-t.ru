@@ -1,17 +1,5 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
-// Подключение модулей и стилей
-//use Bitrix\Main\Loader;
-//use Bitrix\Main\Page\Asset;
-
-//Loader::includeModule('iblock');
-
-// Подключение стилей и скриптов
-//Asset::getInstance()->addCss("/local/css/catalog.css");
-//Asset::getInstance()->addCss("/local/css/header.css");
-//Asset::getInstance()->addCss("/local/css/footer.css");
-//Asset::getInstance()->addJs("/local/js/script.js");
-
 // Получение списка секций для бокового меню
 $sectionsFilter = [
     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
