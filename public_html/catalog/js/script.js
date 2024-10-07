@@ -1,22 +1,3 @@
-// Функции плавующего меню
-function toggleMenu() {
-    var nav = document.getElementById('mainNav');
-    nav.classList.toggle('menu-open');
-}
-
-window.onscroll = function() {stickyHeader()};
-
-var header = document.getElementById("siteHeader");
-var sticky = header.offsetTop;
-
-function stickyHeader() {
-    if (window.pageYOffset > sticky) {
-        header.classList.add("fixed");
-    } else {
-        header.classList.remove("fixed");
-    }
-}
-
 // Функция для выбора всех товаров
 function toggleSelectAll(checkbox) {
     const checkboxes = document.querySelectorAll('.catalog-item-checkbox');

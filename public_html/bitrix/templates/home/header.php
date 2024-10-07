@@ -120,3 +120,23 @@ Asset::getInstance()->addJs("/local/js/script.js");
                 </div>
             </div>
         </header>
+        <script>
+            // Функции плавующего меню
+            function toggleMenu() {
+                var nav = document.getElementById('mainNav');
+                nav.classList.toggle('menu-open');
+            }
+
+            window.onscroll = function() {stickyHeader()};
+
+            var header = document.getElementById("siteHeader");
+            var sticky = header.offsetTop;
+
+            function stickyHeader() {
+                if (window.pageYOffset > sticky) {
+                    header.classList.add("fixed");
+                } else {
+                    header.classList.remove("fixed");
+                }
+            }
+        </script>

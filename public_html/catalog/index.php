@@ -102,6 +102,22 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <div class="section-title">
             <h2>Список каталога</h2>
             <p>Выберете раздел, или фильтр</p>
+
+
+            <!-- Кнопка для корзины со счетчиком -->
+            <button id="cart-button" class="hidden">
+                Корзина (<span id="cart-count">0</span>)
+            </button>
+
+            <!-- Выпадающий список корзины -->
+            <div id="cart-dropdown" class="cart-dropdown hidden">
+                <h3>Ваша корзина</h3>
+                <ul id="cart-items">
+                    <!-- Список товаров будет добавляться динамически -->
+                </ul>
+                <p>Итоговая стоимость: <span id="cart-total-price">0</span> руб.</p>
+                <button id="checkout">Оформить заказ</button>
+            </div>
         </div>
 
         <div class="catalog-container">
