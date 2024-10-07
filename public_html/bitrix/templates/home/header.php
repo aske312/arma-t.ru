@@ -4,7 +4,14 @@
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
 
+Loader::includeModule('iblock');
+
+// Подключение стилей и скриптов
+Asset::getInstance()->addCss("/local/css/catalog.css");
+Asset::getInstance()->addCss("/local/css/header.css");
+Asset::getInstance()->addCss("/local/css/footer.css");
 Asset::getInstance()->addJs("/local/js/script.js");
+
 ?>
 
 <!DOCTYPE html>
