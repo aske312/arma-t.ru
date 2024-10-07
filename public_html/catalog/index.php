@@ -208,8 +208,5 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             </div>
         </div>
 
-        <script>
-        </script>
-
 <!-- FOOTER -->
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
