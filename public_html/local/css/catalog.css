@@ -66,8 +66,8 @@ pre { /* DEBUG */
 }
 
 .catalog-menu li.active {
-    background-color: #red;
-    border-left: 4px solid #007bff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #191970;
 }
 
 .catalog-menu a {
