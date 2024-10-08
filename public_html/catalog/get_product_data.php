@@ -19,4 +19,5 @@ if (isset($_POST['id'])) {
         echo json_encode(['error' => 'Product not found']);
     }
 }
-?>
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php"); ?>
