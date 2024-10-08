@@ -14,7 +14,7 @@ $basketData = [];
 foreach ($productIds as $productId) {
     $res = CIBlockElement::GetList(
         [],
-        ['IBLOCK_ID' => $catalogIblockId, 'ID' => $productId],
+        ['IBLOCK_ID' => 2, 'ID' => $productId],
         false,
         false,
         ['ID', 'NAME', 'PRICE', 'DETAIL_PICTURE']
