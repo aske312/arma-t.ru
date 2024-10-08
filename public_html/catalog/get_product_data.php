@@ -44,9 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $basketData[] = [
                     "id" => $arFields['ID'],
                     "name" => $arFields['NAME'],
-                    "price" => $arFields['EL_PRICE']['VALUE'] ?: 0,
+                    "price" => $arFields['EL_PRICE']['VALUE'], //?: 0,
                     "quantity" => $quantity,
-                    "total" => ($arFields['EL_PRICE']['VALUE'] ?: 0) * $quantity,
+                    "total" => 0, //($arFields['EL_PRICE']['VALUE'] ?: 0) * $quantity,
                     "picture" => $pictureSrc
                 ];
             }
