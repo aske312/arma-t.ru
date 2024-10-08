@@ -9,10 +9,10 @@ use Bitrix\Main\Loader;
 // error_reporting(E_ALL);
 
 // Проверка на подключение модуля инфоблоков
-// if (!Loader::includeModule('iblock')) {
-//     echo json_encode(['error' => 'Ошибка загрузки модуля инфоблоков.']);
-//     exit;
-// }
+if (!Loader::includeModule('iblock')) {
+    echo json_encode(['error' => 'Ошибка загрузки модуля инфоблоков.']);
+    exit;
+}
 
 // Получение ID товара из запроса
 if (isset($_POST['id']) && is_numeric($_POST['id'])) {
@@ -57,4 +57,4 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
     echo json_encode(['error' => 'Неверный ID товара.']);
 }
 
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php"); ?>
+?>
