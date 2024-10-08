@@ -47,7 +47,7 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
             'id' => $arFields['ID'],
             'name' => $arFields['NAME'],
             'price' => $price,
-            //'image' => $imageSrc ?: '/images/default.jpg'
+            'image' => $imageSrc //?: '/images/default.jpg'
         ]);
     } else {
         echo json_encode(['error' => 'Товар не найден.']);
