@@ -4,7 +4,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 // Берем значение секции
 $sectionId = intval($_GET['SECTION_ID']);
 if (empty($sectionId)) {
-    $sectionId = '2';
+    $sectionId = 2;
 }
 
 use Bitrix\Main\Page\Asset;
