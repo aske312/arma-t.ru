@@ -1,23 +1,59 @@
 <?php
-// get_product_data.php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+// Подключение ядра Bitrix
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+use Bitrix\Main\Loader;
 
-if (isset($_POST['id'])) {
-    $productId = intval($_POST['id']);
-    $arSelect = Array("ID", "NAME", "PROPERTY_PRICE", "PROPERTY_IMAGE");
-    $arFilter = Array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $productId);
-    $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-    if ($ob = $res->GetNext()) {
-        $response = [
-            'id' => $ob['ID'],
-            'name' => $ob['NAME'],
-            'price' => $ob['PROPERTY_PRICE_VALUE'] ?: 0,
-            'image' => CFile::GetPath($ob['PROPERTY_IMAGE_VALUE']) ?: '/path/to/default/image.jpg'
-        ];
-        echo json_encode($response);
+// Включаем вывод ошибок для отладки
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Проверка на подключение модуля инфоблоков
+if (!Loader::includeModule('iblock')) {
+    echo json_encode(['error' => 'Ошибка загрузки модуля инфоблоков.']);
+    exit;
+}
+
+// Получение ID товара из запроса
+if (isset($_POST['id']) && is_numeric($_POST['id'])) {
+    $productId = (int)$_POST['id'];
+
+    // Запрос данных о товаре из инфоблока (замените на ваш ID инфоблока)
+    $res = CIBlockElement::GetList(
+        [],
+        ['IBLOCK_ID' => CATALOG_IBLOCK_ID, 'ID' => $productId],
+        false,
+        false,
+        ['ID', 'NAME', 'DETAIL_PICTURE', 'PROPERTY_PRICE']
+    );
+
+    if ($arFields = $res->Fetch()) {
+        // Получение изображения товара или замена на картинку раздела
+        $imageSrc = '';
+        if ($arFields['DETAIL_PICTURE']) {
+            $imageSrc = CFile::GetPath($arFields['DETAIL_PICTURE']);
+        } else {
+            // Если нет изображения, вывести картинку раздела или по умолчанию
+            $sectionRes = CIBlockSection::GetByID($arFields['IBLOCK_SECTION_ID']);
+            if ($section = $sectionRes->GetNext()) {
+                $imageSrc = CFile::GetPath($section['PICTURE']);
+            }
+        }
+
+        // Если нет цены, устанавливаем 0
+        $price = $arFields['PROPERTY_PRICE_VALUE'] ?: 0;
+
+        // Возврат данных в формате JSON
+        echo json_encode([
+            'id' => $arFields['ID'],
+            'name' => $arFields['NAME'],
+            'price' => $price,
+            'image' => $imageSrc ?: '/images/default.jpg'
+        ]);
     } else {
-        echo json_encode(['error' => 'Product not found']);
+        echo json_encode(['error' => 'Товар не найден.']);
     }
+} else {
+    echo json_encode(['error' => 'Неверный ID товара.']);
 }
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php"); ?>
