@@ -6,11 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['cartItems'])) {
         // Попробуем декодировать данные
         $cartItems = json_decode($_POST['cartItems'], true);
-        ?>
-        <script>
-            alert("<?= $cartItems; ?>");
-        </script>
-        <?php
+           echo json_encode($cartItems);
+
         if (!$cartItems) {
             echo json_encode(["error" => "Invalid product data"]);
             exit;
