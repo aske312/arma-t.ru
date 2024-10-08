@@ -293,7 +293,9 @@ echo '</pre>'; // Закрываем тег <pre>
                         </table>
                     </div>
                 </div>
-                <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
+                <?php endif; ?>
+                <?php endforeach; ?>
+                <?php endwhile; ?>
             </div>
 
             <!-- Пагинация  -->
