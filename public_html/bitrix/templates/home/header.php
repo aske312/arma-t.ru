@@ -9,7 +9,6 @@ Loader::includeModule('iblock');
 // Подключение стилей и скриптов
 Asset::getInstance()->addCss("/local/css/header.css");
 Asset::getInstance()->addCss("/local/css/footer.css");
-Asset::getInstance()->addJs("/local/js/script.js"); // не работает
 ?>
 
 <!DOCTYPE html>
