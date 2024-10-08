@@ -55,5 +55,3 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 } else {
     echo json_encode(['error' => 'Неверный ID товара.']);
 }
-
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php"); ?>
