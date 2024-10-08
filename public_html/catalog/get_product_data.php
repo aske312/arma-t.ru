@@ -44,7 +44,7 @@ foreach ($productIds as $product) {
         ['IBLOCK_ID' => $catalogIblockId, 'ID' => $productId],
         false,
         false,
-        ['ID', 'NAME', 'DETAIL_PICTURE', 'CATALOG_PRICE_1']
+        ['ID', 'NAME', 'DETAIL_PICTURE', 'EL_PRICE']
     );
 
     if ($arFields = $res->GetNext()) {
@@ -53,7 +53,7 @@ foreach ($productIds as $product) {
         $basketData[] = [
             'id' => $arFields['ID'],
             'name' => $arFields['NAME'],
-            'price' => $arFields['CATALOG_PRICE_1'] ?? 0, // Цена или 0
+            'price' => $arFields['EL_PRICE'] ?? 0, // Цена или 0
             'image' => $productImage,
             'quantity' => (int)$product['quantity'],
         ];
