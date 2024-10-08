@@ -223,4 +223,14 @@ Asset::getInstance()->addCss("/local/css/footer.css");
                     xhr.send('id=' + productId);
                 });
             }
+
+
+            document.getElementById('basket-button').addEventListener('click', function () {
+                var cartPopup = document.getElementById('basket-popup');
+                if (cartPopup.classList.contains('hidden')) {
+                    cartPopup.classList.remove('hidden'); // Отображаем корзину
+                } else {
+                    cartPopup.classList.add('hidden'); // Скрываем корзину
+                }
+            });
         </script>

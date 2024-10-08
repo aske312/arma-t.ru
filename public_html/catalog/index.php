@@ -326,22 +326,47 @@ echo '</pre>'; // Закрываем тег <pre>
             });
 
             function addToCart(productId) {
-                // Получаем текущие товары из куки
-                var cart = JSON.parse(getCookie('cart') || '[]');
+                // Получаем существующие товары из куки
+                var cartItems = getCartItemsFromCookies();
 
-                // Проверяем, есть ли товар уже в корзине
-                if (!cart.includes(productId)) {
-                    cart.push(productId); // Добавляем ID в корзину
-                    setCookie('cart', JSON.stringify(cart), 1); // Сохраняем куки на 1 дней
-                    updateCartCounter();
+                // Ищем товар в корзине
+                var found = false;
+                for (var i = 0; i < cartItems.length; i++) {
+                    if (cartItems[i].id === productId) {
+                        cartItems[i].quantity += 1; // Увеличиваем количество
+                        found = true;
+                        break;
+                    }
                 }
+
+                // Если товар не найден, добавляем его с количеством 1
+                if (!found) {
+                    cartItems.push({ id: productId, quantity: 1 });
+                }
+
+                // Сохраняем обновленные данные в куки
+                saveCartItemsToCookies(cartItems);
+
+                // Обновляем счетчик в корзине
+                updateCartCounter();
             }
 
-            function updateCartCounter() {
-                var cart = JSON.parse(getCookie('cart') || '[]');
-                var counter = cart.length;
-                document.getElementById('cart-counter').innerText = counter;
+            // Получение товаров из куки
+            function getCartItemsFromCookies() {
+                var cartItems = Cookies.get('cartItems');
+                return cartItems ? JSON.parse(cartItems) : [];
             }
+
+            // Сохранение товаров в куки
+            function saveCartItemsToCookies(cartItems) {
+                Cookies.set('cartItems', JSON.stringify(cartItems), { expires: 7 });
+            }
+
+//             function updateCartCounter() {
+//                 var cart = JSON.parse(getCookie('cart') || '[]');
+//                 var counter = cart.length;
+//                 document.getElementById('cart-counter').innerText = counter;
+//             }
 
             // Функция для получения куки
             function getCookie(name) {
@@ -362,6 +387,97 @@ echo '</pre>'; // Закрываем тег <pre>
 
             // Обновляем счетчик сразу при загрузке страницы
             updateCartCounter();
+
+
+
+
+            function updateCart(basketData) {
+                var basketItems = document.getElementById('basket-items');
+                basketItems.innerHTML = '';
+
+                var totalPrice = 0;
+
+                if (basketData.length > 0) {
+                    basketData.forEach(function (item, index) {
+                        var row = document.createElement('tr');
+                        var itemTotalPrice = item.price * item.quantity; // Общая сумма за товар
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${item.name}</td>
+                            <td>
+                                <input type="number" value="${item.quantity}" min="1" class="quantity" data-id="${item.id}">
+                            </td>
+                            <td>${item.price}</td>
+                            <td>${itemTotalPrice}</td>
+                            <td><button class="remove-item" data-id="${item.id}">Удалить</button></td>
+                        `;
+                        basketItems.appendChild(row);
+                        totalPrice += itemTotalPrice; // Добавляем цену товара к общей сумме
+                    });
+
+                    document.getElementById('total-price').textContent = totalPrice;
+                    toggleCartVisibility(); // Отображаем корзину, если есть товары
+                } else {
+                    document.getElementById('total-price').textContent = '0';
+                    toggleCartVisibility(); // Скрываем корзину, если товаров нет
+                }
+
+                // Логика изменения количества товара
+                document.querySelectorAll('.quantity').forEach(function (input) {
+                    input.addEventListener('change', function () {
+                        var productId = this.getAttribute('data-id');
+                        var newQuantity = parseInt(this.value);
+                        updateItemQuantity(productId, newQuantity);
+                    });
+                });
+
+                // Логика удаления товара из корзины
+                document.querySelectorAll('.remove-item').forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        var productId = this.getAttribute('data-id');
+                        removeItemFromCart(productId);
+                    });
+                });
+            }
+
+            // Обновление количества товара
+            function updateItemQuantity(productId, newQuantity) {
+                var cartItems = getCartItemsFromCookies();
+
+                cartItems.forEach(function (item) {
+                    if (item.id === productId) {
+                        item.quantity = newQuantity;
+                    }
+                });
+
+                saveCartItemsToCookies(cartItems);
+                updateCartCounter();
+                loadCartItems(); // Обновляем корзину с новыми данными
+            }
+
+            // Удаление товара из корзины
+            function removeItemFromCart(productId) {
+                var cartItems = getCartItemsFromCookies();
+                cartItems = cartItems.filter(function (item) {
+                    return item.id !== productId;
+                });
+
+                saveCartItemsToCookies(cartItems);
+                updateCartCounter();
+                loadCartItems(); // Обновляем корзину
+            }
+
+            // Обновление счетчика товаров в корзине
+            function updateCartCounter() {
+                var cartItems = getCartItemsFromCookies();
+                var itemCount = cartItems.reduce(function (total, item) {
+                    return total + item.quantity;
+                }, 0);
+
+                var cartCounter = document.getElementById('cart-counter');
+                cartCounter.textContent = itemCount;
+            }
+
         </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
