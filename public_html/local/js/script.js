@@ -8,7 +8,7 @@ function toggleSelectAll(checkbox) {
 
 // Функция перехода на каталог по секциям
 function redirectToSection(sectionId) {
-    window.location.href = '/catalog/catalog.php?SECTION_ID=' + sectionId;
+    window.location.href = '/catalog/index.php?SECTION_ID=' + sectionId;
 }
 
 //*** КОРЗИНА ***//
