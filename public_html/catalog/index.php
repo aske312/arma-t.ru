@@ -1,6 +1,8 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
+$APPLICATION->SetTitle("Каталог");
+
 // Берем значение секции
 $sectionId = intval($_GET['SECTION_ID']);
 if (empty($sectionId)) {
@@ -331,7 +333,7 @@ echo '</pre>'; // Закрываем тег <pre>
                 // Проверяем, есть ли товар уже в корзине
                 if (!cart.includes(productId)) {
                     cart.push(productId); // Добавляем ID в корзину
-                    setCookie('cart', JSON.stringify(cart), 1); // Сохраняем куки на 7 дней
+                    setCookie('cart', JSON.stringify(cart), 1); // Сохраняем куки на 1 дней
                     updateCartCounter();
                 }
             }
