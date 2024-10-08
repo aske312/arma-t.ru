@@ -36,7 +36,7 @@ Asset::getInstance()->addCss("/local/css/footer.css");
                     <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
                     <nav id="mainNav">
                         <a href="/#Company">О компании</a>
-                        <a href="/catalog/">Каталог</a>
+                        <a href="/catalog/index.php?SECTION_ID=2">Каталог</a>
                         <a href="/#Contact">Контакты</a>
                         <a href="/#Delivery">Доставка</a>
                         <a href="/#Cash">Оплата</a>
