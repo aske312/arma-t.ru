@@ -20,7 +20,7 @@ foreach ($productIds as $productId) {
     // Получаем данные о товаре по ID из инфоблока
     $res = CIBlockElement::GetList(
         [],
-        ['IBLOCK_ID' => 2, 'ID' => $productId],
+        ['IBLOCK_ID' => $catalogIblockId, 'ID' => $productId],
         false,
         false,
         ['ID', 'NAME', 'DETAIL_PICTURE', 'CATALOG_PRICE_1']
