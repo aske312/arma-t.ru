@@ -165,7 +165,7 @@ foreach ($cartItems as $item) {
 
                 if (productIds.length > 0) {
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', '/bitrix/templates/home/get_product_data.php', true);
+                    xhr.open('POST', 'get_product_data.php', true);
                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
