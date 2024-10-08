@@ -264,6 +264,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 }
                 document.cookie = name + "=" + (value || "") + expires + "; path=/";
             }
+
+            // Обновляем счетчик сразу при загрузке страницы
+            updateCartCounter();
         </script>
 
 <!-- FOOTER -->

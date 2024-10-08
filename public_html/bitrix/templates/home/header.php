@@ -139,8 +139,8 @@ Asset::getInstance()->addJs("/local/js/script.js");
             //**** КОРЗИНА ****//
             document.getElementById('toggle-cart').addEventListener('click', function () {
                 var cartPopup = document.getElementById('cart-popup');
-                cartPopup.classList.toggle('hidden');
-                loadCartItems();
+                cartPopup.classList.toggle('hidden'); // Переключаем видимость корзины
+                loadCartItems(); // Загружаем товары в корзину при открытии
             });
 
             function loadCartItems() {
@@ -148,6 +148,12 @@ Asset::getInstance()->addJs("/local/js/script.js");
                 var cartItemsContainer = document.getElementById('cart-items');
                 cartItemsContainer.innerHTML = '';
                 var totalPrice = 0;
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p>В корзине нет товаров.</p>';
+                    document.getElementById('total-price').innerText = 'Итоговая стоимость: 0 руб.';
+                    return; // Выход, если корзина пустая
+                }
 
                 cart.forEach(function (productId, index) {
                     // Здесь предполагается, что у вас есть функция для получения данных товара по ID
@@ -179,14 +185,14 @@ Asset::getInstance()->addJs("/local/js/script.js");
                 var cart = JSON.parse(getCookie('cart') || '[]');
                 cart = cart.filter(id => id !== productId); // Удаление товара из массива
                 setCookie('cart', JSON.stringify(cart), 7); // Сохраняем куки
-                loadCartItems();
-                updateCartCounter();
+                loadCartItems(); // Обновляем список товаров в корзине
+                updateCartCounter(); // Обновляем счетчик
             }
 
             document.getElementById('clear-cart').addEventListener('click', function () {
                 setCookie('cart', JSON.stringify([]), 7); // Очищаем куки
-                loadCartItems();
-                updateCartCounter();
+                loadCartItems(); // Обновляем список товаров в корзине
+                updateCartCounter(); // Обновляем счетчик
             });
 
             document.getElementById('checkout').addEventListener('click', function () {
