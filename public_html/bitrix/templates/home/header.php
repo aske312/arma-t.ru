@@ -183,4 +183,67 @@ foreach ($cartItems as $item) {
                 updateCart([]); // Очищаем корзину на экране
                 updateCartCounter();
             });
+
+                function updateCart(basketData) {
+                    var basketItems = document.getElementById('basket-items');
+                    basketItems.innerHTML = ''; // Очищаем список перед обновлением
+
+                    var totalPrice = 0;
+
+                    basketData.forEach(function (item, index) {
+                        var row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${item.name}</td>
+                            <td><input type="number" value="${item.quantity}" min="1" class="quantity" data-id="${item.id}"></td>
+                            <td>${item.price}</td>
+                            <td>${item.price * item.quantity}</td>
+                            <td><button class="remove-item" data-id="${item.id}">X</button></td>
+                        `;
+                        basketItems.appendChild(row);
+
+                        totalPrice += item.price * item.quantity;
+                    });
+
+                    document.getElementById('total-price').textContent = totalPrice;
+
+                    // Добавляем обработчик для изменения количества
+                    document.querySelectorAll('.quantity').forEach(function (input) {
+                        input.addEventListener('change', function () {
+                            var productId = this.getAttribute('data-id');
+                            var quantity = this.value;
+                            updateQuantity(productId, quantity);
+                        });
+                    });
+
+                    // Добавляем обработчик для удаления товара
+                    document.querySelectorAll('.remove-item').forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            var productId = this.getAttribute('data-id');
+                            removeFromCart(productId);
+                        });
+                    });
+                }
+
+                function updateQuantity(productId, quantity) {
+                    var cartItems = getCartItemsFromCookies();
+                    cartItems = cartItems.map(function (item) {
+                        if (item.id === productId) {
+                            item.quantity = parseInt(quantity);
+                        }
+                        return item;
+                    });
+                    saveCartItemsToCookies(cartItems);
+                    loadCartItems(); // Обновляем данные в корзине
+                }
+
+                function removeFromCart(productId) {
+                    var cartItems = getCartItemsFromCookies();
+                    cartItems = cartItems.filter(function (item) {
+                        return item.id !== productId;
+                    });
+                    saveCartItemsToCookies(cartItems);
+                    loadCartItems(); // Обновляем данные в корзине
+                    updateCartCounter();
+                }
         </script>

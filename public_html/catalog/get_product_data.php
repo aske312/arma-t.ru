@@ -8,25 +8,31 @@ if (!isset($_POST['productIds'])) {
     exit;
 }
 
-$productIds = json_decode($_POST['productIds']);
+$productIds = json_decode($_POST['productIds'], true); // Декодируем ID товаров
 $basketData = [];
 
+if (empty($productIds)) {
+    echo json_encode($basketData);
+    exit;
+}
+
 foreach ($productIds as $productId) {
+    // Получаем данные о товаре по ID из инфоблока
     $res = CIBlockElement::GetList(
         [],
         ['IBLOCK_ID' => 2, 'ID' => $productId],
         false,
         false,
-        ['ID', 'NAME', 'PRICE', 'DETAIL_PICTURE']
+        ['ID', 'NAME', 'DETAIL_PICTURE', 'CATALOG_PRICE_1']
     );
 
     if ($arFields = $res->GetNext()) {
-        $productImage = CFile::GetPath($arFields['DETAIL_PICTURE']);
+        $productImage = CFile::GetPath($arFields['DETAIL_PICTURE']); // Получаем путь к картинке
         $basketData[] = [
             'id' => $arFields['ID'],
             'name' => $arFields['NAME'],
-            'price' => $arFields['PRICE'] ?? 0, // Цена, если она есть
-            'image' => $productImage
+            'price' => $arFields['CATALOG_PRICE_1'] ?? 0, // Если цена есть, иначе 0
+            'image' => $productImage,
         ];
     }
 }
