@@ -100,11 +100,13 @@ Asset::getInstance()->addCss("/local/css/footer.css");
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
                     <div id="cart">
-                        <button class="cart-breaks" id="toggle-cart">Корзина (<span id="cart-counter">0</span>) </button>
-                        <div id="cart-popup" class="hidden">
+                        <button id="toggle-cart">Корзина (<span id="cart-counter">0</span>)</button>
+
+                        <!-- Выпадающий блок корзины -->
+                        <div id="cart-popup" class="cart-popup hidden">
                             <h3>Корзина</h3>
                             <div id="cart-items"></div>
-                            <p id="total-price">Итоговая стоимость: 0</p>
+                            <p id="total-price">Итоговая стоимость: 0 руб.</p>
                             <button id="clear-cart">Очистить корзину</button>
                             <button id="checkout">Оформить заказ</button>
                         </div>
@@ -134,12 +136,14 @@ Asset::getInstance()->addCss("/local/css/footer.css");
             }
 
             //**** КОРЗИНА ****//
+            // Функция для управления открытием/закрытием корзины
             document.getElementById('toggle-cart').addEventListener('click', function () {
                 var cartPopup = document.getElementById('cart-popup');
-                cartPopup.classList.toggle('hidden'); // Переключаем видимость корзины
+                cartPopup.classList.toggle('hidden'); // Показать/скрыть корзину при нажатии на кнопку
                 loadCartItems(); // Загружаем товары в корзину при открытии
             });
 
+            // Функция загрузки товаров в корзину
             function loadCartItems() {
                 var cart = JSON.parse(getCookie('cart') || '[]');
                 var cartItemsContainer = document.getElementById('cart-items');

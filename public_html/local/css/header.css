@@ -136,29 +136,47 @@ nav a:hover, nav a:focus {
 }
 
 /********* Корзина *********/
-#cart {
-    position: relative;
-}
-
-#cart-popup {
-    display: none; /* Скрываем по умолчанию */
+/* Стили для выпадающего окна корзины */
+.cart-popup {
     position: absolute;
-    background-color: white;
+    top: 50px;
+    right: 20px;
+    width: 300px;
+    background-color: #fff;
     border: 1px solid #ccc;
-    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     z-index: 1000;
+    display: none; /* Скрываем по умолчанию */
 }
 
-#cart-popup.hidden {
-    display: none; /* Скрываем корзину */
+.cart-popup.hidden {
+    display: none;
 }
 
-.cart-breaks button {
-    cursor: pointer;
+.cart-popup.visible {
+    display: block;
 }
 
-#cart-popup p {
-    margin: 0; /* Убираем отступы */
+#cart-items div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#cart-counter {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+#total-price {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+button#toggle-cart {
+    position: relative;
 }
 
 /********* Кнопка-гамбургер *********/
