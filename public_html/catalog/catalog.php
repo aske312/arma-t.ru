@@ -1,18 +1,6 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
-// Подключение модулей и стилей
-//use Bitrix\Main\Loader;
-//use Bitrix\Main\Page\Asset;
-//
-//Loader::includeModule('iblock');
-
-// Подключение стилей и скриптов
-//Asset::getInstance()->addCss("/local/css/catalog.css");
-//Asset::getInstance()->addCss("/local/css/header.css");
-//Asset::getInstance()->addCss("/local/css/footer.css");
-// Asset::getInstance()->addJs("/local/js/script.js"); not work
-
 // Берем значение секции
 $sectionId = intval($_GET['SECTION_ID']);
 
@@ -307,8 +295,5 @@ echo '</pre>'; // Закрываем тег <pre>
                 <?= $arResult['NAV_STRING']; ?>
             </div>
         </div>
-
-        <script>
-        </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
