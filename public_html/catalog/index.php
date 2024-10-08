@@ -61,7 +61,6 @@ while ($section = $sections->Fetch()) {
         'INCLUDE_SUBSECTIONS' => 'Y',
     ];
 
-
     $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
     $res = CIBlockElement::GetList([], $elementFilter, false, false, $elementSelect);
 
@@ -69,9 +68,6 @@ while ($section = $sections->Fetch()) {
     while ($ob = $res->GetNextElement()) {
         $arFields = $ob->GetFields();
         $arProps = $ob->GetProperties();
-
-//        echo "\nСвойства элемента:\n";
-//        print_r($arProps[$propertyCode]['VALUE']); // Вывод всех свойств элемента
 
         foreach ($filterProperties as $propertyCode) {
             $value = $arProps[$propertyCode]['VALUE'];
@@ -142,57 +138,6 @@ $res = CIBlockElement::GetList(
 
 $res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default"); // Генерация строки навигации
-
-
-
-echo '<pre>'; // Открываем тег <pre> для форматированного вывода
-//    $res = CIBlockElement::GetList([], $elementFilter, false, false, $elementSelect);
-//
-//    while ($ob = $res->GetNextElement()) {
-//        $arFields = $ob->GetFields();
-//        $arProps = $ob->GetProperties();
-//
-//        echo "\nПоля элемента:\n";
-//        print_r($arFields); // Вывод всех полей элемента
-//
-//        echo "\nСвойства элемента:\n";
-//        print_r($arProps[$propertyCode]['VALUE']); // Вывод всех свойств элемента
-//
-//        foreach ($filterProperties as $propertyCode) {
-//            $value = $arProps[$propertyCode]['VALUE'];
-//
-//            print_r($value);
-//
-//            if (!empty($value)) {
-//                if (is_array($value)) {
-//                    foreach ($value as $val) {
-//                        $arResult['FILTER_PROPERTIES'][$propertyCode]['VALUES'][] = $val;
-//                    }
-//                } else {
-//                    $arResult['FILTER_PROPERTIES'][$propertyCode]['VALUES'][] = $value;
-//                }
-//            }
-//
-//        }
-//        print_r($arResult['FILTER_PROPERTIES'][$propertyCode]['VALUES']);
-//    }
-
-//while ($ob = $res->GetNextElement()) {
-//    $arFields = $ob->GetFields();      // Основные поля элемента
-//    $arProps = $ob->GetProperties();   // Свойства элемента
-//
-//    echo "Элемент ID: " . $arFields['ID'] . "\n";
-//    echo "Название: " . $arFields['NAME'] . "\n";
-//
-//    echo "\nПоля элемента:\n";
-//    print_r($arFields); // Вывод всех полей элемента
-//
-//    echo "\nСвойства элемента:\n";
-//    print_r($arProps); // Вывод всех свойств элемента
-//
-//    echo "\n------------------------\n"; // Разделитель для удобства
-//}
-echo '</pre>'; // Закрываем тег <pre>
 ?>
 
 <!-- Названия каталога и описания -->
@@ -318,50 +263,7 @@ echo '</pre>'; // Закрываем тег <pre>
             }
 
             //*** КОРЗИНА ***//
-
-            // Проверяем, была ли нажата кнопка "В Корзину"
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-                $productId = (int)$_POST['id'];
-                $cart = json_decode($_COOKIE['cart'] ?? '[]', true);
-
-                // Проверка, есть ли товар уже в корзине
-                if (isset($cart[$productId])) {
-                    $cart[$productId]['quantity'] += 1; // Увеличиваем количество на 1
-                } else {
-                    // Получаем данные о товаре
-                    $productData = getProductData($productId);
-                    if ($productData) {
-                        // Добавляем товар в корзину
-                        $cart[$productId] = [
-                            'name' => $productData['NAME'],
-                            'price' => $productData['PROPERTY_PRICE'],
-                            'quantity' => 1,
-                        ];
-                    }
-                }
-
-                // Сохраняем обновленную корзину в куки
-                setcookie('cart', json_encode($cart), time() + 3600, '/'); // 1 час
-                header('Location: /'); // Перенаправляем на главную или текущую страницу
-                exit;
-            }
-
-            // Проверяем, была ли нажата кнопка "Удалить из корзины"
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_from_cart'])) {
-                $productId = (int)$_POST['remove_from_cart'];
-                $cart = json_decode($_COOKIE['cart'] ?? '[]', true);
-
-                // Удаляем товар из корзины
-                if (isset($cart[$productId])) {
-                    unset($cart[$productId]);
-                }
-
-                // Сохраняем обновленную корзину в куки
-                setcookie('cart', json_encode($cart), time() + 3600, '/');
-                header('Location: /'); // Перенаправляем на главную или текущую страницу
-                exit;
-            }
-
+            // Добавление товара в корзину по нажатию на кнопку
             document.querySelectorAll('.catalog-item-add-to-cart').forEach(function (button) {
                 button.addEventListener('click', function () {
                     var productId = this.getAttribute('data-id');
@@ -370,52 +272,42 @@ echo '</pre>'; // Закрываем тег <pre>
             });
 
             function addToCart(productId) {
-                // Получаем существующие товары из куки
                 var cartItems = getCartItemsFromCookies();
-
-                // Ищем товар в корзине
                 var found = false;
+
+                // Проверяем, есть ли товар в корзине
                 for (var i = 0; i < cartItems.length; i++) {
                     if (cartItems[i].id === productId) {
-                        cartItems[i].quantity += 1; // Увеличиваем количество
+                        cartItems[i].quantity += 1;
                         found = true;
                         break;
                     }
                 }
 
-                // Если товар не найден, добавляем его с количеством 1
                 if (!found) {
                     cartItems.push({ id: productId, quantity: 1 });
                 }
 
-                // Сохраняем обновленные данные в куки
+                // Сохраняем обновленные товары в куки
                 saveCartItemsToCookies(cartItems);
-
-                // Обновляем счетчик в корзине
                 updateCartCounter();
             }
 
-            // Получение товаров из куки
+            function updateCartCounter() {
+                var cartItems = getCartItemsFromCookies();
+                var itemCount = cartItems.reduce(function (total, item) {
+                    return total + item.quantity;
+                }, 0);
+                document.getElementById('cart-counter').textContent = itemCount;
+            }
+
             function getCartItemsFromCookies() {
                 var cartItems = Cookies.get('cartItems');
                 return cartItems ? JSON.parse(cartItems) : [];
             }
 
-            // Сохранение товаров в куки
             function saveCartItemsToCookies(cartItems) {
-                // Сериализуем данные и устанавливаем куки
-                Cookies.set('cartItems', JSON.stringify(cartItems), { expires: 7 }); // Куки будут действительны 7 дней
-            }
-
-            // Обновление счетчика в корзине
-            function updateCartCounter() {
-                var cartItems = getCartItemsFromCookies();
-                var totalCount = cartItems.reduce(function (acc, item) {
-                    return acc + item.quantity;
-                }, 0);
-
-                // Обновляем отображение счетчика (например, на элементе с id 'cart-count')
-                document.getElementById('cart-counter').textContent = totalCount;
+                Cookies.set('cartItems', JSON.stringify(cartItems), { expires: 7 });
             }
         </script>
 
