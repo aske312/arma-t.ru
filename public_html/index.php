@@ -11,7 +11,6 @@ Loader::includeModule('iblock');
 Asset::getInstance()->addCss("/local/css/header.css");  //css
 Asset::getInstance()->addCss("/local/css/home.css"); //css
 Asset::getInstance()->addCss("/local/css/footer.css");  //css
-Asset::getInstance()->addJs("/local/js/script.js");     // js
 
 $sectionsFilter = [
     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
