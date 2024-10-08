@@ -359,47 +359,20 @@ echo '</pre>'; // Закрываем тег <pre>
 
             // Сохранение товаров в куки
             function saveCartItemsToCookies(cartItems) {
-                Cookies.set('cartItems', JSON.stringify(cartItems), { expires: 7 });
+                // Сериализуем данные и устанавливаем куки
+                Cookies.set('cartItems', JSON.stringify(cartItems), { expires: 7 }); // Куки будут действительны 7 дней
             }
 
-//             function updateCartCounter() {
-//                 var cart = JSON.parse(getCookie('cart') || '[]');
-//                 var counter = cart.length;
-//                 document.getElementById('cart-counter').innerText = counter;
-//             }
-
-            // Функция для получения куки
-            function getCookie(name) {
-                var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-                return match ? match[2] : null;
-            }
-
-            // Функция для установки куки
-            function setCookie(name, value, days) {
-                var expires = "";
-                if (days) {
-                    var date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    expires = "; expires=" + date.toUTCString();
-                }
-                document.cookie = name + "=" + (value || "") + expires + "; path=/";
-            }
-
-            // Обновляем счетчик сразу при загрузке страницы
-            updateCartCounter();
-
-
-            // Обновление счетчика товаров в корзине
+            // Обновление счетчика в корзине
             function updateCartCounter() {
                 var cartItems = getCartItemsFromCookies();
-                var itemCount = cartItems.reduce(function (total, item) {
-                    return total + item.quantity;
+                var totalCount = cartItems.reduce(function (acc, item) {
+                    return acc + item.quantity;
                 }, 0);
 
-                var cartCounter = document.getElementById('cart-counter');
-                cartCounter.textContent = itemCount;
+                // Обновляем отображение счетчика (например, на элементе с id 'cart-count')
+                document.getElementById('cart-counter').textContent = totalCount;
             }
-
         </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
