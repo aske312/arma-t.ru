@@ -1,23 +1,44 @@
 <?php
-// get_product_data.php — получение данных товаров по их ID
+// Включение вывода ошибок
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
+// Проверьте, есть ли данные в POST-запросе
 if (!isset($_POST['productIds'])) {
-    echo json_encode([]);
+    echo json_encode(['error' => 'No productIds found']);
     exit;
 }
 
-$productIds = json_decode($_POST['productIds'], true); // Декодируем ID товаров
+$productIds = json_decode($_POST['productIds'], true); // Декодируем данные
+
+// Проверка на успешное декодирование JSON
+if (json_last_error() !== JSON_ERROR_NONE) {
+    echo json_encode(['error' => 'JSON decode error: ' . json_last_error_msg()]);
+    exit;
+}
+
+// Проверьте, что массив ID не пуст
+if (empty($productIds)) {
+    echo json_encode(['error' => 'No product IDs provided']);
+    exit;
+}
+
+$catalogIblockId = 2; // Убедитесь, что здесь правильный ID инфоблока
+
 $basketData = [];
 
-if (empty($productIds)) {
-    echo json_encode($basketData);
-    exit;
-}
+foreach ($productIds as $product) {
+    // Проверка на наличие ключей 'id' и 'quantity'
+    if (!isset($product['id']) || !isset($product['quantity'])) {
+        echo json_encode(['error' => 'Invalid product data']);
+        exit;
+    }
 
-foreach ($productIds as $productId) {
-    // Получаем данные о товаре по ID из инфоблока
+    $productId = (int)$product['id'];
+
+    // Запрос к инфоблоку Bitrix
     $res = CIBlockElement::GetList(
         [],
         ['IBLOCK_ID' => $catalogIblockId, 'ID' => $productId],
@@ -27,15 +48,21 @@ foreach ($productIds as $productId) {
     );
 
     if ($arFields = $res->GetNext()) {
-        $productImage = CFile::GetPath($arFields['DETAIL_PICTURE']); // Получаем путь к картинке
+        // Проверка, если есть изображение
+        $productImage = $arFields['DETAIL_PICTURE'] ? CFile::GetPath($arFields['DETAIL_PICTURE']) : '/path/to/default_image.jpg'; // Установите изображение по умолчанию
         $basketData[] = [
             'id' => $arFields['ID'],
             'name' => $arFields['NAME'],
-            'price' => $arFields['CATALOG_PRICE_1'] ?? 0, // Если цена есть, иначе 0
+            'price' => $arFields['CATALOG_PRICE_1'] ?? 0, // Цена или 0
             'image' => $productImage,
+            'quantity' => (int)$product['quantity'],
         ];
+    } else {
+        echo json_encode(['error' => "Product with ID $productId not found"]);
+        exit;
     }
 }
 
+// Вывод результатов
 echo json_encode($basketData);
 ?>
