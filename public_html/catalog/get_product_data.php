@@ -3,57 +3,61 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Проверяем, получены ли данные корзины
     if (isset($_POST['cart'])) {
-        // Попробуем декодировать данные
+        // Декодируем данные корзины
         $cartItems = json_decode($_POST['cart'], true);
-           echo json_encode($cartItems);
+
+        // Отладка: выводим полученные куки
+        error_log("Полученные куки: " . print_r($_POST['cart'], true));
 
         if (!$cartItems) {
             echo json_encode(["error" => "Invalid product data"]);
             exit;
         }
 
-        // Массив для хранения данных товаров
+        // Массив для данных корзины
         $basketData = [];
 
+        // Обрабатываем каждый товар в корзине
         foreach ($cartItems as $cartItem) {
             $productId = $cartItem['id'];
             $quantity = $cartItem['quantity'];
 
-            // Получаем данные товара из инфоблока по ID
+            // Получаем данные товара по его ID из инфоблока Bitrix
             $arSelect = ["ID", "NAME", "EL_PRICE", "DETAIL_PICTURE", "IBLOCK_SECTION_ID"];
-            $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените 2 на ваш ID инфоблока
+            $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените на ваш ID инфоблока
             $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
 
             if ($arFields = $res->Fetch()) {
-                // Проверяем наличие картинки, если нет — используем картинку раздела
+                // Проверка наличия изображения
                 if ($arFields['DETAIL_PICTURE']) {
                     $pictureSrc = CFile::GetPath($arFields['DETAIL_PICTURE']);
                 } else {
-                    // Получаем картинку раздела, если нет картинки товара
+                    // Если нет изображения, используем изображение раздела
                     $sectionFilter = ["IBLOCK_ID" => 2, "ID" => $arFields["IBLOCK_SECTION_ID"]];
                     $sectionRes = CIBlockSection::GetList([], $sectionFilter, false, ["PICTURE"]);
 
                     if ($sectionFields = $sectionRes->Fetch()) {
                         $pictureSrc = CFile::GetPath($sectionFields['PICTURE']);
                     } else {
-                        $pictureSrc = '/path/to/default/image.jpg'; // Замените на путь к картинке по умолчанию
+                        $pictureSrc = '/path/to/default/image.jpg'; // Установите путь к картинке по умолчанию
                     }
                 }
 
-                // Заполняем данные товара для корзины
+                // Собираем данные товара
                 $basketData[] = [
                     "id" => $arFields['ID'],
                     "name" => $arFields['NAME'],
-                    "price" => $arFields['EL_PRICE']['VALUE'], //?: 0,
+                    "price" => $arFields['EL_PRICE']['VALUE'] ?: 0,
                     "quantity" => $quantity,
-                    "total" => 0, //($arFields['EL_PRICE']['VALUE'] ?: 0) * $quantity,
+                    "total" => ($arFields['EL_PRICE']['VALUE'] ?: 0) * $quantity,
                     "picture" => $pictureSrc
                 ];
             }
         }
 
-        // Возвращаем данные корзины в JSON формате
+        // Отправляем данные корзины обратно на клиент
         echo json_encode($basketData);
     } else {
         echo json_encode(["error" => "No cart items provided"]);
