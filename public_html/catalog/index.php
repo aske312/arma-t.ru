@@ -3,6 +3,9 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 // Берем значение секции
 $sectionId = intval($_GET['SECTION_ID']);
+if (empty($sectionId)) {
+    $sectionId = '1';
+}
 
 use Bitrix\Main\Page\Asset;
 
@@ -300,9 +303,5 @@ echo '</pre>'; // Закрываем тег <pre>
                 <?= $arResult['NAV_STRING']; ?>
             </div>
         </div>
-
-        <script>
-        </script>
-
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
