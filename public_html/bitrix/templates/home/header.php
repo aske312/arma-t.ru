@@ -25,7 +25,7 @@ Asset::getInstance()->addJs("/local/js/script.js"); // не работает
     <title><?$APPLICATION->ShowTitle();?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script> <!-- cookie -->
-    <script src="../local/js/script.js"></script>
+    <script src="..local/js/script.js"></script>
 </head>
     <body>
         <div id="panel"> <?$APPLICATION->ShowPanel();?> </div>
@@ -38,7 +38,7 @@ Asset::getInstance()->addJs("/local/js/script.js"); // не работает
                     <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
                     <nav id="mainNav">
                         <a href="/#Company">О компании</a>
-                        <a href="/catalog/">Каталог</a>
+                        <a href="/catalog/catalog.php?SECTION_ID=2">Каталог</a>
                         <a href="/#Contact">Контакты</a>
                         <a href="/#Delivery">Доставка</a>
                         <a href="/#Cash">Оплата</a>
