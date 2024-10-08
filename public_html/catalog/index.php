@@ -363,6 +363,6 @@ echo '</pre>'; // Закрываем тег <pre>
 
             // Обновляем счетчик сразу при загрузке страницы
             updateCartCounter();
-        </script
+        </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
