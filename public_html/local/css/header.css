@@ -158,6 +158,17 @@ nav a:hover, nav a:focus {
     display: block;
 }
 
+#cart-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 20px;
+    z-index: 1000; /* Прямо над другими элементами */
+}
+
 #cart-items div {
     display: flex;
     justify-content: space-between;

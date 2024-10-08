@@ -98,17 +98,25 @@ Asset::getInstance()->addCss("/local/css/footer.css");
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
-                    <div id="cart">
-                        <button id="toggle-cart">Корзина (<span id="cart-counter">0</span>)</button>
-
-                        <!-- Выпадающий блок корзины -->
-                        <div id="cart-popup" class="cart-popup hidden">
-                            <h3>Корзина</h3>
-                            <div id="cart-items"></div>
-                            <p id="total-price">Итоговая стоимость: 0 руб.</p>
-                            <button id="clear-cart">Очистить корзину</button>
-                            <button id="checkout">Оформить заказ</button>
-                        </div>
+                    <div id="cart-popup" style="display:none;">
+                        <h2>Корзина</h2>
+                        <table>
+                            <?php
+                            $cart = json_decode($_COOKIE['cart'] ?? '[]', true);
+                            foreach ($cart as $id => $item): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($item['name']) ?></td>
+                                    <td><?= htmlspecialchars($item['price']) ?> руб.</td>
+                                    <td><?= htmlspecialchars($item['quantity']) ?></td>
+                                    <td>
+                                        <form method="POST">
+                                            <input type="hidden" name="remove_from_cart" value="<?= $id ?>">
+                                            <button type="submit">Удалить</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
                     </div>
 
                 </div>
@@ -191,17 +199,6 @@ Asset::getInstance()->addCss("/local/css/footer.css");
             }
 
             // Функции для работы с cookie
-            function getCookie(name) {
-                var cookies = document.cookie.split('; ');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].split('=');
-                    if (cookie[0] === name) {
-                        return decodeURIComponent(cookie[1]);
-                    }
-                }
-                return null;
-            }
-
             function setCookie(name, value, days) {
                 var expires = "";
                 if (days) {
@@ -209,6 +206,21 @@ Asset::getInstance()->addCss("/local/css/footer.css");
                     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                     expires = "; expires=" + date.toUTCString();
                 }
-                document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            function eraseCookie(name) {
+                document.cookie = name + '=; Max-Age=-99999999;';
             }
         </script>

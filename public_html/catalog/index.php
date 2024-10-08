@@ -318,6 +318,50 @@ echo '</pre>'; // Закрываем тег <pre>
             }
 
             //*** КОРЗИНА ***//
+
+            // Проверяем, была ли нажата кнопка "В Корзину"
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+                $productId = (int)$_POST['id'];
+                $cart = json_decode($_COOKIE['cart'] ?? '[]', true);
+
+                // Проверка, есть ли товар уже в корзине
+                if (isset($cart[$productId])) {
+                    $cart[$productId]['quantity'] += 1; // Увеличиваем количество на 1
+                } else {
+                    // Получаем данные о товаре
+                    $productData = getProductData($productId);
+                    if ($productData) {
+                        // Добавляем товар в корзину
+                        $cart[$productId] = [
+                            'name' => $productData['NAME'],
+                            'price' => $productData['PROPERTY_PRICE'],
+                            'quantity' => 1,
+                        ];
+                    }
+                }
+
+                // Сохраняем обновленную корзину в куки
+                setcookie('cart', json_encode($cart), time() + 3600, '/'); // 1 час
+                header('Location: /'); // Перенаправляем на главную или текущую страницу
+                exit;
+            }
+
+            // Проверяем, была ли нажата кнопка "Удалить из корзины"
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_from_cart'])) {
+                $productId = (int)$_POST['remove_from_cart'];
+                $cart = json_decode($_COOKIE['cart'] ?? '[]', true);
+
+                // Удаляем товар из корзины
+                if (isset($cart[$productId])) {
+                    unset($cart[$productId]);
+                }
+
+                // Сохраняем обновленную корзину в куки
+                setcookie('cart', json_encode($cart), time() + 3600, '/');
+                header('Location: /'); // Перенаправляем на главную или текущую страницу
+                exit;
+            }
+
             document.querySelectorAll('.catalog-item-add-to-cart').forEach(function (button) {
                 button.addEventListener('click', function () {
                     var productId = this.getAttribute('data-id');
