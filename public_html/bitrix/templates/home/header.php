@@ -246,4 +246,27 @@ foreach ($cartItems as $item) {
                     loadCartItems(); // Обновляем данные в корзине
                     updateCartCounter();
                 }
+
+                function getCookie(name) {
+                    var value = "; " + document.cookie;
+                    var parts = value.split("; " + name + "=");
+                    if (parts.length == 2) return parts.pop().split(";").shift();
+                }
+
+                function parseCartCookie() {
+                    var cartCookie = getCookie('cartItems');
+                    if (cartCookie) {
+                        // Декодирование URL и парсинг JSON
+                        try {
+                            return JSON.parse(decodeURIComponent(cartCookie));
+                        } catch (error) {
+                            console.error("Ошибка при парсинге куки корзины:", error);
+                            return [];
+                        }
+                    }
+                    return [];
+                }
+
+                var cartItems = parseCartCookie();
+                console.log(cartItems); // Должен вывести массив с объектами товаров
         </script>
