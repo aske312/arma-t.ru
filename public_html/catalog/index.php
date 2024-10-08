@@ -12,7 +12,6 @@ if (empty($sectionId)) {
 use Bitrix\Main\Page\Asset;
 
 Asset::getInstance()->addCss("/local/css/catalog.css"); //css
-Asset::getInstance()->addJs("/local/js/script.js");     //js
 
 // Получение текущей секции
 $sectionFilter = [

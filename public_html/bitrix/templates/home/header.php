@@ -23,7 +23,6 @@ Asset::getInstance()->addCss("/local/css/footer.css");
     <title><?$APPLICATION->ShowTitle();?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script> <!-- cookie -->
-    <script src="..local/js/script.js"></script>
 </head>
     <body>
         <div id="panel"> <?$APPLICATION->ShowPanel();?> </div>
