@@ -21,7 +21,7 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
     // Запрос данных о товаре из инфоблока (замените на ваш ID инфоблока)
     $res = CIBlockElement::GetList(
         [],
-        ['IBLOCK_ID' => catalog, 'ID' => $productId],
+        ['IBLOCK_ID' => 2, 'ID' => $productId],
         false,
         false,
         ['ID', 'NAME', 'DETAIL_PICTURE', 'PROPERTY_PRICE']
