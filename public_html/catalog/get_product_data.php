@@ -1,6 +1,7 @@
 <?php
 // Подключение ядра Bitrix
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+
 use Bitrix\Main\Loader;
 
 // Включаем вывод ошибок для отладки
