@@ -136,58 +136,25 @@ nav a:hover, nav a:focus {
 }
 
 /********* Корзина *********/
-.cart-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 50px;
-    background-color: #fff;
-    padding: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    border-radius: 5px;
-    color: #000;
-}
-
-.hidden {
-    display: none;
-}
-
-#cart-button {
+#cart {
     position: relative;
-    background-color: #28a745;
-    color: white;
-    border: none;
+}
+
+#cart-popup {
+    display: none; /* Скрываем по умолчанию */
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
     padding: 10px;
-    border-radius: 5px;
+    z-index: 1000;
+}
+
+#cart-popup.hidden {
+    display: none; /* Скрываем корзину */
+}
+
+button {
     cursor: pointer;
-}
-
-#cart-button:hover {
-    background-color: #218838;
-}
-
-/* Сообщение об отсутствии товаров */
-#empty-message {
-    text-align: center;
-    font-size: 1em;
-    color: #f00; /* Красный цвет для заметного сообщения */
-    margin-top: 10px;
-}
-
-/* Стили кнопок в корзине */
-#checkout, #clear-cart {
-    background-color: #2654A2;
-    border: none;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    font-size: 1em;
-}
-
-#checkout:hover, #clear-cart:hover {
-    background-color: #0056b3;
 }
 
 /********* Кнопка-гамбургер *********/

@@ -102,19 +102,15 @@ Asset::getInstance()->addJs("/local/js/script.js");
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
-                    <!-- Кнопка для корзины со счетчиком -->
-                    <button id="cart-button" class="hidden">
-                        Корзина (<span id="cart-count">0</span>)
-                    </button>
-
-                    <!-- Выпадающий список корзины -->
-                    <div id="cart-dropdown" class="cart-dropdown hidden">
-                        <h3>Ваша корзина</h3>
-                        <ul id="cart-items">
-                            <!-- Список товаров будет добавляться динамически -->
-                        </ul>
-                        <p>Итоговая стоимость: <span id="cart-total-price">0</span> руб.</p>
-                        <button id="checkout">Оформить заказ</button>
+                    <div id="cart">
+                        <button id="toggle-cart">Корзина (<span id="cart-counter">0</span>)</button>
+                        <div id="cart-popup" class="hidden">
+                            <h3>Корзина</h3>
+                            <div id="cart-items"></div>
+                            <p id="total-price">Итоговая стоимость: 0</p>
+                            <button id="clear-cart">Очистить корзину</button>
+                            <button id="checkout">Оформить заказ</button>
+                        </div>
                     </div>
 
                 </div>
@@ -138,5 +134,72 @@ Asset::getInstance()->addJs("/local/js/script.js");
                 } else {
                     header.classList.remove("fixed");
                 }
+            }
+
+            //**** КОРЗИНА ****//
+            document.getElementById('toggle-cart').addEventListener('click', function () {
+                var cartPopup = document.getElementById('cart-popup');
+                cartPopup.classList.toggle('hidden');
+                loadCartItems();
+            });
+
+            function loadCartItems() {
+                var cart = JSON.parse(getCookie('cart') || '[]');
+                var cartItemsContainer = document.getElementById('cart-items');
+                cartItemsContainer.innerHTML = '';
+                var totalPrice = 0;
+
+                cart.forEach(function (productId, index) {
+                    // Здесь предполагается, что у вас есть функция для получения данных товара по ID
+                    var productData = getProductDataById(productId); // Замените на ваш метод
+
+                    var quantity = cart.filter(id => id === productId).length; // Подсчет количества одного товара
+                    var itemTotal = productData.price * quantity; // Сумма за товар
+                    totalPrice += itemTotal;
+
+                    var itemDiv = document.createElement('div');
+                    itemDiv.innerHTML = `
+                        <span>${index + 1}. ${productData.name} (x${quantity}) - ${productData.price} руб. <strong>${itemTotal} руб.</strong></span>
+                        <button class="remove-item" data-id="${productId}">×</button>
+                    `;
+                    cartItemsContainer.appendChild(itemDiv);
+                });
+
+                document.getElementById('total-price').innerText = 'Итоговая стоимость: ' + totalPrice + ' руб.';
+
+                // Обработка удаления товара
+                document.querySelectorAll('.remove-item').forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        removeItemFromCart(this.getAttribute('data-id'));
+                    });
+                });
+            }
+
+            function removeItemFromCart(productId) {
+                var cart = JSON.parse(getCookie('cart') || '[]');
+                cart = cart.filter(id => id !== productId); // Удаление товара из массива
+                setCookie('cart', JSON.stringify(cart), 7); // Сохраняем куки
+                loadCartItems();
+                updateCartCounter();
+            }
+
+            document.getElementById('clear-cart').addEventListener('click', function () {
+                setCookie('cart', JSON.stringify([]), 7); // Очищаем куки
+                loadCartItems();
+                updateCartCounter();
+            });
+
+            document.getElementById('checkout').addEventListener('click', function () {
+                window.location.href = '/checkout/'; // Переход на страницу оформления заказа
+            });
+
+            function getProductDataById(productId) {
+                // Здесь вы должны реализовать получение данных из инфоблока Bitrix
+                // Например, вы можете использовать AJAX запрос или заранее подготовленный массив
+                // Возвращаемая структура должна быть следующей:
+                return {
+                    name: 'Название товара', // Замените на реальное название
+                    price: 100 // Замените на реальную цену
+                };
             }
         </script>
