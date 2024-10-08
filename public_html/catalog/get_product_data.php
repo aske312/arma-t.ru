@@ -1,12 +1,11 @@
 <?php
 // Подключение ядра Bitrix
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
-
 use Bitrix\Main\Loader;
 
-// Включаем вывод ошибок для отладки
-// ini_set('display_errors', 1);
-// error_reporting(E_ALL);
+ob_clean(); // Очистка буфера вывода перед отправкой данных
+
+header('Content-Type: application/json');
 
 // Проверка на подключение модуля инфоблоков
 if (!Loader::includeModule('iblock')) {
