@@ -3,9 +3,9 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['cartItems'])) {
+    if (isset($_POST['cart'])) {
         // Попробуем декодировать данные
-        $cartItems = json_decode($_POST['cartItems'], true);
+        $cartItems = json_decode($_POST['cart'], true);
            echo json_encode($cartItems);
 
         if (!$cartItems) {

@@ -11,7 +11,7 @@ Asset::getInstance()->addCss("/local/css/header.css");
 Asset::getInstance()->addCss("/local/css/footer.css");
 
 // Получаем количество товаров в корзине из куки
-$cartItems = isset($_COOKIE['cartItems']) ? json_decode($_COOKIE['cartItems'], true) : [];
+$cartItems = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
 $cartItemCount = 0;
 foreach ($cartItems as $item) {
     $cartItemCount += $item['quantity'];
@@ -254,7 +254,7 @@ foreach ($cartItems as $item) {
                 }
 
                 function parseCartCookie() {
-                    var cartCookie = getCookie('cartItems');
+                    var cartCookie = getCookie('cart');
                     if (cartCookie) {
                         // Декодирование URL и парсинг JSON
                         try {

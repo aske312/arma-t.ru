@@ -302,12 +302,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
 
             function getCartItemsFromCookies() {
-                var cartItems = Cookies.get('cartItems');
+                var cartItems = Cookies.get('cart');
                 return cartItems ? JSON.parse(cartItems) : [];
             }
 
             function saveCartItemsToCookies(cartItems) {
-                Cookies.set('cartItems', JSON.stringify(cartItems), { expires: 7 });
+                Cookies.set('cart', JSON.stringify(cartItems), { expires: 7 });
             }
         </script>
 
