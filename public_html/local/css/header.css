@@ -153,8 +153,12 @@ nav a:hover, nav a:focus {
     display: none; /* Скрываем корзину */
 }
 
-button {
+.cart-breaks button {
     cursor: pointer;
+}
+
+#cart-popup p {
+    margin: 0; /* Убираем отступы */
 }
 
 /********* Кнопка-гамбургер *********/
