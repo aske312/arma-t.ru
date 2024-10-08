@@ -155,28 +155,39 @@ Asset::getInstance()->addJs("/local/js/script.js");
                     return; // Выход, если корзина пустая
                 }
 
-                cart.forEach(function (productId, index) {
-                    // Здесь предполагается, что у вас есть функция для получения данных товара по ID
-                    var productData = getProductDataById(productId); // Замените на ваш метод
-
-                    var quantity = cart.filter(id => id === productId).length; // Подсчет количества одного товара
-                    var itemTotal = productData.price * quantity; // Сумма за товар
-                    totalPrice += itemTotal;
-
-                    var itemDiv = document.createElement('div');
-                    itemDiv.innerHTML = `
-                        <span>${index + 1}. ${productData.name} (x${quantity}) - ${productData.price} руб. <strong>${itemTotal} руб.</strong></span>
-                        <button class="remove-item" data-id="${productId}">×</button>
-                    `;
-                    cartItemsContainer.appendChild(itemDiv);
+                var promises = cart.map(function (productId) {
+                    return getProductDataById(productId).then(function (productData) {
+                        return { productId, productData };
+                    });
                 });
 
-                document.getElementById('total-price').innerText = 'Итоговая стоимость: ' + totalPrice + ' руб.';
+                Promise.all(promises).then(function (results) {
+                    results.forEach(function (item, index) {
+                        var productId = item.productId;
+                        var productData = item.productData;
 
-                // Обработка удаления товара
-                document.querySelectorAll('.remove-item').forEach(function (button) {
-                    button.addEventListener('click', function () {
-                        removeItemFromCart(this.getAttribute('data-id'));
+                        if (productData.error) return; // Игнорируем ошибки
+
+                        var quantity = cart.filter(id => id === productId).length; // Подсчет количества одного товара
+                        var itemTotal = productData.price * quantity; // Сумма за товар
+                        totalPrice += itemTotal;
+
+                        var itemDiv = document.createElement('div');
+                        itemDiv.innerHTML = `
+                            <img src="${productData.image}" alt="${productData.name}" style="width: 50px; height: 50px;">
+                            <span>${index + 1}. ${productData.name} (x${quantity}) - ${productData.price} руб. <strong>${itemTotal} руб.</strong></span>
+                            <button class="remove-item" data-id="${productId}">×</button>
+                        `;
+                        cartItemsContainer.appendChild(itemDiv);
+                    });
+
+                    document.getElementById('total-price').innerText = 'Итоговая стоимость: ' + totalPrice + ' руб.';
+
+                    // Обработка удаления товара
+                    document.querySelectorAll('.remove-item').forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            removeItemFromCart(this.getAttribute('data-id'));
+                        });
                     });
                 });
             }
@@ -200,12 +211,16 @@ Asset::getInstance()->addJs("/local/js/script.js");
             });
 
             function getProductDataById(productId) {
-                // Здесь вы должны реализовать получение данных из инфоблока Bitrix
-                // Например, вы можете использовать AJAX запрос или заранее подготовленный массив
-                // Возвращаемая структура должна быть следующей:
-                return {
-                    name: 'Название товара', // Замените на реальное название
-                    price: 100 // Замените на реальную цену
-                };
+                return new Promise(function (resolve, reject) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'get_product_data.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            resolve(JSON.parse(xhr.responseText));
+                        }
+                    };
+                    xhr.send('id=' + productId);
+                });
             }
         </script>
