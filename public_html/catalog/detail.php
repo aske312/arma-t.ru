@@ -10,7 +10,7 @@ if (CModule::IncludeModule("iblock")) {
         $productName = $ar_res['NAME'];
         $productDescription = $ar_res['DETAIL_TEXT'];
         $productImage = CFile::GetPath($ar_res['DETAIL_PICTURE']); // Изображение товара
-        $productPrice = ''; // Здесь можно получить цену, если она хранится в свойствах или в другом инфоблоке
+        $productPrice = ''; // Цена
         $productArticul = ''; // Артикул
         $productAvailability = ''; // Срок изготовления
 
@@ -46,11 +46,11 @@ if (CModule::IncludeModule("iblock")) {
         ?>
 
         <div class="section-title">
-            <h2><?php echo htmlspecialchars($productName); ?></h2>
+            <h2><?php echo htmlspecialchars($sectionName); ?></h2> <!-- Название раздела -->
             <p>Подробное описание</p>
         </div>
 
-        <div class="product-detail">
+        <div class="product-detail" style="background-color: white; border-radius: 5px; padding: 20px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
             <div class="product-content">
                 <div class="product-image">
                     <img src="<?php echo htmlspecialchars($productImage ?: $sectionImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>" style="width: 300px; height: auto;"> <!-- Изображение товара -->
@@ -68,26 +68,32 @@ if (CModule::IncludeModule("iblock")) {
             <?php if (!empty($productProperties)): ?>
                 <div class="product-attributes">
                     <h2>Характеристики</h2>
-                    <ul>
-                        <?php foreach ($productProperties as $propName => $propValue): ?>
-                            <li><?php echo htmlspecialchars($propName) . ': ' . htmlspecialchars($propValue); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <table>
+                        <tbody>
+                            <?php foreach ($productProperties as $propName => $propValue): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($propName); ?></td>
+                                    <td><?php echo htmlspecialchars($propValue); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             <?php endif; ?>
+            <button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
         </div>
 
         <style>
             .section-title {
                 background: url('/local/img/block/pattern.png') no-repeat center;
-                background-size: cover; /* Заполнение всей доступной области без растягивания */
+                background-size: cover;
                 color: #fff;
                 padding: 20px;
                 text-align: left;
                 margin-bottom: 20px;
-                width: 1300px; /* Максимальная ширина контейнера */
-                margin: 0 auto; /* Центрирование контейнера */
-                height: 100%; /* Высота контейнера */
+                width: 1300px;
+                margin: 0 auto;
+                height: 100%;
             }
 
             .section-title h2 {
@@ -95,32 +101,30 @@ if (CModule::IncludeModule("iblock")) {
                 font-size: 24px;
             }
 
-            /* .section-title p {
-                margin-top: 10px;
-                font-size: 16px;
-                color: #ddd;
-            } */
-
             .product-detail {
-                /* background: white; */
                 max-width: 800px;
                 margin: 0 auto;
                 font-family: Arial, sans-serif;
             }
+
             .product-content {
                 display: flex;
                 margin-bottom: 20px;
             }
+
             .product-image {
                 margin-right: 20px;
             }
+
             .product-info {
                 flex: 1;
             }
+
             .product-price {
                 font-size: 1.2em;
                 color: #333;
             }
+
             .add-to-cart {
                 background-color: #28a745;
                 color: white;
@@ -130,18 +134,38 @@ if (CModule::IncludeModule("iblock")) {
                 font-size: 1em;
                 margin-top: 10px;
             }
+
             .add-to-cart:hover {
                 background-color: #218838;
             }
+
             .product-attributes {
                 margin-top: 20px;
             }
-            .product-attributes ul {
-                list-style-type: none;
-                padding: 0;
+
+            .product-attributes table {
+                width: 100%;
+                border-collapse: collapse;
             }
-            .product-attributes li {
-                margin-bottom: 5px;
+
+            .product-attributes td {
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+                text-align: left; /* Выравнивание по левому краю */
+            }
+
+            .back-button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                cursor: pointer;
+                font-size: 1em;
+                margin-top: 20px;
+            }
+
+            .back-button:hover {
+                background-color: #0056b3;
             }
         </style>
 
