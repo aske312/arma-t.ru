@@ -19,13 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $quantity = $cartItem['quantity'];
 
             // Запрос к инфоблоку для получения данных товара
-            $arSelect = ["ID", "NAME", "CATALOG_PRICE_1", "DETAIL_PICTURE", "IBLOCK_SECTION_ID"]; // Используем CATATOG_PRICE для цены
+            $arSelect = ["ID", "NAME", "EL_PRICE", "DETAIL_PICTURE", "IBLOCK_SECTION_ID"]; // Используем CATATOG_PRICE для цены
             $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените на ваш ID инфоблока
             $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
 
             if ($arFields = $res->Fetch()) {
-                $productImage = $arFields['DETAIL_PICTURE'] ? CFile::GetPath($arFields['DETAIL_PICTURE']) : '/path/to/default/image.jpg';
-                $productPrice = $arFields['CATALOG_PRICE_1'] ?: 0; // Получаем цену из каталога
+                $productImage = $arFields['DETAIL_PICTURE'] ? CFile::GetPath($arFields['DETAIL_PICTURE']) : '';//'/path/to/default/image.jpg';
+                $productPrice = $arFields['EL_PRICE']['VALUE'] ?: 0; // Получаем цену из каталога
 
                 // Заполняем данные товара
                 $basketData[] = [
