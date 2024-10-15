@@ -127,7 +127,7 @@ if (CModule::IncludeModule("iblock")) {
             }
 
             .add-to-cart {
-                background-color: #28a745;
+                background-color: #2654A2;
                 color: white;
                 border: none;
                 padding: 10px 15px;
@@ -137,7 +137,7 @@ if (CModule::IncludeModule("iblock")) {
             }
 
             .add-to-cart:hover {
-                background-color: #218838;
+                background-color: #0056b3;
             }
 
             .product-attributes {
@@ -156,7 +156,7 @@ if (CModule::IncludeModule("iblock")) {
             }
 
             .back-button {
-                background-color: #007bff;
+                background-color: #2654A2;
                 color: white;
                 border: none;
                 padding: 10px 15px;
