@@ -131,11 +131,11 @@ foreach ($filterProperties as $propertyCode) {
 $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
 // Получаем список товаров из инфоблока "catalog"
 $res = CIBlockElement::GetList(
-    [],
-    ['IBLOCK_ID' => $catalogIblockId],
+    [$arParams['ELEMENT_SORT_FIELD'] => $arParams['ELEMENT_SORT_ORDER']],
+    $elementFilter,
     false,
-    false,
-    ['ID', 'NAME', 'DETAIL_PICTURE', 'PRICE']
+    ['nPageSize' => 10],  // Ограничение вывода до 10 позиций
+    $elementSelect
 );
 
 $res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
