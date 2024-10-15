@@ -134,6 +134,7 @@ if (CModule::IncludeModule("iblock")) {
                 cursor: pointer;
                 font-size: 1em;
                 margin-top: 10px;
+                float: right;
             }
 
             .add-to-cart:hover {
