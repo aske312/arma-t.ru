@@ -57,8 +57,8 @@ if (CModule::IncludeModule("iblock")) {
                 </div>
                 <div class="product-info">
                     <h1><?php echo htmlspecialchars($productName); ?></h1>
-                    <div class="product-articul">Артикул: <?php echo htmlspecialchars($productArticul); ?></div>
-                    <div class="product-availability">Срок изготовления: <?php echo htmlspecialchars($productAvailability); ?></div>
+                    <div class="product-articul">Артикул: <?php echo htmlspecialchars($productArticul); ?>  Срок изготовления: <?php echo htmlspecialchars($productAvailability); ?></div>
+                    <!-- <div class="product-availability">Срок изготовления: <?php echo htmlspecialchars($productAvailability); ?></div> -->
                     <div class="product-price">
                         <p>Цена: <?php echo htmlspecialchars($productPrice); ?></p>
                     </div>
@@ -102,7 +102,7 @@ if (CModule::IncludeModule("iblock")) {
             }
 
             .product-detail {
-                max-width: 800px;
+                max-width: 1200px;
                 margin: 0 auto;
                 font-family: Arial, sans-serif;
                 color: #333;
