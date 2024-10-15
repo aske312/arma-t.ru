@@ -19,21 +19,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $quantity = $cartItem['quantity'];
 
             // Запрос к инфоблоку для получения данных товара
-            $arSelect = ["ID", "NAME", "EL_PRICE", "DETAIL_PICTURE", "IBLOCK_SECTION_ID"];
+            $arSelect = ["ID", "NAME", "CATALOG_PRICE_1", "DETAIL_PICTURE", "IBLOCK_SECTION_ID"]; // Используем CATATOG_PRICE для цены
             $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените на ваш ID инфоблока
             $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
 
             if ($arFields = $res->Fetch()) {
                 $productImage = $arFields['DETAIL_PICTURE'] ? CFile::GetPath($arFields['DETAIL_PICTURE']) : '/path/to/default/image.jpg';
+                $productPrice = $arFields['CATALOG_PRICE_1'] ?: 0; // Получаем цену из каталога
 
+                // Заполняем данные товара
                 $basketData[] = [
                     "id" => $arFields['ID'],
                     "name" => $arFields['NAME'],
-                    "price" => $arFields['EL_PRICE']['VALUE'] ?: 0,
+                    "price" => $productPrice,
                     "quantity" => $quantity,
-                    "total" => ($arFields['EL_PRICE']['VALUE'] ?: 0) * $quantity,
+                    "total" => $productPrice * $quantity,
                     "picture" => $productImage
                 ];
+            } else {
+                // Логируем ошибку, если товар не найден
+                error_log("Ошибка: товар с ID $productId не найден.");
             }
         }
 
@@ -45,4 +50,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(["error" => "Invalid request method"]);
 }
-?>
