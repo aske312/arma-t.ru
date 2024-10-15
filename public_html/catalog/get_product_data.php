@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($arFields = $res->Fetch()) {
                 $productImage = $arFields['DETAIL_PICTURE'] ? CFile::GetPath($arFields['DETAIL_PICTURE']) : '';//'/path/to/default/image.jpg';
-                $productPrice = $arFields['EL_PRICE']['VALUE'] ?: 0; // Получаем цену из каталога
+                $productPrice = $arFields['EL_PRICE'] ?: 0; // Получаем цену из каталога
 
                 // Заполняем данные товара
                 $basketData[] = [
