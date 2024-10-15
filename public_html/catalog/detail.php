@@ -46,14 +46,12 @@ if (CModule::IncludeModule("iblock")) {
 
         // Теперь можно использовать переменные для построения шаблона
         ?>
+        <div class="section-title">
+            <h2><?php echo htmlspecialchars($sectionName); ?></h2>
+            <p>Подробное описание: <?php echo htmlspecialchars($productName); ?></p>
+        </div>
 
         <div class="product-detail">
-
-            <div class="section-title">
-                <h2><?php echo htmlspecialchars($sectionName); ?></h2>
-                <p>Подробное описание: <?php echo htmlspecialchars($productName); ?></p>
-            </div>
-
             <div class="product-content">
                 <div class="product-image">
                     <img src="<?php echo htmlspecialchars($productImage ?: $sectionImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>" style="width: 300px; height: auto;"> <!-- Изображение товара -->
@@ -105,7 +103,7 @@ if (CModule::IncludeModule("iblock")) {
             }
 
             .product-detail {
-                background: white;
+                /* background: white; */
                 max-width: 800px;
                 margin: 0 auto;
                 font-family: Arial, sans-serif;
