@@ -81,6 +81,29 @@ if (CModule::IncludeModule("iblock")) {
         </div>
 
         <style>
+            .section-title {
+                background: url('/local/img/block/pattern.png') no-repeat center;
+                background-size: cover; /* Заполнение всей доступной области без растягивания */
+                color: #fff;
+                padding: 20px;
+                text-align: left;
+                margin-bottom: 20px;
+                width: 1300px; /* Максимальная ширина контейнера */
+                margin: 0 auto; /* Центрирование контейнера */
+                height: 100%; /* Высота контейнера */
+            }
+
+            .section-title h2 {
+                margin: 0;
+                font-size: 24px;
+            }
+
+            .section-title p {
+                margin-top: 10px;
+                font-size: 16px;
+                color: #ddd;
+            }
+
             .product-detail {
                 background: white;
                 max-width: 800px;
