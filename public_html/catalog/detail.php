@@ -105,7 +105,7 @@ if (CModule::IncludeModule("iblock")) {
                 max-width: 800px;
                 margin: 0 auto;
                 font-family: Arial, sans-serif;
-                color: #ddd;
+                color: #333;
             }
 
             .product-content {
@@ -163,6 +163,8 @@ if (CModule::IncludeModule("iblock")) {
                 cursor: pointer;
                 font-size: 1em;
                 margin-top: 20px;
+                text-align: center;
+                justify-content: center;
             }
 
             .back-button:hover {
