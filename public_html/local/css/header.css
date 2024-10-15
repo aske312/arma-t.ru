@@ -136,9 +136,12 @@ nav a:hover, nav a:focus {
 }
 
 /********* Корзина *********/
+.cart-wrapper h2{
+    color: #162139;;
+}
+
 /* Позиционирование модального окна корзины */
 .cart-modal {
-    left: 50%;
     position: absolute; /* Абсолютное позиционирование относительно кнопки */
     z-index: 1000;
     display: none; /* По умолчанию скрыто */
@@ -152,6 +155,14 @@ nav a:hover, nav a:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Тень */
     position: relative; /* Для позиционирования крестика */
     min-width: 300px; /* Минимальная ширина окна */
+}
+
+.cart-btn {
+    background-color: #2654A2;
+}
+
+.cart-btn:hover {
+    background-color: #0056b3;
 }
 
 /* Кнопка закрытия окна (крестик) */
@@ -186,7 +197,7 @@ nav a:hover, nav a:focus {
 
 /* Общий стиль кнопок */
 .button {
-    background-color: #4CAF50; /* Зеленая кнопка */
+    background-color: #2654A2;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -197,16 +208,16 @@ nav a:hover, nav a:focus {
 }
 
 .button:hover {
-    background-color: #45a049; /* Темнее при наведении */
+    background-color: #0056b3;
 }
 
 /* Кнопка для очистки корзины (красная) */
 #clear-cart {
-    background-color: #f44336; /* Красная кнопка */
+    background-color: #2654A2;
 }
 
 #clear-cart:hover {
-    background-color: #d32f2f; /* Темно-красная при наведении */
+    background-color: #0056b3;
 }
 
 /********* Кнопка-гамбургер *********/
