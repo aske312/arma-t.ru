@@ -157,14 +157,14 @@ if (CModule::IncludeModule("iblock")) {
 
             .back-button {
                 background-color: #2654A2;
+                margin: 0 auto;
                 color: white;
                 border: none;
-                padding: 10px 15px;
+                padding: 10px 20px;
                 cursor: pointer;
                 font-size: 1em;
                 margin-top: 20px;
-                text-align: center;
-                justify-content: center;
+                display: block;
             }
 
             .back-button:hover {
