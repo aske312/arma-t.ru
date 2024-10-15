@@ -190,17 +190,15 @@ button#toggle-cart {
     position: relative;
 }
 
-/* Центрируем модальное окно корзины */
+/* Выпадающее окно корзины под кнопкой */
 .cart-modal {
-    position: fixed;
-    margin-right: -250px;
-    width: 100%;
-    height: 100%;
-    /* background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Отображаем поверх всех элементов */
+    position: absolute; /* Позиционируем окно относительно кнопки */
+    top: calc(100% + 5px); /* Смещаем окно на 5px ниже кнопки */
+    left: 50%; /* Центрируем окно по горизонтали */
+    transform: translateX(-50%); /* Центрирование с учетом ширины окна */
+    width: auto;
+    z-index: 1000;
+    display: none; /* Скрыто по умолчанию */
 }
 
 /* Содержимое модального окна корзины */
@@ -208,42 +206,46 @@ button#toggle-cart {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    width: 50%; /* Ширина окна */
-    max-width: 600px; /* Максимальная ширина */
-    position: relative; /* Для позиции крестика */
+    width: 300px; /* Ширина окна корзины */
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    position: relative;
 }
 
-/* Стили для кнопки закрытия окна (крестик) */
+/* Кнопка закрытия окна (крестик) */
 .close-btn {
     position: absolute;
     top: 10px;
     right: 15px;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 18px;
     color: #333;
     cursor: pointer;
 }
 
 .close-btn:hover {
-    color: #ff0000; /* Изменение цвета при наведении */
+    color: #ff0000; /* Цвет крестика при наведении */
 }
 
-/* Стили для товаров в корзине */
+/* Корзина товаров */
 #cart-items div {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-/* Стили для отображения общего количества товаров и общей суммы */
-#total-price {
-    font-size: 18px;
+/* Общая сумма */
+#cart-total {
+    font-size: 16px;
     font-weight: bold;
     margin-top: 20px;
+    text-align: right;
 }
 
-/* Стили для кнопки открытия/закрытия корзины */
+/* Кнопка корзины */
+.cart-btn {
+    position: relative; /* Относительное позиционирование для привязки модального окна */
+    cursor: pointer;
+}
+
 button#toggle-cart {
     position: relative;
 }

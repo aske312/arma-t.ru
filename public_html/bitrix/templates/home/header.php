@@ -155,16 +155,25 @@ foreach ($cartItems as $item) {
             }
 
             //**** КОРЗИНА ****//
-            // Обработчик для открытия модального окна корзины
+            // Обработчик для открытия и закрытия модального окна корзины
             document.getElementById('cart-button').addEventListener('click', function() {
                 var cartModal = document.getElementById('cart-modal');
-                cartModal.style.display = 'block';
+
+                // Переключаем отображение окна
+                if (cartModal.style.display === 'none' || cartModal.style.display === '') {
+                    cartModal.style.display = 'block';
+                } else {
+                    cartModal.style.display = 'none';
+                }
+
+                // Загрузка данных корзины
                 loadCartData();
             });
 
-            // Обработчик для закрытия модального окна корзины
+            // Обработчик для закрытия окна по кнопке (крестик)
             document.getElementById('close-cart-modal').addEventListener('click', function() {
-                document.getElementById('cart-modal').style.display = 'none';
+                var cartModal = document.getElementById('cart-modal');
+                cartModal.style.display = 'none';
             });
 
             // Функция загрузки товаров из куки в модальное окно корзины
