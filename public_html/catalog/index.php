@@ -30,6 +30,7 @@ $sectionsFilter = [
 $arSelect = ['ID', 'NAME', 'SECTION_PAGE_URL', 'PICTURE'];
 $sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, $arSelect);
 $arResult['SECTIONS'] = [];
+
 while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }
@@ -128,12 +129,13 @@ foreach ($filterProperties as $propertyCode) {
 
 // Получение списка элементов с учетом фильтров и пагинации
 $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
+// Получаем список товаров из инфоблока "catalog"
 $res = CIBlockElement::GetList(
-    [$arParams['ELEMENT_SORT_FIELD'] => $arParams['ELEMENT_SORT_ORDER']],
-    $elementFilter,
+    [],
+    ['IBLOCK_ID' => $catalogIblockId],
     false,
-    ['nPageSize' => 10],  // Ограничение вывода до 10 позиций
-    $elementSelect
+    false,
+    ['ID', 'NAME', 'DETAIL_PICTURE', 'PRICE']
 );
 
 $res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
@@ -263,51 +265,78 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
 
             //*** КОРЗИНА ***//
-            // Добавление товара в корзину по нажатию на кнопку
-            document.querySelectorAll('.catalog-item-add-to-cart').forEach(function (button) {
-                button.addEventListener('click', function () {
+            // Добавление отдельного товара в корзину по нажатию на кнопку
+            document.querySelectorAll('.catalog-item-add-to-cart').forEach(function(button) {
+                button.addEventListener('click', function() {
                     var productId = this.getAttribute('data-id');
-                    addToCart(productId);
+                    var productName = this.getAttribute('data-name');
+                    var productPrice = this.getAttribute('data-price');
+                    addToCart(productId, productName, productPrice);
                 });
             });
 
-            function addToCart(productId) {
-                var cartItems = getCartItemsFromCookies();
+            // Добавление всех выбранных товаров в корзину по чекбоксам
+            document.querySelector('.catalog-add-all').addEventListener('click', function() {
+                var selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
+
+                selectedItems.forEach(function(checkbox) {
+                    var productId = checkbox.getAttribute('data-id');
+                    var productElement = checkbox.closest('.catalog-item, .catalog-item-alt'); // Поддержка двух мест
+                    var productName = productElement.querySelector('.catalog-item-add-to-cart').getAttribute('data-name');
+                    var productPrice = productElement.querySelector('.catalog-item-add-to-cart').getAttribute('data-price');
+
+                    addToCart(productId, productName, productPrice);
+                });
+            });
+
+            // Функция добавления товара в корзину
+            function addToCart(productId, productName, productPrice) {
+                var cartItems = getCartItemsFromCookie();
                 var found = false;
 
                 // Проверяем, есть ли товар в корзине
                 for (var i = 0; i < cartItems.length; i++) {
                     if (cartItems[i].id === productId) {
-                        cartItems[i].quantity += 1;
+                        cartItems[i].quantity += 1; // Увеличиваем количество, если товар уже в корзине
                         found = true;
                         break;
                     }
                 }
 
                 if (!found) {
-                    cartItems.push({ id: productId, quantity: 1 });
+                    // Если товара еще нет в корзине, добавляем его с количеством 1
+                    cartItems.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1
+                    });
                 }
 
-                // Сохраняем обновленные товары в куки
+                // Сохраняем обновленную корзину в куки
                 saveCartItemsToCookies(cartItems);
                 updateCartCounter();
             }
 
-            function updateCartCounter() {
-                var cartItems = getCartItemsFromCookies();
-                var itemCount = cartItems.reduce(function (total, item) {
-                    return total + item.quantity;
-                }, 0);
-                document.getElementById('cart-counter').textContent = itemCount;
-            }
-
-            function getCartItemsFromCookies() {
-                var cartItems = Cookies.get('cart');
+            // Получение товаров из куки
+            function getCartItemsFromCookie() {
+                var cartItems = Cookies.get('cartItems');
                 return cartItems ? JSON.parse(cartItems) : [];
             }
 
+            // Сохранение товаров в куки
             function saveCartItemsToCookies(cartItems) {
-                Cookies.set('cart', JSON.stringify(cartItems), { expires: 7 });
+                Cookies.set('cartItems', JSON.stringify(cartItems), { expires: 7 });
+            }
+
+            // Обновление счетчика товаров в корзине
+            function updateCartCounter() {
+                var cartItems = getCartItemsFromCookie();
+                var itemCount = cartItems.reduce(function(total, item) {
+                    return total + item.quantity;
+                }, 0);
+
+                document.getElementById('cart-count').textContent = itemCount;
             }
         </script>
 
