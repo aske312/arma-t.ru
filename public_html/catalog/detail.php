@@ -67,7 +67,7 @@ if (CModule::IncludeModule("iblock")) {
             </div>
             <?php if (!empty($productProperties)): ?>
                 <div class="product-attributes">
-                    <h2>Характеристики:</h2>
+                    <h2>Характеристики</h2>
                     <ul>
                         <?php foreach ($productProperties as $propName => $propValue): ?>
                             <li><?php echo htmlspecialchars($propName) . ': ' . htmlspecialchars($propValue); ?></li>
