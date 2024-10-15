@@ -115,11 +115,12 @@ foreach ($cartItems as $item) {
                         </div>
 
                         <!-- Модальное окно с товарами корзины -->
-                        <div id="cart-modal" class="cart-modal" style="display: none;">
+                        <div id="cart-modal" class="cart-modal">
                             <div class="cart-modal-content">
                                 <span class="close-btn" id="close-cart-modal">&times;</span>
                                 <h2>Товары в корзине</h2>
                                 <div id="cart-items">
+
                                     <!-- Здесь будут отображаться товары из корзины -->
                                 </div>
                                 <div id="cart-total">
@@ -198,32 +199,6 @@ foreach ($cartItems as $item) {
                 }
             }
 
-//            // Загрузка товаров из куки и отображение в корзине
-//            function loadCartItems() {
-//                var cartItems = getCartItemsFromCookies();
-//                var productIds = cartItems.map(item => item.id);
-//
-//                if (productIds.length > 0) {
-//                    var xhr = new XMLHttpRequest();
-//                    xhr.open('POST', 'get_product_data.php', true);
-//                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-//                    xhr.onreadystatechange = function () {
-//                        if (xhr.readyState === 4 && xhr.status === 200) {
-//                            var basketData = JSON.parse(xhr.responseText);
-//                            updateCart(basketData);
-//                        }
-//                    };
-//                    xhr.send('productIds=' + JSON.stringify(productIds));
-//                }
-//            }
-
-//            // Очистка корзины
-//            document.getElementById('clear-cart').addEventListener('click', function () {
-//                Cookies.remove('cartItems');
-//                updateCart([]); // Очищаем корзину на экране
-//                updateCartCounter();
-//            });
-
             // Функция обновления содержимого корзины
             function updateCart(basketData) {
                 var cartItemsContainer = document.getElementById('cart-items');
@@ -292,49 +267,4 @@ foreach ($cartItems as $item) {
             document.getElementById('checkout').addEventListener('click', function() {
                 window.location.href = '/checkout/';  // Переход на страницу оформления заказа
             });
-
-//                function updateQuantity(productId, quantity) {
-//                    var cartItems = getCartItemsFromCookies();
-//                    cartItems = cartItems.map(function (item) {
-//                        if (item.id === productId) {
-//                            item.quantity = parseInt(quantity);
-//                        }
-//                        return item;
-//                    });
-//                    saveCartItemsToCookies(cartItems);
-//                    loadCartItems(); // Обновляем данные в корзине
-//                }
-//
-//                function removeFromCart(productId) {
-//                    var cartItems = getCartItemsFromCookies();
-//                    cartItems = cartItems.filter(function (item) {
-//                        return item.id !== productId;
-//                    });
-//                    saveCartItemsToCookies(cartItems);
-//                    loadCartItems(); // Обновляем данные в корзине
-//                    updateCartCounter();
-//                }
-//
-//                function getCookie(name) {
-//                    var value = "; " + document.cookie;
-//                    var parts = value.split("; " + name + "=");
-//                    if (parts.length == 2) return parts.pop().split(";").shift();
-//                }
-//
-//                function parseCartCookie() {
-//                    var cartCookie = getCookie('cart');
-//                    if (cartCookie) {
-//                        // Декодирование URL и парсинг JSON
-//                        try {
-//                            return JSON.parse(decodeURIComponent(cartCookie));
-//                        } catch (error) {
-//                            console.error("Ошибка при парсинге куки корзины:", error);
-//                            return [];
-//                        }
-//                    }
-//                    return [];
-//                }
-//
-//                var cartItems = parseCartCookie();
-//                console.log(cartItems); // Должен вывести массив с объектами товаров
         </script>
