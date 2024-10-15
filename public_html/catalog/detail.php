@@ -43,12 +43,11 @@ if (CModule::IncludeModule("iblock")) {
         if (empty($productPrice) || $productPrice == 0) {
             $productPrice = "Под заказ";
         }
-
-        // Теперь можно использовать переменные для построения шаблона
         ?>
+
         <div class="section-title">
-            <h2><?php echo htmlspecialchars($sectionName); ?></h2>
-            <p>Подробное описание: <?php echo htmlspecialchars($productName); ?></p>
+            <h2><?php echo htmlspecialchars($productName); ?></h2>
+            <p>Подробное описание</p>
         </div>
 
         <div class="product-detail">
@@ -96,11 +95,11 @@ if (CModule::IncludeModule("iblock")) {
                 font-size: 24px;
             }
 
-            .section-title p {
+            /* .section-title p {
                 margin-top: 10px;
                 font-size: 16px;
                 color: #ddd;
-            }
+            } */
 
             .product-detail {
                 /* background: white; */
