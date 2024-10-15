@@ -48,7 +48,12 @@ if (CModule::IncludeModule("iblock")) {
         ?>
 
         <div class="product-detail">
-            <h2><?php echo htmlspecialchars($sectionName); ?></h2> <!-- Название раздела -->
+
+            <div class="section-title">
+                <h2><?php echo htmlspecialchars($sectionName); ?></h2>
+                <p>Подробное описание: <?php echo htmlspecialchars($productName); ?></p>
+            </div>
+
             <div class="product-content">
                 <div class="product-image">
                     <img src="<?php echo htmlspecialchars($productImage ?: $sectionImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>" style="width: 300px; height: auto;"> <!-- Изображение товара -->
@@ -77,6 +82,7 @@ if (CModule::IncludeModule("iblock")) {
 
         <style>
             .product-detail {
+                background: white;
                 max-width: 800px;
                 margin: 0 auto;
                 font-family: Arial, sans-serif;
