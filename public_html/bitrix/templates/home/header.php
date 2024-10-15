@@ -105,13 +105,6 @@ foreach ($cartItems as $item) {
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
-                    <div class="header-content">
-                        <div class="cart">
-                            <button id="basket-button">
-                                В корзине <span id="cart-counter"><?= $cartItemCount ?></span> позиций
-                            </button>
-                        </div>
-                    </div>
                     <div class="cart-wrapper">
 
                         <!-- Корзина -->
