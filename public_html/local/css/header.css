@@ -136,64 +136,11 @@ nav a:hover, nav a:focus {
 }
 
 /********* Корзина *********/
-/* Стили для выпадающего окна корзины *//*
-.cart-popup {
-    position: absolute;
-    top: 50px;
-    right: 20px;
-    width: 300px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    z-index: 1000;
-}
-
-.cart-popup.visible {
-    display: block;
-}
-
-#cart-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    padding: 20px;
-    z-index: 1000;
-}
-
-#cart-items div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-#cart-counter {
-    font-weight: bold;
-    color: #ff0000;
-}
-
-#total-price {
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-button#toggle-cart {
-    position: relative;
-} */
-
-/* Выпадающее окно корзины под кнопкой */
+/* Позиционирование модального окна корзины */
 .cart-modal {
-    position: absolute; /* Позиционирование относительно кнопки */
-    top: calc(100% + 5px); /* Отступ 5px от кнопки */
-    left: 50%; /* Центрируем окно по горизонтали */
-    transform: translateX(-50%); /* Центрирование окна по оси X */
-    width: 300px; /* Ширина окна корзины */
+    position: absolute; /* Абсолютное позиционирование относительно кнопки */
     z-index: 1000;
-    display: none; /* Скрываем окно по умолчанию */
+    display: none; /* По умолчанию скрыто */
 }
 
 /* Содержимое модального окна корзины */
@@ -201,8 +148,9 @@ button#toggle-cart {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Тень для объема */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Тень */
     position: relative; /* Для позиционирования крестика */
+    min-width: 300px; /* Минимальная ширина окна */
 }
 
 /* Кнопка закрытия окна (крестик) */
@@ -217,17 +165,17 @@ button#toggle-cart {
 }
 
 .close-btn:hover {
-    color: #ff0000; /* Изменение цвета при наведении */
+    color: #ff0000; /* Цвет при наведении */
 }
 
-/* Стили для товаров в корзине */
+/* Оформление товаров в корзине */
 #cart-items div {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-/* Общая сумма */
+/* Итоговая сумма */
 #cart-total {
     font-size: 16px;
     font-weight: bold;
@@ -235,15 +183,9 @@ button#toggle-cart {
     text-align: right;
 }
 
-/* Кнопка корзины */
-.cart-btn {
-    position: relative; /* Для привязки модального окна */
-    cursor: pointer;
-}
-
-/* Стили для кнопок внутри корзины */
-#clear-cart, #checkout {
-    background-color: #4CAF50;
+/* Общий стиль кнопок */
+.button {
+    background-color: #4CAF50; /* Зеленая кнопка */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -253,26 +195,17 @@ button#toggle-cart {
     border-radius: 5px;
 }
 
-#clear-cart:hover, #checkout:hover {
+.button:hover {
     background-color: #45a049; /* Темнее при наведении */
 }
 
+/* Кнопка для очистки корзины (красная) */
 #clear-cart {
-    background-color: #f44336; /* Красная кнопка для очистки корзины */
+    background-color: #f44336; /* Красная кнопка */
 }
 
 #clear-cart:hover {
     background-color: #d32f2f; /* Темно-красная при наведении */
-}
-
-/* Стили для отображения товара в модальном окне */
-.cart-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.cart-item:last-child {
-    border-bottom: none;
 }
 
 /********* Кнопка-гамбургер *********/

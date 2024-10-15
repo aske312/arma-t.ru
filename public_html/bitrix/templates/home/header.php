@@ -106,8 +106,7 @@ foreach ($cartItems as $item) {
                     <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
                     <div class="cart-wrapper">
-
-                        <!-- Корзина -->
+                        <!-- Кнопка Корзины -->
                         <div class="cart-icon">
                             <button id="cart-button" class="cart-btn">
                                 В Корзине (<span id="cart-count">0</span>)
@@ -121,14 +120,14 @@ foreach ($cartItems as $item) {
                                 <h2>Товары в корзине</h2>
                                 <div id="cart-items">
 
-                                    <!-- Здесь будут отображаться товары из корзины -->
+                                    <!-- Список товаров будет отображаться здесь -->
                                 </div>
                                 <div id="cart-total">
 
-                                    <!-- Здесь будет отображаться итоговая сумма -->
+                                    <!-- Итоговая сумма будет отображаться здесь -->
                                 </div>
-                                <button id="clear-cart">Очистить корзину</button>
-                                <button id="checkout">Оформить заказ</button>
+                                <button id="clear-cart" class="button">Очистить корзину</button>
+                                <button id="checkout" class="button">Оформить заказ</button>
                             </div>
                         </div>
                     </div>
@@ -159,6 +158,11 @@ foreach ($cartItems as $item) {
             // Обработчик для открытия и закрытия модального окна корзины
             document.getElementById('cart-button').addEventListener('click', function() {
                 var cartModal = document.getElementById('cart-modal');
+                var buttonRect = this.getBoundingClientRect(); // Получаем координаты кнопки
+
+                // Устанавливаем позицию окна относительно кнопки
+                cartModal.style.top = (buttonRect.bottom + window.scrollY + 5) + 'px'; // На 5px ниже кнопки
+                cartModal.style.left = (buttonRect.left + window.scrollX - (cartModal.offsetWidth / 2) + (buttonRect.width / 2)) + 'px';
 
                 // Переключаем отображение окна
                 if (cartModal.style.display === 'none' || cartModal.style.display === '') {
@@ -171,7 +175,7 @@ foreach ($cartItems as $item) {
                 loadCartData();
             });
 
-            // Обработчик для закрытия окна по кнопке (крестик)
+            // Закрытие модального окна корзины по крестику
             document.getElementById('close-cart-modal').addEventListener('click', function() {
                 var cartModal = document.getElementById('cart-modal');
                 cartModal.style.display = 'none';
