@@ -129,7 +129,6 @@ foreach ($filterProperties as $propertyCode) {
 
 // Получение списка элементов с учетом фильтров и пагинации
 $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
-// Получаем список товаров из инфоблока "catalog"
 $res = CIBlockElement::GetList(
     [$arParams['ELEMENT_SORT_FIELD'] => $arParams['ELEMENT_SORT_ORDER']],
     $elementFilter,
@@ -203,30 +202,30 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <button class="catalog-add-all">В корзину</button>
         </div>
 
-                <!-- Список элементов каталога  -->
-                <div class="catalog-items">
-                    <?php while ($ob = $res->GetNextElement()):
-                    $arFields = $ob->GetFields();
-                    $arProps = $ob->GetProperties();
-                    foreach ($arResult['SECTIONS'] as $arSection):
-                    if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
-                    <div class="catalog-item" onclick="redirectToDetail(<?= $arSection['ID']; ?>, <?= $arFields['ID']; ?>)">
-                        <div class="catalog-item-header">
-                            <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
-                            <?php if ($arSection['PICTURE']): ?>
-                            <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                            <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
-                            <?php else: ?>
-                            <img alt="Нет изображения" src="/local/img/no_image.png">
-                            <?php endif; ?>
-                            <div class="catalog-item-info">
+            <!-- Список элементов каталога  -->
+            <div class="catalog-items">
+                <?php while ($ob = $res->GetNextElement()):
+                $arFields = $ob->GetFields();
+                $arProps = $ob->GetProperties();
+                foreach ($arResult['SECTIONS'] as $arSection):
+                if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
+                <div class="catalog-item">
+                    <div class="catalog-item-header">
+                        <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
+                        <?php if ($arSection['PICTURE']): ?>
+                        <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                        <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
+                        <?php else: ?>
+                        <img alt="Нет изображения" src="/local/img/no_image.png">
+                        <?php endif; ?>
+                        <div class="catalog-item-info">
                             <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
-                            <p>Артикул: <?= $arProps['EL_ARTICUL']['VALUE']; ?>
-                            <span><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
+                            <p>Артикул: <?= $arProps['EL_ARTICUL']['VALUE']; ?></p>
+                            <p><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
                             <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
                         </div>
                         <div class="catalog-item-controls">
-                            <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>">В корзину</button>
+                            <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
                         </div>
                     </div>
 
@@ -281,7 +280,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                 selectedItems.forEach(function(checkbox) {
                     var productId = checkbox.getAttribute('data-id');
-                    var productElement = checkbox.closest('.catalog-item, .catalog-item-alt'); // Поддержка двух мест
+                    var productElement = checkbox.closest('.catalog-item');
                     var productName = productElement.querySelector('.catalog-item-add-to-cart').getAttribute('data-name');
                     var productPrice = productElement.querySelector('.catalog-item-add-to-cart').getAttribute('data-price');
 
