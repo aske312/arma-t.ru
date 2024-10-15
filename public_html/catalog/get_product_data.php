@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
 
             if ($arFields = $res->Fetch()) {
-                $productImage = ''//$arFields['DETAIL_PICTURE'] ? CFile::GetPath($arFields['DETAIL_PICTURE']) : '/path/to/default/image.jpg';
+                $productImage = $arFields['DETAIL_PICTURE'] ? CFile::GetPath($arFields['DETAIL_PICTURE']) : '/path/to/default/image.jpg';
 
                 $basketData[] = [
                     "id" => $arFields['ID'],
