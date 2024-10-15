@@ -46,7 +46,7 @@ if (CModule::IncludeModule("iblock")) {
         ?>
 
         <div class="section-title">
-            <h2><?php echo htmlspecialchars($sectionName); ?></h2> <!-- Название раздела -->
+            <h2><?php echo htmlspecialchars($productName); ?></h2> <!-- Название раздела -->
             <p>Подробное описание</p>
         </div>
 
