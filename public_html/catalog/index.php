@@ -351,6 +351,125 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                 document.getElementById('cart-count').textContent = itemCount;
             }
+
+
+
+                        // Обработчик для открытия и закрытия модального окна корзины
+            document.getElementById('cart-button').addEventListener('click', function() {
+                var cartModal = document.getElementById('cart-modal');
+                var buttonRect = this.getBoundingClientRect(); // Получаем координаты кнопки
+
+                // Устанавливаем позицию окна относительно кнопки
+                cartModal.style.top = (buttonRect.bottom + window.scrollY + 5) + 'px'; // На 5px ниже кнопки
+                cartModal.style.left = (buttonRect.left + window.scrollX - (cartModal.offsetWidth / 2) + (buttonRect.width / 2)) + 'px';
+
+                // Переключаем отображение окна
+                if (cartModal.style.display === 'none' || cartModal.style.display === '') {
+                    cartModal.style.display = 'block';
+                } else {
+                    cartModal.style.display = 'none';
+                }
+
+                // Загрузка данных корзины
+                loadCartData();
+            });
+
+            // Закрытие модального окна корзины по крестику
+            document.getElementById('close-cart-modal').addEventListener('click', function() {
+                var cartModal = document.getElementById('cart-modal');
+                cartModal.style.display = 'none';
+            });
+
+            // Функция загрузки товаров из куки в модальное окно корзины
+            function loadCartData() {
+                var cartItems = getCartItemsFromCookie();
+
+                if (cartItems.length > 0) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'get_product_data.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (Array.isArray(response)) {
+                                updateCart(response);  // Функция обновления содержимого корзины
+                            }
+                        }
+                    };
+                    xhr.send('cartItems=' + encodeURIComponent(JSON.stringify(cartItems)));
+                } else {
+                    document.getElementById('cart-items').innerHTML = '<p>Ваша корзина пуста</p>';
+                }
+            }
+
+            // Функция обновления содержимого корзины
+            function updateCart(basketData) {
+                var cartItemsContainer = document.getElementById('cart-items');
+                cartItemsContainer.innerHTML = '';
+                var totalSum = 0;
+
+                basketData.forEach(function(item, index) {
+                    var itemRow = document.createElement('div');
+                    itemRow.className = 'cart-item';
+                    itemRow.innerHTML = `
+                        <div>№${index + 1}</div>
+                        <div>Название: ${item.name}</div>
+                        <div>Цена: ${item.price}</div>
+                        <div>Количество: ${item.quantity}</div>
+                        <div>Сумма: ${item.total}</div>
+                        <button class="remove-item-btn" data-id="${item.id}">Удалить</button>
+                    `;
+                    cartItemsContainer.appendChild(itemRow);
+
+                    totalSum += item.total;
+                });
+
+                document.getElementById('cart-total').innerHTML = `Общая сумма: ${totalSum} руб.`;
+
+                // Обработчик удаления товара из корзины
+                document.querySelectorAll('.remove-item-btn').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var productId = this.getAttribute('data-id');
+                        removeCartItem(productId);
+                    });
+                });
+            }
+
+            // Функция получения товаров из куки
+            function getCartItemsFromCookie() {
+                var cartItems = [];
+                var cookies = document.cookie.split(';');
+
+                cookies.forEach(function(cookie) {
+                    var cookiePair = cookie.split('=');
+                    if (cookiePair[0].trim() === 'cartItems') {
+                        cartItems = JSON.parse(decodeURIComponent(cookiePair[1]));
+                    }
+                });
+
+                return cartItems;
+            }
+
+            // Функция удаления товара из корзины
+            function removeCartItem(productId) {
+                var cartItems = getCartItemsFromCookie();
+                cartItems = cartItems.filter(function(item) {
+                    return item.id !== productId;
+                });
+                document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + ';path=/';
+                loadCartData();  // Обновляем корзину
+            }
+
+            // Обработчик очистки корзины
+            document.getElementById('clear-cart').addEventListener('click', function() {
+                document.cookie = 'cartItems=; Max-Age=-99999999;';  // Очищаем куки
+                loadCartData();  // Обновляем корзину
+            });
+
+            // Обработчик оформления заказа
+            document.getElementById('checkout').addEventListener('click', function() {
+                window.location.href = '/checkout/';  // Переход на страницу оформления заказа
+            });
         </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
