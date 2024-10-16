@@ -210,8 +210,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 foreach ($arResult['SECTIONS'] as $arSection):
                 if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
                 <div class="catalog-item">
-                    <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                     <div class="catalog-item-header">
+                        <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                         <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
                         <?php if ($arSection['PICTURE']): ?>
                         <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
