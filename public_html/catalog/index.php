@@ -225,6 +225,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <p><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
                             <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
                         </div>
+                        </a>
                         <div class="catalog-item-controls">
                             <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
                         </div>
@@ -240,7 +241,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
                         </table>
                     </div>
-                    </a>
+
                 </div>
                 <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
             </div>
