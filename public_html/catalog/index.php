@@ -210,7 +210,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 foreach ($arResult['SECTIONS'] as $arSection):
                 if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
                 <div class="catalog-item">
-                    <!-- <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link"> -->
+                    <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                     <div class="catalog-item-header">
                         <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
                         <?php if ($arSection['PICTURE']): ?>
@@ -240,6 +240,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
                         </table>
                     </div>
+                    </a>
                 </div>
                 <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
             </div>

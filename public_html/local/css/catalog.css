@@ -248,6 +248,9 @@ pre { /* DEBUG */
     display: flex;
     align-items: center;
 }
+.catalog-item a {
+    text-decoration: none;
+}
 
 .catalog-item-header img.catalog-item-image {
     width: 100px;
