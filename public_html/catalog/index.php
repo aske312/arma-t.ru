@@ -269,7 +269,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             //*** КОРЗИНА ***//
             // Добавление отдельного товара в корзину по нажатию на кнопку
             document.querySelectorAll('.catalog-item-add-to-cart').forEach(function(button) {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Останавливаем событие клика, чтобы не переходить по ссылке
                     var productId = this.getAttribute('data-id');
                     var productName = this.getAttribute('data-name');
                     var productPrice = this.getAttribute('data-price');
