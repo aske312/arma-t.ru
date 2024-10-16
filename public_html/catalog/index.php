@@ -209,7 +209,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 $arProps = $ob->GetProperties();
                 foreach ($arResult['SECTIONS'] as $arSection):
                 if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
-                <div class="catalog-item">
+                <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
                     <div class="catalog-item-header">
                         <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
                         <?php if ($arSection['PICTURE']): ?>
@@ -224,12 +224,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <p><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
                             <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
                         </div>
+                        <!-- Кнопка "В корзину" -->
                         <div class="catalog-item-controls">
                             <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
                         </div>
                     </div>
 
-                    <!-- Краткое описание элемента  -->
+                    <!-- Краткое описание элемента -->
                     <div class="catalog-item-properties">
                         <table>
                             <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
@@ -239,7 +240,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
                         </table>
                     </div>
-
                 </div>
                 <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
             </div>
@@ -266,10 +266,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
 
             //*** КОРЗИНА ***//
-            // Добавление отдельного товара в корзину по нажатию на кнопку
+            // Обработка клика на блок товара
+            document.querySelectorAll('.catalog-item').forEach(function(item) {
+                item.addEventListener('click', function(event) {
+                    // Если клик произошел не на кнопку "В корзину", переход на детальную страницу
+                    if (!event.target.classList.contains('catalog-item-add-to-cart')) {
+                        var productId = this.getAttribute('data-id');
+                        window.location.href = 'detail.php?id=' + productId;
+                    }
+                });
+            });
+
+            // Обработка клика на кнопку "В корзину"
             document.querySelectorAll('.catalog-item-add-to-cart').forEach(function(button) {
                 button.addEventListener('click', function(event) {
-                    event.stopPropagation(); // Останавливаем событие клика, чтобы не переходить по ссылке
+                    event.stopPropagation(); // Останавливаем всплытие события клика, чтобы не было перехода на детальную страницу
                     var productId = this.getAttribute('data-id');
                     var productName = this.getAttribute('data-name');
                     var productPrice = this.getAttribute('data-price');
