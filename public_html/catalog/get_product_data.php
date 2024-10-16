@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productId = $cartItem['id'];
             $quantity = $cartItem['quantity'];
 
-            // Запрос к инфоблоку для получения данных товара
-            $arSelect = ["ID", "NAME", "PROPERTY_EL_PRICE", "DETAIL_PICTURE"]; // EL_PRICE как пользовательское свойство
+            // Запрос к инфоблоку для получения данных товара, включая пользовательское свойство EL_PRICE
+            $arSelect = ["ID", "NAME", "PROPERTY_EL_PRICE", "DETAIL_PICTURE"]; // Получаем цену из пользовательского свойства
             $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените на ваш ID инфоблока
             $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Обработка изображения товара
                 $productImage = $arFields['DETAIL_PICTURE'] ? CFile::GetPath($arFields['DETAIL_PICTURE']) : '';
 
-                // Если цена хранится в пользовательском свойстве
+                // Получаем цену из пользовательского свойства EL_PRICE
                 $productPrice = $arFields['PROPERTY_EL_PRICE_VALUE'] ?: 0;
 
                 // Заполняем данные товара
@@ -53,4 +53,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(["error" => "Invalid request method"]);
 }
-?>
