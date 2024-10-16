@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Если цена из куки равна "0", получаем цену из инфоблока
             if ($cartItem['price'] == 0) {
                 // Запрос к инфоблоку для получения данных товара
-                $arSelect = ["ID", "NAME", "CATALOG_PRICE_1", "DETAIL_PICTURE", "IBLOCK_SECTION_ID"]; // Используем CATATOG_PRICE для цены
+                $arSelect = ["ID", "NAME", "EL_PRICE", "DETAIL_PICTURE", "IBLOCK_SECTION_ID"]; // Используем CATATOG_PRICE для цены
                 $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените на ваш ID инфоблока
                 $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
 
