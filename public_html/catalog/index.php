@@ -211,7 +211,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
                 <div class="catalog-item">
                     <div class="catalog-item-header">
-                        <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                         <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
                         <?php if ($arSection['PICTURE']): ?>
                         <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
@@ -225,7 +224,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <p><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
                             <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
                         </div>
-                        </a>
                         <div class="catalog-item-controls">
                             <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
                         </div>
