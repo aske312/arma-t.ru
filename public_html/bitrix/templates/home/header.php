@@ -166,7 +166,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 
         // Сохранение данных корзины в сессию
         function setCartItemsToSession(cartItems) {
-            console.log('Sending cart items to session:', cartItems); // Добавьте эту строку
+            //console.log('Sending cart items to session:', cartItems); // Добавьте эту строку
             fetch('/catalog/update_cart_session.php', {
                 method: 'POST',
                 headers: {
@@ -200,7 +200,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 
         // Очистить корзину полностью
         document.getElementById('clear-cart').addEventListener('click', function() {
-            console.log('Clearing cart...'); // Добавьте эту строку
+            //console.log('Clearing cart...'); // Добавьте эту строку
             setCartItemsToSession([]); // Очищаем корзину в сессии
             loadCartData();
             updateCartCount();
