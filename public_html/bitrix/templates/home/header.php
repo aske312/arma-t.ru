@@ -190,7 +190,7 @@ foreach ($cartItems as $item) {
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
                 var data = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems));
-                console.log(data)
+                console.log(data);
 
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
