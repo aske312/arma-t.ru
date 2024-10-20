@@ -5,7 +5,7 @@
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 // Указываем ID инфоблока
-$IBLOCK_ID = 1; // Замените **1** на ID вашего инфоблока
+$IBLOCK_ID = 2; // Замените **1** на ID вашего инфоблока
 
 // Получаем данные из инфоблока
 $arSelect = Array("ID", "NAME", "PROPERTY_*");
@@ -25,4 +25,4 @@ while ($ob = $res->GetNextElement()) {
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");
 ?>
 
-//<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
+<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>

@@ -113,41 +113,23 @@ foreach ($cartItems as $item) {
                             </button>
                         </div>
 
-                        <!-- Модальное окно с товарами корзины
+                        <!-- Модальное окно с товарами корзины -->
                         <div id="cart-modal" class="cart-modal">
                             <div class="cart-modal-content">
                                 <span class="close-btn" id="close-cart-modal">&times;</span>
                                 <h2>Товары в корзине</h2>
                                 <div id="cart-items">
 
-                                      Список товаров будет отображаться здесь
+                                      <!-- Список товаров будет отображаться здесь -->
                                 </div>
                                 <div id="cart-total">
 
-                                      Итоговая сумма будет отображаться здесь
+                                      <!-- Итоговая сумма будет отображаться здесь -->
                                 </div>
                                 <button id="clear-cart" class="button">Очистить корзину</button>
                                 <button id="checkout" class="button">Оформить заказ</button>
                             </div>
-                        </div> -->
-
-                    <h1>Корзина</h1>
-
-                    <?php if (!empty($cartItems)) : ?>
-                        <div id="cart-items">
-                            <h2>Товары в корзине</h2>
-                            <?php foreach ($cartItems as $item) : ?>
-                                <div class="cart-item">
-                                    <h3><?= $item->name ?></h3>
-                                    <p>Цена: <?= $item->price ?></p>
-                                    <p>Количество: <?= $item->quantity ?></p>
-                                </div>
-                            <?php endforeach; ?>
                         </div>
-                    <?php else : ?>
-                        <p>Ваша корзина пуста.</p>
-                    <?php endif; ?>
-
                     </div>
                 </div>
             </div>
