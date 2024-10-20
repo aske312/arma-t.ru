@@ -1,5 +1,6 @@
 <?php
 // Подключаем файл с настройками
+require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 // Указываем ID инфоблока
