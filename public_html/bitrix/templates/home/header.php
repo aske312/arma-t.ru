@@ -92,17 +92,12 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
         });
 
         function getCartItemsFromCookie() {
-          const cookieValue = document.cookie.split('; ').find(row => row.startsWith('cartitems='));
-          if (cookieValue) {
-            return JSON.parse(cookieValue.split('=')[1]);
-          } else {
-            return [];
-          }
+            const cookie = document.cookie.split('; ').find(row => row.startsWith('cartItems='));
+            return cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : [];
         }
 
         function setCartItemsToCookie(cartItems) {
-          const cartItemsString = JSON.stringify(cartItems);
-          document.cookie = `cartitems=${cartItemsString}`;
+            document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + '; path=/; max-age=3600';
         }
 
         function updateCartCount() {
