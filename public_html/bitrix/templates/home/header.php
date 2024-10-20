@@ -185,6 +185,28 @@ foreach ($cartItems as $item) {
 
             // Функция загрузки товаров из куки в модальное окно корзины
             function loadCartData() {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'get_product_data.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                var data = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems));
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Обработка успешного ответа
+                            var response = JSON.parse(xhr.responseText);
+                            console.log(response);
+                        } else {
+                            console.error('Ошибка: ' + xhr.status);
+                        }
+                    }
+                };
+
+                xhr.send(data);
+
+                // ***************************
+
                 var cartItems = getCartItemsFromCookie();
 
                 if (cartItems.length > 0) {
