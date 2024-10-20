@@ -1,7 +1,6 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-// Подключение модулей и стилей
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
 
@@ -27,7 +26,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script> <!-- Для работы с куками -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
@@ -85,30 +84,26 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 
     <script>
         function toggleMenu() {
-            var nav = document.getElementById('mainNav');
-            nav.classList.toggle('menu-open');
+            document.getElementById('mainNav').classList.toggle('menu-open');
         }
 
-        // Липкая шапка
         window.addEventListener('scroll', function() {
-            const header = document.getElementById('siteHeader');
-            header.classList.toggle('fixed', window.scrollY > 100);
+            document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
+
+        function getCartItemsFromCookie() {
+            const cookie = document.cookie.split('; ').find(row => row.startsWith('cartItems='));
+            return cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : [];
+        }
+
+        function setCartItemsToCookie(cartItems) {
+            document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + '; path=/; max-age=3600';
+        }
 
         function updateCartCount() {
             const cartItems = getCartItemsFromCookie();
             const count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
-        }
-
-        function getCartItemsFromCookie() {
-            $cookie = $_COOKIE['cartItems'] ?? null;
-            if ($cookie) {
-                $decryptedData = decrypt($cookie);
-                error_log("Получаем из куки: $decryptedData"); // Логируем расшифрованные данные
-                return json_decode($decryptedData, true);
-            }
-            return [];
         }
 
         document.getElementById('cart-button').addEventListener('click', function() {
@@ -136,7 +131,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                             <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button>
                         </td>
-                        <td>${item.price * item.quantity} руб.</td>
+                        <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
                         <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td>
                     </tr>
                 `;
@@ -144,7 +139,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                 totalSum += item.price * item.quantity;
             });
 
-            document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum} руб.`;
+            document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
         }
 
         function updateQuantity(productId, delta) {
@@ -181,13 +176,6 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             setCartItemsToCookie(cartItems);
             loadCartData();
             updateCartCount();
-        }
-
-        function setCartItemsToCookie($cartItems) {
-            $jsonData = json_encode($cartItems);
-            $encryptedData = encrypt($jsonData);
-            error_log("Сохраняем в куки: $encryptedData"); // Логируем зашифрованные данные
-            setcookie('cartItems', $encryptedData, time() + 3600, '/');
         }
 
         document.getElementById('clear-cart').addEventListener('click', function() {
