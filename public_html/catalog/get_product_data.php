@@ -17,8 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $basketData = [];
 
         foreach ($cartItems as $cartItem) {
-            $productId = (int)$cartItem['id']; // Приводим к целому числу для безопасности
-            $quantity = (int)$cartItem['quantity'];
+            $productId = $cartItem['id']; // Приводим к целому числу для безопасности
+            $quantity = $cartItem['quantity'];
+
+            console.log($cartItem);
 
             // Запрос к инфоблоку для получения данных товара
             $arSelect = ['ID', 'NAME', 'PREVIEW_PICTURE', 'PROPERTY_EL_PRICE']; // Указываем необходимые поля
@@ -27,18 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($arFields = $res->Fetch()) {
                 // Обработка изображения товара
-                $productImage = $arFields['PREVIEW_PICTURE'] ? CFile::GetPath($arFields['PREVIEW_PICTURE']) : '';
+                //$productImage = $arFields['PREVIEW_PICTURE'] ? CFile::GetPath($arFields['PREVIEW_PICTURE']) : '';
+                $productImage = '';
 
                 // Получаем цену из пользовательского свойства EL_PRICE
-                $productPrice = isset($arFields['PROPERTY_EL_PRICE']['VALUE']) ? $arFields['PROPERTY_EL_PRICE']['VALUE'] : 0;
+                //$productPrice = isset($arFields['PROPERTY_EL_PRICE']['VALUE']) ? $arFields['PROPERTY_EL_PRICE']['VALUE'] : 0;
+                $productPrice == 0;
 
                 // Заполняем данные товара
                 $basketData[] = [
                     "id" => $arFields['ID'],
                     "name" => $arFields['NAME'],
-                    "price" => (float)$productPrice, // Приводим к типу float
+                    "price" => $productPrice, // Приводим к типу float
                     "quantity" => $quantity,
-                    "total" => (float)$productPrice * $quantity, // Итоговая стоимость
+                    "total" => $productPrice * $quantity, // Итоговая стоимость
                     "picture" => $productImage // Путь к изображению товара
                 ];
             } else {
