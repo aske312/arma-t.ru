@@ -154,6 +154,8 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                     loadCartData();
                     updateCartCount();
                 }
+            } else {
+                console.error('Товар не найден в корзине:', productId);
             }
         }
 
@@ -177,7 +179,8 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
         }
 
         function setCartItemsToCookie(cartItems) {
-            document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + '; path=/';
+            document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + '; path=/; SameSite=Lax';
+            console.log('Куки обновлены:', cartItems); // Логирование для проверки
         }
 
         document.getElementById('clear-cart').addEventListener('click', function() {
