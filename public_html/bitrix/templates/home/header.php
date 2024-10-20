@@ -91,30 +91,36 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
 
+        // Получаем товары из куки
         function getCartItemsFromCookie() {
             const cookie = document.cookie.split('; ').find(row => row.startsWith('cartItems='));
             return cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : [];
         }
 
+        // Сохраняем товары в куки
         function setCartItemsToCookie(cartItems) {
             document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + '; path=/; max-age=3600';
         }
 
+        // Обновляем количество товаров в корзине (иконка в шапке)
         function updateCartCount() {
             const cartItems = getCartItemsFromCookie();
             const count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
         }
 
+        // Открытие модального окна корзины и загрузка данных
         document.getElementById('cart-button').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'block';
             loadCartData();
         });
 
+        // Закрытие модального окна корзины
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
         });
 
+        // Загрузка товаров в таблицу корзины
         function loadCartData() {
             const cartItems = getCartItemsFromCookie();
             const cartItemsContainer = document.getElementById('cart-items');
@@ -128,8 +134,8 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                         <td>${item.price} руб.</td>
                         <td>
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantity(${item.id}, this.value)">
-                            <button class="quantity-btn" onclick="updateQuantityManual(${item.id}, 1)">&#43;</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button>
                         </td>
                         <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
                         <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td>
@@ -142,50 +148,61 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
         }
 
+        // Функция обновления количества товара
         function updateQuantity(productId, delta) {
             const cartItems = getCartItemsFromCookie();
             const item = cartItems.find(item => item.id === productId);
+
             if (item) {
                 item.quantity += delta;
+
+                // Если количество товара стало 0 или меньше — удаляем товар
                 if (item.quantity < 1) {
                     removeCartItem(productId);
                 } else {
-                    setCartItemsToCookie(cartItems);
-                    loadCartData();
-                    updateCartCount();
+                    setCartItemsToCookie(cartItems); // Обновляем куки
+                    loadCartData(); // Перезагружаем данные корзины
+                    updateCartCount(); // Обновляем количество в иконке
                 }
             } else {
                 console.error('Товар не найден в корзине:', productId);
             }
         }
 
+        // Функция обновления количества товара вручную через input
         function updateQuantityManual(productId, value) {
             const cartItems = getCartItemsFromCookie();
             const item = cartItems.find(item => item.id === productId);
+
             if (item) {
-                item.quantity = Math.max(1, parseInt(value) || 1);
-                setCartItemsToCookie(cartItems);
-                loadCartData();
-                updateCartCount();
+                item.quantity = Math.max(1, parseInt(value) || 1); // Минимум 1 единица товара
+                setCartItemsToCookie(cartItems); // Обновляем куки
+                loadCartData(); // Перезагружаем данные корзины
+                updateCartCount(); // Обновляем количество в иконке
             }
         }
 
+        // Функция удаления товара из корзины
         function removeCartItem(productId) {
             let cartItems = getCartItemsFromCookie();
-            cartItems = cartItems.filter(item => item.id !== productId);
-            setCartItemsToCookie(cartItems);
-            loadCartData();
-            updateCartCount();
+            cartItems = cartItems.filter(item => item.id !== productId); // Удаляем товар из массива
+            setCartItemsToCookie(cartItems); // Обновляем куки
+            loadCartData(); // Перезагружаем данные корзины
+            updateCartCount(); // Обновляем количество в иконке
         }
 
+        // Очистка всей корзины
         document.getElementById('clear-cart').addEventListener('click', function() {
-            document.cookie = 'cartItems=; Max-Age=-99999999; path=/';
-            loadCartData();
+            document.cookie = 'cartItems=; Max-Age=-99999999; path=/'; // Удаляем куки
+            loadCartData(); // Перезагружаем данные корзины
+            updateCartCount(); // Обновляем количество в иконке
         });
 
+        // Переход к оформлению заказа
         document.getElementById('checkout').addEventListener('click', function() {
             window.location.href = '/checkout/';
         });
 
+        // Инициализация количества товаров в иконке при загрузке страницы
         updateCartCount();
     </script>
