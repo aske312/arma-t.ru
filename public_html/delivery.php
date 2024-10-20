@@ -1,11 +1,9 @@
-//<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php'); ?>
-
 <?php
 // Подключаем файл с настройками
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 // Указываем ID инфоблока
-$IBLOCK_ID = 2; // Замените **1** на ID вашего инфоблока
+$IBLOCK_ID = 0; // Замените **1** на ID вашего инфоблока
 
 // Получаем данные из инфоблока
 $arSelect = Array("ID", "NAME", "PROPERTY_*");
