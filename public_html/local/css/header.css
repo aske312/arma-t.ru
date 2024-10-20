@@ -200,6 +200,7 @@ nav a:hover, nav a:focus {
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+    font-size: 18px;
 }
 
 .quantity-input {
@@ -214,6 +215,7 @@ nav a:hover, nav a:focus {
     border: none;
     cursor: pointer;
     padding: 5px 10px;
+    font-size: 18px;
 }
 
 #cart-total {

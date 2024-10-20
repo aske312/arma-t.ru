@@ -127,12 +127,12 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                         <td title="${item.name}">${item.name.substring(0, 20)}...</td>
                         <td>${item.price} руб.</td>
                         <td>
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button> <!-- Символ минус -->
                             <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button> <!-- Символ плюс -->
                         </td>
                         <td>${item.price * item.quantity} руб.</td>
-                        <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&times;</button></td>
+                        <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td> <!-- Символ крестик -->
                     </tr>
                 `;
                 cartItemsContainer.innerHTML += row;
@@ -149,6 +149,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                 item.quantity = Math.max(1, item.quantity + change);
                 setCartItemsToCookie(cartItems);
                 loadCartData();
+                updateCartCount();
             }
         }
 
@@ -159,6 +160,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                 item.quantity = Math.max(1, parseInt(value) || 1);
                 setCartItemsToCookie(cartItems);
                 loadCartData();
+                updateCartCount();
             }
         }
 
@@ -167,6 +169,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             cartItems = cartItems.filter(item => item.id !== productId);
             setCartItemsToCookie(cartItems);
             loadCartData();
+            updateCartCount();
         }
 
         function setCartItemsToCookie(cartItems) {
