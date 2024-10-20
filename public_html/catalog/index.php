@@ -351,6 +351,29 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                 document.getElementById('cart-count').textContent = itemCount;
             }
+
+            // Функция загрузки товаров из куки в модальное окно корзины
+            function loadCartData() {
+                var cartItems = getCartItemsFromCookie();
+
+                if (cartItems.length > 0) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'get_product_data.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (Array.isArray(response)) {
+                                updateCart(response);  // Функция обновления содержимого корзины
+                            }
+                        }
+                    };
+                    xhr.send('cartItems=' + encodeURIComponent(JSON.stringify(cartItems)));
+                } else {
+                    document.getElementById('cart-items').innerHTML = '<p>Ваша корзина пуста</p>';
+                }
+            }
+
         </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
