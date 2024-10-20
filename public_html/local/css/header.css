@@ -231,10 +231,7 @@ nav a:hover, nav a:focus {
 
 /* Общие стили корзины */
 .cart-table {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 50px;
-    gap: 10px;
-    align-items: center;
+    width: 100%; /* Максимально ширина корзины */
     margin-top: 20px;
     border: 1px solid #ddd;
 }
