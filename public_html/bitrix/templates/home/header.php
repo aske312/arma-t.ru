@@ -41,11 +41,11 @@ foreach ($cartItems as $item) {
                 <div class="nav-search">
                     <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
                     <nav id="mainNav">
-                        <a href="/#Company">О компании</a>
+                        <a href="/">О компании</a>
                         <a href="/catalog/index.php?SECTION_ID=2">Каталог</a>
-                        <a href="/#Contact">Контакты</a>
-                        <a href="/delivery.php">Доставка</a>
-                        <a href="/payment.php">Оплата</a>
+                        <a href="/contact/">Контакты</a>
+                        <a href="/delivery/">Доставка</a>
+                        <a href="/payment/">Оплата</a>
                     </nav>
                     <!--
                         <?php $APPLICATION->IncludeComponent(

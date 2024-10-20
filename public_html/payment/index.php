@@ -1,7 +1,6 @@
 <?php
 // Подключаем файл с настройками
 require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 // Указываем ID инфоблока
 $IBLOCK_ID = 1; // Замените **1** на ID вашего инфоблока
@@ -21,7 +20,6 @@ while ($ob = $res->GetNextElement()) {
 }
 
 // Подключаем файл с окончанием страницы
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");
-?>
 
-<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
+require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
+
