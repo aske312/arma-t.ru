@@ -151,7 +151,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 
         // Сохранение данных корзины в сессию
         function setCartItemsToSession(cartItems) {
-            fetch('/update_cart_session.php', {
+            fetch('/catalog/update_cart_session.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
