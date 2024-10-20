@@ -161,13 +161,13 @@ nav a:hover, nav a:focus {
     right: 0;
     background-color: white;
     border: 1px solid #ccc;
-    width: 700px;
+    width: 500px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cart-modal-content {
-    max-height: 400px;
+    max-height: 700px;
     overflow-y: auto;
 }
 
