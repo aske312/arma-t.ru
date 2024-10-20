@@ -59,6 +59,8 @@ public_html/bitrix/composer.json.example
 public_html/bitrix/bitrix.php
 public_html/bitrix/.settings.php
 public_html/bitrix/.access.php
+public_html/bitrix/components/
+public_html/bitrix/otp/
 
 # Bitrix Modules
 public_html/bitrix/modules/
