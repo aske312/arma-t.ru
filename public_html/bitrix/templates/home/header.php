@@ -129,7 +129,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                         <td>
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button> <!-- Символ минус -->
                             <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button> <!-- Символ плюс -->
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id})">&#43;</button> <!-- Символ плюс -->
                         </td>
                         <td>${item.price * item.quantity} руб.</td>
                         <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td> <!-- Символ крестик -->
@@ -142,11 +142,11 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum} руб.`;
         }
 
-        function updateQuantity(productId, change) {
+        function updateQuantity(productId) {
             const cartItems = getCartItemsFromCookie();
             const item = cartItems.find(item => item.id === productId);
             if (item) {
-                item.quantity = Math.max(1, item.quantity + change);
+                item.quantity++;
                 setCartItemsToCookie(cartItems);
                 loadCartData();
                 updateCartCount();
