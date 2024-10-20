@@ -159,6 +159,7 @@ nav a:hover, nav a:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Тень */
     position: relative; /* Для позиционирования крестика */
     min-width: auto; /* Минимальная ширина окна */
+    left: 200px;
 }
 
 .cart-btn {
