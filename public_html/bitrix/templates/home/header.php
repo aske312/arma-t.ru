@@ -12,7 +12,7 @@ Loader::includeModule('iblock');
 Asset::getInstance()->addCss("/local/css/header.css");
 Asset::getInstance()->addCss("/local/css/footer.css");
 
-// Получаем количество товаров в корзине из сессии
+// Получаем товары в корзине из сессии
 $cartItems = isset($_SESSION['cartItems']) ? $_SESSION['cartItems'] : [];
 $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 ?>
@@ -68,7 +68,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                                         <th>Цена за ед.</th>
                                         <th>Количество</th>
                                         <th>Общая цена</th>
-                                        <th></th> <!-- Кнопка удаления -->
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="cart-items"></tbody>
@@ -94,7 +94,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 
         // Получаем данные корзины из сессии
         function getCartItemsFromSession() {
-            return JSON.parse('<?= json_encode($cartItems) ?>');
+            return <?= json_encode($cartItems) ?>;
         }
 
         // Обновление количества товаров в корзине
@@ -200,10 +200,14 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             window.location.href = '/checkout/';
         });
 
-        // Событие для открытия корзины
+        // Событие для открытия и закрытия корзины
         document.getElementById('cart-button').addEventListener('click', function() {
-            document.getElementById('cart-modal').style.display = 'block';
-            loadCartData();
+            const cartModal = document.getElementById('cart-modal');
+            const isVisible = cartModal.style.display === 'block';
+            cartModal.style.display = isVisible ? 'none' : 'block'; // Переключаем видимость
+            if (!isVisible) {
+                loadCartData(); // Загружаем данные только при открытии
+            }
         });
 
         // Закрыть корзину
@@ -211,5 +215,6 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('cart-modal').style.display = 'none';
         });
 
+        // Инициализация
         updateCartCount();
     </script>
