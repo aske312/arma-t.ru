@@ -28,14 +28,14 @@ foreach ($cartItems as $item) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Описание страницы для SEO">
     <meta name="keywords" content="Ключевые слова для SEO">
-    <?$APPLICATION->ShowHead();?>
-    <title><?$APPLICATION->ShowTitle();?></title>
+    <?php $APPLICATION->ShowHead(); ?>
+    <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script> <!-- Подключаем библиотеку для работы с куками -->
 </head>
 <body>
-    <div id="panel"><?$APPLICATION->ShowPanel();?></div>
-    <header id="siteHeader">
+    <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
+    <header id="siteHeader" class="header">
         <div class="header-content">
             <div class="logo">
                 <a href="/"><img src="/local/img/logo/resource_1.png" alt="My Logo"></a>
@@ -67,9 +67,23 @@ foreach ($cartItems as $item) {
                         <div class="cart-modal-content">
                             <span class="close-btn" id="close-cart-modal">&times;</span>
                             <h2>Товары в корзине</h2>
-                            <div id="cart-items" class="cart-table">
-                                <!-- Список товаров будет отображаться здесь -->
-                            </div>
+
+                            <!-- Таблица товаров в корзине -->
+                            <table class="cart-table">
+                                <thead>
+                                    <tr>
+                                        <th>Название</th>
+                                        <th>Цена за ед.</th>
+                                        <th>Количество</th>
+                                        <th>Общая цена</th>
+                                        <th></th> <!-- For the delete button -->
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-items">
+                                    <!-- Динамически обновляемый контент -->
+                                </tbody>
+                            </table>
+
                             <div id="cart-total">
                                 <!-- Итоговая сумма будет отображаться здесь -->
                             </div>
@@ -83,20 +97,20 @@ foreach ($cartItems as $item) {
     </header>
 
     <script>
-        // Функции для плавующего меню
+        // Функции для плавающего меню
         function toggleMenu() {
             var nav = document.getElementById('mainNav');
             nav.classList.toggle('menu-open');
         }
 
-        // Проверка и обновление счетчика корзины
+        // Обновление количества товаров в корзине
         function updateCartCount() {
             var cartItems = getCartItemsFromCookie();
             var count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
         }
 
-        // Проверка наличия товаров в куки
+        // Получение товаров из куки
         function getCartItemsFromCookie() {
             var cartItems = [];
             var cookies = document.cookie.split(';');
@@ -109,87 +123,54 @@ foreach ($cartItems as $item) {
             return cartItems;
         }
 
-        // Обработчик для открытия и закрытия модального окна корзины
+        // Открытие/закрытие модального окна корзины
         document.getElementById('cart-button').addEventListener('click', function() {
             var cartModal = document.getElementById('cart-modal');
             cartModal.style.display = (cartModal.style.display === 'block') ? 'none' : 'block';
-            loadCartData(); // Загрузка данных корзины при открытии
+            loadCartData(); // Загружаем данные при открытии корзины
         });
 
-        // Закрытие модального окна корзины по крестику
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
         });
 
-        // Функция загрузки товаров из куки в модальное окно корзины
+        // Загрузка товаров из куки в таблицу корзины
         function loadCartData() {
             var cartItems = getCartItemsFromCookie();
-            if (cartItems.length > 0) {
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/catalog/get_product_data.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        updateCart(response);
-                    }
-                };
-                xhr.send('cartItems=' + encodeURIComponent(JSON.stringify(cartItems)));
-            } else {
-                document.getElementById('cart-items').innerHTML = '<p>Ваша корзина пуста</p>';
-            }
-        }
-
-        // Функция обновления содержимого корзины
-        function updateCart(basketData) {
             var cartItemsContainer = document.getElementById('cart-items');
             cartItemsContainer.innerHTML = '';
             var totalSum = 0;
 
-            // Создание заголовка таблицы
-            var tableHeader = `
-                <div class="cart-table-header">
-                    <div>Наименование</div>
-                    <div>Цена за ед.</div>
-                    <div>Количество</div>
-                    <div>Общая цена</div>
-                </div>
-            `;
-            cartItemsContainer.innerHTML += tableHeader;
+            if (cartItems.length > 0) {
+                cartItems.forEach(function(item) {
+                    var truncatedName = item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name;
 
-            basketData.forEach(function(item, index) {
-                var truncatedName = item.name.length > 15 ? item.name.substring(0, 15) + '...' : item.name;
-
-                var itemRow = document.createElement('div');
-                itemRow.className = 'cart-item';
-                itemRow.innerHTML = `
-                    <div title="${item.name}">${truncatedName}</div>
-                    <div>${item.price} руб.</div>
-                    <div class="quantity-container">
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                    </div>
-                    <div>${item.total} руб.</div>
-                    <button class="remove-item-btn" data-id="${item.id}">&times;</button>
-                `;
-                cartItemsContainer.appendChild(itemRow);
-                totalSum += item.total;
-            });
-
-            document.getElementById('cart-total').innerHTML = `Общая сумма: ${totalSum} руб.`;
-            updateCartCount(); // Обновляем счетчик после обновления корзины
-
-            // Обработчик удаления товара из корзины
-            document.querySelectorAll('.remove-item-btn').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var productId = this.getAttribute('data-id');
-                    removeCartItem(productId);
+                    var row = `
+                        <tr>
+                            <td title="${item.name}">${truncatedName}</td>
+                            <td>${item.price} руб.</td>
+                            <td>
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <input type="text" class="quantity" value="${item.quantity}" readonly>
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            </td>
+                            <td>${item.total} руб.</td>
+                            <td><button class="remove-item-btn" data-id="${item.id}">&times;</button></td>
+                        </tr>
+                    `;
+                    cartItemsContainer.innerHTML += row;
+                    totalSum += item.total;
                 });
-            });
+
+                document.getElementById('cart-total').innerHTML = `Общая сумма: ${totalSum} руб.`;
+            } else {
+                cartItemsContainer.innerHTML = '<tr><td colspan="5">Ваша корзина пуста</td></tr>';
+            }
+
+            updateCartCount();
         }
 
-        // Функция обновления количества товара
+        // Обновление количества товара
         function updateQuantity(productId, change) {
             var cartItems = getCartItemsFromCookie();
             var item = cartItems.find(item => item.id === productId);
@@ -199,34 +180,30 @@ foreach ($cartItems as $item) {
                     removeCartItem(productId);
                 } else {
                     document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + ';path=/';
-                    loadCartData(); // Обновляем корзину
+                    loadCartData();
                 }
             }
         }
 
-        // Функция удаления товара из корзины
+        // Удаление товара
         function removeCartItem(productId) {
             var cartItems = getCartItemsFromCookie();
-            cartItems = cartItems.filter(function(item) {
-                return item.id !== productId;
-            });
+            cartItems = cartItems.filter(item => item.id !== productId);
             document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + ';path=/';
-            loadCartData();  // Обновляем корзину
-            updateCartCount(); // Обновляем счетчик
+            loadCartData();
         }
 
-        // Обработчик очистки корзины
+        // Очистка корзины
         document.getElementById('clear-cart').addEventListener('click', function() {
-            document.cookie = 'cartItems=; Max-Age=-99999999;';  // Очищаем куки
-            loadCartData();  // Обновляем корзину
-            updateCartCount(); // Обновляем счетчик
+            document.cookie = 'cartItems=; Max-Age=-99999999; path=/';  // Очищаем куки
+            loadCartData();
         });
 
-        // Обработчик оформления заказа
+        // Переход к оформлению заказа
         document.getElementById('checkout').addEventListener('click', function() {
-            window.location.href = '/checkout/';  // Переход на страницу оформления заказа
+            window.location.href = '/checkout/';
         });
 
-        // Начальная проверка на наличие товаров в куки
+        // Инициализация
         updateCartCount();
     </script>
