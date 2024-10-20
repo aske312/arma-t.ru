@@ -1,9 +1,25 @@
-/********** Основное **********/
-body {
-    margin: 0;
-    font-family: Montserrat, sans-serif;
+/********* Основное *********/
+@font-face {
+    font-family: Montserrat-Regular;
+    src: url(/local/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
+    font-style: normal;
+    font-weight: normal;
 }
 
+h1, h2, p, div, input, button {
+    font-family: Montserrat-Regular;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    color: white;
+    background-color: #162139;
+}
+
+/***   ***/
 header {
     background-color: #162139;
     color: white;
