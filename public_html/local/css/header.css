@@ -157,16 +157,15 @@ nav a:hover, nav a:focus {
 #cart-modal {
     display: none;
     position: absolute;
-    top: 65px;
-    right: 250px;
-    right: 0;
+    top: 63px;
+    right: 500px;
     background-color: white;
     border: 1px solid #ccc;
     width: 500px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .cart-modal-content {
