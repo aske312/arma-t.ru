@@ -127,12 +127,12 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                         <td title="${item.name}">${item.name.substring(0, 20)}...</td>
                         <td>${item.price} руб.</td>
                         <td>
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button> <!-- Символ минус -->
-                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id})">&#43;</button> <!-- Символ плюс -->
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantityManual(${item.id}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button>
                         </td>
                         <td>${item.price * item.quantity} руб.</td>
-                        <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td> <!-- Символ крестик -->
+                        <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td>
                     </tr>
                 `;
                 cartItemsContainer.innerHTML += row;
@@ -142,14 +142,18 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum} руб.`;
         }
 
-        function updateQuantity(productId) {
+        function updateQuantity(productId, change) {
             const cartItems = getCartItemsFromCookie();
             const item = cartItems.find(item => item.id === productId);
             if (item) {
-                item.quantity++;
-                setCartItemsToCookie(cartItems);
-                loadCartData();
-                updateCartCount();
+                item.quantity += change;
+                if (item.quantity < 1) {
+                    removeCartItem(productId);
+                } else {
+                    setCartItemsToCookie(cartItems);
+                    loadCartData();
+                    updateCartCount();
+                }
             }
         }
 
@@ -179,6 +183,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
         document.getElementById('clear-cart').addEventListener('click', function() {
             document.cookie = 'cartItems=; Max-Age=-99999999; path=/';
             loadCartData();
+            updateCartCount();
         });
 
         document.getElementById('checkout').addEventListener('click', function() {
