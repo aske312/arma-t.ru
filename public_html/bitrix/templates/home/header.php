@@ -129,7 +129,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                         <td>
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
                             <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateCartItemQuantity(${item.id}, this.value)">
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button>
+                            <button class="quantity-btn" onclick="updateCartItemQuantity(${item.id}, 1)">&#43;</button>
                         </td>
                         <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
                         <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td>
