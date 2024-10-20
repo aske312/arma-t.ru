@@ -265,59 +265,44 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 window.location.href = '/catalog/index.php?SECTION_ID=' + sectionId;
             }
 
-            //*** КОРЗИНА ***//
-            // Обработка клика на блок товара
-            document.querySelectorAll('.catalog-item').forEach(function(item) {
-                item.addEventListener('click', function(event) {
-                    // Если клик произошел не на кнопку "В корзину", переход на детальную страницу
-                    if (!event.target.classList.contains('catalog-item-add-to-cart')) {
-                        var productId = this.getAttribute('data-id');
-                        window.location.href = 'detail.php?id=' + productId;
-                    }
-                });
-            });
+            // *** ЛОГИКА КОРЗИНЫ *** //
+            const EXPIRY_DAYS = 3;
 
-            // Обработка клика на кнопку "В корзину"
-            document.querySelectorAll('.catalog-item-add-to-cart').forEach(function(button) {
-                button.addEventListener('click', function(event) {
-                    event.stopPropagation(); // Останавливаем всплытие события клика, чтобы не было перехода на детальную страницу
-                    var productId = this.getAttribute('data-id');
-                    var productName = this.getAttribute('data-name');
-                    var productPrice = this.getAttribute('data-price');
-                    addToCart(productId, productName, productPrice);
-                });
-            });
+            // Функция сохранения данных корзины в localStorage с сроком истечения
+            function setCartItemsToStorage(cartItems) {
+                const now = new Date().getTime();
+                const data = {
+                    cartItems: cartItems,
+                    expiry: now + (EXPIRY_DAYS * 24 * 60 * 60 * 1000) // 3 дня в миллисекундах
+                };
+                localStorage.setItem('cartItems', JSON.stringify(data));
+            }
 
-            // Добавление всех выбранных товаров в корзину по чекбоксам
-            document.querySelector('.catalog-add-all').addEventListener('click', function() {
-                var selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
-
-                selectedItems.forEach(function(checkbox) {
-                    var productId = checkbox.getAttribute('data-id');
-                    var productElement = checkbox.closest('.catalog-item');
-                    var productName = productElement.querySelector('.catalog-item-add-to-cart').getAttribute('data-name');
-                    var productPrice = productElement.querySelector('.catalog-item-add-to-cart').getAttribute('data-price');
-
-                    addToCart(productId, productName, productPrice);
-                });
-            });
+            // Функция получения товаров из localStorage с проверкой срока годности
+            function getCartItemsFromStorage() {
+                const data = JSON.parse(localStorage.getItem('cartItems'));
+                if (!data) return [];
+                const now = new Date().getTime();
+                if (now > data.expiry) {
+                    localStorage.removeItem('cartItems');
+                    return [];
+                }
+                return data.cartItems;
+            }
 
             // Функция добавления товара в корзину
             function addToCart(productId, productName, productPrice) {
-                var cartItems = getCartItemsFromCookie();
-                var found = false;
+                let cartItems = getCartItemsFromStorage();
+                let found = false;
 
-                // Проверяем, есть ли товар в корзине
-                for (var i = 0; i < cartItems.length; i++) {
-                    if (cartItems[i].id === productId) {
-                        cartItems[i].quantity += 1; // Увеличиваем количество, если товар уже в корзине
+                cartItems.forEach(item => {
+                    if (item.id === productId) {
+                        item.quantity += 1; // Увеличиваем количество
                         found = true;
-                        break;
                     }
-                }
+                });
 
                 if (!found) {
-                    // Если товара еще нет в корзине, добавляем его с количеством 1
                     cartItems.push({
                         id: productId,
                         name: productName,
@@ -326,31 +311,30 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     });
                 }
 
-                // Сохраняем обновленную корзину в куки
-                saveCartItemsToCookies(cartItems);
+                setCartItemsToStorage(cartItems);
                 updateCartCounter();
-            }
-
-            // Получение товаров из куки
-            function getCartItemsFromCookie() {
-                var cartItems = Cookies.get('cartItems');
-                return cartItems ? JSON.parse(cartItems) : [];
-            }
-
-            // Сохранение товаров в куки
-            function saveCartItemsToCookies(cartItems) {
-                Cookies.set('cartItems', JSON.stringify(cartItems), { expires: 7 });
             }
 
             // Обновление счетчика товаров в корзине
             function updateCartCounter() {
-                var cartItems = getCartItemsFromCookie();
-                var itemCount = cartItems.reduce(function(total, item) {
-                    return total + item.quantity;
-                }, 0);
-
+                const cartItems = getCartItemsFromStorage();
+                const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
                 document.getElementById('cart-count').textContent = itemCount;
             }
+
+            // Инициализация обработчиков событий для кнопок "В корзину"
+            document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
+                button.addEventListener('click', event => {
+                    event.stopPropagation(); // Останавливаем переход на детальную страницу
+                    const productId = button.getAttribute('data-id');
+                    const productName = button.getAttribute('data-name');
+                    const productPrice = button.getAttribute('data-price');
+                    addToCart(productId, productName, productPrice);
+                });
+            });
+
+            // Инициализация при загрузке страницы
+            document.addEventListener('DOMContentLoaded', updateCartCounter);
         </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
