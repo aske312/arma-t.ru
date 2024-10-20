@@ -50,13 +50,14 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                 <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
                 <div class="cart-wrapper">
+                <!--
                     <div class="cart-icon">
                         <?php if ($cartItemCount > 0): ?>
                             <button id="cart-button" class="cart-btn">
                                 В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
                             </button>
                         <?php endif; ?>
-                    </div>
+                    </div> -->
 
                     <div id="cart-modal" class="cart-modal">
                         <div class="cart-modal-content">
