@@ -1,15 +1,16 @@
 <?php
-session_start();
-header('Content-Type: application/json');
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartItems'])) {
-    $cartItems = $_POST['cartItems'];
+session_start(); // Не забудьте запустить сессию
 
-    // Сохраняем в сессии
-    $_SESSION['cartItems'] = $cartItems;
-
+// Получаем данные из запроса
+$data = json_decode(file_get_contents('php://input'), true);
+if (isset($data['cartItems'])) {
+    $_SESSION['cartItems'] = $data['cartItems']; // Сохраняем товары в сессии
     echo json_encode(['status' => 'success']);
 } else {
-    echo json_encode(['status' => 'error']);
+    echo json_encode(['status' => 'error', 'message' => 'No cart items provided']);
 }
+
+
 ?>
