@@ -15,11 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $basketData = [];
 
         foreach ($cartItems as $cartItem) {
-            $productId = $cartItem['id'];
-            $quantity = $cartItem['quantity'];
+            $productId = (int)$cartItem['id']; // Приводим к целому числу для безопасности
+            $quantity = (int)$cartItem['quantity'];
 
             // Запрос к инфоблоку для получения данных товара, включая пользовательское свойство EL_PRICE
-            $arSelect = ['ID', 'NAME', 'PREVIEW_PICTURE', 'PROPERTY_*'] // Получаем цену из пользовательского свойства
+            $arSelect = ['ID', 'NAME', 'PREVIEW_PICTURE', 'PROPERTY_EL_PRICE']; // Указываем конкретное свойство
             $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените на ваш ID инфоблока
             $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
 
@@ -28,15 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $productImage = $arFields['PREVIEW_PICTURE'] ? CFile::GetPath($arFields['PREVIEW_PICTURE']) : '';
 
                 // Получаем цену из пользовательского свойства EL_PRICE
-                $productPrice = $arFields['PROPERTY_EL_PRICE']['VALUE'] ?: 0;
+                $productPrice = isset($arFields['PROPERTY_EL_PRICE']['VALUE']) ? $arFields['PROPERTY_EL_PRICE']['VALUE'] : 0;
 
                 // Заполняем данные товара
                 $basketData[] = [
                     "id" => $arFields['ID'],
                     "name" => $arFields['NAME'],
-                    "price" => $productPrice,
+                    "price" => (float)$productPrice, // Приводим к типу float
                     "quantity" => $quantity,
-                    "total" => $productPrice * $quantity,
+                    "total" => (float)$productPrice * $quantity,
                     "picture" => $productImage
                 ];
             } else {
