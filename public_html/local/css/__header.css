@@ -67,6 +67,7 @@ header {
 nav {
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
 
 nav a {
