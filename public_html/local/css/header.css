@@ -81,17 +81,39 @@ header {
 /********** Контактная информация **********/
 .contact-info {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    margin-left: 20px;
+}
+
+.contact-info p {
+    margin: 0;
+    font-size: 1em;
 }
 
 .phone-link {
     color: white;
-    font-size: 18px;
     text-decoration: none;
 }
 
-.phone-link:hover {
-    text-decoration: underline;
+.phone-link:hover, .phone-link:focus {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.contact-info button {
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #2654A2;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.contact-info button:hover, .contact-info button:focus {
+    background-color: #0056b3;
 }
 
 /********** Корзина **********/
