@@ -165,7 +165,7 @@ foreach ($cartItems as $item) {
                 itemRow.innerHTML = `
                     <div title="${item.name}">${truncatedName}</div>
                     <div>${item.price} руб.</div>
-                    <div>
+                    <div class="quantity-container">
                         <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
                         <span>${item.quantity}</span>
                         <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
@@ -195,10 +195,10 @@ foreach ($cartItems as $item) {
             var item = cartItems.find(item => item.id === productId);
             if (item) {
                 item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeCartItem(productId); // Удаляем товар, если количество <= 0
+                if (item.quantity < 1) {
+                    removeCartItem(productId);
                 } else {
-                    document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + ';path=/'; // Обновляем куки
+                    document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + ';path=/';
                     loadCartData(); // Обновляем корзину
                 }
             }
