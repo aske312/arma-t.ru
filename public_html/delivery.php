@@ -3,7 +3,7 @@
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
 // Указываем ID инфоблока
-$IBLOCK_ID = 0; // Замените **1** на ID вашего инфоблока
+$IBLOCK_ID = 1; // Замените **1** на ID вашего инфоблока
 
 // Получаем данные из инфоблока
 $arSelect = Array("ID", "NAME", "PROPERTY_*");
