@@ -211,7 +211,7 @@ foreach ($cartItems as $item) {
                 cartItemsContainer.innerHTML = '';
                 var totalSum = 0;
 
-                echo cartItemsContainer
+                echo cartItemsContainer;
 
                 basketData.forEach(function(item, index) {
                     var itemRow = document.createElement('div');
