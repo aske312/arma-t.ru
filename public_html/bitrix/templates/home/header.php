@@ -44,8 +44,8 @@ foreach ($cartItems as $item) {
                         <a href="/#Company">О компании</a>
                         <a href="/catalog/index.php?SECTION_ID=2">Каталог</a>
                         <a href="/#Contact">Контакты</a>
-                        <a href="/#Delivery">Доставка</a>
-                        <a href="/#Cash">Оплата</a>
+                        <a href="/delivery.php">Доставка</a>
+                        <a href="/payment.php">Оплата</a>
                     </nav>
                     <!--
                         <?php $APPLICATION->IncludeComponent(
