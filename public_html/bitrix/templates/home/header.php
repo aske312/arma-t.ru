@@ -51,9 +51,11 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 
                 <div class="cart-wrapper">
                     <div class="cart-icon">
-                        <button id="cart-button" class="cart-btn">
-                            В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
-                        </button>
+                        <?php if ($cartItemCount > 0): ?>
+                            <button id="cart-button" class="cart-btn">
+                                В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
+                            </button>
+                        <?php endif; ?>
                     </div>
 
                     <div id="cart-modal" class="cart-modal">
@@ -101,6 +103,14 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             const cartItems = getCartItemsFromSession();
             const count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
+
+            // Условие для отображения кнопки
+            const cartButton = document.getElementById('cart-button');
+            if (count > 0) {
+                cartButton.style.display = 'block'; // Показываем кнопку
+            } else {
+                cartButton.style.display = 'none'; // Скрываем кнопку
+            }
         }
 
         // Загружаем и отображаем данные корзины в модальном окне
