@@ -102,8 +102,13 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
         }
 
         function getCartItemsFromCookie() {
-            const cookie = document.cookie.split('; ').find(row => row.startsWith('cartItems='));
-            return cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : [];
+            $cookie = $_COOKIE['cartItems'] ?? null;
+            if ($cookie) {
+                $decryptedData = decrypt($cookie);
+                error_log("Получаем из куки: $decryptedData"); // Логируем расшифрованные данные
+                return json_decode($decryptedData, true);
+            }
+            return [];
         }
 
         document.getElementById('cart-button').addEventListener('click', function() {
@@ -178,9 +183,11 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             updateCartCount();
         }
 
-        function setCartItemsToCookie(cartItems) {
-            document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + '; path=/; SameSite=Lax';
-            console.log('Куки обновлены:', cartItems); // Логирование для проверки
+        function setCartItemsToCookie($cartItems) {
+            $jsonData = json_encode($cartItems);
+            $encryptedData = encrypt($jsonData);
+            error_log("Сохраняем в куки: $encryptedData"); // Логируем зашифрованные данные
+            setcookie('cartItems', $encryptedData, time() + 3600, '/');
         }
 
         document.getElementById('clear-cart').addEventListener('click', function() {
