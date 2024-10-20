@@ -1,4 +1,5 @@
-<?php if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
+<?php
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 // Подключение модулей и стилей
 use Bitrix\Main\Loader;
@@ -12,12 +13,7 @@ Asset::getInstance()->addCss("/local/css/footer.css");
 
 // Получаем количество товаров в корзине из куки
 $cartItems = isset($_COOKIE['cartItems']) ? json_decode($_COOKIE['cartItems'], true) : [];
-$cartItemCount = 0;
-
-// Подсчитываем общее количество товаров в корзине
-foreach ($cartItems as $item) {
-    $cartItemCount += $item['quantity'];
-}
+$cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +27,7 @@ foreach ($cartItems as $item) {
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script> <!-- Подключаем библиотеку для работы с куками -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script> <!-- Для работы с куками -->
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
@@ -55,20 +51,16 @@ foreach ($cartItems as $item) {
                 <button onclick="window.location.href='#Cash'">Оставить заявку</button>
 
                 <div class="cart-wrapper">
-                    <!-- Кнопка Корзины -->
                     <div class="cart-icon">
                         <button id="cart-button" class="cart-btn">
                             В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
                         </button>
                     </div>
 
-                    <!-- Модальное окно с товарами корзины -->
                     <div id="cart-modal" class="cart-modal">
                         <div class="cart-modal-content">
                             <span class="close-btn" id="close-cart-modal">&times;</span>
                             <h2>Товары в корзине</h2>
-
-                            <!-- Таблица товаров в корзине -->
                             <table class="cart-table">
                                 <thead>
                                     <tr>
@@ -76,17 +68,12 @@ foreach ($cartItems as $item) {
                                         <th>Цена за ед.</th>
                                         <th>Количество</th>
                                         <th>Общая цена</th>
-                                        <th></th> <!-- For the delete button -->
+                                        <th></th> <!-- Кнопка удаления -->
                                     </tr>
                                 </thead>
-                                <tbody id="cart-items">
-                                    <!-- Динамически обновляемый контент -->
-                                </tbody>
+                                <tbody id="cart-items"></tbody>
                             </table>
-
-                            <div id="cart-total">
-                                <!-- Итоговая сумма будет отображаться здесь -->
-                            </div>
+                            <div id="cart-total"></div>
                             <button id="clear-cart" class="button">Очистить корзину</button>
                             <button id="checkout" class="button">Оформить заказ</button>
                         </div>
@@ -97,190 +84,103 @@ foreach ($cartItems as $item) {
     </header>
 
     <script>
-        // Функции для плавающего меню
         function toggleMenu() {
             var nav = document.getElementById('mainNav');
             nav.classList.toggle('menu-open');
         }
 
+        // Липкая шапка
         window.addEventListener('scroll', function() {
             const header = document.getElementById('siteHeader');
-            if (window.scrollY > 100) {  // Замените 100 на значение, когда фиксировать
-                header.classList.add('fixed');
-            } else {
-                header.classList.remove('fixed');
-            }
+            header.classList.toggle('fixed', window.scrollY > 100);
         });
 
-        // Обновление количества товаров в корзине
         function updateCartCount() {
-            var cartItems = getCartItemsFromCookie();
-            var count = cartItems.reduce((total, item) => total + item.quantity, 0);
+            const cartItems = getCartItemsFromCookie();
+            const count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
         }
 
-        // Получение товаров из куки
         function getCartItemsFromCookie() {
-            var cartItems = [];
-            var cookies = document.cookie.split(';');
-            cookies.forEach(function(cookie) {
-                var cookiePair = cookie.split('=');
-                if (cookiePair[0].trim() === 'cartItems') {
-                    cartItems = JSON.parse(decodeURIComponent(cookiePair[1]));
-                }
-            });
-            return cartItems;
+            const cookie = document.cookie.split('; ').find(row => row.startsWith('cartItems='));
+            return cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : [];
         }
 
-        // Открытие/закрытие модального окна корзины
         document.getElementById('cart-button').addEventListener('click', function() {
-            var cartModal = document.getElementById('cart-modal');
-            cartModal.style.display = (cartModal.style.display === 'block') ? 'none' : 'block';
-            loadCartData(); // Загружаем данные при открытии корзины
+            document.getElementById('cart-modal').style.display = 'block';
+            loadCartData();
         });
 
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
         });
 
-        // Загрузка товаров из куки в таблицу корзины
         function loadCartData() {
-            var cartItems = getCartItemsFromCookie();
-            var cartItemsContainer = document.getElementById('cart-items');
+            const cartItems = getCartItemsFromCookie();
+            const cartItemsContainer = document.getElementById('cart-items');
             cartItemsContainer.innerHTML = '';
-            var totalSum = 0;
+            let totalSum = 0;
 
-            if (cartItems.length > 0) {
-                cartItems.forEach(function(item) {
-                    var truncatedName = item.name.length > 20 ? item.name.substring(0, 20) + '...' : item.name;
+            cartItems.forEach(item => {
+                const row = `
+                    <tr>
+                        <td title="${item.name}">${item.name.substring(0, 20)}...</td>
+                        <td>${item.price} руб.</td>
+                        <td>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        </td>
+                        <td>${item.price * item.quantity} руб.</td>
+                        <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&times;</button></td>
+                    </tr>
+                `;
+                cartItemsContainer.innerHTML += row;
+                totalSum += item.price * item.quantity;
+            });
 
-                    var row = `
-                        <tr>
-                            <td title="${item.name}">${truncatedName}</td>
-                            <td>${item.price} руб.</td>
-                            <td>
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                                <input type="text" class="quantity" value="${item.quantity}" readonly>
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                            </td>
-                            <td>${item.total} руб.</td>
-                            <td><button class="remove-item-btn" data-id="${item.id}">&times;</button></td>
-                        </tr>
-                    `;
-                    cartItemsContainer.innerHTML += row;
-                    totalSum += item.total;
-                });
-
-                document.getElementById('cart-total').innerHTML = `Общая сумма: ${totalSum} руб.`;
-            } else {
-                cartItemsContainer.innerHTML = '<tr><td colspan="5">Ваша корзина пуста</td></tr>';
-            }
-
-            updateCartCount();
+            document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum} руб.`;
         }
 
-        // Обновление количества товара
         function updateQuantity(productId, change) {
-            var cartItems = getCartItemsFromCookie();
-            var item = cartItems.find(item => item.id === productId);
+            const cartItems = getCartItemsFromCookie();
+            const item = cartItems.find(item => item.id === productId);
             if (item) {
-                item.quantity += change;
-                if (item.quantity < 1) {
-                    removeCartItem(productId);
-                } else {
-                    document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + ';path=/';
-                    loadCartData();
-                }
+                item.quantity = Math.max(1, item.quantity + change);
+                setCartItemsToCookie(cartItems);
+                loadCartData();
             }
         }
 
-        // Удаление товара
+        function updateQuantityManual(productId, value) {
+            const cartItems = getCartItemsFromCookie();
+            const item = cartItems.find(item => item.id === productId);
+            if (item) {
+                item.quantity = Math.max(1, parseInt(value) || 1);
+                setCartItemsToCookie(cartItems);
+                loadCartData();
+            }
+        }
+
         function removeCartItem(productId) {
-            var cartItems = getCartItemsFromCookie();
+            let cartItems = getCartItemsFromCookie();
             cartItems = cartItems.filter(item => item.id !== productId);
-            document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + ';path=/';
+            setCartItemsToCookie(cartItems);
             loadCartData();
         }
 
-        // Очистка корзины
+        function setCartItemsToCookie(cartItems) {
+            document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + '; path=/';
+        }
+
         document.getElementById('clear-cart').addEventListener('click', function() {
-            document.cookie = 'cartItems=; Max-Age=-99999999; path=/';  // Очищаем куки
+            document.cookie = 'cartItems=; Max-Age=-99999999; path=/';
             loadCartData();
         });
 
-        // Переход к оформлению заказа
         document.getElementById('checkout').addEventListener('click', function() {
             window.location.href = '/checkout/';
         });
 
-        document.querySelectorAll(".quantity-btn").forEach(function(button) {
-            button.addEventListener("click", function() {
-                var input = this.parentElement.querySelector(".quantity-input");
-                var currentValue = parseInt(input.value);
-
-                if (this.classList.contains("quantity-increase")) {
-                    input.value = currentValue + 1;
-                } else if (this.classList.contains("quantity-decrease")) {
-                    if (currentValue > 1) input.value = currentValue - 1;
-                }
-
-                updateCartItem(input.dataset.id, input.value);
-            });
-        });
-
-        // Handle manual input
-        document.querySelectorAll(".quantity-input").forEach(function(input) {
-            input.addEventListener("input", function() {
-                var newValue = parseInt(this.value);
-                if (!isNaN(newValue) && newValue > 0) {
-                    updateCartItem(this.dataset.id, newValue);
-                } else {
-                    this.value = 1;
-                    updateCartItem(this.dataset.id, 1);
-                }
-            });
-        });
-
-        // Update item quantity in cookies
-        function updateCartItem(itemId, quantity) {
-            var cartItems = getCartItemsFromCookies();
-            if (cartItems[itemId]) {
-                cartItems[itemId].quantity = quantity;
-            }
-            setCartItemsToCookies(cartItems);
-            updateCartDisplay();
-        }
-
-        // Retrieve cart items from cookies
-        function getCartItemsFromCookies() {
-            var cartData = document.cookie.split('; ').find(row => row.startsWith('cart='));
-            return cartData ? JSON.parse(cartData.split('=')[1]) : {};
-        }
-
-        // Set cart items to cookies
-        function setCartItemsToCookies(cartItems) {
-            document.cookie = 'cart=' + JSON.stringify(cartItems) + '; path=/';
-        }
-
-        // Refresh cart display after updating cookies
-        function updateCartDisplay() {
-            var cartItems = getCartItemsFromCookies();
-            var cartTotal = 0;
-
-            // Update cart items and total dynamically
-            document.querySelectorAll(".cart-item").forEach(function(item) {
-                var itemId = item.querySelector(".quantity-input").dataset.id;
-                if (cartItems[itemId]) {
-                    var quantity = cartItems[itemId].quantity;
-                    var price = cartItems[itemId].price;
-                    item.querySelector(".quantity-input").value = quantity;
-                    item.querySelector(".item-total").innerText = price * quantity + " руб.";
-                    cartTotal += price * quantity;
-                }
-            });
-            document.getElementById("cart-total").innerText = "Total: " + cartTotal + " руб.";
-        }
-
-        // Инициализация
         updateCartCount();
     </script>

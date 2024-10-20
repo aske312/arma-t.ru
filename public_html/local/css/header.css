@@ -236,6 +236,15 @@ nav a:hover, nav a:focus {
     border: 1px solid #ddd;
 }
 
+.cart-table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center;
+}
+
 .cart-table-header, .cart-item {
     display: grid; /* Сетка для выравнивания */
     grid-template-columns: 2fr 1fr 1fr 1fr; /* Колонки: название, цена, количество, общая цена */
