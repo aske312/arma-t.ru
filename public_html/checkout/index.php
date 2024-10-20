@@ -1,44 +1,13 @@
-<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php"); ?>
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
-<style>
-    .cart-item {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
+use Bitrix\Main\Page\Asset;
+Asset::getInstance()->addCss("/local/css/checkout.css"); //css
 
-    .cart-item h3 {
-        margin-top: 0;
-    }
-
-    .order-form {
-        width: 500px;
-        margin: 20px auto;
-    }
-
-    .order-form label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .order-form input[type="text"],
-    .order-form input[type="email"],
-    .order-form textarea {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-
-    .order-form button[type="submit"] {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-    }
-</style>
+?>
+<div class="section-title">
+    <h2><?php echo htmlspecialchars($productName); ?></h2> <!-- Название раздела -->
+    <p>Подробное описание</p>
+</div>
 
 <h1>Оформление заказа</h1>
 <div id="cart-items">
