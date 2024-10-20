@@ -1,6 +1,6 @@
 <?php
 // Подключение к Bitrix API
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+//require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
 // Проверка метода запроса
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
