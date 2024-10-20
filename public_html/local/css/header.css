@@ -247,6 +247,7 @@ nav a:hover, nav a:focus {
 }
 
 .cart-item {
+    border: 1px solid #ddd;
     display: contents; /* Allows individual child items to flow in the grid */
 }
 
