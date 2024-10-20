@@ -2,7 +2,9 @@
 // Подключение к Bitrix API
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
+// Проверка метода запроса
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Проверка наличия данных о товарах
     if (isset($_POST['cartItems'])) {
         // Декодируем данные корзины из JSON
         $cartItems = json_decode($_POST['cartItems'], true);
@@ -18,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productId = (int)$cartItem['id']; // Приводим к целому числу для безопасности
             $quantity = (int)$cartItem['quantity'];
 
-            // Запрос к инфоблоку для получения данных товара, включая пользовательское свойство EL_PRICE
-            $arSelect = ['ID', 'NAME', 'PREVIEW_PICTURE', 'PROPERTY_EL_PRICE']; // Указываем конкретное свойство
+            // Запрос к инфоблоку для получения данных товара
+            $arSelect = ['ID', 'NAME', 'PREVIEW_PICTURE', 'PROPERTY_EL_PRICE']; // Указываем необходимые поля
             $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените на ваш ID инфоблока
             $res = CIBlockElement::GetList([], $arFilter, false, false, $arSelect);
 
@@ -36,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     "name" => $arFields['NAME'],
                     "price" => (float)$productPrice, // Приводим к типу float
                     "quantity" => $quantity,
-                    "total" => (float)$productPrice * $quantity,
-                    "picture" => $productImage
+                    "total" => (str)$productPrice * $quantity, // Итоговая стоимость
+                    "picture" => $productImage // Путь к изображению товара
                 ];
             } else {
                 // Логируем ошибку, если товар не найден
