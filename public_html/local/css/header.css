@@ -224,6 +224,27 @@ nav a:hover, nav a:focus {
     background-color: #0056b3;
 }
 
+/* Список товаров */
+.cart-table-header, .cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-table-header {
+    font-weight: bold;
+}
+
+.cart-item {
+    align-items: center;
+}
+
+.cart-item div {
+    flex: 1;
+    text-align: center; /* Выравнивание текста по центру */
+}
+
 /********* Кнопка-гамбургер *********/
 .menu-toggle {
     display: block; /* Кнопка отображается по умолчанию */
