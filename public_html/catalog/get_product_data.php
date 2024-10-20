@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $productImage = $arFields['PREVIEW_PICTURE'] ? CFile::GetPath($arFields['PREVIEW_PICTURE']) : '';
 
                 // Получаем цену из пользовательского свойства EL_PRICE
-                $productPrice = $arFields['EL_PRICE']['VALUE'] ?: 0;
+                $productPrice = $arFields['PROPERTY_EL_PRICE']['VALUE'] ?: 0;
 
                 // Заполняем данные товара
                 $basketData[] = [
