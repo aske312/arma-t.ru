@@ -128,8 +128,8 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                         <td>${item.price} руб.</td>
                         <td>
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateCartItemQuantity(${item.id}, this.value)">
-                            <button class="quantity-btn" onclick="updateCartItemQuantity(${item.id}, 1)">&#43;</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantity(${item.id}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantityManual(${item.id}, 1)">&#43;</button>
                         </td>
                         <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
                         <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td>
@@ -177,34 +177,6 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             loadCartData();
             updateCartCount();
         }
-
-
-function updateCartItemQuantity(productId, delta) {
-  const cartItems = getCartItemsFromCookie();
-
-  // Находим товар в корзине
-  const itemIndex = cartItems.findIndex(item => item.id === productId);
-
-  if (itemIndex !== -1) {
-    // Обновляем количество товара
-    cartItems[itemIndex].quantity += delta;
-
-    // Удаляем товар из корзины, если количество стало меньше 1
-    if (cartItems[itemIndex].quantity < 1) {
-      cartItems.splice(itemIndex, 1);
-    }
-
-    // Сохраняем обновленную корзину в куки
-    setCartItemsToCookie(cartItems);
-
-    // Обновляем отображение корзины (если необходимо)
-    loadCartData();
-    updateCartCount();
-  } else {
-    console.error('Товар не найден в корзине:', productId);
-  }
-}
-
 
         document.getElementById('clear-cart').addEventListener('click', function() {
             document.cookie = 'cartItems=; Max-Age=-99999999; path=/';

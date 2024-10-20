@@ -145,6 +145,36 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 <div class="section-title">
     <h2><?= isset($selectedSection['NAME']) ? $selectedSection['NAME'] : 'Применен фильтр'; ?></h2>
     <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберете необходимые позиции'; ?></p>
+
+    <button class="quantity-btn" onclick="updateCartItemQuantity(${item.id}, 1)">&#43;</button>
+
+    <script>
+        function updateCartItemQuantity(productId, delta) {
+            const cartItems = getCartItemsFromCookie();
+
+            // Находим товар в корзине
+            const itemIndex = cartItems.findIndex(item => item.id === productId);
+
+            if (itemIndex !== -1) {
+            // Обновляем количество товара
+            cartItems[itemIndex].quantity += delta;
+
+            // Удаляем товар из корзины, если количество стало меньше 1
+            if (cartItems[itemIndex].quantity < 1) {
+              cartItems.splice(itemIndex, 1);
+            }
+
+            // Сохраняем обновленную корзину в куки
+            setCartItemsToCookie(cartItems);
+
+            // Обновляем отображение корзины (если необходимо)
+            loadCartData();
+            updateCartCount();
+            } else {
+            console.error('Товар не найден в корзине:', productId);
+            }
+        }
+    </script>
 </div>
 
 <div class="catalog-container">
