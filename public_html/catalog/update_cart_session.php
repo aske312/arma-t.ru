@@ -1,13 +1,15 @@
 <?php
-session_start(); // Запуск сессии
+session_start();
+header('Content-Type: application/json');
 
-// Получаем данные из POST-запроса
-$data = json_decode(file_get_contents('php://input'), true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartItems'])) {
+    $cartItems = $_POST['cartItems'];
 
-// Сохраняем данные корзины в сессию
-if (isset($data['cartItems'])) {
-    $_SESSION['cartItems'] = $data['cartItems'];
+    // Сохраняем в сессии
+    $_SESSION['cartItems'] = $cartItems;
+
+    echo json_encode(['status' => 'success']);
+} else {
+    echo json_encode(['status' => 'error']);
 }
-
-// Возвращаем успешный ответ
-http_response_code(200);
+?>

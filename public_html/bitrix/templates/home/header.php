@@ -111,10 +111,16 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             cartItemsContainer.innerHTML = '';
             let totalSum = 0;
 
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '<tr><td colspan="5">Корзина пуста</td></tr>';
+                document.getElementById('cart-total').innerText = 'Общая сумма: 0.00 руб.';
+                return;
+            }
+
             cartItems.forEach(item => {
                 const row = `
                     <tr>
-                        <td title="${item.name}">${item.name.substring(0, 15)}...</td>
+                        <td title="${item.name}">${item.name}</td>
                         <td>${item.price} руб.</td>
                         <td>
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
