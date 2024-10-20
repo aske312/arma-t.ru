@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     "name" => $arFields['NAME'],
                     "price" => (float)$productPrice, // Приводим к типу float
                     "quantity" => $quantity,
-                    "total" => (str)$productPrice * $quantity, // Итоговая стоимость
+                    "total" => (float)$productPrice * $quantity, // Итоговая стоимость
                     "picture" => $productImage // Путь к изображению товара
                 ];
             } else {
