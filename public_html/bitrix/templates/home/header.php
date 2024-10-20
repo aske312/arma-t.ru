@@ -91,32 +91,29 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
 
+        // Временная переменная для хранения данных корзины
+        let cartItems = [];
+
+        // Получаем данные корзины из куки и синхронизируем с временной переменной
         function getCartItemsFromCookie() {
             const cookie = document.cookie.split('; ').find(row => row.startsWith('cartItems='));
-            return cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : [];
+            cartItems = cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : [];
+            return cartItems;
         }
 
-        function setCartItemsToCookie(cartItems) {
+        // Сохраняем временную переменную обратно в куки
+        function setCartItemsToCookie() {
             document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + '; path=/; max-age=3600';
         }
 
+        // Обновляем количество товаров в корзине (в заголовке)
         function updateCartCount() {
-            const cartItems = getCartItemsFromCookie();
             const count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
         }
 
-        document.getElementById('cart-button').addEventListener('click', function() {
-            document.getElementById('cart-modal').style.display = 'block';
-            loadCartData();
-        });
-
-        document.getElementById('close-cart-modal').addEventListener('click', function() {
-            document.getElementById('cart-modal').style.display = 'none';
-        });
-
+        // Загружаем и отображаем данные корзины в модальном окне
         function loadCartData() {
-            const cartItems = getCartItemsFromCookie();
             const cartItemsContainer = document.getElementById('cart-items');
             cartItemsContainer.innerHTML = '';
             let totalSum = 0;
@@ -142,17 +139,16 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
         }
 
+        // Обновляем количество товара (через кнопку +/-)
         function updateQuantity(productId, delta) {
-            const cartItems = getCartItemsFromCookie();
             const item = cartItems.find(item => item.id === productId);
-
             if (item) {
                 item.quantity += delta;
 
                 if (item.quantity < 1) {
                     removeCartItem(productId);
                 } else {
-                    setCartItemsToCookie(cartItems);
+                    setCartItemsToCookie();  // Синхронизируем куки с временной переменной
                     loadCartData();
                     updateCartCount();
                 }
@@ -161,34 +157,49 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             }
         }
 
+        // Обновляем количество товара вручную через input
         function updateQuantityManual(productId, value) {
-            const cartItems = getCartItemsFromCookie();
             const item = cartItems.find(item => item.id === productId);
-
             if (item) {
                 item.quantity = Math.max(1, parseInt(value) || 1);
-                setCartItemsToCookie(cartItems);
+                setCartItemsToCookie();  // Синхронизируем куки с временной переменной
                 loadCartData();
                 updateCartCount();
             }
         }
 
+        // Удаляем товар из корзины
         function removeCartItem(productId) {
-            let cartItems = getCartItemsFromCookie();
             cartItems = cartItems.filter(item => item.id !== productId);
-            setCartItemsToCookie(cartItems);
+            setCartItemsToCookie();  // Синхронизируем куки с временной переменной
             loadCartData();
             updateCartCount();
         }
 
+        // Очистить корзину полностью
         document.getElementById('clear-cart').addEventListener('click', function() {
-            document.cookie = 'cartItems=; Max-Age=-99999999; path=/';
+            cartItems = [];  // Очищаем временную переменную
+            setCartItemsToCookie();  // Синхронизируем куки
             loadCartData();
         });
 
+        // Переход на страницу оформления заказа
         document.getElementById('checkout').addEventListener('click', function() {
             window.location.href = '/checkout/';
         });
 
+        // Событие для открытия корзины
+        document.getElementById('cart-button').addEventListener('click', function() {
+            document.getElementById('cart-modal').style.display = 'block';
+            loadCartData();
+        });
+
+        // Закрыть корзину
+        document.getElementById('close-cart-modal').addEventListener('click', function() {
+            document.getElementById('cart-modal').style.display = 'none';
+        });
+
+        // Инициализация: загружаем корзину из куки при загрузке страницы
+        getCartItemsFromCookie();
         updateCartCount();
     </script>
