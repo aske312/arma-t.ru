@@ -103,6 +103,15 @@ foreach ($cartItems as $item) {
             nav.classList.toggle('menu-open');
         }
 
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('siteHeader');
+            if (window.scrollY > 100) {  // Замените 100 на значение, когда фиксировать
+                header.classList.add('fixed');
+            } else {
+                header.classList.remove('fixed');
+            }
+        });
+
         // Обновление количества товаров в корзине
         function updateCartCount() {
             var cartItems = getCartItemsFromCookie();
