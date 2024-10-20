@@ -1,6 +1,7 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
+session_start(); // Запуск сессии
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
 
@@ -11,7 +12,6 @@ Asset::getInstance()->addCss("/local/css/header.css");
 Asset::getInstance()->addCss("/local/css/footer.css");
 
 // Получаем товары в корзине из сессии
-session_start(); // Запуск сессии
 $cartItems = isset($_SESSION['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 ?>
