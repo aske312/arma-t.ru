@@ -124,11 +124,11 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             cartItems.forEach(item => {
                 const row = `
                     <tr>
-                        <td title="${item.name}">${item.name.substring(0, 20)}...</td>
+                        <td title="${item.name}">${item.name.substring(0, 15)}...</td>
                         <td>${item.price} руб.</td>
                         <td>
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantityManual(${item.id}, this.value)">
+                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button>
                         </td>
                         <td>${item.price * item.quantity} руб.</td>
@@ -142,11 +142,11 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum} руб.`;
         }
 
-        function updateQuantity(productId, change) {
+        function updateQuantity(productId, delta) {
             const cartItems = getCartItemsFromCookie();
             const item = cartItems.find(item => item.id === productId);
             if (item) {
-                item.quantity += change;
+                item.quantity += delta;
                 if (item.quantity < 1) {
                     removeCartItem(productId);
                 } else {
@@ -183,7 +183,6 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
         document.getElementById('clear-cart').addEventListener('click', function() {
             document.cookie = 'cartItems=; Max-Age=-99999999; path=/';
             loadCartData();
-            updateCartCount();
         });
 
         document.getElementById('checkout').addEventListener('click', function() {
