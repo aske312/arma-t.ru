@@ -240,7 +240,7 @@
 /********* Форма обратной связи *********/
     .section5 {
         background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)),
-            url('/local/img/head_title/steel-slide_4.jpg') no-repeat center;
+            url('/resources/img/head_title/steel-slide_4.jpg') no-repeat center;
         background-size: cover;
     }
     .form-container {

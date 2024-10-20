@@ -1,6 +1,6 @@
 /* Стили для заголовка */
 .section-title {
-    background: url('/local/img/block/pattern.png') no-repeat center;
+    background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover;
     color: #fff;
     padding: 20px;
@@ -16,8 +16,8 @@
     font-size: 24px;
 }
 
-/* Область Пеймент */
-.product-payments {
+/* Область Доставка */
+.product-delivery {
     max-width: 1200px;
     margin: 0 auto;
     color: #333;
