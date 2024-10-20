@@ -9,11 +9,12 @@ Asset::getInstance()->addCss("/local/css/delivery.css"); //css
 $IBLOCK_ID = 1; ?>
 
 <div class="section-title">
-    <h2><?php echo htmlspecialchars($productName); ?></h2> <!-- Название раздела -->
-    <p>Подробное описание</p>
+    <h2> Доставка </h2> <!-- Название раздела -->
+    <p> Подробная информация по доставке </p>
 </div>
 
-<button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
-
+<div class="product-delivery">
+    <button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
+</div>
 
 <?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
