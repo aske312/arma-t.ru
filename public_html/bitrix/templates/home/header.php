@@ -146,19 +146,31 @@ foreach ($cartItems as $item) {
             cartItemsContainer.innerHTML = '';
             var totalSum = 0;
 
+            // Создание заголовка таблицы
+            var tableHeader = `
+                <div class="cart-table-header">
+                    <div>Наименование</div>
+                    <div>Цена за ед.</div>
+                    <div>Количество</div>
+                    <div>Общая цена</div>
+                </div>
+            `;
+            cartItemsContainer.innerHTML += tableHeader;
+
             basketData.forEach(function(item, index) {
+                var truncatedName = item.name.length > 15 ? item.name.substring(0, 15) + '...' : item.name;
+
                 var itemRow = document.createElement('div');
                 itemRow.className = 'cart-item';
                 itemRow.innerHTML = `
-                    <div>№${index + 1}</div>
-                    <div>Название: ${item.name}</div>
-                    <div>Цена: ${item.price} руб.</div>
+                    <div title="${item.name}">${truncatedName}</div>
+                    <div>${item.price} руб.</div>
                     <div>
                         <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
                         <span>${item.quantity}</span>
                         <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
                     </div>
-                    <div>Сумма: ${item.total} руб.</div>
+                    <div>${item.total} руб.</div>
                     <button class="remove-item-btn" data-id="${item.id}">&times;</button>
                 `;
                 cartItemsContainer.appendChild(itemRow);
