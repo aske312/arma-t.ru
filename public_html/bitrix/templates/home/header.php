@@ -213,6 +213,74 @@ foreach ($cartItems as $item) {
             window.location.href = '/checkout/';
         });
 
+        document.querySelectorAll(".quantity-btn").forEach(function(button) {
+            button.addEventListener("click", function() {
+                var input = this.parentElement.querySelector(".quantity-input");
+                var currentValue = parseInt(input.value);
+
+                if (this.classList.contains("quantity-increase")) {
+                    input.value = currentValue + 1;
+                } else if (this.classList.contains("quantity-decrease")) {
+                    if (currentValue > 1) input.value = currentValue - 1;
+                }
+
+                updateCartItem(input.dataset.id, input.value);
+            });
+        });
+
+        // Handle manual input
+        document.querySelectorAll(".quantity-input").forEach(function(input) {
+            input.addEventListener("input", function() {
+                var newValue = parseInt(this.value);
+                if (!isNaN(newValue) && newValue > 0) {
+                    updateCartItem(this.dataset.id, newValue);
+                } else {
+                    this.value = 1;
+                    updateCartItem(this.dataset.id, 1);
+                }
+            });
+        });
+
+        // Update item quantity in cookies
+        function updateCartItem(itemId, quantity) {
+            var cartItems = getCartItemsFromCookies();
+            if (cartItems[itemId]) {
+                cartItems[itemId].quantity = quantity;
+            }
+            setCartItemsToCookies(cartItems);
+            updateCartDisplay();
+        }
+
+        // Retrieve cart items from cookies
+        function getCartItemsFromCookies() {
+            var cartData = document.cookie.split('; ').find(row => row.startsWith('cart='));
+            return cartData ? JSON.parse(cartData.split('=')[1]) : {};
+        }
+
+        // Set cart items to cookies
+        function setCartItemsToCookies(cartItems) {
+            document.cookie = 'cart=' + JSON.stringify(cartItems) + '; path=/';
+        }
+
+        // Refresh cart display after updating cookies
+        function updateCartDisplay() {
+            var cartItems = getCartItemsFromCookies();
+            var cartTotal = 0;
+
+            // Update cart items and total dynamically
+            document.querySelectorAll(".cart-item").forEach(function(item) {
+                var itemId = item.querySelector(".quantity-input").dataset.id;
+                if (cartItems[itemId]) {
+                    var quantity = cartItems[itemId].quantity;
+                    var price = cartItems[itemId].price;
+                    item.querySelector(".quantity-input").value = quantity;
+                    item.querySelector(".item-total").innerText = price * quantity + " руб.";
+                    cartTotal += price * quantity;
+                }
+            });
+            document.getElementById("cart-total").innerText = "Total: " + cartTotal + " руб.";
+        }
+
         // Инициализация
         updateCartCount();
     </script>

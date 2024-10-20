@@ -231,8 +231,12 @@ nav a:hover, nav a:focus {
 
 /* Общие стили корзины */
 .cart-table {
-    width: 100%; /* Максимально ширина корзины */
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 50px;
+    gap: 10px;
+    align-items: center;
     margin-top: 20px;
+    border: 1px solid #ddd;
 }
 
 .cart-table-header, .cart-item {
@@ -245,9 +249,20 @@ nav a:hover, nav a:focus {
     text-align: center;
 }
 
+.cart-item {
+    display: contents; /* Allows individual child items to flow in the grid */
+}
+
 .cart-table-header {
-    font-weight: bold;
+    display: contents;
     background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.cart-item div, .cart-table-header div {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 /* Кнопки количества товаров */
