@@ -1,6 +1,4 @@
 <?php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-
 session_start(); // Не забудьте запустить сессию
 
 // Получаем данные из запроса
