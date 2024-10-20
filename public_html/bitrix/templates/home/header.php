@@ -153,9 +153,13 @@ foreach ($cartItems as $item) {
                     <div>№${index + 1}</div>
                     <div>Название: ${item.name}</div>
                     <div>Цена: ${item.price} руб.</div>
-                    <div>Количество: ${item.quantity}</div>
+                    <div>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                    </div>
                     <div>Сумма: ${item.total} руб.</div>
-                    <button class="remove-item-btn" data-id="${item.id}">Удалить</button>
+                    <button class="remove-item-btn" data-id="${item.id}">&times;</button>
                 `;
                 cartItemsContainer.appendChild(itemRow);
                 totalSum += item.total;
@@ -171,6 +175,21 @@ foreach ($cartItems as $item) {
                     removeCartItem(productId);
                 });
             });
+        }
+
+        // Функция обновления количества товара
+        function updateQuantity(productId, change) {
+            var cartItems = getCartItemsFromCookie();
+            var item = cartItems.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeCartItem(productId); // Удаляем товар, если количество <= 0
+                } else {
+                    document.cookie = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems)) + ';path=/'; // Обновляем куки
+                    loadCartData(); // Обновляем корзину
+                }
+            }
         }
 
         // Функция удаления товара из корзины
