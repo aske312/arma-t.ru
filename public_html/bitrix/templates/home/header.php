@@ -198,7 +198,7 @@ foreach ($cartItems as $item) {
                             var response = JSON.parse(xhr.responseText);
                             console.log(response);
                         } else {
-                            console.error('Ошибка: ' + xhr.status);
+                            console.error('Ошибка:' + xhr.status);
                         }
                     }
                 };
