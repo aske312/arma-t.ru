@@ -1,25 +1,11 @@
-/********* Основное *********/
-@font-face {
-    font-family: Montserrat-Regular;
-    src: url(/local/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
-    font-style: normal;
-    font-weight: normal;
-}
-
-h1, h2, p, div, input, button {
-    font-family: Montserrat-Regular;
-}
-
+/********** Основное **********/
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin: 0;
     color: white;
     background-color: #162139;
+    font-family: Montserrat, sans-serif;
 }
 
-/***   ***/
 header {
     background-color: #162139;
     color: white;
@@ -32,7 +18,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    max-width: 1200px; /* Максимальная ширина шапки */
+    margin: 0 auto; /* Центрирование */
+    padding: 0 40px; /* Отступы по бокам */
 }
 
 .logo img {
@@ -94,26 +82,12 @@ header {
 
 .phone-link {
     color: white;
+    font-size: 18px;
     text-decoration: none;
 }
 
-.phone-link:hover, .phone-link:focus {
-    color: #0056b3;
-    text-decoration: none;
-}
-
-.contact-info button {
-    margin-top: 5px;
-    padding: 10px 20px;
-    background-color: #2654A2;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-.contact-info button:hover, .contact-info button:focus {
-    background-color: #0056b3;
+.phone-link:hover {
+    text-decoration: underline;
 }
 
 /********** Корзина **********/
