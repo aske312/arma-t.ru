@@ -157,7 +157,7 @@ foreach ($cartItems as $item) {
             }
 
             //**** КОРЗИНА ****//
-                        // Обработчик для открытия и закрытия модального окна корзины
+            // Обработчик для открытия и закрытия модального окна корзины
             document.getElementById('cart-button').addEventListener('click', function() {
                 var cartModal = document.getElementById('cart-modal');
                 var buttonRect = this.getBoundingClientRect(); // Получаем координаты кнопки
@@ -211,8 +211,11 @@ foreach ($cartItems as $item) {
                 cartItemsContainer.innerHTML = '';
                 var totalSum = 0;
 
+                echo cartItemsContainer
+
                 basketData.forEach(function(item, index) {
                     var itemRow = document.createElement('div');
+
                     itemRow.className = 'cart-item';
                     itemRow.innerHTML = `
                         <div>№${index + 1}</div>
