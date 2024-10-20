@@ -20,7 +20,7 @@ header {
     align-items: center;
     max-width: 1200px; /* Максимальная ширина шапки */
     margin: 0 auto; /* Центрирование */
-    padding: 0 40px; /* Отступы по бокам */
+    padding: 0 20px; /* Отступы по бокам */
 }
 
 .logo img {
