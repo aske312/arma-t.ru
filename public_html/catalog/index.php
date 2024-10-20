@@ -11,7 +11,7 @@ if (empty($sectionId)) {
 
 use Bitrix\Main\Page\Asset;
 
-Asset::getInstance()->addCss("/local/css/catalog.css"); //css
+Asset::getInstance()->addCss("/resources/css/catalog.css"); //css
 
 // Получение текущей секции
 $sectionFilter = [
@@ -161,7 +161,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <?php if ($arSection['PICTURE']): ?>
                     <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
                     <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                    <?php else: ?><img alt="Нет изображения" src="/local/img/no_image.png"><?php endif; ?>
+                    <?php else: ?><img alt="Нет изображения" src="/resources/img/no_image.png"><?php endif; ?>
                     <div class="category-text"> <?= $arSection['NAME']; ?> </div>
                 </div>
             </li>
@@ -216,7 +216,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
                         <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
                         <?php else: ?>
-                        <img alt="Нет изображения" src="/local/img/no_image.png">
+                        <img alt="Нет изображения" src="/resources/img/no_image.png">
                         <?php endif; ?>
                         <div class="catalog-item-info">
                             <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>

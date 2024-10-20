@@ -1,7 +1,7 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 use Bitrix\Main\Page\Asset;
-Asset::getInstance()->addCss("/local/css/detail.css"); //css
+Asset::getInstance()->addCss("/resources/css/detail.css"); //css
 
 if (CModule::IncludeModule("iblock")) {
     $productId = intval($_GET['id']);

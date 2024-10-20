@@ -3,7 +3,7 @@
 require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
 
 use Bitrix\Main\Page\Asset;
-Asset::getInstance()->addCss("/local/css/delivery.css"); //css
+Asset::getInstance()->addCss("/resources/css/delivery.css"); //css
 
 // Указываем ID инфоблока
 $IBLOCK_ID = 1; ?>

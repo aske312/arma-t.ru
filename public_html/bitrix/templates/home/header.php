@@ -7,8 +7,8 @@ use Bitrix\Main\Page\Asset;
 Loader::includeModule('iblock');
 
 // Подключение стилей и скриптов
-Asset::getInstance()->addCss("/local/css/header.css");
-Asset::getInstance()->addCss("/local/css/footer.css");
+Asset::getInstance()->addCss("/resources/css/header.css");
+Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
@@ -33,7 +33,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
     <header id="siteHeader" class="header">
         <div class="header-content">
             <div class="logo">
-                <a href="/"><img src="/local/img/logo/resource_1.png" alt="My Logo"></a>
+                <a href="/"><img src="/resources/img/logo/resource_1.png" alt="My Logo"></a>
             </div>
             <div class="nav-search">
                 <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>

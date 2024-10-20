@@ -8,8 +8,8 @@ use Bitrix\Iblock;
 
 Loader::includeModule('iblock');
 
-Asset::getInstance()->addCss("/local/css/home.css"); //css
-Asset::getInstance()->addJs("/local/js/script.js"); //js
+Asset::getInstance()->addCss("/resources/css/home.css"); //css
+Asset::getInstance()->addJs("/resources/js/script.js"); //js
 
 $sectionsFilter = [
     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
@@ -71,7 +71,7 @@ if (CModule::IncludeModule('iblock')) {
 	<div class="container">
 		<div class="content">
 			<div class="image">
-                <img alt="Image" src="/local/img/block/312asd.png">
+                <img alt="Image" src="/resources/img/block/312asd.png">
 			</div>
 			<div class="text">
 				<p>АРМА-Т - специализируется на продаже запорной арматуры. Мы предлагаем широкий ассортимент продукции.
@@ -88,7 +88,7 @@ if (CModule::IncludeModule('iblock')) {
 	<div class="block">
 		<div class="block-item">
 			<div class="block-image">
-                <img alt="Image 1" src="/local/img/block/res1.png">
+                <img alt="Image 1" src="/resources/img/block/res1.png">
 			</div>
 			<div class="item-text">
 				 Наши специалисты помогут <br>
@@ -97,7 +97,7 @@ if (CModule::IncludeModule('iblock')) {
 		</div>
 		<div class="block-item">
 			<div class="block-image">
-                <img alt="Image 2" src="/local/img/block/res2.png">
+                <img alt="Image 2" src="/resources/img/block/res2.png">
 			</div>
 			<div class="item-text">
 				 Выставим счет <br>
@@ -106,7 +106,7 @@ if (CModule::IncludeModule('iblock')) {
 		</div>
 		<div class="block-item">
 			<div class="block-image">
-                <img alt="Image 3" src="/local/img/block/res3.png">
+                <img alt="Image 3" src="/resources/img/block/res3.png">
 			</div>
 			<div class="item-text">
 				 Осуществим доставку <br>
@@ -136,7 +136,7 @@ if (CModule::IncludeModule('iblock')) {
                     <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
                     <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
                 <?php else: ?>
-                    <img alt="Нет изображения" src="/local/img/no_image.png"> <!-- Замена на "заглушку", если изображения нет -->
+                    <img alt="Нет изображения" src="/resources/img/no_image.png"> <!-- Замена на "заглушку", если изображения нет -->
                 <?php endif; ?>
                 <div class="category-text">
                     <?= $arSection['NAME']; ?>
@@ -165,7 +165,7 @@ if (CModule::IncludeModule('iblock')) {
             <div class="form-actions">
                 <!--
                 <label class="file-label">
-                    <img src="/local/img/block/file0-pn.png" alt="file icon">
+                    <img src="/resources/img/block/file0-pn.png" alt="file icon">
                     <input type="file" id="files" name="files[]" accept=".pdf,.docx,.txt" multiple style="display:none;">
                 </label>
                 -->
