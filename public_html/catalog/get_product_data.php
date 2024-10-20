@@ -20,8 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productId = $cartItem['id']; // Приводим к целому числу для безопасности
             $quantity = $cartItem['quantity'];
 
-            console.log($cartItem);
-
             // Запрос к инфоблоку для получения данных товара
             $arSelect = ['ID', 'NAME', 'PREVIEW_PICTURE', 'PROPERTY_EL_PRICE']; // Указываем необходимые поля
             $arFilter = ["IBLOCK_ID" => 2, "ID" => $productId]; // Замените на ваш ID инфоблока
@@ -59,3 +57,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(["error" => "Invalid request method"]);
 }
+?>
