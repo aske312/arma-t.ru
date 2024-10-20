@@ -67,7 +67,7 @@ foreach ($cartItems as $item) {
                         <div class="cart-modal-content">
                             <span class="close-btn" id="close-cart-modal">&times;</span>
                             <h2>Товары в корзине</h2>
-                            <div id="cart-items">
+                            <div id="cart-items" class="cart-table">
                                 <!-- Список товаров будет отображаться здесь -->
                             </div>
                             <div id="cart-total">
