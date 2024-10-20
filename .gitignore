@@ -32,6 +32,13 @@ public_html/bitrix/services/
 public_html/bitrix/sounds/
 public_html/bitrix/templates/.default/
 public_html/bitrix/templates/landing24/
+public_html/bitrix/templates/footer.php
+public_html/bitrix/templates/header.php
+public_html/bitrix/templates/index.php
+public_html/bitrix/templates/catalog/footer.php
+public_html/bitrix/templates/catalog/header.php
+public_html/bitrix/templates/home/styles.css
+public_html/bitrix/templates/home/template_styles.css
 public_html/bitrix/themes/
 public_html/bitrix/tmp/
 public_html/bitrix/tools/
