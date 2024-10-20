@@ -92,12 +92,10 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
 
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('cart-modal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
+        // Получаем данные корзины из сессии
+        function getCartItemsFromSession() {
+            return JSON.parse('<?= json_encode($cartItems) ?>');
+        }
 
         // Обновление количества товаров в корзине
         function updateCartCount() {
@@ -132,11 +130,6 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
             });
 
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
-        }
-
-        // Получаем данные корзины из сессии
-        function getCartItemsFromSession() {
-            return JSON.parse('<?= json_encode($cartItems) ?>');
         }
 
         // Увеличение количества товара
@@ -214,5 +207,3 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
 
         updateCartCount();
     </script>
-</body>
-</html>
