@@ -84,7 +84,6 @@
     z-index: 2;
 }
 .dot {
-    z-index: 2;
     height: 10px;
     width: 10px;
     margin: 0 5px;
@@ -168,7 +167,6 @@
 
 /********* Блок Каталог *********/
 .section4 {
-    background-color: #DCDCDC;
 }
 .category {
     width: 100%;
@@ -176,7 +174,6 @@
     justify-content: center;
     background-color: #DCDCDC;
 }
-
 .section4-title {
     background-color: #DCDCDC;
 }
@@ -184,9 +181,7 @@
     display: flex;
     width: 1050px;
     text-align: left;
-    color: black;
 }
-
 .category-table {
     justify-content: center;
     display: flex;
@@ -200,14 +195,13 @@
     justify-content: center;
     width: 450px;
     height: 160px;
+    background: white;
+    border-radius: 5px;
     margin: 10px;
     padding: 5px;
     cursor: pointer;
-    background: white;
-    border-radius: 5px;
 }
 .category-block:hover {
-    border-radius: 5px;
     box-shadow: 0 0 25px #191970;
 }
 .category img {
@@ -218,7 +212,6 @@
 .category-text {
     color: black;
     text-align: left;
-    flex: 0;
     font-size: 24px;
 }
 
@@ -281,8 +274,6 @@
     justify-content: right;
     gap: 10px;
 }
-
-/* Стили для кнопки выбора файла */
 .file-label {
     cursor: pointer;
     display: flex;
@@ -295,32 +286,36 @@
     font-size: 16px;
     color: white;
 }
-
 .file-label img {
     width: 20px;
     height: 20px;
 }
-
 .file-label:hover {
     background-color: #0056b3;
 }
-
-/* Контейнер для списка файлов */
+#submitButton {
+    background-color: #2654A2;
+    color: #fff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#submitButton:hover {
+    background-color: #0056b3;
+}
 #fileList {
     margin-top: 10px;
     color: white;
 }
-
 .file-item {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
 }
-
 .file-item span {
     margin-right: 10px;
 }
-
 .delete-file {
     background-color: #e74c3c;
     color: white;
@@ -329,7 +324,6 @@
     padding: 5px 10px;
     cursor: pointer;
 }
-
 .delete-file:hover {
     background-color: #c0392b;
 }
@@ -339,65 +333,46 @@
     .slider-container {
         height: 300px;
     }
-
     .slide img {
         width: 100%;
         height: 300px;
         object-fit: cover;
     }
-
     .slide-text {
         font-size: 24px;
         top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
-
     .content {
         flex-direction: column;
         margin-top: 0;
     }
-
     .text {
         margin-left: 0;
         text-align: center;
         margin-top: 20px;
     }
-
     .block {
         flex-direction: column;
         height: auto;
     }
-
     .block-item {
         margin: 20px 0;
     }
-
     .category-table {
         flex-direction: column;
     }
-
     .category-block {
         width: 100%;
         margin: 10px 0;
     }
-
     .contact-form {
         width: 100%;
         transform: translateX(0);
     }
-
     .contact-form input,
     .contact-form textarea {
         width: 100%;
-    }
-
-    .map iframe {
-        width: 100%;
-        height: 300px;
-    }
-
-    .conts-wrapper {
-        flex-direction: column;
     }
 }
