@@ -14,22 +14,19 @@ Asset::getInstance()->addJs("/resources/js/script.js"); // JS
 
 // Получение данных для слайдера (ID = 1)
 $sliderItems = [];
-if (CModule::IncludeModule('iblock')) {
-    $res = CIBlockElement::GetList(
-        ["SORT" => "ASC"],
-        ["IBLOCK_ID" => 1, "ACTIVE" => "Y"],
-        false,
-        false,
-        ["ID", "NAME", "PREVIEW_PICTURE", "PREVIEW_TEXT"]
-    );
-
-    while ($arItem = $res->GetNext()) {
-        $imgPath = CFile::GetPath($arItem["PREVIEW_PICTURE"]);
-        $sliderItems[] = [
-            "TEXT" => $arItem["PREVIEW_TEXT"],
-            "IMG" => $imgPath,
-        ];
-    }
+$res = CIBlockElement::GetList(
+    ["SORT" => "ASC"],
+    ["IBLOCK_ID" => 1, "ACTIVE" => "Y"],
+    false,
+    false,
+    ["ID", "NAME", "PREVIEW_PICTURE", "PREVIEW_TEXT"]
+);
+while ($arItem = $res->GetNext()) {
+    $imgPath = CFile::GetPath($arItem["PREVIEW_PICTURE"]);
+    $sliderItems[] = [
+        "TEXT" => $arItem["PREVIEW_TEXT"],
+        "IMG" => $imgPath,
+    ];
 }
 
 // Получение данных для компании (ID = 2)
@@ -85,9 +82,7 @@ while ($section = $sections->Fetch()) {
                     <?php foreach ($sliderItems as $slide): ?>
                     <div class="slide">
                         <img alt="Slide" src="<?= $slide['IMG'] ?>">
-                        <div class="slide-text">
-                            <?= $slide['TEXT'] ?>
-                        </div>
+                        <div class="slide-text"><?= $slide['TEXT'] ?></div>
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -104,9 +99,7 @@ while ($section = $sections->Fetch()) {
 <div class="section section2" id="Company">
     <div class="container">
         <div class="content">
-            <div class="text">
-                <?= $companyInfo ?>
-            </div>
+            <div class="text"><?= $companyInfo ?></div>
         </div>
     </div>
 </div>
@@ -118,9 +111,7 @@ while ($section = $sections->Fetch()) {
             <div class="block-image">
                 <img alt="<?= $item['TEXT'] ?>" src="<?= $item['IMG'] ?>">
             </div>
-            <div class="item-text">
-                <?= $item['TEXT'] ?>
-            </div>
+            <div class="item-text"><?= $item['TEXT'] ?></div>
         </div>
         <?php endforeach; ?>
     </div>
@@ -136,21 +127,19 @@ while ($section = $sections->Fetch()) {
     <div class="category">
         <div class="category-table">
             <?php if (!empty($arResult['SECTIONS'])): ?>
-            <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-            <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
-                <?php if ($arSection['PICTURE']): ?>
-                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                    <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                <?php else: ?>
-                    <img alt="Нет изображения" src="/resources/img/no_image.png">
-                <?php endif; ?>
-                <div class="category-text">
-                    <?= $arSection['NAME']; ?>
-                </div>
-            </div>
-            <?php endforeach; ?>
+                <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+                    <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                        <?php if ($arSection['PICTURE']): ?>
+                            <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                            <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
+                        <?php else: ?>
+                            <img alt="Нет изображения" src="/resources/img/no_image.png">
+                        <?php endif; ?>
+                        <div class="category-text"><?= $arSection['NAME']; ?></div>
+                    </div>
+                <?php endforeach; ?>
             <?php else: ?>
-            Нет доступных категорий
+                Нет доступных категорий
             <?php endif; ?>
         </div>
     </div>
