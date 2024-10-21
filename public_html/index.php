@@ -36,10 +36,13 @@ $res = CIBlockElement::GetList(
     ["IBLOCK_ID" => 2, "ACTIVE" => "Y"],
     false,
     false,
-    ["ID", "NAME", "DETAIL_TEXT"]
+    ["ID", "NAME", "DETAIL_TEXT", "PREVIEW_PICTURE"]
 );
 if ($arItem = $res->GetNext()) {
-    $companyInfo = $arItem["DETAIL_TEXT"];
+    $companyInfo = [
+        "TEXT" => $arItem["DETAIL_TEXT"],
+        "IMG" => CFile::GetPath($arItem["PREVIEW_PICTURE"]),
+    ];
 }
 
 // Получение данных для доставки (ID = 3)
@@ -99,7 +102,12 @@ while ($section = $sections->Fetch()) {
 <div class="section section2" id="Company">
     <div class="container">
         <div class="content">
-            <div class="text"><?= $companyInfo ?></div>
+            <div class="text">
+                <?php if ($companyInfo): ?>
+                    <img src="<?= $companyInfo['IMG'] ?>" alt="Компания">
+                    <div><?= $companyInfo['TEXT'] ?></div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>
