@@ -1,4 +1,5 @@
-<?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
+<?php
+require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
 
 $APPLICATION->SetTitle("Главная");
 
@@ -74,8 +75,6 @@ $arResult['SECTIONS'] = [];
 while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }
-
-// Получение данных для формы обратной связи (ID = 4) - здесь можно использовать статический текст или данные из инфоблока
 ?>
 
 <div class="section section1">
@@ -102,8 +101,6 @@ while ($section = $sections->Fetch()) {
     </div>
 </div>
 
-<!-- -->
-
 <div class="section section2" id="Company">
     <div class="container">
         <div class="content">
@@ -113,58 +110,6 @@ while ($section = $sections->Fetch()) {
         </div>
     </div>
 </div>
-
-<!--
-<div class="section section2" id="Company">
-	<div class="container">
-		<div class="content">
-			<div class="image">
-                <img alt="Image" src="/resources/img/block/312asd.png">
-			</div>
-			<div class="text">
-				<p>АРМА-Т - специализируется на продаже запорной арматуры. Мы предлагаем широкий ассортимент продукции.
-				У нас вы найдете все необходимое для обеспечения надежной работы трубопроводных систем.
-				Обращайтесь к нам, ведь мы гарантируем быструю доставку товаров высокого качества и отличный сервис!</p>
-			</div>
-		</div>
-	</div>
-</div> -->
-
-<!-- -->
-
-<!--
-<div class="section section3" id="Delivery">
-	<div class="block">
-		<div class="block-item">
-			<div class="block-image">
-                <img alt="Image 1" src="/resources/img/block/res1.png">
-			</div>
-			<div class="item-text">
-				 Наши специалисты помогут <br>
-				 с выбором продукции
-			</div>
-		</div>
-		<div class="block-item">
-			<div class="block-image">
-                <img alt="Image 2" src="/resources/img/block/res2.png">
-			</div>
-			<div class="item-text">
-				 Выставим счет <br>
-				 в течении 2-3 часов
-			</div>
-		</div>
-		<div class="block-item">
-			<div class="block-image">
-                <img alt="Image 3" src="/resources/img/block/res3.png">
-			</div>
-			<div class="item-text">
-				 Осуществим доставку <br>
-				 транспортной компанией <br>
-				 по вашему выбору
-			</div>
-		</div>
-	</div>
-</div> -->
 
 <div class="section section3" id="Delivery">
     <div class="block">
@@ -180,8 +125,6 @@ while ($section = $sections->Fetch()) {
         <?php endforeach; ?>
     </div>
 </div>
-
-<!-- -->
 
 <div class="section section4-title" id="Katalog">
     <div class="category-title">
@@ -212,8 +155,6 @@ while ($section = $sections->Fetch()) {
         </div>
     </div>
 </div>
-
-<!-- -->
 
 <div class="section section5" id="Cash">
     <div class="form-container" id="Form">
@@ -258,7 +199,6 @@ while ($section = $sections->Fetch()) {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                // Очистка формы после успешной отправки
                 document.getElementById('contactForm').reset();
                 document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
                 alert('Ваше сообщение было успешно отправлено!');
@@ -270,108 +210,50 @@ while ($section = $sections->Fetch()) {
         xhr.send(formData);  // Отправляем данные формы
     });
 
-    // Обновление списка файлов и вывод списка файлов
-    document.getElementById('files').addEventListener('change', function () {
-        var fileList = document.getElementById('fileList');
-        fileList.innerHTML = '';  // Очищаем список перед обновлением
-
-        // Выводим список файлов с возможностью удаления
-        for (var i = 0; i < this.files.length; i++) {
-            var file = this.files[i];
-            var fileItem = document.createElement('div');
-            fileItem.classList.add('file-item');
-
-            var fileName = document.createElement('span');
-            fileName.textContent = file.name;
-
-            var deleteButton = document.createElement('button');
-            deleteButton.classList.add('delete-file');
-            deleteButton.textContent = 'Удалить';
-            deleteButton.addEventListener('click', function () {
-                fileItem.remove();  // Удаляем файл из списка
-                // Логика для удаления файла из FormData не реализована в стандартном API,
-                // если необходимо, придется перезаписывать FormData без удаленного файла.
-            });
-
-            fileItem.appendChild(fileName);
-            fileItem.appendChild(deleteButton);
-            fileList.appendChild(fileItem);
-        }
-    });
-
     let slideIndex = 0; // Изначальный индекс слайда
     let slides = document.getElementsByClassName('slide'); // Получаем все слайды
     let dots = document.getElementsByClassName('dot'); // Получаем все точки
 
-    // Функция для показа слайдов
     function showSlides() {
-        // Скрываем все слайды
         for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = 'none';
         }
-
-        // Убираем активные классы у всех точек
         for (let i = 0; i < dots.length; i++) {
             dots[i].className = dots[i].className.replace(' active', '');
         }
 
-        // Увеличиваем индекс слайда
         slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1; }
 
-        // Если индекс выходит за количество слайдов, возвращаемся к первому
-        if (slideIndex > slides.length) {
-            slideIndex = 1;
-        }
-
-        // Показываем текущий слайд и активируем соответствующую точку
         slides[slideIndex - 1].style.display = 'block';
         dots[slideIndex - 1].className += ' active';
     }
 
-    // Функция автоматического переключения слайдов
     function startAutoSlide() {
-        slideInterval = setInterval(function() {
-            showSlides();
-        }, 5000); // Интервал переключения - 5 секунд
+        slideInterval = setInterval(showSlides, 5000); // Интервал переключения - 5 секунд
     }
 
-    // Остановка автоматического переключения слайдов
     function stopAutoSlide() {
         clearInterval(slideInterval);
     }
 
-    // Переключение на конкретный слайд при клике на точку
     function currentSlide(n) {
-        // Останавливаем автоматическое переключение
         stopAutoSlide();
-
-        // Устанавливаем индекс слайда
         slideIndex = n;
-
-        // Показываем выбранный слайд
         showSlides();
-
-        // Перезапускаем автоматическое переключение слайдов
         startAutoSlide();
     }
 
-    // Инициализация слайдера при загрузке страницы
     window.onload = function() {
-        // Показываем первый слайд
         showSlides();
-
-        // Запускаем автоматическое переключение слайдов
         startAutoSlide();
     };
 
-    // Добавляем события клика для точек (dots)
     for (let i = 0; i < dots.length; i++) {
         dots[i].addEventListener('click', function() {
-            currentSlide(i + 1);  // При клике переходим на слайд с индексом i
+            currentSlide(i + 1);
         });
     }
 </script>
 
-<!-- -->
-
-<?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');?>
+<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
