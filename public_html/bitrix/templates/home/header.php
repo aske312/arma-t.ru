@@ -39,7 +39,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity'));
                 <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
                 <nav id="mainNav">
                     <a href="/">О компании</a>
-                    <a href="/catalog/index.php?SECTION_ID=2">Каталог</a>
+                    <a href="/catalog/index.php?SECTION_ID=5">Каталог</a>
                     <a href="/contact/">Контакты</a>
                     <a href="/delivery/">Доставка</a>
                     <a href="/payment/">Оплата</a>

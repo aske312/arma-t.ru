@@ -233,11 +233,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <!-- Краткое описание элемента -->
                     <div class="catalog-item-properties">
                         <table>
-                            <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
-                            <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
-                            <th>Диаметр DN: <?= $arProps['EL_DIAMETER_DN']['VALUE']; ?>мм</th>
-                            <th>Давление PN: <?= $arProps['EL_PRESSURE_PN']['VALUE']; ?>кгс/см²</th>
-                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                            <th>Тип присоединения: <?= $arProps['EL_TYPE_S']['VALUE']; ?></th>
+                            <th>Тип привода: <?= $arProps['EL_TYPE_P']['VALUE']; ?></th>
+                            <th>Диаметр DN: <?= $arProps['EL_DIAMETR']['VALUE']; ?>мм</th>
+                            <th>Давление PN: <?= $arProps['EL_DOWN']['VALUE']; ?>кгс/см²</th>
+                            <th>Материал корпуса: <?= $arProps['EL_MATERIAL']['VALUE']; ?></th>
                         </table>
                     </div>
                 </div>
