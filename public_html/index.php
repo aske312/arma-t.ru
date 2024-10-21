@@ -99,7 +99,24 @@ while ($section = $sections->Fetch()) {
     </div>
 </div>
 
+<!-- -->
+
 <div class="section section2" id="Company">
+	<div class="container">
+		<div class="content">
+			<div class="image">
+                <img alt="Image" src="/resources/img/block/312asd.png">
+			</div>
+			<div class="text">
+				<p>АРМА-Т - специализируется на продаже запорной арматуры. Мы предлагаем широкий ассортимент продукции.
+				У нас вы найдете все необходимое для обеспечения надежной работы трубопроводных систем.
+				Обращайтесь к нам, ведь мы гарантируем быструю доставку товаров высокого качества и отличный сервис!</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <div class="section section2" id="Company">
     <div class="container">
         <div class="content">
             <div class="text">
@@ -110,9 +127,44 @@ while ($section = $sections->Fetch()) {
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<!-- -->
 
 <div class="section section3" id="Delivery">
+	<div class="block">
+		<div class="block-item">
+			<div class="block-image">
+                <img alt="Image 1" src="/resources/img/block/res1.png">
+			</div>
+			<div class="item-text">
+				 Наши специалисты помогут <br>
+				 с выбором продукции
+			</div>
+		</div>
+		<div class="block-item">
+			<div class="block-image">
+                <img alt="Image 2" src="/resources/img/block/res2.png">
+			</div>
+			<div class="item-text">
+				 Выставим счет <br>
+				 в течении 2-3 часов
+			</div>
+		</div>
+		<div class="block-item">
+			<div class="block-image">
+                <img alt="Image 3" src="/resources/img/block/res3.png">
+			</div>
+			<div class="item-text">
+				 Осуществим доставку <br>
+				 транспортной компанией <br>
+				 по вашему выбору
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <div class="section section3" id="Delivery">
     <div class="block">
         <?php foreach ($deliveryItems as $item): ?>
         <div class="block-item">
@@ -123,7 +175,9 @@ while ($section = $sections->Fetch()) {
         </div>
         <?php endforeach; ?>
     </div>
-</div>
+</div> -->
+
+<!-- -->
 
 <div class="section section4-title" id="Katalog">
     <div class="category-title">
@@ -152,6 +206,8 @@ while ($section = $sections->Fetch()) {
         </div>
     </div>
 </div>
+
+<!-- -->
 
 <div class="section section5" id="Cash">
     <div class="form-container" id="Form">
