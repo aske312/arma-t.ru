@@ -1,7 +1,7 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-require_once($_SERVER["DOCUMENT_ROOT"]."/public_html/catalog/update_cart_session.php");
+// require_once($_SERVER["DOCUMENT_ROOT"]."/public_html/catalog/update_cart_session.php");
 
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
@@ -166,7 +166,7 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсч�
 
         // Сохранение данных корзины в сессию
         function setCartItemsToSession(cartItems) {
-            fetch('/public_html/catalog/update_cart_session.php', {
+            fetch('update_cart_session.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
