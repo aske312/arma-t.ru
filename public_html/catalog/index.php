@@ -3,6 +3,8 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 $APPLICATION->SetTitle("Каталог");
 
+session_start()
+
 // Берем значение секции
 $sectionId = intval($_GET['SECTION_ID']);
 if (empty($sectionId)) {
