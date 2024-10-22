@@ -2,7 +2,7 @@
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 // Подключаем файл обновления сессии
-require_once $_SERVER['DOCUMENT_ROOT'] . '/catalog/update_cart_session.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'update_cart_session.php';
 
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
