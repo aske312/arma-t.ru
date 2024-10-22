@@ -1,11 +1,10 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-//require_once($_SERVER['DOCUMENT_ROOT'].'/catalog/update_cart_session.php');
-
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+// require_once($_SERVER['DOCUMENT_ROOT'].'/catalog/update_cart_session.php');
 
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
@@ -62,6 +61,31 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсч�
                         </button>
                     </div>
 
+                    <div id="cart-modal" class="cart-modal">
+                        <div class="cart-modal-content">
+                            <span class="close-btn" id="close-cart-modal">&times;</span>
+                            <h2>Товары в корзине</h2>
+                            <table class="cart-table">
+                                <thead>
+                                    <tr>
+                                        <th>Название</th>
+                                        <th>Цена за ед.</th>
+                                        <th>Количество</th>
+                                        <th>Общая цена</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-items"></tbody>
+                            </table>
+                            <div id="cart-total"></div>
+                            <button id="clear-cart" class="button">Очистить корзину</button>
+                            <button id="checkout" class="button">Оформить заказ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <script>
         function toggleMenu() {
@@ -72,6 +96,121 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсч�
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
 
+        // Получаем данные корзины из сессии
+        function getCartItemsFromSession() {
+            return <?= json_encode($cartItems) ?>;
+        }
+
+        // Обновление количества товаров в корзине
+        function updateCartCount() {
+            const cartItems = getCartItemsFromSession();
+            const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+
+            // Условие для отображения кнопки
+            const cartButton = document.getElementById('cart-button');
+            if (count > 0) {
+                cartButton.style.display = 'block'; // Показываем кнопку
+            } else {
+                cartButton.style.display = 'none'; // Скрываем кнопку
+            }
+        }
+
+        // Загружаем и отображаем данные корзины в модальном окне
+        function loadCartData() {
+            const cartItems = getCartItemsFromSession();
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let totalSum = 0;
+
+            if (cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '<tr><td colspan="5">Корзина пуста</td></tr>';
+                document.getElementById('cart-total').innerText = 'Общая сумма: 0.00 руб.';
+                return;
+            }
+
+            cartItems.forEach(item => {
+                const row = `
+                    <tr>
+                        <td title="${item.name}">${item.name}</td>
+                        <td>${item.price} руб.</td>
+                        <td>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button>
+                        </td>
+                        <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
+                        <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td>
+                    </tr>
+                `;
+                cartItemsContainer.innerHTML += row;
+                totalSum += item.price * item.quantity;
+            });
+
+            document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
+        }
+
+        // Увеличение количества товара
+        function updateQuantity(productId, delta) {
+            let cartItems = getCartItemsFromSession();
+            const item = cartItems.find(item => item.id === productId);
+
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity < 1) {
+                    removeCartItem(productId);
+                } else {
+                    setCartItemsToSession(cartItems);
+                    loadCartData();
+                    updateCartCount();
+                }
+            }
+        }
+
+        // Сохранение данных корзины в сессию
+        function setCartItemsToSession(cartItems) {
+            fetch('update_cart_session.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cartItems })
+            });
+        }
+
+        // Ручной ввод количества
+        function updateQuantityManual(productId, value) {
+            let cartItems = getCartItemsFromSession();
+            const item = cartItems.find(item => item.id === productId);
+
+            if (item) {
+                item.quantity = Math.max(1, parseInt(value) || 1);
+                setCartItemsToSession(cartItems);
+                loadCartData();
+                updateCartCount();
+            }
+        }
+
+        // Удаление товара
+        function removeCartItem(productId) {
+            let cartItems = getCartItemsFromSession();
+            cartItems = cartItems.filter(item => item.id !== productId);
+            setCartItemsToSession(cartItems);
+            loadCartData();
+            updateCartCount();
+        }
+
+        // Очистить корзину полностью
+        document.getElementById('clear-cart').addEventListener('click', function() {
+            setCartItemsToSession([]); // Очищаем корзину в сессии
+            loadCartData();
+            updateCartCount();
+        });
+
+        // Переход на страницу оформления заказа
+        document.getElementById('checkout').addEventListener('click', function() {
+            window.location.href = '/checkout/';
+        });
 
         // Открыть и закрыть корзину
         document.getElementById('cart-button').addEventListener('click', function() {
@@ -82,4 +221,12 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсч�
                 loadCartData(); // Загружаем данные только при открытии
             }
         });
+
+        // Закрыть корзину
+        document.getElementById('close-cart-modal').addEventListener('click', function() {
+            document.getElementById('cart-modal').style.display = 'none';
+        });
+
+        // Инициализация
+        updateCartCount();
     </script>
