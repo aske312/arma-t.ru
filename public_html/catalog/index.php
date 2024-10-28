@@ -298,7 +298,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             function setCartItems(cartItems) {
                 const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000; // срок хранения - 3 дня
                 const cartData = { cartItems, expiry: expiryDate };
-                localStorage.setItem('cartItem', JSON.stringify(cartData));
+                localStorage.setItem('cartItems', JSON.stringify(cartData));
             }
 
             // Функция для обновления количества товаров в корзине
