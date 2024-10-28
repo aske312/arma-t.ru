@@ -141,43 +141,7 @@ $res = CIBlockElement::GetList(
 
 $res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default"); // Генерация строки навигации
-
-$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
-$cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 ?>
-
-                <div class="cart-wrapper">
-                    <div class="cart-icon">
-                        <button id="cart-button" class="cart-btn">
-                            В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
-                        </button>
-                    </div>
-
-                    <div id="cart-modal" class="cart-modal">
-                        <div class="cart-modal-content">
-                            <span class="close-btn" id="close-cart-modal">&times;</span>
-                            <h2>Товары в корзине</h2>
-                            <table class="cart-table">
-                                <thead>
-                                    <tr>
-                                        <th>Название</th>
-                                        <th>Цена за ед.</th>
-                                        <th>Количество</th>
-                                        <th>Общая цена</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-items"></tbody>
-                            </table>
-                            <div id="cart-total"></div>
-                            <button id="clear-cart" class="button">Очистить корзину</button>
-                            <button id="checkout" class="button">Оформить заказ</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
 
 <!-- Названия каталога и описания -->
 <div class="section-title">
@@ -290,77 +254,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
         <script>
-
-            // Функция для получения данных корзины из localStorage
-            function getCartItems() {
-                const storedData = JSON.parse(localStorage.getItem('cartItems')); // Изменено с 'cartItem' на 'cartItems'
-                console.log("Полученные данные из localStorage:", storedData); // Проверка данных в консоли
-                return storedData && storedData.cartItems ? storedData.cartItems : [];
-            }
-
-            // Функция для сохранения данных корзины в localStorage
-            function setCartItems(cartItems) {
-                const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000; // срок хранения - 3 дня
-                const cartData = { cartItems, expiry: expiryDate };
-                localStorage.setItem('cartItems', JSON.stringify(cartData));
-            }
-
-            // Функция для обновления количества товаров в корзине
-            function updateCartCount() {
-                const cartItems = getCartItems();
-                const count = cartItems.reduce((total, item) => total + item.quantity, 0);
-                document.getElementById('cart-count').textContent = count;
-            }
-
-            // Функция для загрузки и отображения данных корзины в модальном окне
-            function loadCartData() {
-                const cartItems = getCartItems();
-                const cartItemsContainer = document.getElementById('cart-items');
-                cartItemsContainer.innerHTML = ''; // Очищаем содержимое перед добавлением новых данных
-                let totalSum = 0;
-
-                if (cartItems.length === 0) {
-                    cartItemsContainer.innerHTML = '<tr><td colspan="5">Корзина пуста</td></tr>';
-                    document.getElementById('cart-total').innerText = 'Общая сумма: 0.00 руб.';
-                    return;
-                }
-
-                cartItems.forEach(item => {
-                    const row = `
-                        <tr>
-                            <td title="${item.name}">${item.name}</td>
-                            <td>${item.price} руб.</td>
-                            <td>
-                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
-                                <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
-                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
-                            </td>
-                            <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
-                            <td><button class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</button></td>
-                        </tr>
-                    `;
-                    cartItemsContainer.innerHTML += row;
-                    totalSum += item.price * item.quantity;
-                });
-
-                document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
-            }
-
-            // Остальной код для обновления, ручного ввода и удаления товаров не изменялся
-
-            // Обработка кнопок открытия и закрытия модального окна
-            document.getElementById('cart-button').addEventListener('click', function() {
-                const cartModal = document.getElementById('cart-modal');
-                cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
-                loadCartData(); // Загружаем данные корзины при открытии
-            });
-
-            document.getElementById('close-cart-modal').addEventListener('click', function() {
-                document.getElementById('cart-modal').style.display = 'none';
-            });
-
-            // Инициализация и обновление количества товаров при загрузке страницы
-            updateCartCount();
 
             // Функция для выбора всех товаров
             function toggleSelectAll(checkbox) {
