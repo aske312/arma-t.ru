@@ -94,6 +94,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                             <button id="checkout" class="button">Оформить заказ</button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -221,6 +222,28 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
+        });
+
+        function openCartModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.add('active');
+            loadCartData(); // Загрузить данные корзины при открытии
+        }
+
+        // Закрыть модальное окно корзины
+        function closeCartModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.remove('active');
+        }
+
+        // Обработчик события для кнопки закрытия
+        document.getElementById('close-cart-modal').addEventListener('click', closeCartModal);
+
+        // Закрытие модального окна при клике на затемненный фон
+        document.getElementById('cart-modal').addEventListener('click', (event) => {
+            if (event.target.id === 'cart-modal') {
+                closeCartModal();
+            }
         });
 
         // Инициализация и обновление количества товаров при загрузке страницы
