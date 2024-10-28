@@ -85,27 +85,23 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
 
-        // Функция для получения данных корзины из localStorage
         function getCartItems() {
             const storedData = JSON.parse(localStorage.getItem('cartItems'));
             return storedData && storedData.cartItems ? storedData.cartItems : [];
         }
 
-        // Функция для сохранения данных корзины в localStorage
         function setCartItems(cartItems) {
-            const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000; // срок хранения - 3 дня
+            const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;
             const cartData = { cartItems, expiry: expiryDate };
             localStorage.setItem('cartItems', JSON.stringify(cartData));
         }
 
-        // Функция для обновления количества товаров в корзине
         function updateCartCount() {
             const cartItems = getCartItems();
             const count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
         }
 
-        // Функция для загрузки и отображения данных корзины в модальном окне
         function loadCartData() {
             const cartItems = getCartItems();
             const cartItemsContainer = document.getElementById('cart-items');
@@ -146,7 +142,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
         }
 
-        // Функция для увеличения/уменьшения количества товара
         function updateQuantity(productId, delta) {
             const cartItems = getCartItems();
             const item = cartItems.find(item => item.id === productId);
@@ -162,7 +157,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             }
         }
 
-        // Функция для ручного ввода количества товара
         function updateQuantityManual(productId, value) {
             const cartItems = getCartItems();
             const item = cartItems.find(item => item.id === productId);
@@ -174,7 +168,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             }
         }
 
-        // Функция для удаления товара из корзины
         function removeCartItem(productId) {
             let cartItems = getCartItems();
             cartItems = cartItems.filter(item => item.id !== productId);
@@ -182,39 +175,25 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             loadCartData();
         }
 
-        // Очистка корзины полностью
         document.getElementById('clear-cart').addEventListener('click', function() {
             localStorage.removeItem('cartItems');
             loadCartData();
             updateCartCount();
         });
 
-        // Открытие и закрытие модального окна корзины
         document.getElementById('cart-button').addEventListener('click', function() {
             const cartModal = document.getElementById('cart-modal');
             cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
-            loadCartData(); // Загружаем данные корзины при открытии
+            loadCartData();
         });
 
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
         });
 
-        // Функция для открытия модального окна
-        function openCartModal() {
-            document.getElementById('cart-modal').style.display = 'block';
-            loadCartData(); // Загружаем данные корзины при открытии
-        }
+        document.getElementById('cart-modal-overlay').addEventListener('click', function() {
+            document.getElementById('cart-modal').style.display = 'none';
+        });
 
-        // Обработчик события для кнопки открытия корзины
-        document.getElementById('cart-button').addEventListener('click', openCartModal);
-
-        // Обработчик события для кнопки закрытия модального окна
-        document.getElementById('close-cart-modal').addEventListener('click', closeCartModal);
-
-        // Закрытие модального окна при клике на затемненный фон
-        document.getElementById('cart-modal-overlay').addEventListener('click', closeCartModal);
-
-        // Инициализация и обновление количества товаров при загрузке страницы
         updateCartCount();
     </script>

@@ -1,13 +1,9 @@
-/********** Основное **********/
+/********** Основные настройки **********/
 @font-face {
     font-family: Montserrat-Regular;
     src: url(/resources/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
     font-style: normal;
     font-weight: normal;
-}
-
-h1, h2, p, div, input, button {
-    font-family: Montserrat-Regular;
 }
 
 body {
@@ -17,6 +13,11 @@ body {
     font-family: Montserrat, sans-serif;
 }
 
+h1, h2, p, div, input, button {
+    font-family: Montserrat-Regular;
+}
+
+/********** Шапка **********/
 header {
     background-color: #162139;
     color: white;
@@ -29,9 +30,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px; /* Максимальная ширина шапки */
-    margin: 0 auto; /* Центрирование */
-    padding: 0 20px; /* Отступы по бокам */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .logo img {
@@ -41,7 +42,6 @@ header {
 .nav-search {
     display: flex;
     align-items: center;
-    text-decoration: none;
 }
 
 #mainNav a {
@@ -53,44 +53,10 @@ header {
 }
 
 #mainNav a:hover {
-    text-decoration: underline;
-    text-decoration: none;
-    color: #0056b3;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    text-decoration: none;
-}
-
-nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1em;
-    line-height: 50px;
-}
-
-nav a:hover, nav a:focus {
     color: #0056b3;
     text-decoration: none;
 }
 
-.menu-toggle {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    display: none;
-}
-
-#mainNav.menu-open {
-    display: block;
-}
-
-/********** Липкая шапка **********/
 .header.fixed {
     position: fixed;
     top: 0;
@@ -108,41 +74,86 @@ nav a:hover, nav a:focus {
     margin-left: 20px;
 }
 
-.contact-info p {
-    margin: 0;
-    font-size: 1em;
-}
-
 .phone-link {
     color: white;
     text-decoration: none;
 }
 
-.phone-link:hover, .phone-link:focus {
+.phone-link:hover {
     color: #0056b3;
-    text-decoration: none;
 }
 
 .contact-info button {
-    margin-top: 5px;
     padding: 10px 20px;
     background-color: #2654A2;
     border: none;
-    color: #fff;
+    color: white;
     cursor: pointer;
-    font-size: 1em;
 }
 
-.contact-info button:hover, .contact-info button:focus {
-    background-color: #0056b3;
+/********** Модальное окно корзины **********/
+.cart-wrapper {
+    position: relative;
 }
 
-/********** Корзина **********/
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+}
 
+.cart-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+.cart-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.cart-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.cart-modal-content {
+    position: relative;
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/********** Контейнер и карточки товаров **********/
 .cart-items-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .cart-item-card {
@@ -210,113 +221,30 @@ nav a:hover, nav a:focus {
     border: none;
     cursor: pointer;
     font-size: 18px;
-    padding: 5px 10px;
+    padding: 5px;
     border-radius: 50%;
 }
 
-.cart-item-card img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-right: 15px;
-}
-
-/* Стиль для затемненного фона */
-.cart-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-}
-
-.cart-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-}
-
-/* Видимое состояние модального окна */
-.cart-modal.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Контент модального окна */
-.cart-modal-content {
-    position: relative;
-    margin: 50px auto;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
+/********** Общая сумма и кнопки **********/
+#cart-total {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 10px;
     color: #333;
 }
 
-/* Анимация для плавного появления */
-@keyframes fadeIn {
-    from {
-        transform: scale(0.9);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Кнопка закрытия окна */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2654A2;
+    color: white;
+    border: none;
     cursor: pointer;
-    font-size: 24px;
-    color: #333;
+    font-size: 16px;
+    margin-top: 10px;
 }
 
-/********** Адаптивный дизайн **********/
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    #mainNav {
-        display: none;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 20px;
-        background-color: #162139;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 200px;
-        z-index: 1000;
-    }
-
-    #mainNav a {
-        margin: 10px 0;
-    }
-
-    #mainNav.menu-open {
-        display: flex;
-    }
-
-    #cart-modal {
-        right: 10px;
-        width: 90%;
-    }
+.button:hover {
+    background-color: #0056b3;
 }
