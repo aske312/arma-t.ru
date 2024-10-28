@@ -213,6 +213,7 @@ while ($section = $sections->Fetch()) {
 <div class="section section6" id="Deliverys">
 	<div class="container">
 		<div class="content">
+		    <h2>Доставка</h2>
 			<div class="image">
                 <img alt="Image" src="/resources/img/block/312asd.png">
 			</div>
@@ -221,7 +222,8 @@ while ($section = $sections->Fetch()) {
 				В случае самовывоза потребуется печать или доверенность от организации.
 				Осуществим доставку транспортной компанией по вашему выбору.
 				При необходимости доставки Вы можете уведомить об этом менеджера перед оформлением заказа
-				(сообщите адрес и способ доставки). Мы работаем со следующими транспортными компаниями: </p>
+				(сообщите адрес и способ доставки).
+				Мы работаем со следующими транспортными компаниями: </p>
 				<br>
 				<ol>
 				    <li>Деловые Линии </li>
@@ -239,6 +241,7 @@ while ($section = $sections->Fetch()) {
 <div class="section section7" id="Contacts">
 	<div class="container">
 		<div class="content">
+		    <h2>Оплата</h2>
 			<div class="image">
                 <img alt="Image" src="/resources/img/block/312asd.png">
 			</div>
