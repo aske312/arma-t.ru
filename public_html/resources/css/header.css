@@ -352,6 +352,39 @@ nav a:hover, nav a:focus {
     color: #333;
 }
 
+.cart-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-decrease, .quantity-increase {
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+
 /********** Адаптивный дизайн **********/
 @media (max-width: 768px) {
     .header-content {

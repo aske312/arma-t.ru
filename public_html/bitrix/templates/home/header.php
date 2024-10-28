@@ -61,35 +61,28 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         </button>
                     </div>
 
-                    <!--
-                    <div id="cart-modal" class="cart-modal">
-                        <div class="cart-modal-content">
-                            <span class="close-btn" id="close-cart-modal">&times;</span>
-                            <h2>Товары в корзине</h2>
-                            <table class="cart-table">
-                                <thead>
-                                    <tr>
-                                        <th>Название</th>
-                                        <th>Цена за ед.</th>
-                                        <th>Количество</th>
-                                        <th>Общая цена</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-items"></tbody>
-                            </table>
-                            <div id="cart-total"></div>
-                            <button id="clear-cart" class="button">Очистить корзину</button>
-                            <button id="checkout" class="button">Оформить заказ</button>
-                        </div>
-                    </div> -->
-
                     <div id="cart-modal" class="cart-modal">
                         <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
                         <div class="cart-modal-content">
                             <span class="close-btn" id="close-cart-modal">&times;</span>
                             <h2>Корзина</h2>
-                            <div id="cart-items" class="cart-items-container"></div>
+                            <div class="cart-item">
+                                <img src="{image_url}" alt="{product_name}" class="product-image">
+                                <div class="product-info">
+                                    <p class="product-name">{product_name}</p>
+                                    <div class="quantity-controls">
+                                        <button class="quantity-decrease">-</button>
+                                            <span class="quantity">{quantity}</span>
+                                        <button class="quantity-increase">+</button>
+                                    </div>
+                                    <p class="unit-price">
+                                      Цена за штуку: <span>{price > 0 ? price + ' ₽' : 'Под заказ'}</span>
+                                    </p>
+                                    <p class="total-price">
+                                        Итог: <span>{price > 0 ? (price * quantity) + ' ₽' : 'Под заказ'}</span>
+                                    </p>
+                                </div>
+                            </div>
                             <div id="cart-total"></div>
                             <button id="clear-cart" class="button">Очистить корзину</button>
                             <button id="checkout" class="button">Оформить заказ</button>
@@ -222,6 +215,24 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
+        });
+
+        document.querySelectorAll('.quantity-increase').forEach(button => {
+          button.addEventListener('click', function() {
+            let quantityElem = this.previousElementSibling;
+            let quantity = parseInt(quantityElem.textContent) + 1;
+            quantityElem.textContent = quantity;
+            updateCart();
+          });
+        });
+
+        document.querySelectorAll('.quantity-decrease').forEach(button => {
+          button.addEventListener('click', function() {
+            let quantityElem = this.nextElementSibling;
+            let quantity = Math.max(parseInt(quantityElem.textContent) - 1, 0);
+            quantityElem.textContent = quantity;
+            updateCart();
+          });
         });
 
         // Функция для открытия модального окна
