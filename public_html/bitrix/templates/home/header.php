@@ -104,12 +104,15 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
         // Функция для получения данных корзины из localStorage
         function getCartItems() {
-            return JSON.parse(localStorage.getItem('cartItems') || '[]');
+            const storedData = JSON.parse(localStorage.getItem('cartItem'));
+            return storedData && storedData.cartItems ? storedData.cartItems : [];
         }
 
         // Функция для сохранения данных корзины в localStorage
         function setCartItems(cartItems) {
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000; // срок хранения - 3 дня
+            const cartData = { cartItems, expiry: expiryDate };
+            localStorage.setItem('cartItem', JSON.stringify(cartData));
         }
 
         // Функция для обновления количества товаров в корзине
@@ -137,15 +140,15 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             cartItems.forEach(item => {
                 const row = `
                     <tr>
-                        <td>${item.name}</td>
+                        <td title="${item.name}">${item.name}</td>
                         <td>${item.price} руб.</td>
                         <td>
-                            <button onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
-                            <input type="number" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
-                            <button onclick="updateQuantity(${item.id}, 1)">&#43;</button>
+                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
                         </td>
                         <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
-                        <td><button onclick="removeCartItem(${item.id})">&#10005;</button></td>
+                        <td><button class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</button></td>
                     </tr>
                 `;
                 cartItemsContainer.innerHTML += row;
@@ -155,7 +158,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
         }
 
-        // Функция для обновления количества товара
+        // Функция для увеличения/уменьшения количества товара
         function updateQuantity(productId, delta) {
             const cartItems = getCartItems();
             const item = cartItems.find(item => item.id === productId);
@@ -196,7 +199,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
         // Очистка корзины полностью
         document.getElementById('clear-cart').addEventListener('click', function() {
-            localStorage.removeItem('cartItems');
+            localStorage.removeItem('cartItem');
             loadCartData();
             updateCartCount();
         });
