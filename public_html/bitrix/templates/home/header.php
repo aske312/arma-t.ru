@@ -85,6 +85,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                     </div> -->
 
                     <div id="cart-modal" class="cart-modal">
+                        <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
                         <div class="cart-modal-content">
                             <span class="close-btn" id="close-cart-modal">&times;</span>
                             <h2>Корзина</h2>
@@ -94,7 +95,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                             <button id="checkout" class="button">Оформить заказ</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -224,27 +224,20 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('cart-modal').style.display = 'none';
         });
 
+        // Функция для открытия модального окна
         function openCartModal() {
-            const modal = document.getElementById('cart-modal');
-            modal.classList.add('active');
-            loadCartData(); // Загрузить данные корзины при открытии
+            document.getElementById('cart-modal').style.display = 'block';
+            loadCartData(); // Загружаем данные корзины при открытии
         }
 
-        // Закрыть модальное окно корзины
-        function closeCartModal() {
-            const modal = document.getElementById('cart-modal');
-            modal.classList.remove('active');
-        }
+        // Обработчик события для кнопки открытия корзины
+        document.getElementById('cart-button').addEventListener('click', openCartModal);
 
-        // Обработчик события для кнопки закрытия
+        // Обработчик события для кнопки закрытия модального окна
         document.getElementById('close-cart-modal').addEventListener('click', closeCartModal);
 
         // Закрытие модального окна при клике на затемненный фон
-        document.getElementById('cart-modal').addEventListener('click', (event) => {
-            if (event.target.id === 'cart-modal') {
-                closeCartModal();
-            }
-        });
+        document.getElementById('cart-modal-overlay').addEventListener('click', closeCartModal);
 
         // Инициализация и обновление количества товаров при загрузке страницы
         updateCartCount();

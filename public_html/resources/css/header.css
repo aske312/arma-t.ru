@@ -292,18 +292,22 @@ nav a:hover, nav a:focus {
 
 /* Стиль для затемненного фона */
 .cart-modal {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Темный фон */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+}
+
+.cart-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 1000;
 }
 
@@ -315,13 +319,14 @@ nav a:hover, nav a:focus {
 
 /* Контент модального окна */
 .cart-modal-content {
-    background-color: #fff;
+    position: relative;
+    margin: 50px auto;
+    max-width: 600px;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease; /* Плавное появление */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
 }
 
 /* Анимация для плавного появления */
@@ -341,10 +346,9 @@ nav a:hover, nav a:focus {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 24px;
-    color: #888;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 24px;
+    color: #333;
 }
 
 /********** Адаптивный дизайн **********/
