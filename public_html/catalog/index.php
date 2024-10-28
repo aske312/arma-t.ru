@@ -291,9 +291,10 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
         <script>
 
-            // Получаем данные корзины из localStorage
+            // Функция для получения данных корзины из localStorage
             function getCartItems() {
-                const storedData = JSON.parse(localStorage.getItem('cartItem'));
+                const storedData = JSON.parse(localStorage.getItem('cartItems')); // Изменено с 'cartItem' на 'cartItems'
+                console.log("Полученные данные из localStorage:", storedData); // Проверка данных в консоли
                 return storedData && storedData.cartItems ? storedData.cartItems : [];
             }
 
