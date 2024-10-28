@@ -29,10 +29,10 @@ $sectionsFilter = [
     'ACTIVE' => 'Y',
     'GLOBAL_ACTIVE' => 'Y',
 ];
+
 $arSelect = ['ID', 'NAME', 'SECTION_PAGE_URL', 'PICTURE'];
 $sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, $arSelect);
 $arResult['SECTIONS'] = [];
-
 while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }

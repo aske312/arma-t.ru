@@ -17,8 +17,9 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
+$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
-$cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсчитываем количество товаров
+// $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсчитываем количество товаров
 ?>
 
 <!DOCTYPE html>
@@ -101,24 +102,22 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсч�
             return <?= json_encode($cartItems) ?>;
         }
 
-        // Обновление количества товаров в корзине
-        function updateCartCount() {
-            const cartItems = getCartItemsFromSession();
-            const count = cartItems.reduce((total, item) => total + item.quantity, 0);
-            document.getElementById('cart-count').textContent = count;
-
-            // Условие для отображения кнопки
-            const cartButton = document.getElementById('cart-button');
-            if (count > 0) {
-                cartButton.style.display = 'block'; // Показываем кнопку
-            } else {
-                cartButton.style.display = 'none'; // Скрываем кнопку
-            }
+        function getCartItems() {
+            return JSON.parse(localStorage.getItem('cartItems') || '[]');
         }
 
-        // Загружаем и отображаем данные корзины в модальном окне
+        function setCartItems(cartItems) {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+
+        function updateCartCount() {
+            const cartItems = getCartItems();
+            const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+        }
+
         function loadCartData() {
-            const cartItems = getCartItemsFromSession();
+            const cartItems = getCartItems();
             const cartItemsContainer = document.getElementById('cart-items');
             cartItemsContainer.innerHTML = '';
             let totalSum = 0;
@@ -132,15 +131,15 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсч�
             cartItems.forEach(item => {
                 const row = `
                     <tr>
-                        <td title="${item.name}">${item.name}</td>
+                        <td>${item.name}</td>
                         <td>${item.price} руб.</td>
                         <td>
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">&#43;</button>
+                            <button onclick="updateQuantity(${item.id}, -1)">&#8722;</button>
+                            <input type="number" value="${item.quantity}" onchange="updateQuantityManual(${item.id}, this.value)">
+                            <button onclick="updateQuantity(${item.id}, 1)">&#43;</button>
                         </td>
                         <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
-                        <td><button class="remove-item-btn" onclick="removeCartItem(${item.id})">&#10005;</button></td>
+                        <td><button onclick="removeCartItem(${item.id})">&#10005;</button></td>
                     </tr>
                 `;
                 cartItemsContainer.innerHTML += row;
@@ -150,9 +149,8 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсч�
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
         }
 
-        // Увеличение количества товара
         function updateQuantity(productId, delta) {
-            let cartItems = getCartItemsFromSession();
+            const cartItems = getCartItems();
             const item = cartItems.find(item => item.id === productId);
 
             if (item) {
@@ -160,73 +158,48 @@ $cartItemCount = array_sum(array_column($cartItems, 'quantity')); // Подсч�
                 if (item.quantity < 1) {
                     removeCartItem(productId);
                 } else {
-                    setCartItemsToSession(cartItems);
+                    setCartItems(cartItems);
                     loadCartData();
                     updateCartCount();
                 }
             }
         }
 
-        // Сохранение данных корзины в сессию
-        function setCartItemsToSession(cartItems) {
-            fetch('update_cart_session.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ cartItems })
-            });
-        }
-
-        // Ручной ввод количества
         function updateQuantityManual(productId, value) {
-            let cartItems = getCartItemsFromSession();
+            const cartItems = getCartItems();
             const item = cartItems.find(item => item.id === productId);
 
             if (item) {
                 item.quantity = Math.max(1, parseInt(value) || 1);
-                setCartItemsToSession(cartItems);
+                setCartItems(cartItems);
                 loadCartData();
                 updateCartCount();
             }
         }
 
-        // Удаление товара
         function removeCartItem(productId) {
-            let cartItems = getCartItemsFromSession();
+            let cartItems = getCartItems();
             cartItems = cartItems.filter(item => item.id !== productId);
-            setCartItemsToSession(cartItems);
+            setCartItems(cartItems);
             loadCartData();
             updateCartCount();
         }
 
-        // Очистить корзину полностью
         document.getElementById('clear-cart').addEventListener('click', function() {
-            setCartItemsToSession([]); // Очищаем корзину в сессии
+            localStorage.removeItem('cartItems');
             loadCartData();
             updateCartCount();
         });
 
-        // Переход на страницу оформления заказа
-        document.getElementById('checkout').addEventListener('click', function() {
-            window.location.href = '/checkout/';
-        });
-
-        // Открыть и закрыть корзину
         document.getElementById('cart-button').addEventListener('click', function() {
             const cartModal = document.getElementById('cart-modal');
-            const isVisible = cartModal.style.display === 'block';
-            cartModal.style.display = isVisible ? 'none' : 'block'; // Переключаем видимость
-            if (!isVisible) {
-                loadCartData(); // Загружаем данные только при открытии
-            }
+            cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+            loadCartData();
         });
 
-        // Закрыть корзину
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
         });
 
-        // Инициализация
         updateCartCount();
     </script>
