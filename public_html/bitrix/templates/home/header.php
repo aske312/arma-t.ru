@@ -102,32 +102,38 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             return <?= json_encode($cartItems) ?>;
         }
 
+        // Функция для получения данных корзины из localStorage
         function getCartItems() {
             return JSON.parse(localStorage.getItem('cartItems') || '[]');
         }
 
+        // Функция для сохранения данных корзины в localStorage
         function setCartItems(cartItems) {
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
         }
 
+        // Функция для обновления количества товаров в корзине
         function updateCartCount() {
             const cartItems = getCartItems();
             const count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
         }
 
+        // Функция для загрузки и отображения данных корзины в модальном окне
         function loadCartData() {
             const cartItems = getCartItems();
             const cartItemsContainer = document.getElementById('cart-items');
-            cartItemsContainer.innerHTML = '';
+            cartItemsContainer.innerHTML = ''; // Очищаем содержимое перед добавлением новых данных
             let totalSum = 0;
 
             if (cartItems.length === 0) {
+                // Если корзина пуста
                 cartItemsContainer.innerHTML = '<tr><td colspan="5">Корзина пуста</td></tr>';
                 document.getElementById('cart-total').innerText = 'Общая сумма: 0.00 руб.';
                 return;
             }
 
+            // Отображаем каждый товар в корзине
             cartItems.forEach(item => {
                 const row = `
                     <tr>
@@ -149,6 +155,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
         }
 
+        // Функция для обновления количества товара
         function updateQuantity(productId, delta) {
             const cartItems = getCartItems();
             const item = cartItems.find(item => item.id === productId);
@@ -165,6 +172,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             }
         }
 
+        // Функция для ручного ввода количества товара
         function updateQuantityManual(productId, value) {
             const cartItems = getCartItems();
             const item = cartItems.find(item => item.id === productId);
@@ -177,6 +185,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             }
         }
 
+        // Функция для удаления товара из корзины
         function removeCartItem(productId) {
             let cartItems = getCartItems();
             cartItems = cartItems.filter(item => item.id !== productId);
@@ -185,21 +194,24 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             updateCartCount();
         }
 
+        // Очистка корзины полностью
         document.getElementById('clear-cart').addEventListener('click', function() {
             localStorage.removeItem('cartItems');
             loadCartData();
             updateCartCount();
         });
 
+        // Открытие и закрытие модального окна корзины
         document.getElementById('cart-button').addEventListener('click', function() {
             const cartModal = document.getElementById('cart-modal');
             cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
-            loadCartData();
+            loadCartData(); // Загружаем данные корзины при открытии
         });
 
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
         });
 
+        // Инициализация и обновление количества товаров при загрузке страницы
         updateCartCount();
     </script>
