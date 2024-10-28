@@ -141,6 +141,9 @@ $res = CIBlockElement::GetList(
 
 $res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default"); // Генерация строки навигации
+
+$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
+$cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 ?>
 
                 <div class="cart-wrapper">
