@@ -137,7 +137,7 @@ nav a:hover, nav a:focus {
     background-color: #0056b3;
 }
 
-/********** Корзина **********/
+/********** Корзина **********
 .cart-wrapper {
     position: relative;
 }
@@ -165,7 +165,7 @@ nav a:hover, nav a:focus {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    /* opacity: 0.9; */
+
 }
 
 .cart-modal-content {
@@ -246,6 +246,48 @@ nav a:hover, nav a:focus {
 
 .button:hover {
     background-color: #30476e;
+} ***/
+
+.cart-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-item-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.cart-item-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    padding: 5px 10px;
+}
+
+.remove-item-btn {
+    color: red;
+    cursor: pointer;
 }
 
 /********** Адаптивный дизайн **********/

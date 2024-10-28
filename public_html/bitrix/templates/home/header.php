@@ -61,6 +61,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         </button>
                     </div>
 
+                    <!--
                     <div id="cart-modal" class="cart-modal">
                         <div class="cart-modal-content">
                             <span class="close-btn" id="close-cart-modal">&times;</span>
@@ -77,6 +78,17 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                                 </thead>
                                 <tbody id="cart-items"></tbody>
                             </table>
+                            <div id="cart-total"></div>
+                            <button id="clear-cart" class="button">Очистить корзину</button>
+                            <button id="checkout" class="button">Оформить заказ</button>
+                        </div>
+                    </div> -->
+
+                    <div id="cart-modal" class="cart-modal">
+                        <div class="cart-modal-content">
+                            <span class="close-btn" id="close-cart-modal">&times;</span>
+                            <h2>Корзина</h2>
+                            <div id="cart-items" class="cart-items-container"></div>
                             <div id="cart-total"></div>
                             <button id="clear-cart" class="button">Очистить корзину</button>
                             <button id="checkout" class="button">Оформить заказ</button>
@@ -124,31 +136,37 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             let totalSum = 0;
 
             if (cartItems.length === 0) {
-                cartItemsContainer.innerHTML = '<tr><td colspan="5">Корзина пуста</td></tr>';
+                cartItemsContainer.innerHTML = '<p>Корзина пуста</p>';
                 document.getElementById('cart-total').innerText = 'Общая сумма: 0.00 руб.';
                 return;
             }
 
             cartItems.forEach(item => {
-                const row = `
-                    <tr>
-                        <td title="${item.name}">${item.name}</td>
-                        <td>${item.price} руб.</td>
-                        <td>
+                const itemTotal = (item.price * item.quantity).toFixed(2);
+                const imageUrl = item.image || '/path/to/default/section/image.jpg';
+
+                const cartItemHTML = `
+                    <div class="cart-item-card">
+                        <img src="${imageUrl}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <p>${item.name}</p>
+                            <p>${item.price} руб./шт.</p>
+                        </div>
+                        <div class="cart-item-actions">
                             <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
                             <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
                             <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
-                        </td>
-                        <td>${(item.price * item.quantity).toFixed(2)} руб.</td>
-                        <td><button class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</button></td>
-                    </tr>
+                            <p>${itemTotal} руб.</p>
+                            <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
+                        </div>
+                    </div>
                 `;
-                cartItemsContainer.innerHTML += row;
-                totalSum += item.price * item.quantity;
+
+                cartItemsContainer.innerHTML += cartItemHTML;
+                totalSum += parseFloat(itemTotal);
             });
 
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
-            updateCartCount(); // Обновляем счетчик корзины
         }
 
         // Функция для увеличения/уменьшения количества товара
