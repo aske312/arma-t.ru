@@ -98,8 +98,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
         // Функция для получения данных корзины из localStorage
         function getCartItems() {
-            const storedData = JSON.parse(localStorage.getItem('cartItems')); // Изменено с 'cartItem' на 'cartItems'
-            console.log("Полученные данные из localStorage:", storedData); // Проверка данных в консоли
+            const storedData = JSON.parse(localStorage.getItem('cartItems'));
             return storedData && storedData.cartItems ? storedData.cartItems : [];
         }
 
@@ -121,7 +120,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         function loadCartData() {
             const cartItems = getCartItems();
             const cartItemsContainer = document.getElementById('cart-items');
-            cartItemsContainer.innerHTML = ''; // Очищаем содержимое перед добавлением новых данных
+            cartItemsContainer.innerHTML = '';
             let totalSum = 0;
 
             if (cartItems.length === 0) {
@@ -149,9 +148,53 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             });
 
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
+            updateCartCount(); // Обновляем счетчик корзины
         }
 
-        // Обработка кнопок открытия и закрытия модального окна
+        // Функция для увеличения/уменьшения количества товара
+        function updateQuantity(productId, delta) {
+            const cartItems = getCartItems();
+            const item = cartItems.find(item => item.id === productId);
+
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity < 1) {
+                    removeCartItem(productId);
+                } else {
+                    setCartItems(cartItems);
+                    loadCartData();
+                }
+            }
+        }
+
+        // Функция для ручного ввода количества товара
+        function updateQuantityManual(productId, value) {
+            const cartItems = getCartItems();
+            const item = cartItems.find(item => item.id === productId);
+
+            if (item) {
+                item.quantity = Math.max(1, parseInt(value) || 1);
+                setCartItems(cartItems);
+                loadCartData();
+            }
+        }
+
+        // Функция для удаления товара из корзины
+        function removeCartItem(productId) {
+            let cartItems = getCartItems();
+            cartItems = cartItems.filter(item => item.id !== productId);
+            setCartItems(cartItems);
+            loadCartData();
+        }
+
+        // Очистка корзины полностью
+        document.getElementById('clear-cart').addEventListener('click', function() {
+            localStorage.removeItem('cartItems');
+            loadCartData();
+            updateCartCount();
+        });
+
+        // Открытие и закрытие модального окна корзины
         document.getElementById('cart-button').addEventListener('click', function() {
             const cartModal = document.getElementById('cart-modal');
             cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
