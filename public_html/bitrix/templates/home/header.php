@@ -98,9 +98,9 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         });
 
         // Получаем данные корзины из сессии
-        function getCartItemsFromSession() {
-            return <?= json_encode($cartItems) ?>;
-        }
+//         function getCartItemsFromSession() {
+//             return <?= json_encode($cartItems) ?>;
+//         }
 
         // Функция для получения данных корзины из localStorage
         function getCartItems() {
