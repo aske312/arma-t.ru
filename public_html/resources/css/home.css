@@ -366,6 +366,9 @@
     }
 
 /** Блок доставки  **/
+    .section6 {
+        padding: 0 15px;
+    }
 	.section6-title {
 	}
 	.delivery-title {
