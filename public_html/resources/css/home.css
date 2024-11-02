@@ -562,57 +562,75 @@
     }
 }
 
-/***** Мобильная адаптация ******/
-/* Общие стили для мобильных и планшетов */
-@media (max-width: 768px) {
-    .section {
-        font-size: 18px;
+/************ Mobile *************/
+/* Адаптация для планшетов и мобильных */
+@media (max-width: 1024px) {
+    .section, .slider-container {
+        font-size: 18px; /* Уменьшаем размер текста */
+    }
+    .slide-text {
+        font-size: 24px; /* Уменьшаем текст внутри слайдов */
     }
     .slider-container {
-        height: 300px;
+        height: 400px; /* Уменьшаем высоту слайдера для компактности */
     }
-    .slider .slide img {
-        object-fit: cover;
-    }
-    .block, .category-table, .d-list, .p-list {
+    .block {
         flex-direction: column;
-        align-items: center;
+        height: auto;
+        margin: 20px;
     }
-    .d-icon, .category-block {
+    .block-item {
+        margin: 20px;
+    }
+    .category-block {
+        width: 100%; /* На мобильных весь блок занимает 100% */
+        height: auto;
+        margin: 10px;
+    }
+    .contact-form {
         width: 100%;
-        max-width: 350px;
-        margin: 5px 0;
-    }
-    .d-text, .p-text {
-        font-size: 16px;
         padding: 10px;
-    }
-    .contact-form, .form-actions button {
-        width: 100%;
     }
 }
 
-/***** Широкоформатная адаптация ******/
-/* Общие стили для широкоформатных экранов */
-@media (min-width: 1200px) {
-    .section {
-        max-width: 1600px;
-        margin: 0 auto;
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .section, .slider-container, .block {
+        padding: 10px;
     }
+    .slide-text {
+        font-size: 20px;
+    }
+    .category-table {
+        flex-direction: column;
+    }
+    .d-content, .p-content, .block, .contact-form, .d-list, .p-list {
+        width: 100%;
+        padding: 10px;
+    }
+    .category-block, .d-icon, .p-image img {
+        width: 100%;
+        max-width: 100px; /* Ограничиваем размер для иконок */
+        height: auto;
+    }
+    .text {
+        margin-left: 0; /* На мобильных убираем отступы */
+        font-size: 16px;
+    }
+}
+
+/************ Big-Size *************/
+@media (min-width: 1440px) {
     .slider-container {
-        max-width: 1920px;
-        height: 800px;
+        height: 800px; /* Увеличиваем высоту для широких экранов */
     }
-    .block, .category-table {
+    .section {
+        font-size: 28px;
+    }
+    .block {
         max-width: 1800px;
     }
-    .d-icon, .category-block {
-        max-width: 500px;
-    }
-    .d-text, .p-text, .slide-text {
-        font-size: 26px;
-    }
     .d-list, .p-list {
-        gap: 50px;
+        gap: 120px; /* Увеличиваем расстояние между элементами */
     }
 }
