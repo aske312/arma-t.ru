@@ -367,7 +367,7 @@
 
 /** Блок доставки  **/
     .section6 {
-        padding: 0 15px;
+        padding: 20px;
     }
 	.section6-title {
 	}
@@ -381,7 +381,7 @@
     .d-container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 15px;
+        padding: 20px;
     }
 
     .d-content {
@@ -396,7 +396,7 @@
     .d-text {
         background: url('/resources/img/block/pattern.png') no-repeat center;
         background-size: cover;
-        font-size: 18px;
+        font-size: 24px;
         color: #fff;
         padding: 20px;
         margin: 0 auto;
@@ -407,7 +407,7 @@
     }
 
     .d-text p {
-        font-size: 18px;
+        font-size: 24px;
         color: #ddd;
         margin: 0;
     }
@@ -415,7 +415,7 @@
     /* Стиль для .d-title-list */
     .d-title-list p {
         font-weight: bold;
-        font-size: 18px;
+        font-size: 24px;
         /* color: #333; */
         margin: 0;
         text-align: left;
