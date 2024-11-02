@@ -369,6 +369,12 @@
     .section6 {
         /* padding: 20px; */
     }
+	.delivery-title {
+		display: flex;
+		width: 1050px;
+		text-align: left;
+		color: white;
+	}
     .d-container {
         max-width: 1045px;
         margin: 0 auto;
@@ -490,6 +496,12 @@
     .section7 {
         background-color: #DCDCDC;
     }
+	.pay-title {
+		display: flex;
+		width: 1050px;
+		text-align: left;
+		color: white;
+	}
     .p-container {
         max-width: 1045px;
         margin: 0 auto;
