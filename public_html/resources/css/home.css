@@ -403,7 +403,6 @@
         max-width: 1400px;
         width: 100%;
         box-sizing: border-box;
-        /* border-radius: 8px; */
     }
 
     .d-text p {
@@ -416,7 +415,6 @@
     .d-title-list p {
         font-weight: bold;
         font-size: 24px;
-        /* color: #333; */
         margin: 0;
         text-align: left;
         width: 100%;
@@ -442,17 +440,31 @@
     .d-list .d-image img {
         max-width: 80px;
         height: auto;
-        /* border-radius: 8px; */
+        border-radius: 8px;
     }
 
-    .d-list ul {
-        margin: 0;
-        padding-left: 20px;
-        list-style: none;
+    /* Стиль для иконок-кружков */
+    .d-icons {
+        display: flex;
+        gap: 15px;
     }
 
-    .d-list li {
-        margin-bottom: 5px;
+    .d-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .d-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
 /* Для адаптивности */
@@ -466,11 +478,17 @@
         align-items: center;
     }
 
-    .d-list .d-image img {
-        max-width: 60px;
+    .d-icons {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .d-text p, .d-title-list p, .d-list li {
+    .d-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .d-text p, .d-title-list p {
         font-size: 16px;
     }
 }

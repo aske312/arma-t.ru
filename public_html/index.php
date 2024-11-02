@@ -217,31 +217,39 @@ while ($section = $sections->Fetch()) {
 </div>
 
 <div class="section section6" id="delivery">
-	<div class="d-container">
-		<div class="d-content">
-			<div class="d-text">
-				<p> Доступен самовывоз продукции со склада.
-				В случае самовывоза потребуется печать или доверенность от организации.
-				Осуществим доставку транспортной компанией по вашему выбору.
-				При необходимости доставки Вы можете уведомить об этом менеджера перед оформлением заказа
-				(сообщите адрес и способ доставки).  </p>
-			</div>
-			<div class="d-title-list">
-			    <p>Мы работаем со следующими транспортными компаниями:</p>
-			</div>
-			<div class="d-list">
+    <div class="d-container">
+        <div class="d-content">
+            <div class="d-text">
+                <p> Доступен самовывоз продукции со склада.
+                В случае самовывоза потребуется печать или доверенность от организации.
+                Осуществим доставку транспортной компанией по вашему выбору.
+                При необходимости доставки Вы можете уведомить об этом менеджера перед оформлением заказа
+                (сообщите адрес и способ доставки).  </p>
+            </div>
+            <div class="d-title-list">
+                <p>Мы работаем со следующими транспортными компаниями:</p>
+            </div>
+            <div class="d-list">
                 <div class="d-image">
                     <img alt="Image" src="/resources/img/block/312asd.png">
-			    </div>
-				<ul>
-				    <li>Деловые Линии</li>
-				    <li>ПЭК</li>
-				    <li>Байкал Сервис</li>
-				    <li>СДЭК (до 35кг.) и др. Бесплатная доставка до ближайшего терминала ТК.</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+                </div>
+                <div class="d-icons">
+                    <div class="d-icon">
+                        <img src="/resources/img/companies/dellin.png" alt="Деловые Линии">
+                    </div>
+                    <div class="d-icon">
+                        <img src="/resources/img/companies/pek.jpg" alt="ПЭК">
+                    </div>
+                    <div class="d-icon">
+                        <img src="/resources/img/companies/baikal.jpg" alt="Байкал Сервис">
+                    </div>
+                    <div class="d-icon">
+                        <img src="/resources/img/companies/sdek.png" alt="СДЭК">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- -->
