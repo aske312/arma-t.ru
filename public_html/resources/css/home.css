@@ -448,6 +448,17 @@
 }
 
 /** Блок контакты **/
+	.section7-title {
+		background-color: #DCDCDC; /* #1E3564; */
+	}
+	.p-title {
+		display: flex;
+		width: 1050px;
+		text-align: left;
+		color: black;
+		/* background-color: #DCDCDC; */
+	}
+
 /******** Мобильная версия *************/
     @media (max-width: 768px) {
         .slider-container {

@@ -244,24 +244,24 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
-<div class="section section7-title" id="сontact-title">
-    <div class="сontact-title">
+<div class="section section7-title" id="p-title">
+    <div class="p-title">
         <h2>Оплата</h2>
     </div>
 </div>
 
-<div class="section section7" id="сontacts">
-	<div class="container">
-		<div class="content">
-			<div class="text">
+<div class="section section7" id="pay">
+	<div class="p-container">
+		<div class="p-content">
+			<div class="p-text">
 				<p>Вы можете оплатить Ваш заказ по безналичному расчету, через любой банк РФ. Для выставления счета от
 				Вас потребуется - карточка организации с банковскими реквизитами, телефон, адрес доставки,
 				а также электронный адрес. Деньги поступают на расчетный счет на следующий день после оплаты.
 				Статус поступления средств Вы можете уточнить у нашего менеджера.</p>
 			</div>
-			<div class="d-list">
+			<div class="p-list">
 			    <p>Наши реквизиты:</p>
-                <div class="image">
+                <div class="p-image">
                     <img alt="Image" src="/resources/img/block/312asd.png">
 			    </div>
 
