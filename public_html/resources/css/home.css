@@ -395,7 +395,7 @@
         display: flex;
         align-items: center;
         gap: 20px;
-        font-size: 18px;
+        font-size: 24px;
         color: #fff;
         padding: 20px;
         margin: 0 auto;
@@ -414,8 +414,10 @@
     }
 
     .d-text-content p {
-        font-size: 18px;
-        margin: left;
+		font-size: 24px;
+		line-height: 1.6;
+		color: black;
+		text-align: left;
     }
 
     /* Стиль для .d-title-list */
@@ -443,8 +445,7 @@
     /* Стиль для иконок-кружков */
     .d-icons {
         display: flex;
-        padding: 25px;
-        gap: 35px;
+        gap: 55px;
     }
 
     .d-icon {
