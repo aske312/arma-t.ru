@@ -493,7 +493,7 @@
     }
 }
 /** Блок контакты **/
-    .section7 {
+    .section7-title {
         background-color: #DCDCDC;
     }
 	.pay-title {
@@ -501,7 +501,7 @@
 		width: 1050px;
 		text-align: left;
 		color: black;
-		background-color: #DCDCDC;
+
 	}
     .p-container {
         max-width: 1045px;
