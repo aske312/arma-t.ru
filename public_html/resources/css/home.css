@@ -368,7 +368,6 @@
 /** Блок доставки  **/
     .section6 {
         /* padding: 20px; */
-        font-family: Montserrat-Regular;
     }
     .d-container {
         max-width: 1045px;
@@ -490,7 +489,7 @@
 /** Блок контакты **/
     .section7 {
         background-color: #DCDCDC;
-        font-family: Montserrat-Regular;
+        color: black;
     }
     .p-container {
         max-width: 1045px;
@@ -509,7 +508,6 @@
         align-items: center;
         gap: 10px;
         font-size: 24px;
-        color: #fff;
         padding: 20px;
         margin: 0 auto;
         max-width: 1400px;
