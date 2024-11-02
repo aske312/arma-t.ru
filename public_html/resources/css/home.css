@@ -407,31 +407,27 @@
 
     /* Стиль для .d-list */
     .d-list {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
+		display: flex;
+		align-items: center;
+		margin-top: 10px;
+		max-width: 1000px; /* Максимальная ширина контента */
     }
-
     .d-list .d-image {
         flex-shrink: 0;
     }
-
     .d-list .d-image img {
         max-width: 100px; /* Ограничение размера картинки */
         height: auto;
-        border-radius: 8px;
+        /* border-radius: 8px; */
     }
-
     .d-list p {
         font-weight: bold;
         margin: 0;
     }
-
     .d-list ul {
         margin-top: 10px;
         padding-left: 20px;
     }
-
     .d-list li {
         list-style: decimal;
         margin-bottom: 5px;
