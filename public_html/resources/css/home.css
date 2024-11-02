@@ -366,19 +366,9 @@
     }
 
 /** Блок доставки  **/
-
-/*
     .section6 {
-        padding: 20px;
+        /* padding: 20px; */
     }
-	.delivery-title {
-		display: flex;
-		width: 1050px;
-		text-align: left;
-		color: white;
-	}
-*/
-
     .d-container {
         max-width: 1045px;
         margin: 0 auto;
@@ -499,24 +489,13 @@
 /** Блок контакты **/
     .section7 {
         background-color: #DCDCDC;
+        color: black;
     }
-	.section7-title {
-        background-color: #DCDCDC;
-	}
-	.p-title {
-		display: flex;
-		width: 1050px;
-		text-align: left;
-		color: black;
-		/* background-color: #DCDCDC; */
-	}
-
     .p-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 15px;
     }
-
     .p-content {
         display: flex;
         flex-direction: column;
@@ -527,7 +506,7 @@
 
     /* Стиль для .d-text */
     .p-text {
-        background: url('/resources/img/block/pattern.png') no-repeat center;
+        /* background: url('/resources/img/block/pattern.png') no-repeat center; */
         background-size: cover;
         color: #fff;
         padding: 20px;
@@ -537,7 +516,6 @@
         box-sizing: border-box;
         border-radius: 8px;
     }
-
     .p-text p {
         font-size: 18px;
         color: #ddd;
@@ -564,23 +542,19 @@
         width: 100%;
         text-align: left;
     }
-
     .p-list .p-image {
         flex-shrink: 0;
     }
-
     .p-list .p-image img {
         max-width: 80px;
         height: auto;
         border-radius: 8px;
     }
-
     .p-list ul {
         margin: 0;
         padding-left: 20px;
         list-style: decimal;
     }
-
     .p-list li {
         margin-bottom: 5px;
     }
