@@ -217,8 +217,8 @@ while ($section = $sections->Fetch()) {
 </div>
 
 <div class="section section6" id="delivery">
-	<div class="container">
-		<div class="content">
+	<div class="d-container">
+		<div class="d-content">
 			<div class="d-text">
 				<p>Доступен самовывоз продукции со склада.
 				В случае самовывоза потребуется печать или доверенность от организации.
@@ -228,7 +228,7 @@ while ($section = $sections->Fetch()) {
 			</div>
 			<div class="d-list">
 			    <p>Мы работаем со следующими транспортными компаниями: </p>
-                <div class="image">
+                <div class="d-image">
                     <img alt="Image" src="/resources/img/block/312asd.png">
 			    </div>
 				<ol>

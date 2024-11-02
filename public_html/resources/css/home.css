@@ -375,17 +375,13 @@
 		color: black;
 	}
 
-    .section6 {
-        padding: 20px 0;
-    }
-
-    .container {
+    .d-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 15px;
     }
 
-    .content {
+    .d-content {
         display: flex;
         flex-direction: column;
         gap: 20px;
