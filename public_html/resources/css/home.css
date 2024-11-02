@@ -365,7 +365,6 @@
     }
 
 /** Блок доставки  **/
-
 	.section6-title {
 		background-color: #DCDCDC; /* #1E3564; */
 	}
@@ -376,6 +375,23 @@
 		color: black;
 	}
 
+    .section6 {
+        padding: 20px 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Стиль для .d-text */
     .d-text {
         background: url('/resources/img/block/pattern.png') no-repeat center;
         background-size: cover; /* Заполнение всей доступной области без растягивания */
@@ -387,6 +403,54 @@
         margin: 0 auto; /* Центрирование контейнера */
         height: 100%; /* Высота контейнера */
     }
+
+    /* Стиль для .d-list */
+    .d-list {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .d-list .image {
+        flex-shrink: 0;
+    }
+
+    .d-list .image img {
+        max-width: 100px; /* Ограничение размера картинки */
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .d-list p {
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .d-list ol {
+        margin-top: 10px;
+        padding-left: 20px;
+    }
+
+    .d-list li {
+        list-style: decimal;
+        margin-bottom: 5px;
+    }
+
+/* Для адаптивности */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .d-list {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .d-list .image img {
+        max-width: 80px;
+    }
+}
 
 /** Блок контакты **/
 /******** Мобильная версия *************/

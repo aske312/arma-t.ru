@@ -227,10 +227,10 @@ while ($section = $sections->Fetch()) {
 				(сообщите адрес и способ доставки).</p>
 			</div>
 			<div class="d-list">
+			    <p>Мы работаем со следующими транспортными компаниями: </p>
                 <div class="image">
                     <img alt="Image" src="/resources/img/block/312asd.png">
 			    </div>
-				<p>Мы работаем со следующими транспортными компаниями: </p>
 				<ol>
 				    <li>Деловые Линии</li>
 				    <li>ПЭК</li>
