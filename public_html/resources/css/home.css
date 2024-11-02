@@ -402,7 +402,6 @@
         max-width: 1400px;
         width: 100%;
         box-sizing: border-box;
-        background-color: #333; /* Задаем фон, убираем pattern */
     }
 
     .d-image {
@@ -416,7 +415,7 @@
 
     .d-text-content p {
         font-size: 18px;
-        margin: 0;
+        margin: left;
     }
 
     /* Стиль для .d-title-list */
