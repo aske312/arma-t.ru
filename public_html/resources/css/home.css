@@ -432,6 +432,7 @@
         max-width: 100%;
         width: 100%;
         text-align: left;
+        font-size: 18px;
     }
 
     .d-list .d-image {
@@ -446,7 +447,7 @@
 
     .d-list ul {
         margin: 0;
-        padding-left: 18px;
+        padding-left: 20px;
         list-style: none;
     }
 
