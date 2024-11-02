@@ -496,6 +496,9 @@
     .section7 {
         background-color: #DCDCDC;
     }
+    .section7-title {
+        background-color: #DCDCDC;
+    }
 	.pay-title {
 		display: flex;
 		width: 1050px;
