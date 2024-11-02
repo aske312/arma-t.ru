@@ -562,70 +562,57 @@
     }
 }
 
-/******** Мобильная версия *************/
-    @media (max-width: 768px) {
-        .slider-container {
-            height: 300px; /* Уменьшение высоты слайдера */
-        }
-
-        .slide img {
-            width: 100%;
-            height: 300px; /* Подгонка размера изображений под высоту слайдера */
-            object-fit: cover;
-        }
-
-        .slide-text {
-            font-size: 24px; /* Уменьшение размера текста */
-            top: 40%; /* Сдвиг текста ниже */
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .content {
-            flex-direction: column; /* Вертикальное выравнивание для мобильных устройств */
-            margin-top: 0;
-        }
-
-        .text {
-            margin-left: 0;
-            text-align: center; /* Центрирование текста */
-            margin-top: 20px;
-        }
-
-        .block {
-            flex-direction: column; /* Вертикальное расположение блоков */
-            height: auto;
-        }
-
-        .block-item {
-            margin: 20px 0; /* Уменьшение отступов */
-        }
-
-        .category-table {
-            flex-direction: column; /* Вертикальное расположение категорий */
-        }
-
-        .category-block {
-            width: 100%; /* Увеличение ширины блоков до 100% */
-            margin: 10px 0;
-        }
-
-        .contact-form {
-            width: 100%;
-            transform: translateX(0);
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-        }
-
-        .map iframe {
-            width: 100%;
-            height: 300px; /* Уменьшение высоты карты */
-        }
-
-        .conts-wrapper {
-            flex-direction: column;
-        }
+/***** Мобильная адаптация ******/
+/* Общие стили для мобильных и планшетов */
+@media (max-width: 768px) {
+    .section {
+        font-size: 18px;
     }
+    .slider-container {
+        height: 300px;
+    }
+    .slider .slide img {
+        object-fit: cover;
+    }
+    .block, .category-table, .d-list, .p-list {
+        flex-direction: column;
+        align-items: center;
+    }
+    .d-icon, .category-block {
+        width: 100%;
+        max-width: 350px;
+        margin: 5px 0;
+    }
+    .d-text, .p-text {
+        font-size: 16px;
+        padding: 10px;
+    }
+    .contact-form, .form-actions button {
+        width: 100%;
+    }
+}
+
+/***** Широкоформатная адаптация ******/
+/* Общие стили для широкоформатных экранов */
+@media (min-width: 1200px) {
+    .section {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    .slider-container {
+        max-width: 1920px;
+        height: 800px;
+    }
+    .block, .category-table {
+        max-width: 1800px;
+    }
+    .d-icon, .category-block {
+        max-width: 500px;
+    }
+    .d-text, .p-text, .slide-text {
+        font-size: 26px;
+    }
+    .d-list, .p-list {
+        gap: 50px;
+    }
+}
