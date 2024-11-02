@@ -30,6 +30,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .logo img {
@@ -109,7 +112,7 @@ header {
 
 /********** Модальное окно корзины **********/
 .cart-wrapper {
-    margin-left: auto; /* Смещаем корзину вправо */
+    position: relative;
 }
 
 .cart-icon {
