@@ -258,13 +258,23 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
-<!--
-<div class="section section7-title" id="p-title">
-    <div class="p-title">
-        <h2>Оплата</h2>
+<div class="section section5" id="Cash">
+    <div class="form-container" id="Form">
+        <form class="contact-form" id="contactForm" method="post" enctype="multipart/form-data">
+            <h2>Оставить заявку</h2>
+            <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
+            <input type="email" id="email" name="email" placeholder="e-mail" required>
+            <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
+            <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
+            <div class="form-actions">
+                <button type="submit" id="submitButton">Отправить</button>
+            </div>
+            <div id="fileList"></div>
+        </form>
     </div>
 </div>
--->
+
+<!-- -->
 
 <div class="section section7" id="pay">
 	<div class="p-container">
@@ -285,22 +295,6 @@ while ($section = $sections->Fetch()) {
 </div>
 
 <!-- -->
-
-<div class="section section5" id="Cash">
-    <div class="form-container" id="Form">
-        <form class="contact-form" id="contactForm" method="post" enctype="multipart/form-data">
-            <h2>Оставить заявку</h2>
-            <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
-            <input type="email" id="email" name="email" placeholder="e-mail" required>
-            <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
-            <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
-            <div class="form-actions">
-                <button type="submit" id="submitButton">Отправить</button>
-            </div>
-            <div id="fileList"></div>
-        </form>
-    </div>
-</div>
 
 <script>
     function toggleMenu() {
