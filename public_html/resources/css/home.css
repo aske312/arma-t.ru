@@ -399,6 +399,11 @@
         margin: 0 auto; /* Центрирование контейнера */
         height: 100%; /* Высота контейнера */
     }
+    .d-text p {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #ddd;
+    }
 
     /* Стиль для .d-list */
     .d-list {
