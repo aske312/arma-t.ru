@@ -412,11 +412,6 @@
     .d-image img {
         max-width: 150px;
         height: auto;
-        border-radius: 8px;
-    }
-
-    .d-text-content {
-        color: #ddd;
     }
 
     .d-text-content p {
@@ -449,13 +444,13 @@
     /* Стиль для иконок-кружков */
     .d-icons {
         display: flex;
-        gap: 15px;
+        padding: 25px;
+        gap: 35px;
     }
 
     .d-icon {
         width: 150px;
         height: 150px;
-        padding: 25px;
         border-radius: 50%;
         overflow: hidden;
         display: flex;
