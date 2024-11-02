@@ -447,7 +447,7 @@
     .d-list ul {
         margin: 0;
         padding-left: 18px;
-        /* list-style: decimal; */
+        list-style: none;
     }
 
     .d-list li {
