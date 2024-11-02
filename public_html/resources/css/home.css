@@ -447,7 +447,7 @@
     /* Стиль для иконок-кружков */
     .d-icons {
         display: flex;
-        gap: 55px;
+        gap: 150px;
     }
 
     .d-icon {
