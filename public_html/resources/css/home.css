@@ -412,11 +412,11 @@
         gap: 20px;
     }
 
-    .d-list .image {
+    .d-list .d-image {
         flex-shrink: 0;
     }
 
-    .d-list .image img {
+    .d-list .d-image img {
         max-width: 100px; /* Ограничение размера картинки */
         height: auto;
         border-radius: 8px;
@@ -427,7 +427,7 @@
         margin: 0;
     }
 
-    .d-list ol {
+    .d-list ul {
         margin-top: 10px;
         padding-left: 20px;
     }

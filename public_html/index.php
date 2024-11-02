@@ -231,12 +231,12 @@ while ($section = $sections->Fetch()) {
                 <div class="d-image">
                     <img alt="Image" src="/resources/img/block/312asd.png">
 			    </div>
-				<ol>
+				<ul>
 				    <li>Деловые Линии</li>
 				    <li>ПЭК</li>
 				    <li>Байкал Сервис</li>
 				    <li>СДЭК (до 35кг.) и др. Бесплатная доставка до ближайшего терминала ТК.</li>
-				</ol>
+				</ul>
 			</div>
 		</div>
 	</div>
