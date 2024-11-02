@@ -258,11 +258,13 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
+<!--
 <div class="section section7-title" id="p-title">
     <div class="p-title">
         <h2>Оплата</h2>
     </div>
 </div>
+-->
 
 <div class="section section7" id="pay">
 	<div class="p-container">

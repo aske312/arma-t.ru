@@ -511,6 +511,80 @@
 		/* background-color: #DCDCDC; */
 	}
 
+    .p-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .p-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+    }
+
+    /* Стиль для .d-text */
+    .p-text {
+        background: url('/resources/img/block/pattern.png') no-repeat center;
+        background-size: cover;
+        color: #fff;
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 8px;
+    }
+
+    .p-text p {
+        font-size: 18px;
+        color: #ddd;
+        margin: 0;
+    }
+
+    /* Стиль для .d-title-list */
+    .p-title-list p {
+        font-weight: bold;
+        font-size: 20px;
+        color: #333;
+        margin: 0;
+        text-align: left;
+        width: 100%;
+    }
+
+    /* Стиль для .d-list */
+    .p-list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        max-width: 100%;
+        width: 100%;
+        text-align: left;
+    }
+
+    .p-list .p-image {
+        flex-shrink: 0;
+    }
+
+    .p-list .p-image img {
+        max-width: 80px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .p-list ul {
+        margin: 0;
+        padding-left: 20px;
+        list-style: decimal;
+    }
+
+    .p-list li {
+        margin-bottom: 5px;
+    }
+
 /* Для адаптивности */
 @media (max-width: 768px) {
     .p-content {
@@ -519,11 +593,15 @@
 
     .p-list {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .p-list .p-image img {
-        max-width: 80px;
+        max-width: 60px;
+    }
+
+    .p-text p, .p-title-list p, .p-list li {
+        font-size: 16px;
     }
 }
 
