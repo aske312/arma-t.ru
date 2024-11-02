@@ -388,13 +388,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
         text-align: center;
     }
     .d-text {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
         font-size: 24px;
         color: #fff;
         padding: 20px;
