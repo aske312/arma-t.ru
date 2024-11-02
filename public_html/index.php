@@ -231,9 +231,6 @@ while ($section = $sections->Fetch()) {
                     (сообщите адрес и способ доставки).  </p>
                 </div>
             </div>
-            <div class="d-title-list">
-                <p>Мы работаем со следующими транспортными компаниями:</p>
-            </div>
             <div class="d-list">
                 <div class="d-icons">
                     <div class="d-icon">
@@ -249,6 +246,9 @@ while ($section = $sections->Fetch()) {
                         <img src="/resources/img/companies/sdek.png" alt="СДЭК">
                     </div>
                 </div>
+            </div>
+            <div class="d-title-list">
+                <p>Мы работаем с известными транспортными компаниями такими как и др.</p>
             </div>
         </div>
     </div>
