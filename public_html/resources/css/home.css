@@ -382,7 +382,7 @@
     .d-container {
         max-width: 1045px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 10px;
     }
     .d-content {
         display: flex;
