@@ -50,26 +50,27 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                     <a href="/#pay">Оплата</a>
                 </nav>
             </div>
-            <div class="contact-info">
+
+            <div class="contact-container">
                 <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                 <button onclick="window.location.href='#Cash'">Оставить заявку</button>
+            </div>
 
-                <div class="cart-wrapper">
-                    <div class="cart-icon">
-                        <button id="cart-button" class="cart-btn">
-                            В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
-                        </button>
-                    </div>
-                    <div id="cart-modal" class="cart-modal">
-                        <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
-                        <div class="cart-modal-content">
-                            <span class="close-btn" id="close-cart-modal">&times;</span>
-                            <h2>Корзина</h2>
-                            <div id="cart-items" class="cart-items-container"></div>
-                            <div id="cart-total"></div>
-                            <button id="clear-cart" class="button">Очистить корзину</button>
-                            <button id="checkout" class="button">Оформить заказ</button>
-                        </div>
+            <div class="cart-wrapper">
+                <div class="cart-icon">
+                    <button id="cart-button" class="cart-btn">
+                        В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
+                    </button>
+                </div>
+                <div id="cart-modal" class="cart-modal">
+                    <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
+                    <div class="cart-modal-content">
+                        <span class="close-btn" id="close-cart-modal">&times;</span>
+                        <h2>Корзина</h2>
+                        <div id="cart-items" class="cart-items-container"></div>
+                        <div id="cart-total"></div>
+                        <button id="clear-cart" class="button">Очистить корзину</button>
+                        <button id="checkout" class="button">Оформить заказ</button>
                     </div>
                 </div>
             </div>
