@@ -179,12 +179,13 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
-<div class="section section4" id="catalog">
-    <div class="section section4-title" id="Katalog">
-        <div class="category-title">
-            <h2>Каталог</h2>
-        </div>
+<div class="section section4-title" id="catalog">
+    <div class="category-title">
+        <h2>Каталог</h2>
     </div>
+</div>
+
+<div class="section section4" id="catalog">
     <div class="category">
         <div class="category-table">
             <?php if (!empty($arResult['SECTIONS'])): ?>
@@ -209,12 +210,13 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
-<div class="section section6" id="delivery">
-    <div class="section section6-title" id="delivery-title">
-        <div class="delivery-title">
-            <h2>Доставка</h2>
-        </div>
+<div class="section section6-title" id="delivery-title">
+    <div class="delivery-title">
+        <h2>Доставка</h2>
     </div>
+</div>
+
+<div class="section section6" id="delivery">
     <div class="d-container">
         <div class="d-content">
             <div class="d-text">
@@ -272,12 +274,13 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
-<div class="section section7" id="pay">
-    <div class="section section7-title" id="pay-title">
-        <div class="pay-title">
-            <h2>Оплата</h2>
-        </div>
+<div class="section section7-title" id="pay-title">
+    <div class="pay-title">
+        <h2>Оплата</h2>
     </div>
+</div>
+
+<div class="section section7" id="pay">
 	<div class="p-container">
 	     <div class="p-content">
             <div class="p-text">
