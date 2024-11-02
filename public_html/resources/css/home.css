@@ -394,15 +394,16 @@
 
     /* Стиль для .d-text */
     .d-text {
-        background: url('/resources/img/block/pattern.png') no-repeat center;
-        background-size: cover;
+        background: url('/resources/img/block/pattern.png') center;
+        background-size: relative;
+        font-size: 18px;
         color: #fff;
         padding: 20px;
-        text-align: left;
-        margin-bottom: 20px;
-        width: 1300px;
         margin: 0 auto;
-        height: 100%;
+        max-width: 1400px;
+        width: 100%;
+        box-sizing: border-box;
+        /* border-radius: 8px; */
     }
 
     .d-text p {
