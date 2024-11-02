@@ -395,7 +395,7 @@
     /* Стиль для .d-text */
     .d-text {
         background: url('/resources/img/block/pattern.png') center;
-        background-size: relative;
+        background-size: cover;
         font-size: 18px;
         color: #fff;
         padding: 20px;
