@@ -380,11 +380,10 @@
 */
 
     .d-container {
-        max-width: 1050px;
+        max-width: 1045px;
         margin: 0 auto;
         padding: 20px;
     }
-
     .d-content {
         display: flex;
         flex-direction: column;
@@ -392,8 +391,6 @@
         gap: 20px;
         text-align: center;
     }
-
-    /* Стиль для .d-text */
     .d-text {
         display: flex;
         align-items: center;
@@ -406,16 +403,13 @@
         width: 100%;
         box-sizing: border-box;
     }
-
     .d-image {
         flex-shrink: 0;
     }
-
     .d-image img {
         max-width: 100%;
         height: auto;
     }
-
     .d-text-content p {
 		font-size: 24px;
 		line-height: 1.6;
