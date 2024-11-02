@@ -399,7 +399,7 @@
         max-width: 100%;
         width: 100%;
         box-sizing: border-box;
-        border-radius: 8px;
+        /* border-radius: 8px; */
     }
 
     .d-text p {
@@ -412,7 +412,7 @@
     .d-title-list p {
         font-weight: bold;
         font-size: 20px;
-        color: #333;
+        /* color: #333; */
         margin: 0;
         text-align: left;
         width: 100%;
