@@ -366,13 +366,12 @@
 
 /** Блок доставки  **/
 	.section6-title {
-        color: #333;
 	}
 	.delivery-title {
 		display: flex;
 		width: 1050px;
 		text-align: left;
-		color: black;
+		color: #333;
 	}
 
     .d-container {
