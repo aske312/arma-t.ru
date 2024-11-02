@@ -508,7 +508,6 @@
     .p-text {
         /* background: url('/resources/img/block/pattern.png') no-repeat center; */
         background-size: cover;
-        color: #fff;
         padding: 20px;
         margin: 0 auto;
         max-width: 100%;
@@ -518,7 +517,6 @@
     }
     .p-text p {
         font-size: 18px;
-        color: #ddd;
         margin: 0;
     }
 
@@ -526,7 +524,6 @@
     .p-title-list p {
         font-weight: bold;
         font-size: 20px;
-        color: #333;
         margin: 0;
         text-align: left;
         width: 100%;
