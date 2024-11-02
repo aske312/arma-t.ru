@@ -411,7 +411,7 @@
         height: auto;
     }
     .d-text-content p {
-		font-size: 20px;
+		font-size: 24px;
 		line-height: 1.6;
 		text-align: left;
     }
@@ -419,7 +419,7 @@
     /* Стиль для .d-title-list */
     .d-title-list p {
         font-weight: bold;
-        font-size: 24px;
+        font-size: 18px;
         margin: 0;
         text-align: left;
         width: 100%;
