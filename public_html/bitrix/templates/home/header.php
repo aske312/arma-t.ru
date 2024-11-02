@@ -46,8 +46,8 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                     <a href="/">О компании</a>
                     <a href="/catalog/index.php?SECTION_ID=5">Каталог</a>
                     <a href="/contact/">Контакты</a>
-                    <a href="/delivery/">Доставка</a>
-                    <a href="/payment/">Оплата</a>
+                    <a href="/#delivery">Доставка</a>
+                    <a href="/#pay">Оплата</a>
                 </nav>
             </div>
             <div class="contact-info">

@@ -390,7 +390,7 @@
     .d-text {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 20px;
         font-size: 24px;
         color: #fff;
         padding: 20px;
@@ -520,7 +520,7 @@
     .p-text {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 20px;
         color: black;
         font-size: 24px;
         padding: 20px;
