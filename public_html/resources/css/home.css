@@ -369,8 +369,6 @@
     .section6 {
         padding: 20px;
     }
-	.section6-title {
-	}
 	.delivery-title {
 		display: flex;
 		width: 1050px;
@@ -394,8 +392,9 @@
 
     /* Стиль для .d-text */
     .d-text {
-        background: url('/resources/img/block/pattern.png') center;
-        background-size: cover;
+        display: flex;
+        align-items: center;
+        gap: 20px;
         font-size: 18px;
         color: #fff;
         padding: 20px;
@@ -403,11 +402,25 @@
         max-width: 1400px;
         width: 100%;
         box-sizing: border-box;
+        background-color: #333; /* Задаем фон, убираем pattern */
     }
 
-    .d-text p {
-        font-size: 18px;
+    .d-image {
+        flex-shrink: 0;
+    }
+
+    .d-image img {
+        max-width: 150px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .d-text-content {
         color: #ddd;
+    }
+
+    .d-text-content p {
+        font-size: 18px;
         margin: 0;
     }
 
@@ -433,16 +446,6 @@
         font-size: 18px;
     }
 
-    .d-list .d-image {
-        flex-shrink: 0;
-    }
-
-    .d-list .d-image img {
-        max-width: 80px;
-        height: auto;
-        border-radius: 8px;
-    }
-
     /* Стиль для иконок-кружков */
     .d-icons {
         display: flex;
@@ -452,6 +455,7 @@
     .d-icon {
         width: 150px;
         height: 150px;
+        padding: 25px;
         border-radius: 50%;
         overflow: hidden;
         display: flex;
@@ -473,6 +477,11 @@
         flex-direction: column;
     }
 
+    .d-text {
+        flex-direction: column;
+        text-align: center;
+    }
+
     .d-list {
         flex-direction: column;
         align-items: center;
@@ -488,11 +497,14 @@
         height: 50px;
     }
 
-    .d-text p, .d-title-list p {
+    .d-text-content p, .d-title-list p {
         font-size: 16px;
     }
-}
 
+    .d-image img {
+        max-width: 100px;
+    }
+}
 /** Блок контакты **/
     .section7 {
         background-color: #DCDCDC;
