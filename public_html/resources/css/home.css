@@ -384,52 +384,68 @@
     .d-content {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 20px;
+        text-align: center;
     }
 
     /* Стиль для .d-text */
     .d-text {
         background: url('/resources/img/block/pattern.png') no-repeat center;
-        background-size: cover; /* Заполнение всей доступной области без растягивания */
+        background-size: cover;
         color: #fff;
-        padding: 5px;
-        text-align: left;
-        margin-bottom: 20px;
-        width: 1400px; /* Максимальная ширина контейнера */
-        margin: 0 auto; /* Центрирование контейнера */
-        height: 100%; /* Высота контейнера */
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 8px;
     }
+
     .d-text p {
-        margin-top: 10px;
         font-size: 18px;
         color: #ddd;
+        margin: 0;
+    }
+
+    /* Стиль для .d-title-list */
+    .d-title-list p {
+        font-weight: bold;
+        font-size: 20px;
+        color: #333;
+        margin: 0;
+        text-align: left;
+        width: 100%;
     }
 
     /* Стиль для .d-list */
     .d-list {
-		display: flex;
-		align-items: center;
-		margin-top: 10px;
-		max-width: 1000px; /* Максимальная ширина контента */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        max-width: 100%;
+        width: 100%;
+        text-align: left;
     }
+
     .d-list .d-image {
         flex-shrink: 0;
     }
+
     .d-list .d-image img {
-        max-width: 100px; /* Ограничение размера картинки */
+        max-width: 80px;
         height: auto;
-        /* border-radius: 8px; */
+        border-radius: 8px;
     }
-    .d-list p {
-        font-weight: bold;
-        margin: 0;
-    }
+
     .d-list ul {
-        margin-top: 10px;
+        margin: 0;
         padding-left: 20px;
-    }
-    .d-list li {
         list-style: decimal;
+    }
+
+    .d-list li {
         margin-bottom: 5px;
     }
 
@@ -441,11 +457,15 @@
 
     .d-list {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .d-list .d-image img {
-        max-width: 80px;
+        max-width: 60px;
+    }
+
+    .d-text p, .d-title-list p, .d-list li {
+        font-size: 16px;
     }
 }
 
