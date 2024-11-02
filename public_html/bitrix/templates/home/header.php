@@ -58,9 +58,11 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
             <div class="cart-wrapper">
                 <div class="cart-icon">
+                <!--
                     <button id="cart-button" class="cart-btn">
                         В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
                     </button>
+                -->
                 </div>
                 <div id="cart-modal" class="cart-modal">
                     <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
