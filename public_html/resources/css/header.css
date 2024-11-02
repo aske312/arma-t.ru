@@ -85,6 +85,7 @@ header {
     align-items: center;
 }
 
+/*
 .contact-info {
     display: flex;
     flex-direction: column;
@@ -92,6 +93,7 @@ header {
     text-align: center;
     margin-left: 20px;
 }
+*/
 
 .phone-link {
     color: white;
@@ -102,7 +104,7 @@ header {
     color: #0056b3;
 }
 
-.contact-info button {
+.contact-container button {
     padding: 10px 20px;
     background-color: #2654A2;
     border: none;
@@ -309,7 +311,7 @@ header {
     }
 
     /* Корректировка кнопок и шрифтов */
-    .phone-link, .contact-info button {
+    .phone-link, .contact-container button {
         font-size: 14px;
     }
 
