@@ -275,12 +275,14 @@ while ($section = $sections->Fetch()) {
 				а также электронный адрес. Деньги поступают на расчетный счет на следующий день после оплаты.
 				Статус поступления средств Вы можете уточнить у нашего менеджера.</p>
 			</div>
+			<div class="p-title-list">
+                <p>Наши реквизиты:</p>
+			</div>
 			<div class="p-list">
-			    <p>Наши реквизиты:</p>
                 <div class="p-image">
                     <img alt="Image" src="/resources/img/block/312asd.png">
 			    </div>
-
+                <p> реквизиты </p>
 			</div>
 		</div>
 	</div>
