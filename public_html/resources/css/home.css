@@ -109,7 +109,8 @@
     }
 /********* Текст вторым блоком *********/
 	.section2 {
-		background-color: white; /* #DCDCDC; */
+	    background-color: #DCDCDC;
+		/* background-color: white; /* #DCDCDC; */
 	}
 	.container {
 		display: flex;
@@ -448,8 +449,11 @@
 }
 
 /** Блок контакты **/
+    .section7 {
+        background-color: #DCDCDC;
+    }
 	.section7-title {
-		background-color: #DCDCDC; /* #1E3564; */
+
 	}
 	.p-title {
 		display: flex;
