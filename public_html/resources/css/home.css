@@ -495,12 +495,13 @@
 /** Блок контакты **/
     .section7 {
         background-color: #DCDCDC;
-        color: black;
     }
 	.pay-title {
 		display: flex;
 		width: 1050px;
 		text-align: left;
+		color: black;
+		background-color: #DCDCDC;
 	}
     .p-container {
         max-width: 1045px;
