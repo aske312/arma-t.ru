@@ -262,3 +262,58 @@ header {
 .button:hover {
     background-color: #0056b3;
 }
+
+/* ********** Мобильная версия ********** */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px 15px;
+    }
+
+    .logo img {
+        max-height: 40px;
+    }
+
+    /* Скрываем ссылки навигации и отображаем бургер */
+    #mainNav {
+        display: none;
+        flex-direction: column;
+        background-color: #162139;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    #mainNav.menu-open {
+        display: flex;
+    }
+
+    /* Кнопка-бургер */
+    .menu-toggle {
+        display: inline-block;
+    }
+
+    /* Корзина выравнивается справа */
+    .cart-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    /* Корректировка кнопок и шрифтов */
+    .phone-link, .contact-info button {
+        font-size: 14px;
+    }
+
+    /* Уменьшение отступов в карточке товара для мобильного */
+    .cart-item-card {
+        padding: 10px;
+    }
+
+    /* Настройка размеров текста и отступов */
+    .cart-item-name, .cart-item-price, .cart-item-total {
+        font-size: 14px;
+    }
+}
