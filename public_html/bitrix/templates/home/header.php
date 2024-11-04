@@ -111,7 +111,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
             if (cartItems.length === 0) {
                 cartItemsContainer.innerHTML = '<p>Корзина пуста</p>';
-                document.getElementById('cart-total').innerText = 'Общая сумма: 0.00 руб.';
+                document.getElementById('cart-total').innerText = 'Общая сумма: Под заказ';
                 return;
             }
 
@@ -148,7 +148,10 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 totalSum += parseFloat(itemTotal);
             });
 
-            document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
+            // Проверяем общую сумму и выводим "Под заказ", если сумма равна 0
+            document.getElementById('cart-total').innerText = totalSum > 0
+                ? `Общая сумма: ${totalSum.toFixed(2)} руб.`
+                : 'Общая сумма: Под заказ';
         }
 
         // Функция для получения изображения раздела
