@@ -154,7 +154,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         // Функция для получения изображения раздела
         async function fetchSectionImage(itemId) {
             try {
-                const response = await fetch(`/path/to/getSectionImage.php?itemId=${itemId}`);
+                const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
                 const data = await response.json();
                 return data.imageUrl;
             } catch (error) {
