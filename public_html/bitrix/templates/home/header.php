@@ -120,32 +120,16 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 const imageUrl = item.image || '/path/to/default/section/image.jpg';
 
                 const cartItemHTML = `
-                <!--
-//                    <div class="cart-item-card">
-//                        <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
-//                        <div class="cart-item-details">
-//                            <p class="cart-item-name">${item.name}</p>
-//                            <p class="cart-item-price">${item.price} руб./шт.</p>
-//                        </div>
-//                        <div class="cart-item-actions">
-//                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
-//                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
-//                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
-//                            <p class="cart-item-total">${itemTotal} руб.</p>
-//                            <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
-//                        </div>
-//                    </div> -->
-
                     <div class="cart-item-card">
+                        <!-- Изображение товара слева -->
+                        <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
+
                         <!-- Блок деталей товара -->
                         <div class="cart-item-details">
                             <p class="cart-item-name">${item.name}</p>
                             <p class="cart-item-article">Артикул: ${item.article}</p>
                             <p class="cart-item-price">${item.price} руб./шт.</p>
                         </div>
-
-                        <!-- Блок изображения товара справа -->
-                        <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
 
                         <!-- Количество товара и кнопка удаления -->
                         <div class="cart-item-actions">
