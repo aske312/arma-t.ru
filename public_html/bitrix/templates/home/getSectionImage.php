@@ -7,7 +7,7 @@ $itemId = $_GET['itemId'];
 $imageUrl = '/resources/img/production/0.png'; // Изображение по умолчанию
 
 if ($itemId) {
-    $catalogIblockId = 1; // Укажите ID инфоблока "catalog"
+    $catalogIblockId = 5; // Укажите ID инфоблока "catalog"
 
     // Получаем элемент по его ID
     $element = CIBlockElement::GetByID($itemId)->GetNextElement();

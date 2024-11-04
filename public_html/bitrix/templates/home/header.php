@@ -120,7 +120,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 // Получаем изображение товара или изображение раздела, если изображение товара пустое
                 const imageUrl = item.image || await fetchSectionImage(item.id);
                 // Проверка цены: если item.price пустой или равен 0, выводим текст вместо цены
-                const itemPriceText = item.price && item.price > 0 ? `${item.price} руб./шт.` : 'Цену уточняйте у оператора';
+                const itemPriceText = item.price && item.price > 0 ? `${item.price} руб./шт.` : 'Цена под заказ';
                 const cartItemHTML = `
                     <div class="cart-item-card">
                         <!-- Изображение товара слева -->
