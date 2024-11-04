@@ -117,18 +117,23 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
             cartItems.forEach(item => {
                 const itemTotal = (item.price * item.quantity).toFixed(2);
-                const imageUrl = item.image || '/path/to/default/section/image.jpg';
+                const imageUrl = item.image || '/resources/img/production/0.png';
 
                 const cartItemHTML = `
                     <div class="cart-item-card">
-                        <!-- Изображение товара слева -->
-                        <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
+                        <!-- Проверка изображения товара: если item.image пустой, берем изображение Раздела -->
+                        <img src="${item.image ? item.image : getSectionImage(item.id)}" alt="${item.name}" class="cart-item-image">
 
                         <!-- Блок деталей товара -->
                         <div class="cart-item-details">
                             <p class="cart-item-name">${item.name}</p>
+
+                            <!-- Проверка цены: если item.price пустой или равен 0, выводим текст вместо цены -->
+                            <p class="cart-item-price">
+                                ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цену уточняйте у оператора'}
+                            </p>
+
                             <p class="cart-item-article">Артикул: ${item.article}</p>
-                            <p class="cart-item-price">${item.price} руб./шт.</p>
                         </div>
 
                         <!-- Количество товара и кнопка удаления -->
@@ -147,6 +152,35 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             });
 
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
+        }
+
+        function getSectionImage($itemId) {
+            // ID инфоблока "catalog"
+            $catalogIblockId = 1; // Замените 1 на реальный ID инфоблока "catalog"
+            // Получаем элемент по его ID
+            $element = CIBlockElement::GetByID($itemId)->GetNextElement();
+            // Проверка, что элемент найден
+            if ($element) {
+                // Получаем массив полей элемента, включая раздел
+                $elementFields = $element->GetFields();
+                $sectionId = $elementFields["IBLOCK_SECTION_ID"];
+
+                // Проверка, что ID раздела существует
+                if ($sectionId) {
+                    // Получаем данные раздела
+                    $section = CIBlockSection::GetByID($sectionId)->GetNext();
+
+                    // Проверка, что раздел найден и у него есть изображение
+                    if ($section && $section["PICTURE"]) {
+                        // Получаем URL изображения раздела
+                        $sectionImage = CFile::GetPath($section["PICTURE"]);
+                        return $sectionImage;
+                    }
+                }
+            }
+
+            // URL изображения по умолчанию, если ничего не найдено
+            return '/resources/img/production/0.png';
         }
 
         function updateQuantity(productId, delta) {
