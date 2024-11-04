@@ -5,7 +5,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
 ?>
 
 <div class="section-title">
-    <h2>Оформление заказа</h2> <!-- Название раздела -->
+    <h2>Оформление заказа</h2>
     <p>Товары в корзине</p>
 </div>
 
@@ -14,7 +14,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
         <!-- Здесь будет вывод корзины -->
     </div>
 
-    <button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
+    <button class="back-button" onclick="history.back()">Назад</button>
 </div>
 
 <form class="order-form" id="order-form">
@@ -35,6 +35,9 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         const productCheckout = document.getElementById('product-checkout');
 
+        // Отладка: Выводим содержимое cartItems в консоль
+        console.log(cartItems);
+
         if (cartItems.length === 0) {
             productCheckout.innerHTML = "<p>Ваша корзина пуста.</p>";
         } else {
@@ -53,7 +56,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
     const orderForm = document.getElementById('order-form');
     orderForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        // Здесь вы можете добавить обработку отправки формы
         alert("Заказ оформлен!"); // Пример уведомления
     });
 </script>
