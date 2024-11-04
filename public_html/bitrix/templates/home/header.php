@@ -152,7 +152,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         // Асинхронная функция для получения изображения раздела по ID товара
         async function fetchSectionImage(itemId) {
             try {
-                const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
+                const response = await fetch(`getSectionImage.php?itemId=${itemId}`);
                 const data = await response.json();
                 return data.imageUrl || '/resources/img/production/0.png'; // Изображение по умолчанию
             } catch (error) {
