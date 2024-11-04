@@ -1,17 +1,19 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 use Bitrix\Main\Page\Asset;
-Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
+Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключение CSS
 ?>
 
 <div class="section-title">
-    <h2>Оформление заказа</h2>
+    <h2>Оформление заказа</h2> <!-- Название раздела -->
     <p>Товары в корзине</p>
 </div>
 
 <div id="cart-items" class="product-checkout">
     <!-- Здесь будет вывод товаров из localStorage -->
 </div>
+
+<button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
 
 <form class="order-form" id="order-form">
     <h2>Ваши данные</h2>
@@ -31,6 +33,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
         const data = JSON.parse(localStorage.getItem('cartItems'));
         const cartItemsContainer = document.getElementById('cart-items');
 
+        // Проверка наличия товаров в корзине
         if (data && data.cartItems && data.cartItems.length > 0) {
             data.cartItems.forEach(item => {
                 cartItemsContainer.innerHTML += `
