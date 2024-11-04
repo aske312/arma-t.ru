@@ -202,6 +202,10 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             updateCartCount();
         });
 
+        document.getElementById('checkout').addEventListener('click', function() {
+            window.location.href = '/checkout/';
+        });
+
         document.getElementById('cart-button').addEventListener('click', function() {
             const cartModal = document.getElementById('cart-modal');
             cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
