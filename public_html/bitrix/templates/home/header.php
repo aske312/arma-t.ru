@@ -118,7 +118,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             for (const item of cartItems) {
                 const itemTotal = (item.price * item.quantity).toFixed(2);
                 // Получаем изображение товара или изображение раздела, если изображение товара пустое
-                const imageUrl = item.image || await fetchSectionImage(item.id);
+                const imageUrl = item.image || await getSectionImage(item.id);
                 // Проверка цены: если item.price пустой или равен 0, выводим текст вместо цены
                 const itemPriceText = item.price && item.price > 0 ? `${item.price} руб./шт.` : 'Цена под заказ';
                 const cartItemHTML = `
@@ -150,15 +150,51 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         }
 
         // Асинхронная функция для получения изображения раздела по ID товара
-        async function fetchSectionImage(itemId) {
-            try {
-                const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
-                const data = await response.json();
-                return data.imageUrl || '/resources/img/production/0.png'; // Изображение по умолчанию
-            } catch (error) {
-                console.error("Ошибка загрузки изображения раздела:", error);
-                return '/resources/img/production/0.png';
+//        async function fetchSectionImage(itemId) {
+//            try {
+//                const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
+//                const data = await response.json();
+//                return data.imageUrl || '/resources/img/production/0.png'; // Изображение по умолчанию
+//            } catch (error) {
+//                console.error("Ошибка загрузки изображения раздела:", error);
+//                return '/resources/img/production/0.png';
+//            }
+//        }
+
+        function getSectionImage($itemId) {
+            // Correct infoblock ID for "catalog"
+            $catalogIblockId = 5;
+
+            // Retrieve the element based on item ID
+            $element = CIBlockElement::GetByID($itemId)->GetNextElement();
+
+            // Check if the element exists
+            if ($element) {
+                // Get element fields, including the section ID
+                $elementFields = $element->GetFields();
+                $sectionId = $elementFields["IBLOCK_SECTION_ID"];
+
+                // Check if section ID exists
+                if ($sectionId) {
+                    // Retrieve the section data
+                    $section = CIBlockSection::GetList(
+                        array(),
+                        array('ID' => $sectionId, 'IBLOCK_ID' => $catalogIblockId),
+                        false,
+                        array('PICTURE')
+                    )->GetNext();
+
+                    // Check if the section has an image
+                    if ($section && $section["PICTURE"]) {
+                        // Retrieve the image path
+                        $sectionImage = CFile::GetPath($section["PICTURE"]);
+                        return $sectionImage;
+                    }
+                }
             }
+
+            // Default image URL if no section image is found
+            return '/resources/img/production/0.png';
         }
 
         function updateQuantity(productId, delta) {
