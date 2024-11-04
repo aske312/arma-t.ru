@@ -129,10 +129,10 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
                         <div class="cart-item-details">
                             <p class="cart-item-name">${item.name}</p>
+                            <p class="cart-item-article">Артикул: ${item.article}</p>
                             <p class="cart-item-price">
                                 ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
                             </p>
-                            <p class="cart-item-article">Артикул: ${item.article}</p>
                         </div>
                         <div class="cart-item-actions">
                             <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
