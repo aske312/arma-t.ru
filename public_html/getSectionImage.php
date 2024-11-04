@@ -3,15 +3,15 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
 // Функция для получения изображения раздела по ID элемента
-function getSectionImage($itemId) {
-    $catalogIblockId = 5; // Убедитесь, что этот ID соответствует вашему каталогу
+function getSectionImageByElement($itemId) {
+    $catalogIblockId = 5; // Замените 5 на реальный ID инфоблока вашего каталога
 
     // Получаем элемент по его ID
     $element = CIBlockElement::GetByID($itemId)->GetNextElement();
 
     if ($element) {
         $elementFields = $element->GetFields();
-        $sectionId = $elementFields["IBLOCK_SECTION_ID"]; // ID раздела элемента
+        $sectionId = $elementFields["IBLOCK_SECTION_ID"]; // ID раздела, в котором находится элемент
 
         if ($sectionId) {
             // Получаем данные раздела, включая изображение
@@ -36,7 +36,7 @@ function getSectionImage($itemId) {
 // Проверяем, передан ли itemId через GET-запрос
 if (isset($_GET['itemId']) && !empty($_GET['itemId'])) {
     $itemId = intval($_GET['itemId']); // Преобразуем в целое число для безопасности
-    $imageUrl = getSectionImage($itemId);
+    $imageUrl = getSectionImageByElement($itemId);
 
     // Возвращаем результат в формате JSON
     echo json_encode(['imageUrl' => $imageUrl]);
