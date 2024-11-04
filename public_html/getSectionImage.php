@@ -1,34 +1,38 @@
 <?php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php"); // Подключение Bitrix API
 
-header('Content-Type: application/json');
+function getSectionImage($itemId) {
+    $catalogIblockId = 5;
 
-$itemId = $_GET['itemId'];
-$imageUrl = '/resources/img/production/0.png'; // Изображение по умолчанию
-
-if ($itemId) {
-    $catalogIblockId = 5; // Укажите ID инфоблока "catalog"
-
-    // Получаем элемент по его ID
     $element = CIBlockElement::GetByID($itemId)->GetNextElement();
 
-    // Проверка, что элемент найден
     if ($element) {
         $elementFields = $element->GetFields();
         $sectionId = $elementFields["IBLOCK_SECTION_ID"];
 
-        // Проверка, что ID раздела существует
         if ($sectionId) {
-            $section = CIBlockSection::GetByID($sectionId)->GetNext();
+            $section = CIBlockSection::GetList(
+                array(),
+                array('ID' => $sectionId, 'IBLOCK_ID' => $catalogIblockId),
+                false,
+                array('PICTURE')
+            )->GetNext();
 
-            // Проверка, что раздел найден и у него есть изображение
             if ($section && $section["PICTURE"]) {
-                $imageUrl = CFile::GetPath($section["PICTURE"]);
+                $sectionImage = CFile::GetPath($section["PICTURE"]);
+                return $sectionImage;
             }
         }
     }
+
+    return '/resources/img/production/0.png';
 }
 
-// Возвращаем URL изображения раздела в формате JSON
+// Получаем itemId из параметров запроса
+$itemId = $_GET['itemId'];
+
+// Получаем изображение раздела
+$imageUrl = getSectionImage($itemId);
+
+// Возвращаем результат в формате JSON
 echo json_encode(['imageUrl' => $imageUrl]);
-?>

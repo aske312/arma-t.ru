@@ -103,7 +103,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('cart-count').textContent = count;
         }
 
-        async function loadCartData() {
+        function loadCartData() {
             const cartItems = getCartItems();
             const cartItemsContainer = document.getElementById('cart-items');
             cartItemsContainer.innerHTML = '';
@@ -115,23 +115,25 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 return;
             }
 
-            for (const item of cartItems) {
+            cartItems.forEach(async (item) => {
                 const itemTotal = (item.price * item.quantity).toFixed(2);
-                // Получаем изображение товара или изображение раздела, если изображение товара пустое
-                const imageUrl = item.image || await getSectionImage(item.id);
-                // Проверка цены: если item.price пустой или равен 0, выводим текст вместо цены
-                const itemPriceText = item.price && item.price > 0 ? `${item.price} руб./шт.` : 'Цена под заказ';
+
+                // Если у товара нет изображения, запрашиваем изображение раздела
+                let imageUrl = item.image || '/resources/img/production/0.png';
+                if (!item.image) {
+                    imageUrl = await fetchSectionImage(item.id);
+                }
+
                 const cartItemHTML = `
                     <div class="cart-item-card">
-                        <!-- Изображение товара слева -->
                         <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
-                        <!-- Блок деталей товара -->
                         <div class="cart-item-details">
                             <p class="cart-item-name">${item.name}</p>
+                            <p class="cart-item-price">
+                                ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
+                            </p>
                             <p class="cart-item-article">Артикул: ${item.article}</p>
-                            <p class="cart-item-price">${itemPriceText}</p>
                         </div>
-                        <!-- Количество товара и кнопка удаления -->
                         <div class="cart-item-actions">
                             <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
                             <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
@@ -144,57 +146,21 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
                 cartItemsContainer.innerHTML += cartItemHTML;
                 totalSum += parseFloat(itemTotal);
-            }
+            });
 
             document.getElementById('cart-total').innerText = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
         }
 
-        // Асинхронная функция для получения изображения раздела по ID товара
-//        async function fetchSectionImage(itemId) {
-//            try {
-//                const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
-//                const data = await response.json();
-//                return data.imageUrl || '/resources/img/production/0.png'; // Изображение по умолчанию
-//            } catch (error) {
-//                console.error("Ошибка загрузки изображения раздела:", error);
-//                return '/resources/img/production/0.png';
-//            }
-//        }
-
-        function getSectionImage($itemId) {
-            // Correct infoblock ID for "catalog"
-            $catalogIblockId = 5;
-
-            // Retrieve the element based on item ID
-            $element = CIBlockElement::GetByID($itemId)->GetNextElement();
-
-            // Check if the element exists
-            if ($element) {
-                // Get element fields, including the section ID
-                $elementFields = $element->GetFields();
-                $sectionId = $elementFields["IBLOCK_SECTION_ID"];
-
-                // Check if section ID exists
-                if ($sectionId) {
-                    // Retrieve the section data
-                    $section = CIBlockSection::GetList(
-                        array(),
-                        array('ID' => $sectionId, 'IBLOCK_ID' => $catalogIblockId),
-                        false,
-                        array('PICTURE')
-                    )->GetNext();
-
-                    // Check if the section has an image
-                    if ($section && $section["PICTURE"]) {
-                        // Retrieve the image path
-                        $sectionImage = CFile::GetPath($section["PICTURE"]);
-                        return $sectionImage;
-                    }
-                }
+        // Функция для получения изображения раздела
+        async function fetchSectionImage(itemId) {
+            try {
+                const response = await fetch(`/path/to/getSectionImage.php?itemId=${itemId}`);
+                const data = await response.json();
+                return data.imageUrl;
+            } catch (error) {
+                console.error('Ошибка при получении изображения раздела:', error);
+                return '/resources/img/production/0.png';
             }
-
-            // Default image URL if no section image is found
-            return '/resources/img/production/0.png';
         }
 
         function updateQuantity(productId, delta) {
