@@ -117,6 +117,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
             cartItems.forEach(async (item) => {
                 const itemTotal = (item.price * item.quantity).toFixed(2);
+                totalSum += parseFloat(itemTotal); // Считаем общую сумму здесь
 
                 // Если у товара нет изображения, запрашиваем изображение раздела
                 let imageUrl = item.image || '/resources/img/production/0.png';
@@ -145,7 +146,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 `;
 
                 cartItemsContainer.innerHTML += cartItemHTML;
-                totalSum += parseFloat(itemTotal);
             });
 
             // Проверяем общую сумму и выводим "Под заказ", если сумма равна 0
