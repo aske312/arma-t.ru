@@ -5,14 +5,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
 ?>
 
 <div class="section-title">
-    <h2>Оформление заказа</h2> <!-- Название раздела -->
+    <h2>Оформление заказа</h2>
     <p>Товары в корзине</p>
 </div>
 
-<div id="cart-items">
-    <div class="product-checkout" id="product-checkout">
-        <!-- Здесь будет вывод корзины -->
-    </div>
+<div id="cart-items" class="product-checkout">
+    <!-- Здесь будет вывод товаров из localStorage -->
 </div>
 
 <form class="order-form" id="order-form">
@@ -30,14 +28,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Извлекаем данные из localStorage
         const data = JSON.parse(localStorage.getItem('cartItems'));
-        const productCheckout = document.getElementById('product-checkout');
+        const cartItemsContainer = document.getElementById('cart-items');
 
-        // Проверяем, есть ли товары в корзине
-        if (data && data.length > 0) {
-            data.forEach(item => {
-                productCheckout.innerHTML += `
+        if (data && data.cartItems && data.cartItems.length > 0) {
+            data.cartItems.forEach(item => {
+                cartItemsContainer.innerHTML += `
                     <div class="cart-item">
                         <h3>${item.name}</h3>
                         <p>Цена: ${item.price} руб.</p>
@@ -46,15 +42,14 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
                 `;
             });
         } else {
-            productCheckout.innerHTML = "<p>Ваша корзина пуста.</p>";
+            cartItemsContainer.innerHTML = "<p>Ваша корзина пуста.</p>";
         }
     });
 
     const orderForm = document.getElementById('order-form');
     orderForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        // Здесь вы можете добавить обработку отправки формы
-        alert("Заказ оформлен!"); // Пример уведомления
+        alert("Заказ оформлен!"); // Здесь можно добавить обработку отправки формы
     });
 </script>
 
