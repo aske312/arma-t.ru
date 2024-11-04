@@ -2,7 +2,7 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php"); // Подключение Bitrix API
 
 function getSectionImage($itemId) {
-    $catalogIblockId = 5;
+    $catalogIblockId = 'catalog';
 
     $element = CIBlockElement::GetByID($itemId)->GetNextElement();
 
