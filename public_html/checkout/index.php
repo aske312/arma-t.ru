@@ -5,16 +5,8 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
 ?>
 
 <div class="section-title">
-    <h2>Оформление заказа</h2>
+    <h2>Оформление заказа</h2> <!-- Название раздела -->
     <p>Товары в корзине</p>
-</div>
-
-<div id="cart-items">
-    <div class="product-checkout" id="product-checkout">
-        <!-- Здесь будет вывод корзины -->
-    </div>
-
-    <button class="back-button" onclick="history.back()">Назад</button>
 </div>
 
 <form class="order-form" id="order-form">
@@ -30,18 +22,21 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
     <button type="submit">Оформить заказ</button>
 </form>
 
+<div id="cart-items">
+    <div class="product-checkout" id="product-checkout">
+        <!-- Здесь будет вывод корзины -->
+    </div>
+</div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        // Извлекаем данные из localStorage
+        const data = JSON.parse(localStorage.getItem('cartItems'));
         const productCheckout = document.getElementById('product-checkout');
 
-        // Отладка: Выводим содержимое cartItems в консоль
-        console.log(cartItems);
-
-        if (cartItems.length === 0) {
-            productCheckout.innerHTML = "<p>Ваша корзина пуста.</p>";
-        } else {
-            cartItems.forEach(item => {
+        // Проверяем, есть ли товары в корзине
+        if (data && data.length > 0) {
+            data.forEach(item => {
                 productCheckout.innerHTML += `
                     <div class="cart-item">
                         <h3>${item.name}</h3>
@@ -50,12 +45,15 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
                     </div>
                 `;
             });
+        } else {
+            productCheckout.innerHTML = "<p>Ваша корзина пуста.</p>";
         }
     });
 
     const orderForm = document.getElementById('order-form');
     orderForm.addEventListener('submit', (event) => {
         event.preventDefault();
+        // Здесь вы можете добавить обработку отправки формы
         alert("Заказ оформлен!"); // Пример уведомления
     });
 </script>
