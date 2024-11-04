@@ -9,6 +9,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
     <p>Товары в корзине</p>
 </div>
 
+<div id="cart-items">
+    <div class="product-checkout" id="product-checkout">
+        <!-- Здесь будет вывод корзины -->
+    </div>
+</div>
+
 <form class="order-form" id="order-form">
     <h2>Ваши данные</h2>
     <label for="name">Имя:</label>
@@ -21,12 +27,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // CSS
     <textarea id="address" name="address" required></textarea>
     <button type="submit">Оформить заказ</button>
 </form>
-
-<div id="cart-items">
-    <div class="product-checkout" id="product-checkout">
-        <!-- Здесь будет вывод корзины -->
-    </div>
-</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
