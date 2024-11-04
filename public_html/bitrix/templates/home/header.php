@@ -120,6 +120,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 const imageUrl = item.image || '/path/to/default/section/image.jpg';
 
                 const cartItemHTML = `
+                <!--
 //                    <div class="cart-item-card">
 //                        <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
 //                        <div class="cart-item-details">
@@ -133,7 +134,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 //                            <p class="cart-item-total">${itemTotal} руб.</p>
 //                            <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
 //                        </div>
-//                    </div>
+//                    </div> -->
 
                     <div class="cart-item-card">
                         <!-- Блок деталей товара -->
