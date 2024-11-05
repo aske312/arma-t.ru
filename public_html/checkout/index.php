@@ -4,55 +4,62 @@ use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключение CSS
 ?>
 
-<h2>Корзина покупок</h2>
-<div id="cart-items"></div>
-<div class="cart-summary" id="cart-total"></div>
+    <h1>Корзина покупок</h1>
+    <div id="cart-items-container"></div>
+    <div class="total" id="total-amount">Общая сумма: 0 ₽</div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        loadCart();
+    // Функция для получения данных из localStorage и обработки их
+    function loadCart() {
+        // Получаем строку данных из localStorage по ключу "cartItem"
+        let cartDataString = localStorage.getItem('cartItem');
 
-        // Функция для загрузки данных из localStorage и отображения их
-        function loadCart() {
-            const cartData = JSON.parse(localStorage.getItem('cartItemsData'));
-            const cartItemsContainer = document.getElementById('cart-items');
-            const totalElement = document.getElementById('cart-total');
+        // Если данные есть, парсим их
+        if (cartDataString) {
+            try {
+                let cartData = JSON.parse(cartDataString);
 
-            // Очищаем контейнер перед заполнением
-            cartItemsContainer.innerHTML = '';
-            totalElement.innerHTML = '';
+                // Проверяем, что cartItems - это массив
+                if (cartData && Array.isArray(cartData.cartItems)) {
+                    // Контейнер для товаров
+                    let cartItemsContainer = document.getElementById('cart-items-container');
+                    cartItemsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых данных
 
-            if (!cartData || !Array.isArray(cartData.cartItems) || cartData.cartItems.length === 0) {
-                cartItemsContainer.innerHTML = "<p>Ваша корзина пуста.</p>";
-                totalElement.innerHTML = "Общая сумма: 0 руб.";
-                return;
+                    // Перебираем товары и выводим их
+                    cartData.cartItems.forEach(item => {
+                        let itemDiv = document.createElement('div');
+                        itemDiv.classList.add('cart-item');
+
+                        itemDiv.innerHTML = `
+                            <span><strong>Название:</strong> ${item.name}</span>
+                            <span><strong>Цена:</strong> ${item.price} ₽</span>
+                            <span><strong>Количество:</strong> ${item.quantity}</span>
+                        `;
+
+                        cartItemsContainer.appendChild(itemDiv);
+                    });
+
+                    // Рассчитываем общую сумму
+                    let totalAmount = cartData.cartItems.reduce((total, item) => {
+                        let price = parseFloat(item.price) || 0; // Преобразуем цену в число
+                        return total + (price * item.quantity); // Умножаем цену на количество
+                    }, 0);
+
+                    // Обновляем значение общей суммы на странице
+                    document.getElementById('total-amount').innerText = `Общая сумма: ${totalAmount} ₽`;
+
+                } else {
+                    console.error("Неверная структура данных в cartItems");
+                }
+            } catch (error) {
+                console.error("Ошибка при парсинге данных из localStorage:", error);
             }
-
-            let totalSum = 0;
-
-            // Перебираем все товары в корзине
-            cartData.cartItems.forEach(item => {
-                const itemPrice = parseFloat(item.price) || 0;
-                const itemTotal = itemPrice * item.quantity;
-                totalSum += itemTotal;
-
-                const cartItemHTML = `
-                    <div class="cart-item">
-                        <h3>${item.name}</h3>
-                        <p><strong>Артикул:</strong> ${item.article || 'Не указан'}</p>
-                        <p><strong>Цена:</strong> ${itemPrice.toFixed(2)} руб.</p>
-                        <p><strong>Количество:</strong> ${item.quantity}</p>
-                        <p><strong>Сумма:</strong> ${itemTotal.toFixed(2)} руб.</p>
-                    </div>
-                `;
-
-                cartItemsContainer.innerHTML += cartItemHTML;
-            });
-
-            // Отображаем общую сумму
-            totalElement.innerHTML = `Общая сумма: ${totalSum.toFixed(2)} руб.`;
+        } else {
+            console.log("Нет данных в localStorage по ключу 'cartItem'");
         }
-    });
-</script>
+    }
 
+    // Загружаем корзину при загрузке страницы
+    window.onload = loadCart;
+</script>
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
