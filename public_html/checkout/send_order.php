@@ -1,8 +1,6 @@
 <?php
-// Ключ из Google reCAPTCHA
 $secret = '6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX';
 
-// Проверка, была ли отправлена капча
 if (isset($_POST['g-recaptcha-response'])) {
     $recaptchaResponse = $_POST['g-recaptcha-response'];
     $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $recaptchaResponse;
@@ -55,6 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $to = 'support@arma-t.ru';
     $subject = "Новый заказ от $name";
-    mail($to, $subject, $body, $headers);
+
+    // Отправка письма
+    if (mail($to, $subject, $body, $headers)) {
+        echo 'Ваша заявка оформлена!';
+    } else {
+        echo 'Ошибка: Упс. Что-то пошло не так, обратитесь в support@arma-t.ru';
+    }
 }
 ?>
