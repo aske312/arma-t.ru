@@ -238,9 +238,9 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         });
 
         // Открытие модального окна
-        function openForm() {
-            document.getElementById('Form').classList.add('active');
-        }
+//        function openForm() {
+//            document.getElementById('Form').classList.add('active');
+//        }
 
         // Закрытие модального окна при клике вне формы
         window.onclick = function(event) {
