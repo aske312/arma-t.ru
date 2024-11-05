@@ -36,7 +36,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         let totalSum = 0;
 
         // Проверка наличия товаров в корзине
-        if (data && data.cartItems && data.cartItems.length > 0) {
+        if (data && data.cartItems && Array.isArray(data.cartItems) && data.cartItems.length > 0) {
             data.cartItems.forEach(item => {
                 const itemTotal = (parseFloat(item.price) * item.quantity).toFixed(2);
                 totalSum += parseFloat(itemTotal);
