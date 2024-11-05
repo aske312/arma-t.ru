@@ -48,7 +48,7 @@
     border: 1px solid #ddd;
     background-color: #fff;
     border-radius: 5px;
-    position: relative; /* Чтобы кнопка "Удалить" могла быть в правом верхнем углу */
+    position: relative; /* Для размещения кнопки удаления */
 }
 
 /* Стили для изображения товара */
@@ -94,16 +94,19 @@
 /* Кнопка удаления товара (крестик) */
 .remove-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #888;
-    font-size: 20px;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    color: #333; /* Черный цвет */
+    border: none;
     cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .remove-button:hover {
-    color: #c9302c;
-    text-decoration: none;
+    background-color: #d9534f; /* Подсветка фона красным при наведении */
+    color: white; /* Белый цвет текста на красном фоне */
 }
 
 /* Стили для кнопок "Минус" и "Плюс" */
@@ -116,50 +119,27 @@
 .quantity-btn {
     width: 30px;
     height: 30px;
-    background-color: #2654A2;
-    color: white;
+    background-color: transparent;
+    color: #333; /* Черный цвет */
     border: none;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
 }
 
 .quantity-btn:hover {
-    background-color: #0056b3;
+    background-color: transparent; /* Нет фона при наведении */
 }
 
 .quantity-btn.minus {
-    background-color: #d9534f;
-}
-
-.quantity-btn.plus {
-    background-color: #5bc0de;
-}
-
-.quantity-btn.minus:hover {
-    background-color: #c9302c;
-}
-
-.quantity-btn.plus:hover {
-    background-color: #31b0d5;
-}
-
-.quantity-input {
-    width: 50px;
-    text-align: center;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* Стиль для общей суммы */
-.total {
-    margin-top: 20px;
-    font-size: 18px;
     font-weight: bold;
 }
 
-/* Стили для кнопок "Назад" и "Оформить" */
+.quantity-btn.plus {
+    font-weight: bold;
+}
+
+/* Кнопки "Назад" и "Оформить" */
 .button-group {
     text-align: center;
     margin-top: 20px;
@@ -220,7 +200,6 @@
     color: #333;
 }
 
-/* Стили для формы оформления заказа */
 .order-form {
     display: flex;
     flex-direction: column;
