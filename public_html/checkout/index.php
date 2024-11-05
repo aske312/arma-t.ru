@@ -66,7 +66,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                                         `<div class="product-image"><div class="placeholder">Нет изображения</div></div>`;
 
                         // Если цена = 0, показываем "Цена под заказ"
-                        let priceText = item.price == 0 || !item.price ? "Цена под заказ" : `${item.price} ₽`;
+                        let priceText = item.price == 0 || !item.price ? "под заказ" : `${item.price} ₽`;
 
                         itemDiv.innerHTML = `
                             ${imageHTML}
@@ -148,7 +148,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
         // Если цена товара 0 или не определена, показываем "Цена под заказ"
         if (totalAmount === 0) {
-            document.getElementById('total-amount').innerText = `Общая сумма: Цена под заказ`;
+            document.getElementById('total-amount').innerText = `Общая сумма: под заказ`;
         } else {
             document.getElementById('total-amount').innerText = `Общая сумма: ${totalAmount} ₽`;
         }
