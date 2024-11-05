@@ -217,6 +217,8 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             updateCartCount();
         });
 
+        updateCartCount();
+
         document.getElementById('checkout').addEventListener('click', function() {
             window.location.href = '/checkout/';
         });
@@ -287,5 +289,4 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             xhr.send(formData);
         });
 
-        updateCartCount();
     </script>
