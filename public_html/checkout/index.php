@@ -45,7 +45,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <!-- Подключение hCaptcha -->
                 <div class="h-captcha" data-sitekey="e65ad604-705a-4100-ab24-5cce1a363332"></div>
 
-                <button type="submit" class="order-button">Оформить заказ</button>
+                <button id="order-create" type="submit" class="order-button" disabled>Оформить заказ</button>
             </form>
         </div>
     </div>
@@ -53,45 +53,76 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script>
-    document.getElementById('order-form').addEventListener('submit', function (e) {
-        e.preventDefault(); // Предотвращаем перезагрузку страницы
+    document.addEventListener('DOMContentLoaded', function () {
+        const orderForm = document.getElementById('order-form');
+        const orderButton = document.getElementById('order-create');
+        const hCaptcha = document.querySelector('.h-captcha');
 
-        // Получаем данные корзины из localStorage и добавляем в форму
-        const cartItems = localStorage.getItem('cartItems');
-        document.getElementById('cartData').value = cartItems;
+        // Функция для проверки заполненности формы
+        function checkFormValidity() {
+            const isFormFilled = [...orderForm.querySelectorAll('input, textarea')].every(input => input.value.trim() !== '');
+            const isCaptchaValid = hcaptcha.getResponse().length > 0; // Проверяем, что капча пройдена
 
-        // Получаем ответ hCaptcha
-        const hcaptchaResponse = hcaptcha.getResponse();
-
-        if (!hcaptchaResponse) {
-            alert('Пожалуйста, подтвердите, что вы не робот.');
-            return; // Если капча не пройдена, не отправляем форму
+            // Если все поля заполнены и капча пройдена, активируем кнопку
+            if (isFormFilled && isCaptchaValid) {
+                orderButton.disabled = false; // Включаем кнопку
+            } else {
+                orderButton.disabled = true; // Выключаем кнопку
+            }
         }
 
-        // Формируем данные для отправки на сервер
-        var formData = new FormData(this);
-        formData.append('h-captcha-response', hcaptchaResponse); // Добавляем ответ hCaptcha в форму
+        // Добавляем обработчики событий для всех полей формы
+        orderForm.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('input', checkFormValidity); // Проверка при каждом изменении данных в поле
+        });
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'send_order.php', true);
+        // Проверяем капчу при ее изменении
+        hCaptcha.addEventListener('change', checkFormValidity);
 
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
+        // Функция для отправки формы
+        orderForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Предотвращаем перезагрузку страницы
 
-                if (response.status === 'success') {
-                    alert(response.message); // Показываем сообщение о успешном заказе
-                    localStorage.removeItem('cartItems'); // Очищаем корзину
-                    window.location.href = '/'; // Перенаправляем на главную страницу
-                } else {
-                    alert(response.message); // Показываем ошибку
-                }
-            } else {
-                alert('Произошла ошибка при оформлении заказа.');
+            // Получаем данные корзины из localStorage и добавляем в форму
+            const cartItems = localStorage.getItem('cartItems');
+            document.getElementById('cartData').value = cartItems;
+
+            // Получаем ответ hCaptcha
+            const hcaptchaResponse = hcaptcha.getResponse();
+
+            if (!hcaptchaResponse) {
+                alert('Пожалуйста, подтвердите, что вы не робот.');
+                return; // Если капча не пройдена, не отправляем форму
             }
-        };
 
-        xhr.send(formData);
+            // Формируем данные для отправки на сервер
+            var formData = new FormData(this);
+            formData.append('h-captcha-response', hcaptchaResponse); // Добавляем ответ hCaptcha в форму
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'send_order.php', true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.status === 'success') {
+                        alert(response.message); // Показываем сообщение о успешном заказе
+                        localStorage.removeItem('cartItems'); // Очищаем корзину
+                        window.location.href = '/'; // Перенаправляем на главную страницу
+                    } else {
+                        alert(response.message); // Показываем ошибку
+                    }
+                } else {
+                    alert('Произошла ошибка при оформлении заказа.');
+                }
+            };
+
+            xhr.send(formData);
+        });
+
+        // Загружаем корзину при загрузке страницы
+        loadCart();
     });
 
     function loadCart() {
@@ -146,6 +177,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         }
     }
 
+    // Функции для обновления количества, удаления товаров и пересчета суммы:
     function updateQuantity(event) {
         const index = event.target.getAttribute('data-index');
         let cartData = JSON.parse(localStorage.getItem('cartItems'));
@@ -156,49 +188,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         } else {
             localStorage.setItem('cartItems', JSON.stringify(cartData));
             loadCart();
-        }
-    }
-
-    // Функция для получения изображения товара
-    function getItemImage(item) {
-        if (item.image) {
-            return item.image; // если картинка есть, то возвращаем её
-        }
-
-        // Если нет картинки в данных товара, пытаемся получить из инфоблока
-        let infoblockImage = getInfoblockImage(item.sku);
-        if (infoblockImage) {
-            return infoblockImage; // возвращаем картинку из инфоблока
-        }
-
-        // Если изображения нет в товаре или инфоблоке, ставим заглушку
-        return '/resources/img/production/0.png'; // путь к заглушке
-    }
-
-    // Имитация функции для получения изображения из инфоблока
-    function getInfoblockImage(sku) {
-        // Например, запрос из инфоблока по SKU или ID (можно заменить на настоящий запрос к API Битрикса)
-        let imageURL = null;
-
-        // Здесь можно сделать запрос к Битриксу, например, с помощью AJAX или API
-        // Пример:
-        // imageURL = getImageFromInfoblock(sku); // Получаем картинку из инфоблока
-
-        return imageURL; // или null, если не нашли изображение
-    }
-
-    // Обновление общей суммы товаров в корзине
-    function updateTotal(cartItems) {
-        let totalAmount = cartItems.reduce((total, item) => {
-            let price = parseFloat(item.price) || 0; // Преобразуем цену в число
-            return total + (price * item.quantity); // Умножаем цену на количество
-        }, 0);
-
-        // Если цена товара 0 или не определена, показываем "Цена под заказ"
-        if (totalAmount === 0) {
-            document.getElementById('total-amount').innerText = `Итоговая сумма: под заказ`;
-        } else {
-            document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount.toFixed(2)}₽`;
         }
     }
 
@@ -220,7 +209,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         }
     }
 
-    // Удаление товара из корзины
     function removeItem(event) {
         const index = event.target.getAttribute('data-index');
         let cartData = JSON.parse(localStorage.getItem('cartItems'));
@@ -240,28 +228,8 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
             let price = parseFloat(item.price) || 0;
             return total + (price * item.quantity);
         }, 0);
-        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount}₽`;
+        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount.toFixed(2)}₽`;
     }
-
-    // Открытие формы оформления заказа
-    document.getElementById('order-btn').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'flex';
-    });
-
-    // Закрытие формы
-    document.getElementById('close-modal').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'none';
-    });
-
-    // Закрытие формы при отправке
-    document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Заказ оформлен!');
-        document.querySelector('.modal').style.display = 'none';
-    });
-
-    // Загружаем корзину при загрузке страницы
-    window.onload = loadCart;
 </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
