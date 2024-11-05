@@ -13,10 +13,11 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
     <div class="product-checkout" id="product-checkout">
         <!-- Здесь будет вывод корзины -->
     </div>
-    <div class="total" id="total-amount">Общая сумма: 0 ₽</div>
 </div>
 
 <button onclick="history.back()" class="back-button">Назад</button>
+
+<div class="total" id="total-amount">Общая сумма: 0 ₽</div>
 
 <form class="order-form" id="order-form">
     <h2>Ваши данные</h2>
@@ -53,14 +54,25 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                         let itemDiv = document.createElement('div');
                         itemDiv.classList.add('cart-item');
 
+                        // Если цена = 0, показываем "Под заказ"
+                        let priceText = item.price == 0 ? "Под заказ" : `${item.price} ₽`;
+
                         itemDiv.innerHTML = `
                             <div class="product-details">
-                                <span><strong>Название:</strong> ${item.name}</span>
-                                <span><strong>Цена:</strong> ${item.price} ₽</span>
-                                <span><strong>Количество:</strong>
-                                    <input type="number" min="1" value="${item.quantity}" class="quantity-input" data-index="${index}" />
-                                </span>
-                                <button class="remove-button" data-index="${index}">Удалить</button>
+                                <div class="product-image">
+                                    <img src="${item.image}" alt="${item.name}">
+                                </div>
+                                <div class="product-info">
+                                    <span><strong>Название:</strong> ${item.name}</span>
+                                    <span><strong>Артикул:</strong> ${item.sku}</span>
+                                    <span><strong>Цена:</strong> ${priceText}</span>
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn minus" data-index="${index}">-</button>
+                                        <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
+                                        <button class="quantity-btn plus" data-index="${index}">+</button>
+                                    </div>
+                                    <button class="remove-button" data-index="${index}">❌ Удалить</button>
+                                </div>
                             </div>
                         `;
 
@@ -70,6 +82,10 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                     // Добавляем обработчики для изменения количества и удаления товара
                     document.querySelectorAll('.quantity-input').forEach(input => {
                         input.addEventListener('change', updateQuantity);
+                    });
+
+                    document.querySelectorAll('.quantity-btn').forEach(button => {
+                        button.addEventListener('click', adjustQuantity);
                     });
 
                     document.querySelectorAll('.remove-button').forEach(button => {
@@ -98,11 +114,39 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         // Изменяем количество
         cartData.cartItems[index].quantity = parseInt(event.target.value) || 1;
 
-        // Сохраняем изменённые данные обратно в localStorage
-        localStorage.setItem('cartItems', JSON.stringify(cartData));
+        // Если количество товара 0 или меньше, удаляем товар
+        if (cartData.cartItems[index].quantity <= 0) {
+            removeItem({ target: document.querySelector(`.remove-button[data-index="${index}"]`) });
+        } else {
+            // Сохраняем изменённые данные обратно в localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartData));
 
-        // Перезагружаем корзину
-        loadCart();
+            // Перезагружаем корзину
+            loadCart();
+        }
+    }
+
+    // Увеличение или уменьшение количества товара
+    function adjustQuantity(event) {
+        const index = event.target.getAttribute('data-index');
+        let cartData = JSON.parse(localStorage.getItem('cartItems'));
+
+        if (event.target.classList.contains('plus')) {
+            cartData.cartItems[index].quantity++;
+        } else if (event.target.classList.contains('minus') && cartData.cartItems[index].quantity > 0) {
+            cartData.cartItems[index].quantity--;
+        }
+
+        // Если количество товара 0 или меньше, удаляем товар
+        if (cartData.cartItems[index].quantity <= 0) {
+            removeItem({ target: document.querySelector(`.remove-button[data-index="${index}"]`) });
+        } else {
+            // Сохраняем изменённые данные обратно в localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartData));
+
+            // Перезагружаем корзину
+            loadCart();
+        }
     }
 
     // Удаление товара из корзины
