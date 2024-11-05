@@ -4,34 +4,30 @@ use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключение CSS
 ?>
 
-<h1>Корзина покупок</h1>
+<div class="section-title">
+    <h2>Оформление заказа</h2> <!-- Название раздела -->
+    <p>Товары в корзине</p>
+</div>
 
-<!-- Кнопка "Назад" -->
+<div id="cart-items">
+    <div class="product-checkout" id="product-checkout">
+        <!-- Здесь будет вывод корзины -->
+    </div>
+    <div class="total" id="total-amount">Общая сумма: 0 ₽</div>
+</div>
+
 <button onclick="history.back()" class="back-button">Назад</button>
 
-<div id="cart-items-container"></div>
-
-<div class="total" id="total-amount">Общая сумма: 0 ₽</div>
-
-<!-- Форма обратной связи -->
-<h2>Оформление заказа</h2>
-<form id="order-form" action="/order" method="POST">
-    <div>
-        <label for="name">Ваше имя:</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-    <div>
-        <label for="email">Ваш email:</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div>
-        <label for="phone">Телефон:</label>
-        <input type="tel" id="phone" name="phone" required>
-    </div>
-    <div>
-        <label for="address">Адрес доставки:</label>
-        <textarea id="address" name="address" required></textarea>
-    </div>
+<form class="order-form" id="order-form">
+    <h2>Ваши данные</h2>
+    <label for="name">Имя:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="company">Компания:</label>
+    <input type="text" id="company" name="company" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="address">Адрес:</label>
+    <textarea id="address" name="address" required></textarea>
     <button type="submit">Оформить заказ</button>
 </form>
 
@@ -49,7 +45,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 // Проверяем, что cartItems - это массив
                 if (cartData && Array.isArray(cartData.cartItems)) {
                     // Контейнер для товаров
-                    let cartItemsContainer = document.getElementById('cart-items-container');
+                    let cartItemsContainer = document.getElementById('product-checkout');
                     cartItemsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых данных
 
                     // Перебираем товары и выводим их
@@ -58,12 +54,14 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                         itemDiv.classList.add('cart-item');
 
                         itemDiv.innerHTML = `
-                            <span><strong>Название:</strong> ${item.name}</span>
-                            <span><strong>Цена:</strong> ${item.price} ₽</span>
-                            <span><strong>Количество:</strong>
-                                <input type="number" min="1" value="${item.quantity}" class="quantity-input" data-index="${index}" />
-                            </span>
-                            <button class="remove-button" data-index="${index}">Удалить</button>
+                            <div class="product-details">
+                                <span><strong>Название:</strong> ${item.name}</span>
+                                <span><strong>Цена:</strong> ${item.price} ₽</span>
+                                <span><strong>Количество:</strong>
+                                    <input type="number" min="1" value="${item.quantity}" class="quantity-input" data-index="${index}" />
+                                </span>
+                                <button class="remove-button" data-index="${index}">Удалить</button>
+                            </div>
                         `;
 
                         cartItemsContainer.appendChild(itemDiv);
