@@ -1,6 +1,6 @@
 <?php
 // Ваш Secret Key для hCaptcha
-$secret = 'ES_822e9148d2e3439baf2fdbb7592e574a';
+$secret = 'e65ad604-705a-4100-ab24-5cce1a363332';
 $response = $_POST['h-captcha-response'];  // Ответ от пользователя на капчу
 $remoteip = $_SERVER['REMOTE_ADDR'];  // IP адрес пользователя
 
