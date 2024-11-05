@@ -66,14 +66,18 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                                         `<div class="product-image"><div class="placeholder">Нет изображения</div></div>`;
 
                         // Если цена = 0, показываем "Цена под заказ"
-                        let priceText = item.price == 0 || !item.price ? " под заказ" : `${item.price} ₽`;
+                        let priceText = item.price == 0 || !item.price ? "под заказ" : `${item.price} ₽`;
+
+                        // Основная цена товара (цена умноженная на количество)
+                        let totalItemPrice = item.price == 0 || !item.price ? "под заказ" : `${(item.price * item.quantity).toFixed(2)} ₽`;
 
                         itemDiv.innerHTML = `
                             ${imageHTML}
                             <div class="product-info">
                                 <span><strong>${item.name}</strong></span>
-                                <span>Артикул: <strong>${item.sku}</strong></span>
-                                <span class="price ${item.price == 0 ? 'price-soldout' : ''}">Цена: <strong>${priceText}</strong> </span>
+                                <span>Артикул:<strong>${item.sku}</strong></span>
+                                <span class="price ${item.price == 0 ? 'price-soldout' : ''}">Цена за единицу: <strong>${priceText}</strong></span>
+                                <span class="total-item-price">Основная цена:<strong>${totalItemPrice}</strong></span>
                                 <div class="quantity-control">
                                     <button class="quantity-btn minus" data-index="${index}">-</button>
                                     <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
@@ -150,7 +154,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         if (totalAmount === 0) {
             document.getElementById('total-amount').innerText = `Общая сумма: под заказ`;
         } else {
-            document.getElementById('total-amount').innerText = `Общая сумма: ${totalAmount} ₽`;
+            document.getElementById('total-amount').innerText = `Общая сумма: ${totalAmount.toFixed(2)} ₽`;
         }
     }
 
