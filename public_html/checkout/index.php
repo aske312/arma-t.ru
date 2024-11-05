@@ -45,7 +45,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <!-- Подключение hCaptcha -->
                 <div class="h-captcha" data-sitekey="e65ad604-705a-4100-ab24-5cce1a363332"></div>
 
-                <button id="order-create" type="submit" class="order-button">Оформить заказ</button>
+                <button type="submit" class="order-button">Оформить заказ</button>
             </form>
         </div>
     </div>
@@ -53,6 +53,47 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script>
+    document.getElementById('order-form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Предотвращаем перезагрузку страницы
+
+        // Получаем данные корзины из localStorage и добавляем в форму
+        const cartItems = localStorage.getItem('cartItems');
+        document.getElementById('cartData').value = cartItems;
+
+        // Получаем ответ hCaptcha
+        const hcaptchaResponse = hcaptcha.getResponse();
+
+        if (!hcaptchaResponse) {
+            alert('Пожалуйста, подтвердите, что вы не робот.');
+            return; // Если капча не пройдена, не отправляем форму
+        }
+
+        // Формируем данные для отправки на сервер
+        var formData = new FormData(this);
+        formData.append('h-captcha-response', hcaptchaResponse); // Добавляем ответ hCaptcha в форму
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'send_order.php', true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.status === 'success') {
+                    alert(response.message); // Показываем сообщение о успешном заказе
+                    localStorage.removeItem('cartItems'); // Очищаем корзину
+                    window.location.href = '/'; // Перенаправляем на главную страницу
+                } else {
+                    alert(response.message); // Показываем ошибку
+                }
+            } else {
+                alert('Произошла ошибка при оформлении заказа.');
+            }
+        };
+
+        xhr.send(formData);
+    });
+
     function loadCart() {
         let cartDataString = localStorage.getItem('cartItems');
         if (cartDataString) {
@@ -104,78 +145,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
             }
         }
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const orderForm = document.getElementById('order-form');
-        const orderButton = document.getElementById('order-create');
-        const hCaptcha = document.querySelector('.h-captcha');
-
-        // Функция для проверки заполненности формы
-        function checkFormValidity() {
-            const isFormFilled = [...orderForm.querySelectorAll('input, textarea')].every(input => input.value.trim() !== '');
-            const isCaptchaValid = hcaptcha.getResponse().length > 0; // Проверяем, что капча пройдена
-
-            // Если все поля заполнены и капча пройдена, активируем кнопку
-            if (isFormFilled && isCaptchaValid) {
-                orderButton.disabled = false; // Включаем кнопку
-            } else {
-                orderButton.disabled = true; // Выключаем кнопку
-            }
-        }
-
-        // Добавляем обработчики событий для всех полей формы
-        orderForm.querySelectorAll('input, textarea').forEach(input => {
-            input.addEventListener('input', checkFormValidity); // Проверка при каждом изменении данных в поле
-        });
-
-        // Проверяем капчу при ее изменении
-        hCaptcha.addEventListener('change', checkFormValidity);
-
-        // Функция для отправки формы
-        orderForm.addEventListener('submit', function (e) {
-            e.preventDefault(); // Предотвращаем перезагрузку страницы
-
-            // Получаем данные корзины из localStorage и добавляем в форму
-            const cartItems = localStorage.getItem('cartItems');
-            document.getElementById('cartData').value = cartItems;
-
-            // Получаем ответ hCaptcha
-            const hcaptchaResponse = hcaptcha.getResponse();
-
-            if (!hcaptchaResponse) {
-                alert('Пожалуйста, подтвердите, что вы не робот.');
-                return; // Если капча не пройдена, не отправляем форму
-            }
-
-            // Формируем данные для отправки на сервер
-            var formData = new FormData(this);
-            formData.append('h-captcha-response', hcaptchaResponse); // Добавляем ответ hCaptcha в форму
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'send_order.php', true);
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-
-                    if (response.status === 'success') {
-                        alert(response.message); // Показываем сообщение о успешном заказе
-                        localStorage.removeItem('cartItems'); // Очищаем корзину
-                        window.location.href = '/'; // Перенаправляем на главную страницу
-                    } else {
-                        alert(response.message); // Показываем ошибку
-                    }
-                } else {
-                    alert('Произошла ошибка при оформлении заказа.');
-                }
-            };
-
-            xhr.send(formData);
-        });
-
-        // Загружаем корзину при загрузке страницы
-        loadCart();
-    });
 
     function updateQuantity(event) {
         const index = event.target.getAttribute('data-index');
