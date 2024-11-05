@@ -44,14 +44,19 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <textarea id="address" name="address" required></textarea>
                 <input type="hidden" id="cartData" name="cartData">
                 <div class="g-recaptcha" data-sitekey="6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></div>
-                <button type="submit">Оформить заказ</button>
+                <button type="submit" class="g-recaptcha" data-sitekey="6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"
+                    data-callback='onSubmit' data-action='submit'>Оформить заказ</button>
             </form>
         </div>
     </div>
 </div>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></script>
 <script>
+    function onSubmit(token) {
+        document.getElementById("order-form").submit();
+    }
+
     document.getElementById('order-form').addEventListener('submit', function (e) {
         e.preventDefault(); // Предотвращаем перезагрузку страницы
 
