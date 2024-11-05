@@ -3,11 +3,9 @@
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключение CSS
 ?>
-
 <div class="checkout">
-
     <div class="section-title">
-        <h2>Оформление заказа</h2> <!-- Название раздела -->
+        <h2>Оформление заказа</h2>
         <p>Товары в корзине</p>
     </div>
 
@@ -15,6 +13,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         <div class="product-checkout" id="product-checkout">
             <!-- Здесь будет вывод корзины -->
         </div>
+        <div class="total" id="total-amount">Общая сумма: 0 ₽</div>
     </div>
 
     <!-- Кнопки "Назад" и "Оформить" -->
@@ -43,51 +42,46 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 <script>
     // Функция для получения данных из localStorage и обработки их
     function loadCart() {
-        // Получаем строку данных из localStorage по ключу "cartItems"
         let cartDataString = localStorage.getItem('cartItems');
 
-        // Если данные есть, парсим их
         if (cartDataString) {
             try {
                 let cartData = JSON.parse(cartDataString);
 
-                // Проверяем, что cartItems - это массив
                 if (cartData && Array.isArray(cartData.cartItems)) {
-                    // Контейнер для товаров
                     let cartItemsContainer = document.getElementById('product-checkout');
-                    cartItemsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых данных
+                    cartItemsContainer.innerHTML = '';
 
-                    // Перебираем товары и выводим их
                     cartData.cartItems.forEach((item, index) => {
                         let itemDiv = document.createElement('div');
                         itemDiv.classList.add('cart-item');
 
+                        // Проверка на наличие изображения
+                        let imageHTML = item.image ?
+                                        `<div class="product-image"><img src="${item.image}" alt="${item.name}"></div>` :
+                                        `<div class="product-image"><div class="placeholder">Нет изображения</div></div>`;
+
                         // Если цена = 0, показываем "Под заказ"
-                        let priceText = item.price == 0 ? "Под заказ" : `${item.price} ₽`;
+                        let priceText = item.price == 0 ? "Цена под заказ" : `${item.price} ₽`;
 
                         itemDiv.innerHTML = `
-                            <div class="product-details">
-                                <div class="product-image">
-                                    <img src="${item.image}" alt="${item.name}">
+                            ${imageHTML}
+                            <div class="product-info">
+                                <span><strong>Название:</strong> ${item.name}</span>
+                                <span><strong>Артикул:</strong> ${item.sku}</span>
+                                <span class="price ${item.price == 0 ? 'price-soldout' : ''}"><strong>Цена:</strong> ${priceText}</span>
+                                <div class="quantity-control">
+                                    <button class="quantity-btn minus" data-index="${index}">-</button>
+                                    <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
+                                    <button class="quantity-btn plus" data-index="${index}">+</button>
                                 </div>
-                                <div class="product-info">
-                                    <span><strong>Название:</strong> ${item.name}</span>
-                                    <span><strong>Артикул:</strong> ${item.sku}</span>
-                                    <span><strong>Цена:</strong> ${priceText}</span>
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn minus" data-index="${index}">-</button>
-                                        <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
-                                        <button class="quantity-btn plus" data-index="${index}">+</button>
-                                    </div>
-                                    <button class="remove-button" data-index="${index}">❌ Удалить</button>
-                                </div>
+                                <button class="remove-button" data-index="${index}">❌</button>
                             </div>
                         `;
-
                         cartItemsContainer.appendChild(itemDiv);
                     });
 
-                    // Добавляем обработчики для изменения количества и удаления товара
+                    // Обработчики событий
                     document.querySelectorAll('.quantity-input').forEach(input => {
                         input.addEventListener('change', updateQuantity);
                     });
@@ -100,9 +94,8 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                         button.addEventListener('click', removeItem);
                     });
 
-                    // Рассчитываем общую сумму
+                    // Обновляем общую сумму
                     updateTotal(cartData.cartItems);
-
                 } else {
                     console.error("Неверная структура данных в cartItems");
                 }
@@ -179,9 +172,21 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
             return total + (price * item.quantity); // Умножаем цену на количество
         }, 0);
 
-        // Обновляем значение общей суммы на странице внутри блока товаров
+        // Обновляем значение общей суммы на странице
         document.getElementById('total-amount').innerText = `Общая сумма: ${totalAmount} ₽`;
     }
+
+    // Открытие формы оформления заказа
+    document.getElementById('order-btn').addEventListener('click', function() {
+        document.querySelector('.order-form').style.display = 'block';
+    });
+
+    // Закрытие формы по отправке
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Заказ оформлен!');
+        document.querySelector('.order-form').style.display = 'none';
+    });
 
     // Загружаем корзину при загрузке страницы
     window.onload = loadCart;
