@@ -45,7 +45,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <!-- Подключение hCaptcha -->
                 <div class="h-captcha" data-sitekey="e65ad604-705a-4100-ab24-5cce1a363332"></div>
 
-                <button type="submit" class="order-button">Оформить заказ</button>
+                <button type="submit" class="order-button" disabled>Оформить заказ</button>
             </form>
         </div>
     </div>
@@ -93,6 +93,45 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
         xhr.send(formData);
     });
+
+    // Функция для обновления состояния кнопки отправки формы
+    function updateOrderButtonState() {
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const company = document.getElementById('company').value;
+        const inn = document.getElementById('inn').value;
+        const email = document.getElementById('email').value;
+        const address = document.getElementById('address').value;
+
+        const isFormFilled = name && phone && company && inn && email && address;
+        const isCaptchaValid = hcaptcha.getResponse() !== "";
+
+        // Активируем кнопку, если все поля заполнены и капча пройдена
+        document.querySelector('.order-button').disabled = !(isFormFilled && isCaptchaValid);
+    }
+
+    // Следим за изменениями в полях формы
+    document.querySelectorAll('#order-form input, #order-form textarea').forEach(input => {
+        input.addEventListener('input', updateOrderButtonState);
+    });
+
+    // Следим за ответом капчи
+    hcaptcha.on('change', function() {
+        updateOrderButtonState();
+    });
+
+    // Открытие формы оформления заказа
+    document.getElementById('order-btn').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'flex';
+    });
+
+    // Закрытие формы
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'none';
+    });
+
+    // Загружаем корзину при загрузке страницы
+    window.onload = loadCart;
 
     function loadCart() {
         let cartDataString = localStorage.getItem('cartItems');
@@ -150,41 +189,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         const index = event.target.getAttribute('data-index');
         let cartData = JSON.parse(localStorage.getItem('cartItems'));
         cartData.cartItems[index].quantity = parseInt(event.target.value) || 1;
-
         if (cartData.cartItems[index].quantity <= 0) {
             removeItem({ target: document.querySelector(`.remove-button[data-index="${index}"]`) });
         } else {
             localStorage.setItem('cartItems', JSON.stringify(cartData));
             loadCart();
         }
-    }
-
-    // Функция для получения изображения товара
-    function getItemImage(item) {
-        if (item.image) {
-            return item.image; // если картинка есть, то возвращаем её
-        }
-
-        // Если нет картинки в данных товара, пытаемся получить из инфоблока
-        let infoblockImage = getInfoblockImage(item.sku);
-        if (infoblockImage) {
-            return infoblockImage; // возвращаем картинку из инфоблока
-        }
-
-        // Если изображения нет в товаре или инфоблоке, ставим заглушку
-        return '/resources/img/production/0.png'; // путь к заглушке
-    }
-
-    // Имитация функции для получения изображения из инфоблока
-    function getInfoblockImage(sku) {
-        // Например, запрос из инфоблока по SKU или ID (можно заменить на настоящий запрос к API Битрикса)
-        let imageURL = null;
-
-        // Здесь можно сделать запрос к Битриксу, например, с помощью AJAX или API
-        // Пример:
-        // imageURL = getImageFromInfoblock(sku); // Получаем картинку из инфоблока
-
-        return imageURL; // или null, если не нашли изображение
     }
 
     // Обновление общей суммы товаров в корзине
@@ -202,6 +212,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         }
     }
 
+    // Изменение количества товара
     function adjustQuantity(event) {
         const index = event.target.getAttribute('data-index');
         let cartData = JSON.parse(localStorage.getItem('cartItems'));
@@ -235,14 +246,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         loadCart();
     }
 
-    function updateTotal(cartItems) {
-        let totalAmount = cartItems.reduce((total, item) => {
-            let price = parseFloat(item.price) || 0;
-            return total + (price * item.quantity);
-        }, 0);
-        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount}₽`;
-    }
-
     // Открытие формы оформления заказа
     document.getElementById('order-btn').addEventListener('click', function() {
         document.querySelector('.modal').style.display = 'flex';
@@ -250,13 +253,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
     // Закрытие формы
     document.getElementById('close-modal').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'none';
-    });
-
-    // Закрытие формы при отправке
-    document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Заказ оформлен!');
         document.querySelector('.modal').style.display = 'none';
     });
 
