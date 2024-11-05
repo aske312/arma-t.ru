@@ -2,6 +2,7 @@
 
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключение CSS
+session_start();
 ?>
 
 <div class="section-title">
@@ -34,24 +35,21 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        loadCartData();
-
-        // Загрузка данных из localStorage и отображение товаров
+        // Функция для загрузки и отображения корзины
         function loadCartData() {
-            const data = JSON.parse(localStorage.getItem('cartItems'));
+            const cartData = JSON.parse(localStorage.getItem('cartItems'));
             const cartItemsContainer = document.getElementById('cart-items');
             let totalSum = 0;
 
-            // Очищаем контейнер перед заполнением
-            cartItemsContainer.innerHTML = '';
+            cartItemsContainer.innerHTML = ''; // Очистка контейнера
 
-            if (!data || !data.cartItems || data.cartItems.length === 0) {
+            if (!cartData || !cartData.cartItems || cartData.cartItems.length === 0) {
                 cartItemsContainer.innerHTML = "<p>Ваша корзина пуста.</p>";
                 document.getElementById('cart-total').innerText = 'Общая сумма: 0 руб.';
                 return;
             }
 
-            data.cartItems.forEach(item => {
+            cartData.cartItems.forEach(item => {
                 const itemPrice = parseFloat(item.price) || 0;
                 const itemTotal = itemPrice * item.quantity;
                 totalSum += itemTotal;
@@ -73,23 +71,22 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 cartItemsContainer.innerHTML += cartItemHTML;
             });
 
-            // Обновление общей суммы
             document.getElementById('cart-total').innerText = totalSum > 0
                 ? `Общая сумма: ${totalSum.toFixed(2)} руб.`
                 : 'Общая сумма: Под заказ';
         }
 
-        // Функция для обновления количества товара
+        // Функция для изменения количества товара
         function updateQuantity(productId, delta) {
-            const data = JSON.parse(localStorage.getItem('cartItems'));
-            const item = data.cartItems.find(item => item.id === productId);
+            const cartData = JSON.parse(localStorage.getItem('cartItems'));
+            const item = cartData.cartItems.find(item => item.id === productId);
 
             if (item) {
                 item.quantity += delta;
                 if (item.quantity < 1) {
                     removeCartItem(productId);
                 } else {
-                    setCartItems(data.cartItems);
+                    setCartItems(cartData.cartItems);
                     loadCartData();
                 }
             }
@@ -97,35 +94,31 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
         // Функция для ручного изменения количества товара
         function updateQuantityManual(productId, value) {
-            const data = JSON.parse(localStorage.getItem('cartItems'));
-            const item = data.cartItems.find(item => item.id === productId);
+            const cartData = JSON.parse(localStorage.getItem('cartItems'));
+            const item = cartData.cartItems.find(item => item.id === productId);
 
             if (item) {
                 item.quantity = Math.max(1, parseInt(value) || 1);
-                setCartItems(data.cartItems);
+                setCartItems(cartData.cartItems);
                 loadCartData();
             }
         }
 
         // Функция для удаления товара из корзины
         function removeCartItem(productId) {
-            let data = JSON.parse(localStorage.getItem('cartItems'));
-            data.cartItems = data.cartItems.filter(item => item.id !== productId);
-            setCartItems(data.cartItems);
+            let cartData = JSON.parse(localStorage.getItem('cartItems'));
+            cartData.cartItems = cartData.cartItems.filter(item => item.id !== productId);
+            setCartItems(cartData.cartItems);
             loadCartData();
         }
 
-        // Сохранение корзины в localStorage
+        // Функция для сохранения корзины в localStorage
         function setCartItems(cartItems) {
-            const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000; // Устанавливаем срок действия на 3 дня
+            const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;
             localStorage.setItem('cartItems', JSON.stringify({ cartItems, expiry: expiryDate }));
         }
 
-        // Обработка отправки формы
-        document.getElementById('order-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert("Заказ оформлен!");
-        });
+        loadCartData(); // Загружаем корзину при загрузке страницы
     });
 </script>
 
