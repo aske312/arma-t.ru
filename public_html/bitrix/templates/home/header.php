@@ -60,7 +60,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
                         <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
                         <div class="form-actions-header">
-                            <button type="submit" id="submitButton">Отправить</button>
+                            <button type="submit" id="contactForm-header">Отправить</button>
                         </div>
                     </form>
                 </div>
@@ -260,53 +260,32 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         });
 
         // Обработчик отправки формы
-//        document.getElementById('contactForm-header').addEventListener('submit', function(e) {
-//            e.preventDefault(); // Предотвращаем перезагрузку страницы
-//
-//            // Собираем данные формы
-//            const formData = new FormData(this);
-//
-//            // Отправляем данные на сервер с помощью AJAX
-//            var xhr = new XMLHttpRequest();
-//            xhr.open('POST', 'send.php', true);
-//
-//            // Обработчик ответа
-//            xhr.onload = function() {
-//                if (xhr.status === 200) {
-//                    var response = JSON.parse(xhr.responseText);
-//                    if (response.status === 'success') {
-//                        alert('Ваша заявка успешно отправлена!');
-//                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
-//                        document.getElementById('contactForm-header').reset(); // Сброс формы
-//                    } else {
-//                        alert('Произошла ошибка при отправке заявки.');
-//                    }
-//                } else {
-//                    alert('Ошибка отправки заявки.');
-//                }
-//            };
-//
-//            xhr.send(formData);
-//        });
+        document.getElementById('contactForm-header').addEventListener('submit', function(e) {
+            e.preventDefault(); // Предотвращаем перезагрузку страницы
 
-        document.getElementById('contactForm-header').addEventListener('submit', function (e) {
-            e.preventDefault();  // Предотвращаем перезагрузку страницы
+            // Собираем данные формы
+            const formData = new FormData(this);
 
-            var formData = new FormData(this);
+            // Отправляем данные на сервер с помощью AJAX
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'send.php', true);
 
-            xhr.onload = function () {
+            // Обработчик ответа
+            xhr.onload = function() {
                 if (xhr.status === 200) {
-                    document.getElementById('contactForm').reset();
-                    document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
-                    alert('Ваше сообщение было успешно отправлено!');
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        alert('Ваша заявка успешно отправлена!');
+                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
+                        document.getElementById('contactForm-header').reset(); // Сброс формы
+                    } else {
+                        alert('Произошла ошибка при отправке заявки.');
+                    }
                 } else {
-                    alert('Произошла ошибка при отправке сообщения.');
+                    alert('Ошибка отправки заявки.');
                 }
             };
 
-            xhr.send(formData);  // Отправляем данные формы
+            xhr.send(formData);
         });
-
     </script>
