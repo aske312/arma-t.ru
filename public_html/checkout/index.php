@@ -49,9 +49,19 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
     </div>
 </div>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
     function onSubmit(token) {
-        document.getElementById("order-form").submit();
+        // Добавляем токен капчи в форму перед отправкой
+        var form = document.getElementById('order-form');
+        var recaptchaResponse = document.createElement('input');
+        recaptchaResponse.setAttribute('type', 'hidden');
+        recaptchaResponse.setAttribute('name', 'g-recaptcha-response');
+        recaptchaResponse.setAttribute('value', token);
+        form.appendChild(recaptchaResponse);
+
+        // Отправляем форму
+        form.submit();
     }
 
     document.getElementById('order-form').addEventListener('submit', function (e) {
