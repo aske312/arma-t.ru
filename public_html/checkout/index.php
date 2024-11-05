@@ -53,6 +53,58 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script>
+    function loadCart() {
+        let cartDataString = localStorage.getItem('cartItems');
+        if (cartDataString) {
+            let cartData = JSON.parse(cartDataString);
+
+            if (cartData && Array.isArray(cartData.cartItems)) {
+                let cartItemsContainer = document.getElementById('product-checkout');
+                cartItemsContainer.innerHTML = '';
+
+                cartData.cartItems.forEach((item, index) => {
+                    let itemDiv = document.createElement('div');
+                    itemDiv.classList.add('cart-item');
+
+                    let imageHTML = item.image ?
+                        `<div class="product-image"><img src="${item.image}" alt="${item.name}"></div>` :
+                        `<div class="product-image"><img src="/resources/img/production/0.png" alt="Нет изображения"></div>`;
+
+                    let priceText = item.price == 0 || !item.price ? "под заказ" : `${item.price} ₽`;
+                    let totalItemPrice = item.price == 0 || !item.price ? "под заказ" : `${(item.price * item.quantity).toFixed(2)} ₽`;
+
+                    itemDiv.innerHTML = `
+                        ${imageHTML}
+                        <div class="product-info">
+                            <span><strong>${item.name}</strong></span>
+                            <span>Артикул: <strong>${item.article}</strong></span>
+                            <span class="price">Цена за единицу: <strong>${priceText}</strong></span>
+                            <span class="total-item-price">В сумме: <strong>${totalItemPrice}</strong></span>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" data-index="${index}">-</button>
+                                <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
+                                <button class="quantity-btn plus" data-index="${index}">+</button>
+                            </div>
+                            <button class="remove-button" data-index="${index}">&times;</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemDiv);
+                });
+
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', updateQuantity);
+                });
+                document.querySelectorAll('.quantity-btn').forEach(button => {
+                    button.addEventListener('click', adjustQuantity);
+                });
+                document.querySelectorAll('.remove-button').forEach(button => {
+                    button.addEventListener('click', removeItem);
+                });
+                updateTotal(cartData.cartItems);
+            }
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         const orderForm = document.getElementById('order-form');
         const orderButton = document.getElementById('order-create');
@@ -124,58 +176,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         // Загружаем корзину при загрузке страницы
         loadCart();
     });
-
-    function loadCart() {
-        let cartDataString = localStorage.getItem('cartItems');
-        if (cartDataString) {
-            let cartData = JSON.parse(cartDataString);
-
-            if (cartData && Array.isArray(cartData.cartItems)) {
-                let cartItemsContainer = document.getElementById('product-checkout');
-                cartItemsContainer.innerHTML = '';
-
-                cartData.cartItems.forEach((item, index) => {
-                    let itemDiv = document.createElement('div');
-                    itemDiv.classList.add('cart-item');
-
-                    let imageHTML = item.image ?
-                        `<div class="product-image"><img src="${item.image}" alt="${item.name}"></div>` :
-                        `<div class="product-image"><img src="/resources/img/production/0.png" alt="Нет изображения"></div>`;
-
-                    let priceText = item.price == 0 || !item.price ? "под заказ" : `${item.price} ₽`;
-                    let totalItemPrice = item.price == 0 || !item.price ? "под заказ" : `${(item.price * item.quantity).toFixed(2)} ₽`;
-
-                    itemDiv.innerHTML = `
-                        ${imageHTML}
-                        <div class="product-info">
-                            <span><strong>${item.name}</strong></span>
-                            <span>Артикул: <strong>${item.article}</strong></span>
-                            <span class="price">Цена за единицу: <strong>${priceText}</strong></span>
-                            <span class="total-item-price">В сумме: <strong>${totalItemPrice}</strong></span>
-                            <div class="quantity-control">
-                                <button class="quantity-btn minus" data-index="${index}">-</button>
-                                <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
-                                <button class="quantity-btn plus" data-index="${index}">+</button>
-                            </div>
-                            <button class="remove-button" data-index="${index}">&times;</button>
-                        </div>
-                    `;
-                    cartItemsContainer.appendChild(itemDiv);
-                });
-
-                document.querySelectorAll('.quantity-input').forEach(input => {
-                    input.addEventListener('change', updateQuantity);
-                });
-                document.querySelectorAll('.quantity-btn').forEach(button => {
-                    button.addEventListener('click', adjustQuantity);
-                });
-                document.querySelectorAll('.remove-button').forEach(button => {
-                    button.addEventListener('click', removeItem);
-                });
-                updateTotal(cartData.cartItems);
-            }
-        }
-    }
 
     function updateQuantity(event) {
         const index = event.target.getAttribute('data-index');
