@@ -53,6 +53,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script>
+    // Слушаем отправку формы
     document.getElementById('order-form').addEventListener('submit', function (e) {
         e.preventDefault(); // Предотвращаем перезагрузку страницы
 
@@ -63,6 +64,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         // Получаем ответ hCaptcha
         const hcaptchaResponse = hcaptcha.getResponse();
 
+        // Проверяем, прошел ли пользователь капчу
         if (!hcaptchaResponse) {
             alert('Пожалуйста, подтвердите, что вы не робот.');
             return; // Если капча не пройдена, не отправляем форму
@@ -91,7 +93,24 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
             }
         };
 
-        xhr.send(formData);
+        xhr.send(formData); // Отправляем запрос на сервер
+    });
+
+    // Открытие формы оформления заказа
+    document.getElementById('order-btn').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'flex';
+    });
+
+    // Закрытие формы
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'none';
+    });
+
+    // Закрытие формы при отправке
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Заказ оформлен!');
+        document.querySelector('.modal').style.display = 'none';
     });
 
     function loadCart() {
