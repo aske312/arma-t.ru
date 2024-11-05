@@ -45,7 +45,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <!-- Подключение hCaptcha -->
                 <div class="h-captcha" data-sitekey="e65ad604-705a-4100-ab24-5cce1a363332"></div>
 
-                <button id="order-create" type="submit" class="order-button" disabled>Оформить заказ</button>
+                <button id="order-create" type="submit" class="order-button">Оформить заказ</button>
             </form>
         </div>
     </div>
