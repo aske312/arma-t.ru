@@ -31,8 +31,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <h2>Ваши данные</h2>
                 <label for="name">Имя:</label>
                 <input type="text" id="name" name="name" required>
+                <label for="phone">Телефон:</label>
+                <input type="text" id="phone" name="phone" required>
                 <label for="company">Компания:</label>
                 <input type="text" id="company" name="company" required>
+                <label for="inn">ИНН:</label>
+                <input type="text" id="inn" name="inn" required>
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
                 <label for="address">Адрес:</label>
