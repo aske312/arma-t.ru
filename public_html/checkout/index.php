@@ -124,7 +124,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         }
 
         // Если изображения нет в товаре или инфоблоке, ставим заглушку
-        return '/resources/img/placeholder.png'; // путь к заглушке
+        return '/resources/img/production/0.png'; // путь к заглушке
     }
 
     // Имитация функции для получения изображения из инфоблока
