@@ -113,8 +113,7 @@ header {
 }
 
 /********** Модальная форма (форма заявки) **********/
-/***
-.form-container {
+.form-container-header {
     display: none;
     position: fixed;
     top: 0;
@@ -128,11 +127,11 @@ header {
     padding: 20px;
 }
 
-.form-container.active {
+.form-container-header.active {
     display: flex;
 }
 
-.contact-form {
+.contact-form-header {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
@@ -143,9 +142,9 @@ header {
     font-family: Montserrat-Regular, sans-serif;
 }
 
-.contact-form input,
-.contact-form textarea,
-.contact-form button {
+.contact-form-header input,
+.contact-form-header textarea,
+.contact-form-header button {
     margin-bottom: 15px;
     padding: 12px 20px;
     font-size: 16px;
@@ -155,18 +154,18 @@ header {
     width: 100%;
 }
 
-.contact-form input,
-.contact-form textarea {
+.contact-form-header input,
+.contact-form-header textarea {
     background-color: #f9f9f9;
     color: #333;
 }
 
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
+.contact-form-header input::placeholder,
+.contact-form-header textarea::placeholder {
     color: #888;
 }
 
-.contact-form button {
+.contact-form-header button {
     background-color: #2654A2;
     color: white;
     cursor: pointer;
@@ -174,25 +173,19 @@ header {
     border: none;
 }
 
-.contact-form button:hover {
+.contact-form-header button:hover {
     background-color: #0056b3;
 }
 
-.form-actions {
+.form-actions-header {
     text-align: center;
 }
 
-.contact-form h2 {
+.contact-form-header h2 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
 }
-
-#fileList {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #888;
-} ***/
 
 /********** Стили для мобильной версии **********/
 @media (max-width: 768px) {

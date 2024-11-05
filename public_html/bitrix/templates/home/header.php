@@ -51,21 +51,18 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 <button onclick="window.location.href='/#Form'">Оставить заявку</button>
 
                 <!-- Модальное окно для формы -->
-                <!--
-                <div class="form-container" id="Form">
-                    <form class="contact-form" id="contactForm" method="post" enctype="multipart/form-data">
-                        <button type="button" class="close-form" onclick="document.getElementById('Form').classList.remove('active')">Закрыть</button>
+                <div class="form-container-header" id="Form">
+                    <form class="contact-form-header" id="contactForm-header" method="post" enctype="multipart/form-data">
                         <h2>Оставить заявку</h2>
                         <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
                         <input type="email" id="email" name="email" placeholder="e-mail" required>
                         <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
                         <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
-                        <div class="form-actions">
-                            <button type="submit" id="submitButton">Отправить</button>
+                        <div class="form-actions-header">
+                            <button type="submit" id="submitButton-header">Отправить</button>
                         </div>
                     </form>
                 </div>
-                -->
 
             </div>
 
