@@ -189,17 +189,17 @@ header {
 
 /********** Стили для мобильной версии **********/
 @media (max-width: 768px) {
-    .contact-form {
+    .contact-form-header {
         padding: 20px;
         max-width: 90%;
     }
 
-    .contact-form input,
-    .contact-form textarea {
+    .contact-form-header input,
+    .contact-form-header textarea {
         font-size: 14px;
     }
 
-    .contact-form button {
+    .contact-form-header button {
         font-size: 16px;
         padding: 10px 15px;
     }
