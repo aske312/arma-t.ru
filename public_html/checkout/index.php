@@ -152,9 +152,9 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
         // Если цена товара 0 или не определена, показываем "Цена под заказ"
         if (totalAmount === 0) {
-            document.getElementById('total-amount').innerText = `<strong>Итоговая сумма: под заказ</strong>`;
+            document.getElementById('total-amount').innerText = `Итоговая сумма: под заказ`;
         } else {
-            document.getElementById('total-amount').innerText = `<strong>Итоговая сумма: ${totalAmount.toFixed(2)} ₽</strong>`;
+            document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount.toFixed(2)} ₽`;
         }
     }
 
@@ -224,7 +224,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         }, 0);
 
         // Обновляем значение общей суммы на странице
-        document.getElementById('total-amount').innerText = `<strong>Итоговая сумма: ${totalAmount} ₽</strong>`;
+        document.getElementById('total-amount').innerText = `>Итоговая сумма: ${totalAmount} ₽</strong>`;
     }
 
     // Открытие формы оформления заказа
