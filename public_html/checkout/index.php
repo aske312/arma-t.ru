@@ -38,7 +38,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         if (cartData && cartData.cartItems && cartData.cartItems.length > 0) {
             let totalAmount = 0;
             cartData.cartItems.forEach(item => {
-                const itemTotal = item.price * item.quantity;
+                const itemTotal = parseFloat(item.price) * parseInt(item.quantity);
                 totalAmount += itemTotal;
 
                 cartItemsContainer.innerHTML += `
