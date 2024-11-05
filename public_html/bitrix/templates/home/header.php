@@ -61,7 +61,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         <div class="form-actions">
                             <button type="submit" id="submitButton">Отправить</button>
                         </div>
-                        <div id="fileList"></div>
                     </form>
                 </div>
 
@@ -256,7 +255,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
             // Отправляем данные на сервер с помощью AJAX
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/send.php', true);
+            xhr.open('POST', 'send.php', true);
 
             // Обработчик ответа
             xhr.onload = function() {
@@ -265,6 +264,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                     if (response.status === 'success') {
                         alert('Ваша заявка успешно отправлена!');
                         document.getElementById('Form').classList.remove('active'); // Закрытие формы
+                        document.getElementById('contactForm').reset(); // Сброс формы
                     } else {
                         alert('Произошла ошибка при отправке заявки.');
                     }
