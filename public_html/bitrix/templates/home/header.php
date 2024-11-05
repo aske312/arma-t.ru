@@ -48,7 +48,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
             <div class="contact-container">
                 <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
-                <button onclick="window.location.href='/#Cash'">Оставить заявку</button>
+                <button onclick="window.location.href='/#Form'">Оставить заявку</button>
             </div>
 
             <div class="cart-wrapper">
