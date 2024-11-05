@@ -53,6 +53,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 <!-- Модальное окно для формы -->
                 <div class="form-container" id="Form">
                     <form class="contact-form" id="contactForm" method="post" enctype="multipart/form-data">
+                        <button type="button" class="close-form" onclick="document.getElementById('Form').classList.remove('active')">Закрыть</button>
                         <h2>Оставить заявку</h2>
                         <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
                         <input type="email" id="email" name="email" placeholder="e-mail" required>
@@ -63,7 +64,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         </div>
                     </form>
                 </div>
-
             </div>
 
             <div class="cart-wrapper">
@@ -245,6 +245,16 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 document.getElementById('Form').classList.remove('active');
             }
         };
+
+        // Открытие формы (например, при клике на кнопку "Оставить заявку")
+        document.querySelector('button[onclick="window.location.href=\'/#Form\'"]').addEventListener('click', function() {
+            document.getElementById('Form').classList.add('active');
+        });
+
+        // Закрытие формы по кнопке
+        document.querySelector('.close-form').addEventListener('click', function() {
+            document.getElementById('Form').classList.remove('active');
+        });
 
         // Обработчик отправки формы
         document.getElementById('contactForm').addEventListener('submit', function(e) {
