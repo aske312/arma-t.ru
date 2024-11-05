@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body .= "--$boundary--\r\n";
 
     $to = 'support@arma-t.ru';
-    $subject = "Новый заказ от $name";
+    $subject = "New order in $name";
 
     // Отправка письма
     if (mail($to, $subject, $body, $headers)) {
