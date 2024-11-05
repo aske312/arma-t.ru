@@ -4,32 +4,41 @@ use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключение CSS
 ?>
 
-<div class="section-title">
-    <h2>Оформление заказа</h2> <!-- Название раздела -->
-    <p>Товары в корзине</p>
-</div>
+<div class="checkout">
 
-<div id="cart-items">
-    <div class="product-checkout" id="product-checkout">
-        <!-- Здесь будет вывод корзины -->
+    <div class="section-title">
+        <h2>Оформление заказа</h2> <!-- Название раздела -->
+        <p>Товары в корзине</p>
     </div>
-    <div class="total" id="total-amount">Общая сумма: 0 ₽</div> <!-- Общая сумма внутри блока корзины -->
+
+    <div id="cart-items">
+        <div class="product-checkout" id="product-checkout">
+            <!-- Здесь будет вывод корзины -->
+        </div>
+    </div>
+
+    <!-- Кнопки "Назад" и "Оформить" -->
+    <div class="button-group">
+        <button onclick="history.back()" class="back-button">Назад</button>
+        <button id="order-btn" class="order-button">Оформить</button>
+    </div>
+
+    <!-- Форма оформления заказа -->
+    <div id="order-form-container">
+        <form class="order-form" id="order-form">
+            <h2>Ваши данные</h2>
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="company">Компания:</label>
+            <input type="text" id="company" name="company" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="address">Адрес:</label>
+            <textarea id="address" name="address" required></textarea>
+            <button type="submit">Оформить заказ</button>
+        </form>
+    </div>
 </div>
-
-<button onclick="history.back()" class="back-button">Назад</button>
-
-<form class="order-form" id="order-form">
-    <h2>Ваши данные</h2>
-    <label for="name">Имя:</label>
-    <input type="text" id="name" name="name" required>
-    <label for="company">Компания:</label>
-    <input type="text" id="company" name="company" required>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    <label for="address">Адрес:</label>
-    <textarea id="address" name="address" required></textarea>
-    <button type="submit">Оформить заказ</button>
-</form>
 
 <script>
     // Функция для получения данных из localStorage и обработки их
