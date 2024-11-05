@@ -15,6 +15,9 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
 <p id="cart-total"></p> <!-- Общая сумма товаров -->
 
+<!-- Кнопка для обновления содержимого корзины -->
+<button class="refresh-button" onclick="refreshCart()">Обновить корзину</button>
+
 <button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
 
 <form class="order-form" id="order-form">
@@ -56,7 +59,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
         cartItems.forEach(async (item) => {
             const itemTotal = (item.price * item.quantity).toFixed(2);
-            totalSum += parseFloat(itemTotal); // Считаем общую сумму здесь
+            totalSum += parseFloat(itemTotal);
 
             // Если у товара нет изображения, запрашиваем изображение раздела
             let imageUrl = item.image || '/resources/img/production/0.png';
@@ -87,7 +90,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
             cartItemsContainer.innerHTML += cartItemHTML;
         });
 
-        // Проверяем общую сумму и выводим "Под заказ", если сумма равна 0
         document.getElementById('cart-total').innerText = totalSum > 0
             ? `Общая сумма: ${totalSum.toFixed(2)} руб.`
             : 'Общая сумма: Под заказ';
@@ -134,6 +136,11 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         let cartItems = getCartItems();
         cartItems = cartItems.filter(item => item.id !== productId);
         setCartItems(cartItems);
+        loadCartData();
+    }
+
+    // Функция для обновления содержимого корзины
+    function refreshCart() {
         loadCartData();
     }
 
