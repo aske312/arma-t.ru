@@ -32,6 +32,8 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <div class="g-recaptcha" data-sitekey="6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
