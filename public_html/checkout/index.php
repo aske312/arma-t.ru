@@ -41,6 +41,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <input type="email" id="email" name="email" required>
                 <label for="address">Адрес:</label>
                 <textarea id="address" name="address" required></textarea>
+                <input type="hidden" id="cartData" name="cartData">
                 <button type="submit">Оформить заказ</button>
             </form>
         </div>
@@ -66,6 +67,17 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         };
 
         xhr.send(formData);  // Отправляем данные формы
+    });
+
+    document.getElementById('order-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        // Get cart data from localStorage
+        const cartItems = localStorage.getItem('cartItems');
+        document.getElementById('cartData').value = cartItems;
+
+        // Proceed with the form submission
+        event.target.submit();  // Allows form to submit with updated data
     });
 
     // Функция для получения данных из localStorage и обработки их
