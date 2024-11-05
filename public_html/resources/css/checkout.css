@@ -97,6 +97,10 @@
 }
 
 /* Стили для отображения основной цены товара */
+.total {
+    color: white;
+}
+
 .total-item-price {
     font-weight: bold;
     margin-top: 10px;
