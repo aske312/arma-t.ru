@@ -66,7 +66,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                                         `<div class="product-image"><div class="placeholder">Нет изображения</div></div>`;
 
                         // Если цена = 0, показываем "Цена под заказ"
-                        let priceText = item.price == 0 || !item.price ? "под заказ" : `${item.price} ₽`;
+                        let priceText = item.price == 0 || !item.price ? " под заказ" : `${item.price} ₽`;
 
                         itemDiv.innerHTML = `
                             ${imageHTML}
