@@ -71,9 +71,9 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                         itemDiv.innerHTML = `
                             ${imageHTML}
                             <div class="product-info">
-                                <span><strong>Название:</strong> ${item.name}</span>
-                                <span><strong>Артикул:</strong> ${item.sku}</span>
-                                <span class="price ${item.price == 0 ? 'price-soldout' : ''}"><strong>Цена:</strong> ${priceText}</span>
+                                <span><strong>${item.name}</strong></span>
+                                <span>Артикул: <strong>${item.sku}</strong></span>
+                                <span class="price ${item.price == 0 ? 'price-soldout' : ''}">Цена: <strong>${priceText}</strong> </span>
                                 <div class="quantity-control">
                                     <button class="quantity-btn minus" data-index="${index}">-</button>
                                     <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
