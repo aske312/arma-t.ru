@@ -279,7 +279,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         document.getElementById('Form').classList.remove('active'); // Закрытие формы
                         document.getElementById('contactForm-header').reset(); // Сброс формы
                     } else {
-                        alert('Произошла ошибка при отправке заявки.');
+                        alert(response.message || 'Произошла ошибка при отправке заявки.');
                     }
                 } else {
                     alert('Ошибка отправки заявки.');
