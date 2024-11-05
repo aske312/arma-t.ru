@@ -268,7 +268,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
             // Отправляем данные на сервер с помощью AJAX
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'send.php', true);
+            xhr.open('POST', '/send.php', true);
 
             // Обработчик ответа
             xhr.onload = function() {
