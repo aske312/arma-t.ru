@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Recipient email and subject
     $to = "support@arma-t.ru";
-    $subject = "Новый заказ от компании $company";
+    $subject = "New order in $company";
 
     // Send the email and respond with status
     if (mail($to, $subject, $body, $headers)) {
