@@ -237,57 +237,57 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('cart-modal').style.display = 'none';
         });
 
-        // Открытие модального окна
-        function openForm() {
-            document.getElementById('Form').classList.add('active');
-        }
+//        // Открытие модального окна
+//        function openForm() {
+//            document.getElementById('Form').classList.add('active');
+//        }
 
-        // Закрытие модального окна при клике вне формы
-        window.onclick = function(event) {
-            if (event.target === document.getElementById('Form')) {
-                document.getElementById('Form').classList.remove('active');
-            }
-        };
+//        // Закрытие модального окна при клике вне формы
+//        window.onclick = function(event) {
+//            if (event.target === document.getElementById('Form')) {
+//                document.getElementById('Form').classList.remove('active');
+//            }
+//        };
 
-        // Открытие формы (например, при клике на кнопку "Оставить заявку")
-        document.querySelector('button[onclick="window.location.href=\'/#Form\'"]').addEventListener('click', function() {
-            document.getElementById('Form').classList.add('active');
-        });
+//        // Открытие формы (например, при клике на кнопку "Оставить заявку")
+//        document.querySelector('button[onclick="window.location.href=\'/#Form\'"]').addEventListener('click', function() {
+//            document.getElementById('Form').classList.add('active');
+//        });
 
-        // Закрытие формы по кнопке
-        document.querySelector('.close-form').addEventListener('click', function() {
-            document.getElementById('Form').classList.remove('active');
-        });
+//        // Закрытие формы по кнопке
+//        document.querySelector('.close-form').addEventListener('click', function() {
+//            document.getElementById('Form').classList.remove('active');
+//        });
 
         // Обработчик отправки формы
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Предотвращаем перезагрузку страницы
-
-            // Собираем данные формы
-            const formData = new FormData(this);
-
-            // Отправляем данные на сервер с помощью AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'send.php', true);
-
-            // Обработчик ответа
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.status === 'success') {
-                        alert('Ваша заявка успешно отправлена!');
-                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
-                        document.getElementById('contactForm').reset(); // Сброс формы
-                    } else {
-                        alert('Произошла ошибка при отправке заявки.');
-                    }
-                } else {
-                    alert('Ошибка отправки заявки.');
-                }
-            };
-
-            xhr.send(formData);
-        });
+//        document.getElementById('contactForm').addEventListener('submit', function(e) {
+//            e.preventDefault(); // Предотвращаем перезагрузку страницы
+//
+//            // Собираем данные формы
+//            const formData = new FormData(this);
+//
+//            // Отправляем данные на сервер с помощью AJAX
+//            var xhr = new XMLHttpRequest();
+//            xhr.open('POST', 'send.php', true);
+//
+//            // Обработчик ответа
+//            xhr.onload = function() {
+//                if (xhr.status === 200) {
+//                    var response = JSON.parse(xhr.responseText);
+//                    if (response.status === 'success') {
+//                        alert('Ваша заявка успешно отправлена!');
+//                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
+//                        document.getElementById('contactForm').reset(); // Сброс формы
+//                    } else {
+//                        alert('Произошла ошибка при отправке заявки.');
+//                    }
+//                } else {
+//                    alert('Ошибка отправки заявки.');
+//                }
+//            };
+//
+//            xhr.send(formData);
+//        });
 
         updateCartCount();
     </script>
