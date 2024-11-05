@@ -260,33 +260,53 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         });
 
         // Обработчик отправки формы
-        document.getElementById('contactForm-header').addEventListener('submit', function(e) {
-            e.preventDefault(); // Предотвращаем перезагрузку страницы
+//        document.getElementById('contactForm-header').addEventListener('submit', function(e) {
+//            e.preventDefault(); // Предотвращаем перезагрузку страницы
+//
+//            // Собираем данные формы
+//            const formData = new FormData(this);
+//
+//            // Отправляем данные на сервер с помощью AJAX
+//            var xhr = new XMLHttpRequest();
+//            xhr.open('POST', 'send.php', true);
+//
+//            // Обработчик ответа
+//            xhr.onload = function() {
+//                if (xhr.status === 200) {
+//                    var response = JSON.parse(xhr.responseText);
+//                    if (response.status === 'success') {
+//                        alert('Ваша заявка успешно отправлена!');
+//                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
+//                        document.getElementById('contactForm-header').reset(); // Сброс формы
+//                    } else {
+//                        alert('Произошла ошибка при отправке заявки.');
+//                    }
+//                } else {
+//                    alert('Ошибка отправки заявки.');
+//                }
+//            };
+//
+//            xhr.send(formData);
+//        });
 
-            // Собираем данные формы
-            const formData = new FormData(this);
+        document.getElementById('contactForm-header').addEventListener('submit', function (e) {
+            e.preventDefault();  // Предотвращаем перезагрузку страницы
 
-            // Отправляем данные на сервер с помощью AJAX
+            var formData = new FormData(this);
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'send.php', true);
 
-            // Обработчик ответа
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.status === 'success') {
-                        alert('Ваша заявка успешно отправлена!');
-                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
-                        document.getElementById('contactForm-header').reset(); // Сброс формы
-                    } else {
-                        alert('Произошла ошибка при отправке заявки.');
-                    }
+                    document.getElementById('contactForm').reset();
+                    document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
+                    alert('Ваше сообщение было успешно отправлено!');
                 } else {
-                    alert('Ошибка отправки заявки.');
+                    alert('Произошла ошибка при отправке сообщения.');
                 }
             };
 
-            xhr.send(formData);
+            xhr.send(formData);  // Отправляем данные формы
         });
 
     </script>
