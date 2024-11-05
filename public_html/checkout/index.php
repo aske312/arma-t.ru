@@ -10,12 +10,14 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 </div>
 
 <div id="cart-items" class="product-checkout">
-    <!-- Здесь будет вывод товаров из localStorage -->
+    <!-- Здесь будет динамически выводиться содержимое корзины из localStorage -->
 </div>
 
-<p id="cart-total"></p> <!-- Общая сумма товаров -->
+<div class="cart-summary">
+    <p id="cart-total">Общая сумма: 0 руб.</p>
+</div>
 
-<button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
+<button class="back-button" onclick="history.back()">Назад</button>
 
 <form class="order-form" id="order-form">
     <h2>Ваши данные</h2>
@@ -31,120 +33,99 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 </form>
 
 <script>
-    function getCartItems() {
-        const storedData = JSON.parse(localStorage.getItem('cartItems'));
-        return storedData && storedData.cartItems ? storedData.cartItems : [];
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+        loadCartData();
 
-    function setCartItems(cartItems) {
-        const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;
-        const cartData = { cartItems, expiry: expiryDate };
-        localStorage.setItem('cartItems', JSON.stringify(cartData));
-    }
+        // Загрузка данных из localStorage и отображение товаров
+        function loadCartData() {
+            const data = JSON.parse(localStorage.getItem('cartItems'));
+            const cartItemsContainer = document.getElementById('cart-items');
+            let totalSum = 0;
 
-    function loadCartData() {
-        const cartItems = getCartItems();
-        const cartItemsContainer = document.getElementById('cart-items');
-        cartItemsContainer.innerHTML = '';
-        let totalSum = 0;
+            // Очищаем контейнер перед заполнением
+            cartItemsContainer.innerHTML = '';
 
-        if (cartItems.length === 0) {
-            cartItemsContainer.innerHTML = '<p>Корзина пуста</p>';
-            document.getElementById('cart-total').innerText = 'Общая сумма: Под заказ';
-            return;
-        }
-
-        cartItems.forEach(async (item) => {
-            const itemTotal = (item.price * item.quantity).toFixed(2);
-            totalSum += parseFloat(itemTotal); // Считаем общую сумму здесь
-
-            // Если у товара нет изображения, запрашиваем изображение раздела
-            let imageUrl = item.image || '/resources/img/production/0.png';
-            if (!item.image) {
-                imageUrl = await fetchSectionImage(item.id);
+            if (!data || !data.cartItems || data.cartItems.length === 0) {
+                cartItemsContainer.innerHTML = "<p>Ваша корзина пуста.</p>";
+                document.getElementById('cart-total').innerText = 'Общая сумма: 0 руб.';
+                return;
             }
 
-            const cartItemHTML = `
-                <div class="cart-item-card">
-                    <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
-                    <div class="cart-item-details">
-                        <p class="cart-item-name">${item.name}</p>
-                        <p class="cart-item-article">Артикул: ${item.article}</p>
-                        <p class="cart-item-price">
-                            ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
-                        </p>
+            data.cartItems.forEach(item => {
+                const itemPrice = parseFloat(item.price) || 0;
+                const itemTotal = itemPrice * item.quantity;
+                totalSum += itemTotal;
+
+                const cartItemHTML = `
+                    <div class="cart-item">
+                        <h3>${item.name}</h3>
+                        <p>Артикул: ${item.article || 'Нет данных'}</p>
+                        <p>Цена: ${item.price > 0 ? item.price + ' руб.' : 'Цена под заказ'}</p>
+                        <div class="quantity-control">
+                            <button onclick="updateQuantity('${item.id}', -1)">-</button>
+                            <input type="number" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
+                            <button onclick="updateQuantity('${item.id}', 1)">+</button>
+                        </div>
+                        <p>Сумма: ${itemTotal > 0 ? itemTotal + ' руб.' : 'Под заказ'}</p>
+                        <button onclick="removeCartItem('${item.id}')">Удалить</button>
                     </div>
-                    <div class="cart-item-actions">
-                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
-                        <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
-                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
-                        <span class="cart-item-total">${itemTotal} руб.</span>
-                        <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
-                    </div>
-                </div>
-            `;
+                `;
+                cartItemsContainer.innerHTML += cartItemHTML;
+            });
 
-            cartItemsContainer.innerHTML += cartItemHTML;
-        });
-
-        // Проверяем общую сумму и выводим "Под заказ", если сумма равна 0
-        document.getElementById('cart-total').innerText = totalSum > 0
-            ? `Общая сумма: ${totalSum.toFixed(2)} руб.`
-            : 'Общая сумма: Под заказ';
-    }
-
-    async function fetchSectionImage(itemId) {
-        try {
-            const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
-            const data = await response.json();
-            return data.imageUrl;
-        } catch (error) {
-            console.error('Ошибка при получении изображения раздела:', error);
-            return '/resources/img/production/0.png';
+            // Обновление общей суммы
+            document.getElementById('cart-total').innerText = totalSum > 0
+                ? `Общая сумма: ${totalSum.toFixed(2)} руб.`
+                : 'Общая сумма: Под заказ';
         }
-    }
 
-    function updateQuantity(productId, delta) {
-        const cartItems = getCartItems();
-        const item = cartItems.find(item => item.id === productId);
+        // Функция для обновления количества товара
+        function updateQuantity(productId, delta) {
+            const data = JSON.parse(localStorage.getItem('cartItems'));
+            const item = data.cartItems.find(item => item.id === productId);
 
-        if (item) {
-            item.quantity += delta;
-            if (item.quantity < 1) {
-                removeCartItem(productId);
-            } else {
-                setCartItems(cartItems);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity < 1) {
+                    removeCartItem(productId);
+                } else {
+                    setCartItems(data.cartItems);
+                    loadCartData();
+                }
+            }
+        }
+
+        // Функция для ручного изменения количества товара
+        function updateQuantityManual(productId, value) {
+            const data = JSON.parse(localStorage.getItem('cartItems'));
+            const item = data.cartItems.find(item => item.id === productId);
+
+            if (item) {
+                item.quantity = Math.max(1, parseInt(value) || 1);
+                setCartItems(data.cartItems);
                 loadCartData();
             }
         }
-    }
 
-    function updateQuantityManual(productId, value) {
-        const cartItems = getCartItems();
-        const item = cartItems.find(item => item.id === productId);
-
-        if (item) {
-            item.quantity = Math.max(1, parseInt(value) || 1);
-            setCartItems(cartItems);
+        // Функция для удаления товара из корзины
+        function removeCartItem(productId) {
+            let data = JSON.parse(localStorage.getItem('cartItems'));
+            data.cartItems = data.cartItems.filter(item => item.id !== productId);
+            setCartItems(data.cartItems);
             loadCartData();
         }
-    }
 
-    function removeCartItem(productId) {
-        let cartItems = getCartItems();
-        cartItems = cartItems.filter(item => item.id !== productId);
-        setCartItems(cartItems);
-        loadCartData();
-    }
+        // Сохранение корзины в localStorage
+        function setCartItems(cartItems) {
+            const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000; // Устанавливаем срок действия на 3 дня
+            localStorage.setItem('cartItems', JSON.stringify({ cartItems, expiry: expiryDate }));
+        }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        loadCartData();
-    });
-
-    const orderForm = document.getElementById('order-form');
-    orderForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        alert("Заказ оформлен!"); // Здесь можно добавить обработку отправки формы
+        // Обработка отправки формы
+        document.getElementById('order-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert("Заказ оформлен!");
+        });
     });
 </script>
 
