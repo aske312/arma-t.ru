@@ -32,6 +32,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></script>
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>

@@ -23,8 +23,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
     </div>
 
     <div id="order-form-container" class="modal">
-        <div class="g-recaptcha" data-sitekey="6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></div>
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <div class="modal-content">
             <span class="close-button" id="close-modal">&times;</span>
             <form class="order-form" id="order-form">
@@ -51,7 +49,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
     </div>
 </div>
 
-<script src="https://www.google.com/recaptcha/enterprise.js?render=6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></script>
 <script>
     function onSubmit(token) {
         document.getElementById("order-form").submit();

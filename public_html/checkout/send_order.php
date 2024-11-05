@@ -1,21 +1,21 @@
 <?php
-$secret = '6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX';
-
-if (isset($_POST['g-recaptcha-response'])) {
-    $recaptchaResponse = $_POST['g-recaptcha-response'];
-    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $recaptchaResponse;
-
-    $response = file_get_contents($url);
-    $responseKeys = json_decode($response, true);
-
-    if (intval($responseKeys["success"]) !== 1) {
-        echo 'Ошибка: капча не пройдена. Пожалуйста, попробуйте еще раз.';
-        exit;
-    }
-} else {
-    echo 'Ошибка: капча не заполнена.';
-    exit;
-}
+//$secret = '6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX';
+//
+//if (isset($_POST['g-recaptcha-response'])) {
+//    $recaptchaResponse = $_POST['g-recaptcha-response'];
+//    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $recaptchaResponse;
+//
+//    $response = file_get_contents($url);
+//    $responseKeys = json_decode($response, true);
+//
+//    if (intval($responseKeys["success"]) !== 1) {
+//        echo 'Ошибка: капча не пройдена. Пожалуйста, попробуйте еще раз.';
+//        exit;
+//    }
+//} else {
+//    echo 'Ошибка: капча не заполнена.';
+//    exit;
+//}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
