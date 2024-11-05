@@ -3,27 +3,29 @@
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключение CSS
 ?>
-<div class="checkout">
-    <div class="section-title">
-        <h2>Оформление заказа</h2>
-        <p>Товары в корзине</p>
-    </div>
 
-    <div id="cart-items">
-        <div class="product-checkout" id="product-checkout">
-            <!-- Здесь будет вывод корзины -->
-        </div>
-        <div class="total" id="total-amount">Общая сумма: 0 ₽</div>
-    </div>
+<div class="section-title">
+    <h2>Оформление заказа</h2>
+    <p>Товары в корзине</p>
+</div>
 
-    <!-- Кнопки "Назад" и "Оформить" -->
-    <div class="button-group">
-        <button onclick="history.back()" class="back-button">Назад</button>
-        <button id="order-btn" class="order-button">Оформить</button>
+<div id="cart-items">
+    <div class="product-checkout" id="product-checkout">
+        <!-- Здесь будет вывод корзины -->
     </div>
+    <div class="total" id="total-amount">Общая сумма: 0 ₽</div>
+</div>
 
-    <!-- Форма оформления заказа -->
-    <div id="order-form-container">
+<!-- Кнопки "Назад" и "Оформить" -->
+<div class="button-group">
+    <button onclick="history.back()" class="back-button">Назад</button>
+    <button id="order-btn" class="order-button">Оформить заказ</button>
+</div>
+
+<!-- Модальное окно для формы оформления заказа -->
+<div id="order-form-container" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-modal">&times;</span>
         <form class="order-form" id="order-form">
             <h2>Ваши данные</h2>
             <label for="name">Имя:</label>
@@ -178,14 +180,19 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
     // Открытие формы оформления заказа
     document.getElementById('order-btn').addEventListener('click', function() {
-        document.querySelector('.order-form').style.display = 'block';
+        document.querySelector('.modal').style.display = 'flex';
     });
 
-    // Закрытие формы по отправке
+    // Закрытие формы
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'none';
+    });
+
+    // Закрытие формы при отправке
     document.getElementById('order-form').addEventListener('submit', function(e) {
         e.preventDefault();
         alert('Заказ оформлен!');
-        document.querySelector('.order-form').style.display = 'none';
+        document.querySelector('.modal').style.display = 'none';
     });
 
     // Загружаем корзину при загрузке страницы
