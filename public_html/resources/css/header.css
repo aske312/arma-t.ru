@@ -113,6 +113,7 @@ header {
 }
 
 /********** Модальная форма (форма заявки) **********/
+/***
 .form-container {
     display: none;
     position: fixed;
@@ -191,7 +192,7 @@ header {
     margin-top: 15px;
     font-size: 14px;
     color: #888;
-}
+} ***/
 
 /********** Стили для мобильной версии **********/
 @media (max-width: 768px) {
