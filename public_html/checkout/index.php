@@ -61,12 +61,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                         itemDiv.classList.add('cart-item');
 
                         // Проверка на наличие изображения
-                        let imageHTML = item.image ?
-                                        `<div class="product-image"><img src="${item.image}" alt="${item.name}"></div>` :
+                        let imageHTML = getItemImage(item) ?
+                                        `<div class="product-image"><img src="${getItemImage(item)}" alt="${item.name}"></div>` :
                                         `<div class="product-image"><div class="placeholder">Нет изображения</div></div>`;
 
-                        // Если цена = 0, показываем "Под заказ"
-                        let priceText = item.price == 0 ? "Цена под заказ" : `${item.price} ₽`;
+                        // Если цена = 0, показываем "Цена под заказ"
+                        let priceText = item.price == 0 || !item.price ? "Цена под заказ" : `${item.price} ₽`;
 
                         itemDiv.innerHTML = `
                             ${imageHTML}
@@ -108,6 +108,49 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
             }
         } else {
             console.log("Нет данных в localStorage по ключу 'cartItems'");
+        }
+    }
+
+    // Функция для получения изображения товара
+    function getItemImage(item) {
+        if (item.image) {
+            return item.image; // если картинка есть, то возвращаем её
+        }
+
+        // Если нет картинки в данных товара, пытаемся получить из инфоблока
+        let infoblockImage = getInfoblockImage(item.sku);
+        if (infoblockImage) {
+            return infoblockImage; // возвращаем картинку из инфоблока
+        }
+
+        // Если изображения нет в товаре или инфоблоке, ставим заглушку
+        return '/resources/img/placeholder.png'; // путь к заглушке
+    }
+
+    // Имитация функции для получения изображения из инфоблока
+    function getInfoblockImage(sku) {
+        // Например, запрос из инфоблока по SKU или ID (можно заменить на настоящий запрос к API Битрикса)
+        let imageURL = null;
+
+        // Здесь можно сделать запрос к Битриксу, например, с помощью AJAX или API
+        // Пример:
+        // imageURL = getImageFromInfoblock(sku); // Получаем картинку из инфоблока
+
+        return imageURL; // или null, если не нашли изображение
+    }
+
+    // Обновление общей суммы товаров в корзине
+    function updateTotal(cartItems) {
+        let totalAmount = cartItems.reduce((total, item) => {
+            let price = parseFloat(item.price) || 0; // Преобразуем цену в число
+            return total + (price * item.quantity); // Умножаем цену на количество
+        }, 0);
+
+        // Если цена товара 0 или не определена, показываем "Цена под заказ"
+        if (totalAmount === 0) {
+            document.getElementById('total-amount').innerText = `Общая сумма: Цена под заказ`;
+        } else {
+            document.getElementById('total-amount').innerText = `Общая сумма: ${totalAmount} ₽`;
         }
     }
 
