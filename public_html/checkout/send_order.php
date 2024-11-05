@@ -1,6 +1,6 @@
 <?php
 // Ваш секретный ключ Google reCAPTCHA
-$secret = '6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX';
+$secret = '6Lei5HUqAAAAAAEavGaEXe-KMyJrGsRaHNGsaQKt';
 $response = $_POST['g-recaptcha-response'];  // Ответ от пользователя на капчу
 $remoteip = $_SERVER['REMOTE_ADDR'];  // IP адрес пользователя
 

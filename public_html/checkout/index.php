@@ -41,9 +41,9 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <label for="address">Адрес:</label>
                 <textarea id="address" name="address" required></textarea>
                 <input type="hidden" id="cartData" name="cartData">
-                <div class="g-recaptcha" data-sitekey="6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></div>
-                <button type="submit" class="g-recaptcha" data-sitekey="6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"
-                    data-callback='onSubmit' data-action='submit'>Оформить заказ</button>
+                <!-- <div class="g-recaptcha" data-sitekey=""></div> -->
+                <div class="g-recaptcha" data-sitekey="6Lei5HUqAAAAAAEavGaEXe-KMyJrGsRaHNGsaQKt"></div>
+                <button type="submit" class="order-button">Оформить заказ</button>
             </form>
         </div>
     </div>
