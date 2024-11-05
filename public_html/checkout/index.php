@@ -51,19 +51,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
-    function onSubmit(token) {
-        // Добавляем токен капчи в форму перед отправкой
-        var form = document.getElementById('order-form');
-        var recaptchaResponse = document.createElement('input');
-        recaptchaResponse.setAttribute('type', 'hidden');
-        recaptchaResponse.setAttribute('name', 'g-recaptcha-response');
-        recaptchaResponse.setAttribute('value', token);
-        form.appendChild(recaptchaResponse);
-
-        // Отправляем форму
-        form.submit();
-    }
-
     document.getElementById('order-form').addEventListener('submit', function (e) {
         e.preventDefault(); // Предотвращаем перезагрузку страницы
 
@@ -71,15 +58,32 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         const cartItems = localStorage.getItem('cartItems');
         document.getElementById('cartData').value = cartItems;
 
+        // Получаем ответ капчи
+        const recaptchaResponse = document.querySelector('textarea[name="g-recaptcha-response"]').value;
+
+        if (!recaptchaResponse) {
+            alert('Пожалуйста, подтвердите, что вы не робот.');
+            return; // Если капча не пройдена, не отправляем форму
+        }
+
+        // Формируем данные для отправки на сервер
         var formData = new FormData(this);
+        formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем капчу в данные формы
+
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'send_order.php', true);
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                alert('Заказ успешно оформлен!');
-                localStorage.removeItem('cartItems'); // Очищаем корзину
-                window.location.href = '/';
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.status === 'success') {
+                    alert(response.message); // Показываем сообщение о успешном заказе
+                    localStorage.removeItem('cartItems'); // Очищаем корзину
+                    window.location.href = '/'; // Перенаправляем на главную страницу
+                } else {
+                    alert(response.message); // Показываем ошибку
+                }
             } else {
                 alert('Произошла ошибка при оформлении заказа.');
             }

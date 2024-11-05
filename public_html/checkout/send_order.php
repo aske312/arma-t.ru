@@ -1,25 +1,24 @@
 <?php
-// Получаем токен reCAPTCHA с формы
-$recaptchaToken = $_POST['g-recaptcha-response'];
+// Ваш секретный ключ Google reCAPTCHA
+$secret = '6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX';
+$response = $_POST['g-recaptcha-response'];  // Ответ от пользователя на капчу
+$remoteip = $_SERVER['REMOTE_ADDR'];  // IP адрес пользователя
 
-// Ваш секретный ключ для Google reCAPTCHA
-$secretKey = '6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX';
+// Проверяем, пришел ли ответ капчи
+if (empty($response)) {
+    echo json_encode(['status' => 'error', 'message' => 'Пожалуйста, подтвердите, что вы не робот.']);
+    exit;
+}
 
 // Отправляем запрос на сервер Google для проверки капчи
-$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$recaptchaToken");
+$verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+$verifyResponse = file_get_contents($verifyUrl . '?secret=' . $secret . '&response=' . $response . '&remoteip=' . $remoteip);
+$responseKeys = json_decode($verifyResponse, true);
 
-// Преобразуем ответ в массив
-$responseKeys = json_decode($response, true);
-
-// Проверяем, прошла ли капча
-if(intval($responseKeys["success"]) !== 1) {
-    echo 'Капча не пройдена. Попробуйте еще раз.';
-} else {
-    // Капча пройдена, обработка заказа
-    // Например, сохранение данных в базу данных или отправка email
-
-    echo 'Заказ успешно оформлен!';
-    // Дальше код для обработки заказа
+// Если капча не прошла проверку
+if (intval($responseKeys["success"]) !== 1) {
+    echo json_encode(['status' => 'error', 'message' => 'Ошибка при верификации капчи. Пожалуйста, попробуйте снова.']);
+    exit;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
