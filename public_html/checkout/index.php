@@ -256,6 +256,49 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         document.querySelector('.modal').style.display = 'none';
     });
 
+    // Функция для получения изображения товара
+    function getItemImage(item) {
+        if (item.image) {
+            return item.image; // если картинка есть, то возвращаем её
+        }
+
+        // Если нет картинки в данных товара, пытаемся получить из инфоблока
+        let infoblockImage = getInfoblockImage(item.sku);
+        if (infoblockImage) {
+            return infoblockImage; // возвращаем картинку из инфоблока
+        }
+
+        // Если изображения нет в товаре или инфоблоке, ставим заглушку
+        return '/resources/img/production/0.png'; // путь к заглушке
+    }
+
+    // Имитация функции для получения изображения из инфоблока
+    function getInfoblockImage(sku) {
+        // Например, запрос из инфоблока по SKU или ID (можно заменить на настоящий запрос к API Битрикса)
+        let imageURL = null;
+
+        // Здесь можно сделать запрос к Битриксу, например, с помощью AJAX или API
+        // Пример:
+        // imageURL = getImageFromInfoblock(sku); // Получаем картинку из инфоблока
+
+        return imageURL; // или null, если не нашли изображение
+    }
+
+    function updateTotal(cartItems) {
+        let totalAmount = cartItems.reduce((total, item) => {
+            let price = parseFloat(item.price) || 0;
+            return total + (price * item.quantity);
+        }, 0);
+        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount}₽`;
+    }
+
+    // Закрытие формы при отправке
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Заказ оформлен!');
+        document.querySelector('.modal').style.display = 'none';
+    });
+
     // Загружаем корзину при загрузке страницы
     window.onload = loadCart;
 </script>
