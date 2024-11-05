@@ -79,7 +79,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                                     <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
                                     <button class="quantity-btn plus" data-index="${index}">+</button>
                                 </div>
-                                <button class="remove-button" data-index="${index}">❌</button>
+                                <button class="remove-button" data-index="${index}">X</button>
                             </div>
                         `;
                         cartItemsContainer.appendChild(itemDiv);
