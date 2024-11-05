@@ -14,7 +14,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         <div class="product-checkout" id="product-checkout">
             <!-- Здесь будет вывод корзины -->
         </div>
-        <div class="total" id="total-amount">Итог сумма: 0 ₽</div>
+        <div class="total" id="total-amount"><strong>Итог сумма: 0 ₽</strong></div>
     </div>
 
     <!-- Кнопки "Назад" и "Оформить" -->
@@ -152,9 +152,9 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
         // Если цена товара 0 или не определена, показываем "Цена под заказ"
         if (totalAmount === 0) {
-            document.getElementById('total-amount').innerText = `Итоговая сумма: под заказ`;
+            document.getElementById('total-amount').innerText = `<strong>Итоговая сумма: под заказ</strong>`;
         } else {
-            document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount.toFixed(2)} ₽`;
+            document.getElementById('total-amount').innerText = `<strong>Итоговая сумма: ${totalAmount.toFixed(2)} ₽</strong>`;
         }
     }
 
@@ -224,7 +224,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         }, 0);
 
         // Обновляем значение общей суммы на странице
-        document.getElementById('total-amount').innerText = `Общая сумма: ${totalAmount} ₽`;
+        document.getElementById('total-amount').innerText = `<strong>Итоговая сумма: ${totalAmount} ₽</strong>`;
     }
 
     // Открытие формы оформления заказа
