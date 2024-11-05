@@ -48,6 +48,26 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 </div>
 
 <script>
+    document.getElementById('order-form').addEventListener('submit', function (e) {
+        e.preventDefault();  // Предотвращаем перезагрузку страницы
+
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/send.php', true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                document.getElementById('contactForm').reset();
+                document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
+                alert('Ваше сообщение было успешно отправлено!');
+            } else {
+                alert('Произошла ошибка при отправке сообщения.');
+            }
+        };
+
+        xhr.send(formData);  // Отправляем данные формы
+    });
+
     // Функция для получения данных из localStorage и обработки их
     function loadCart() {
         let cartDataString = localStorage.getItem('cartItems');
