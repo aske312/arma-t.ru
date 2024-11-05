@@ -48,9 +48,10 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
             <div class="contact-container">
                 <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
-                <button onclick="openForm()">Оставить заявку</button>
+                <button onclick="window.location.href='/#Form'">Оставить заявку</button>
 
                 <!-- Модальное окно для формы -->
+                <!--
                 <div class="form-container" id="Form">
                     <form class="contact-form" id="contactForm" method="post" enctype="multipart/form-data">
                         <button type="button" class="close-form" onclick="document.getElementById('Form').classList.remove('active')">Закрыть</button>
@@ -64,6 +65,8 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         </div>
                     </form>
                 </div>
+                -->
+
             </div>
 
             <div class="cart-wrapper">
