@@ -60,7 +60,7 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                         <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
                         <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
                         <div class="form-actions-header">
-                            <button type="submit" id="submitButton-header">Отправить</button>
+                            <button type="submit" id="submitButton">Отправить</button>
                         </div>
                     </form>
                 </div>
