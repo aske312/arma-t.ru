@@ -13,11 +13,10 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
     <div class="product-checkout" id="product-checkout">
         <!-- Здесь будет вывод корзины -->
     </div>
+    <div class="total" id="total-amount">Общая сумма: 0 ₽</div> <!-- Общая сумма внутри блока корзины -->
 </div>
 
 <button onclick="history.back()" class="back-button">Назад</button>
-
-<div class="total" id="total-amount">Общая сумма: 0 ₽</div>
 
 <form class="order-form" id="order-form">
     <h2>Ваши данные</h2>
@@ -171,7 +170,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
             return total + (price * item.quantity); // Умножаем цену на количество
         }, 0);
 
-        // Обновляем значение общей суммы на странице
+        // Обновляем значение общей суммы на странице внутри блока товаров
         document.getElementById('total-amount').innerText = `Общая сумма: ${totalAmount} ₽`;
     }
 
