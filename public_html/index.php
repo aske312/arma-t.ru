@@ -257,6 +257,8 @@ while ($section = $sections->Fetch()) {
 <!-- -->
 
 <div class="section section5" id="Cash">
+    <div class="g-recaptcha" data-sitekey="6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <div class="form-container" id="Form">
         <form class="contact-form" id="contactForm" method="post" enctype="multipart/form-data">
             <h2>Оставить заявку</h2>
