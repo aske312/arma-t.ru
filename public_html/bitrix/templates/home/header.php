@@ -49,6 +49,22 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             <div class="contact-container">
                 <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                 <button onclick="window.location.href='/#Form'">Оставить заявку</button>
+
+                <!-- Модальное окно для формы -->
+                <div class="form-container" id="Form">
+                    <form class="contact-form" id="contactForm" method="post" enctype="multipart/form-data">
+                        <h2>Оставить заявку</h2>
+                        <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
+                        <input type="email" id="email" name="email" placeholder="e-mail" required>
+                        <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
+                        <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
+                        <div class="form-actions">
+                            <button type="submit" id="submitButton">Отправить</button>
+                        </div>
+                        <div id="fileList"></div>
+                    </form>
+                </div>
+
             </div>
 
             <div class="cart-wrapper">
@@ -216,6 +232,47 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
 
         document.getElementById('cart-modal-overlay').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
+        });
+
+        // Открытие модального окна
+        function openForm() {
+            document.getElementById('Form').classList.add('active');
+        }
+
+        // Закрытие модального окна при клике вне формы
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('Form')) {
+                document.getElementById('Form').classList.remove('active');
+            }
+        };
+
+        // Обработчик отправки формы
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Предотвращаем перезагрузку страницы
+
+            // Собираем данные формы
+            const formData = new FormData(this);
+
+            // Отправляем данные на сервер с помощью AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/send.php', true);
+
+            // Обработчик ответа
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        alert('Ваша заявка успешно отправлена!');
+                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
+                    } else {
+                        alert('Произошла ошибка при отправке заявки.');
+                    }
+                } else {
+                    alert('Ошибка отправки заявки.');
+                }
+            };
+
+            xhr.send(formData);
         });
 
         updateCartCount();
