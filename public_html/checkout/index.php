@@ -12,7 +12,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
     // Функция для получения данных из localStorage и обработки их
     function loadCart() {
         // Получаем строку данных из localStorage по ключу "cartItem"
-        let cartDataString = localStorage.getItem('cartItem');
+        let cartDataString = localStorage.getItem('cartItems');
 
         // Если данные есть, парсим их
         if (cartDataString) {
