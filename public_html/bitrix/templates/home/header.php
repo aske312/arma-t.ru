@@ -250,9 +250,9 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
         };
 
         // Открытие формы (например, при клике на кнопку "Оставить заявку")
-        document.querySelector('button[onclick="window.location.href=\'/#Form\'"]').addEventListener('click', function() {
-            document.getElementById('Form').classList.add('active');
-        });
+//        document.querySelector('button[onclick="window.location.href=\'/#Form\'"]').addEventListener('click', function() {
+//            document.getElementById('Form').classList.add('active');
+//        });
 
         // Закрытие формы по кнопке
         document.querySelector('.close-form-header').addEventListener('click', function() {
