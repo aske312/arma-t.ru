@@ -29,9 +29,14 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 </form>
 
 <script>
+    function getCartItems() {
+        const storedData = JSON.parse(localStorage.getItem('cartItems'));
+        return storedData && storedData.cartItems ? storedData.cartItems : [];
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         // Получаем данные из localStorage
-        const data = JSON.parse(localStorage.getItem('cartItems'));
+        const data = getCartItems();
         const cartItemsContainer = document.getElementById('cart-items');
         let totalSum = 0;
 
