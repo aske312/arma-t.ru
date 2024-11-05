@@ -41,19 +41,13 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <label for="address">Адрес:</label>
                 <textarea id="address" name="address" required></textarea>
                 <input type="hidden" id="cartData" name="cartData">
-
-                <!-- Подключение hCaptcha -->
-                <div class="h-captcha" data-sitekey="e65ad604-705a-4100-ab24-5cce1a363332"></div>
-
-                <button type="submit" class="order-button">Оформить заказ</button>
+                <button type="submit">Оформить заказ</button>
             </form>
         </div>
     </div>
 </div>
 
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script>
-    // Слушаем отправку формы
     document.getElementById('order-form').addEventListener('submit', function (e) {
         e.preventDefault(); // Предотвращаем перезагрузку страницы
 
@@ -61,56 +55,21 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         const cartItems = localStorage.getItem('cartItems');
         document.getElementById('cartData').value = cartItems;
 
-        // Получаем ответ hCaptcha
-        const hcaptchaResponse = hcaptcha.getResponse();
-
-        // Проверяем, прошел ли пользователь капчу
-        if (!hcaptchaResponse) {
-            alert('Пожалуйста, подтвердите, что вы не робот.');
-            return; // Если капча не пройдена, не отправляем форму
-        }
-
-        // Формируем данные для отправки на сервер
         var formData = new FormData(this);
-        formData.append('h-captcha-response', hcaptchaResponse); // Добавляем ответ hCaptcha в форму
-
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'send_order.php', true);
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-
-                if (response.status === 'success') {
-                    alert(response.message); // Показываем сообщение о успешном заказе
-                    localStorage.removeItem('cartItems'); // Очищаем корзину
-                    window.location.href = '/'; // Перенаправляем на главную страницу
-                } else {
-                    alert(response.message); // Показываем ошибку
-                }
+                alert('Заказ успешно оформлен!');
+                localStorage.removeItem('cartItems'); // Очищаем корзину
+                window.location.href = '/';
             } else {
                 alert('Произошла ошибка при оформлении заказа.');
             }
         };
 
-        xhr.send(formData); // Отправляем запрос на сервер
-    });
-
-    // Открытие формы оформления заказа
-    document.getElementById('order-btn').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'flex';
-    });
-
-    // Закрытие формы
-    document.getElementById('close-modal').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'none';
-    });
-
-    // Закрытие формы при отправке
-    document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Заказ оформлен!');
-        document.querySelector('.modal').style.display = 'none';
+        xhr.send(formData);
     });
 
     function loadCart() {

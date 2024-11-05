@@ -1,11 +1,6 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-// require_once($_SERVER['DOCUMENT_ROOT'].'/catalog/update_cart_session.php');
-
 use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
 
@@ -32,7 +27,6 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lca1HUqAAAAANhTUDGv7N3sp7RdabodoCoHCNrX"></script>
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>

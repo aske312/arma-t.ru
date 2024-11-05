@@ -1,26 +1,4 @@
 <?php
-// Ваш Secret Key для hCaptcha
-$secret = 'e65ad604-705a-4100-ab24-5cce1a363332';
-$response = $_POST['h-captcha-response'];  // Ответ от пользователя на капчу
-$remoteip = $_SERVER['REMOTE_ADDR'];  // IP адрес пользователя
-
-// Проверяем, пришел ли ответ капчи
-if (empty($response)) {
-    echo json_encode(['status' => 'error', 'message' => 'Пожалуйста, подтвердите, что вы не робот.']);
-    exit;
-}
-
-// Отправляем запрос на сервер hCaptcha для проверки капчи
-$verifyUrl = 'https://hcaptcha.com/siteverify';
-$verifyResponse = file_get_contents($verifyUrl . '?secret=' . $secret . '&response=' . $response . '&remoteip=' . $remoteip);
-$responseKeys = json_decode($verifyResponse, true);
-
-// Если капча не прошла проверку
-if (intval($responseKeys["success"]) !== 1) {
-    echo json_encode(['status' => 'error', 'message' => 'Ошибка при верификации капчи. Пожалуйста, попробуйте снова.']);
-    exit;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
     $email = htmlspecialchars($_POST['email']);
@@ -56,13 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body .= "--$boundary--\r\n";
 
     $to = 'support@arma-t.ru';
-    $subject = "New order in $name";
-
-    // Отправка письма
-    if (mail($to, $subject, $body, $headers)) {
-        echo 'Ваша заявка оформлена!';
-    } else {
-        echo 'Ошибка: Упс. Что-то пошло не так, обратитесь в support@arma-t.ru';
-    }
+    $subject = "Новый заказ от $name";
+    mail($to, $subject, $body, $headers);
 }
 ?>
