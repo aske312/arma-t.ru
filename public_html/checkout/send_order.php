@@ -14,36 +14,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
 
-    // Create email body
     $body = "--$boundary\r\n";
     $body .= "Content-Type: text/html; charset=UTF-8\r\n";
     $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
     $body .= "<html><body>";
-    $body .= "<h2>Заявка с формы обратной связи</h2>";
-    $body .= "<p><strong>Имя:</strong> $name</p>";
+    $body .= "<h2>Новый заказ от $name</h2>";
     $body .= "<p><strong>Телефон:</strong> $phone</p>";
     $body .= "<p><strong>Компания:</strong> $company</p>";
     $body .= "<p><strong>ИНН:</strong> $inn</p>";
     $body .= "<p><strong>Email:</strong> $email</p>";
     $body .= "<p><strong>Адрес:</strong> $address</p>";
+    $body .= "<h3>Товары:</h3><ul>";
 
-    // Format cart data
-    $body .= "<h3>Содержимое корзины:</h3><ul>";
     foreach ($cartData['cartItems'] as $item) {
-        $body .= "<li><strong>{$item['name']}</strong> - Артикул: {$item['article']}, Количество: {$item['quantity']}, Цена: {$item['price']} руб.</li>";
+        $body .= "<li>{$item['name']} (Артикул: {$item['article']}): {$item['quantity']} шт. Цена за ед.: {$item['price']}₽</li>";
     }
-    $body .= "</ul>";
 
-    $body .= "</body></html>\r\n";
-    $body .= "--$boundary--";
+    $body .= "</ul></body></html>";
+    $body .= "--$boundary--\r\n";
 
-    $to = "support@arma-t.ru";
-    $subject = "New order in $name";
-
-    if (mail($to, $subject, $body, $headers)) {
-        http_response_code(200);
-    } else {
-        http_response_code(500);
-    }
+    $to = 'support@arma-t.ru';
+    $subject = "Новый заказ от $name";
+    mail($to, $subject, $body, $headers);
 }
 ?>
