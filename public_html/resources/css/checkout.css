@@ -48,8 +48,10 @@
     border: 1px solid #ddd;
     background-color: #fff;
     border-radius: 5px;
+    position: relative; /* Чтобы кнопка "Удалить" могла быть в правом верхнем углу */
 }
 
+/* Стили для изображения товара */
 .product-image {
     width: 100px;
     height: 100px;
@@ -70,6 +72,7 @@
     color: #aaa;
 }
 
+/* Стили для информации о товаре */
 .product-info {
     flex-grow: 1;
     padding-left: 20px;
@@ -88,6 +91,25 @@
     color: #d9534f; /* Красный для "Цена под заказ" */
 }
 
+/* Кнопка удаления товара (крестик) */
+.remove-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    color: #d9534f;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.remove-button:hover {
+    color: #c9302c;
+    text-decoration: none;
+}
+
+/* Стили для кнопок "Минус" и "Плюс" */
 .quantity-control {
     display: flex;
     align-items: center;
@@ -109,6 +131,22 @@
     background-color: #0056b3;
 }
 
+.quantity-btn.minus {
+    background-color: #d9534f;
+}
+
+.quantity-btn.plus {
+    background-color: #5bc0de;
+}
+
+.quantity-btn.minus:hover {
+    background-color: #c9302c;
+}
+
+.quantity-btn.plus:hover {
+    background-color: #31b0d5;
+}
+
 .quantity-input {
     width: 50px;
     text-align: center;
@@ -117,21 +155,7 @@
     border-radius: 5px;
 }
 
-.remove-button {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 18px;
-    border-radius: 5px;
-    margin-left: 10px;
-}
-
-.remove-button:hover {
-    background-color: #c9302c;
-}
-
+/* Стиль для общей суммы */
 .total {
     margin-top: 20px;
     font-size: 18px;
@@ -199,6 +223,7 @@
     color: #333;
 }
 
+/* Стили для формы оформления заказа */
 .order-form {
     display: flex;
     flex-direction: column;
