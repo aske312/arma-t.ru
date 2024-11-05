@@ -10,10 +10,10 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        loadCartData();
+        loadCart();
 
         // Функция для загрузки данных из localStorage и отображения их
-        function loadCartData() {
+        function loadCart() {
             const cartData = JSON.parse(localStorage.getItem('cartItemsData'));
             const cartItemsContainer = document.getElementById('cart-items');
             const totalElement = document.getElementById('cart-total');
