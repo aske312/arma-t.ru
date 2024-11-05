@@ -224,7 +224,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         }, 0);
 
         // Обновляем значение общей суммы на странице
-        document.getElementById('total-amount').innerText = `<strong>Итоговая сумма: ${totalAmount} ₽</strong>`;
+        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount} ₽`;
     }
 
     // Открытие формы оформления заказа
