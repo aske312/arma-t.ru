@@ -1,7 +1,7 @@
 <?php
-// Ваш секретный ключ Google reCAPTCHA
-$secret = '6Lei5HUqAAAAAAEavGaEXe-KMyJrGsRaHNGsaQKt';
-$response = $_POST['g-recaptcha-response'];  // Ответ от пользователя на капчу
+// Ваш Secret Key для hCaptcha
+$secret = 'ES_822e9148d2e3439baf2fdbb7592e574a';
+$response = $_POST['h-captcha-response'];  // Ответ от пользователя на капчу
 $remoteip = $_SERVER['REMOTE_ADDR'];  // IP адрес пользователя
 
 // Проверяем, пришел ли ответ капчи
@@ -10,8 +10,8 @@ if (empty($response)) {
     exit;
 }
 
-// Отправляем запрос на сервер Google для проверки капчи
-$verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+// Отправляем запрос на сервер hCaptcha для проверки капчи
+$verifyUrl = 'https://hcaptcha.com/siteverify';
 $verifyResponse = file_get_contents($verifyUrl . '?secret=' . $secret . '&response=' . $response . '&remoteip=' . $remoteip);
 $responseKeys = json_decode($verifyResponse, true);
 

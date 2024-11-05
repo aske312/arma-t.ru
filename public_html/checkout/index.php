@@ -41,24 +41,18 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
                 <label for="address">Адрес:</label>
                 <textarea id="address" name="address" required></textarea>
                 <input type="hidden" id="cartData" name="cartData">
-                <!-- <div class="g-recaptcha" data-sitekey=""></div> -->
-                <button class="g-recaptcha"
-                    data-sitekey="6Lei5HUqAAAAAAEavGaEXe-KMyJrGsRaHNGsaQKt"
-                    data-callback='onSubmit'
-                    data-action='submit'> Submit </button>
-                <div class="g-recaptcha" data-sitekey="6Lei5HUqAAAAAAEavGaEXe-KMyJrGsRaHNGsaQKt"></div>
+
+                <!-- Подключение hCaptcha -->
+                <div class="h-captcha" data-sitekey="ES_822e9148d2e3439baf2fdbb7592e574a"></div>
+
                 <button type="submit" class="order-button">Оформить заказ</button>
             </form>
         </div>
     </div>
 </div>
 
-<script src="https://www.google.com/recaptcha/enterprise.js?render=6Lei5HUqAAAAAAEavGaEXe-KMyJrGsRaHNGsaQKt"></script>
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script>
-    function onSubmit(token) {
-        document.getElementById("demo-form").submit();
-    }
-
     document.getElementById('order-form').addEventListener('submit', function (e) {
         e.preventDefault(); // Предотвращаем перезагрузку страницы
 
@@ -66,17 +60,17 @@ Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключе
         const cartItems = localStorage.getItem('cartItems');
         document.getElementById('cartData').value = cartItems;
 
-        // Получаем ответ капчи
-        const recaptchaResponse = document.querySelector('textarea[name="g-recaptcha-response"]').value;
+        // Получаем ответ hCaptcha
+        const hcaptchaResponse = hcaptcha.getResponse();
 
-        if (!recaptchaResponse) {
+        if (!hcaptchaResponse) {
             alert('Пожалуйста, подтвердите, что вы не робот.');
             return; // Если капча не пройдена, не отправляем форму
         }
 
         // Формируем данные для отправки на сервер
         var formData = new FormData(this);
-        formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем капчу в данные формы
+        formData.append('h-captcha-response', hcaptchaResponse); // Добавляем ответ hCaptcha в форму
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'send_order.php', true);
