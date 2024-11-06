@@ -114,77 +114,73 @@ header {
 
 /********** Модальная форма (форма заявки) **********/
 .form-container-header {
-    display: none;
+    display: none; /* Скрыто по умолчанию */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
     justify-content: center;
     align-items: center;
+    z-index: 1000;
     padding: 20px;
 }
 
+/* Когда форма активна */
 .form-container-header.active {
     display: flex;
 }
 
 .contact-form-header {
-    background-color: white;
+    background: #fff;
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
     width: 100%;
-    max-width: 600px;
-    color: black;
-    font-family: Montserrat-Regular, sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.contact-form-header input,
-.contact-form-header textarea,
-.contact-form-header button {
-    margin-bottom: 15px;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-    width: 100%;
+.contact-form-header h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
 .contact-form-header input,
 .contact-form-header textarea {
-    background-color: #f9f9f9;
-    color: #333;
-}
-
-.contact-form-header input::placeholder,
-.contact-form-header textarea::placeholder {
-    color: #888;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .contact-form-header button {
-    background-color: #2654A2;
+    padding: 10px 20px;
+    background-color: #4CAF50;
     color: white;
-    cursor: pointer;
-    font-weight: bold;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .contact-form-header button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
 }
 
-.form-actions-header {
-    text-align: center;
-}
-
-.contact-form-header h2 {
+/* Стили для закрытия формы (кнопка крестика или клик по области) */
+.close-form-header {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     font-size: 24px;
-    margin-bottom: 20px;
     color: #333;
+    cursor: pointer;
+}
+
+.close-form-header:hover {
+    color: #ff0000;
 }
 
 /********** Стили для мобильной версии **********/
