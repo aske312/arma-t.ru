@@ -265,8 +265,8 @@ while ($section = $sections->Fetch()) {
             <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
-            <!-- Добавляем капчу сюда -->
-            <div class="g-recaptcha" data-sitekey="6LcQqHYqAAAAAEs5PRrpZzwzKvKexhGs9BQaHfUH"></div>
+//            <!-- Добавляем капчу сюда -->
+//            <div class="g-recaptcha" data-sitekey="6LcQqHYqAAAAAEs5PRrpZzwzKvKexhGs9BQaHfUH"></div>
 
             <div class="form-actions">
                 <button type="submit" id="submitButton">Отправить</button>
@@ -334,17 +334,17 @@ while ($section = $sections->Fetch()) {
         e.preventDefault();  // Предотвращаем перезагрузку страницы
 
         // Получаем ответ капчи
-        var recaptchaResponse = grecaptcha.getResponse();
+        //var recaptchaResponse = grecaptcha.getResponse();
 
         // Проверяем, прошел ли пользователь капчу
-        if (recaptchaResponse.length === 0) {
-            alert("Пожалуйста, подтвердите, что вы не робот.");
-            return; // Если капча не пройдена, не отправляем форму
-        }
+//        if (recaptchaResponse.length === 0) {
+//            alert("Пожалуйста, подтвердите, что вы не робот.");
+//            return; // Если капча не пройдена, не отправляем форму
+//        }
 
         // Собираем данные формы
         var formData = new FormData(this);
-        formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
+        //formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
 
         // Создаем и отправляем запрос
         var xhr = new XMLHttpRequest();
