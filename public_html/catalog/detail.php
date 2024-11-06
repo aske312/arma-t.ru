@@ -10,7 +10,7 @@ if (CModule::IncludeModule("iblock")) {
     if ($ar_res = $res->GetNext()) {
         // Получаем основные параметры товара
         $productName = $ar_res['NAME'];
-        $productShortName = $ar_res['EL_SHORTNAME'];
+        $productShortName = CFile::GetPath($ar_res['EL_SHORTNAME']);
         $productDescription = $ar_res['DETAIL_TEXT'];
         $productImage = CFile::GetPath($ar_res['EL_IMAGES']); // Изображение товара
         $productPrice = ''; // Цена
