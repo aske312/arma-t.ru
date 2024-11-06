@@ -70,8 +70,30 @@ while ($requisite = $resRequisites->Fetch()) {
                 <p>Реквизиты не найдены.</p>
             <?php endif; ?>
         </div>
+
+        <!-- Карта с точкой -->
+        <div class="footer-map">
+            <h3>Наша локация</h3>
+            <div id="map" style="width: 100%; height: 400px;"></div>
+        </div>
     </div>
 </footer>
+
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=ВАШ_API_КЛЮЧ" type="text/javascript"></script>
+<script>
+    ymaps.ready(function () {
+        var map = new ymaps.Map("map", {
+            center: [55.681717, 37.269466], // Координаты точки
+            zoom: 14
+        });
+
+        var placemark = new ymaps.Placemark([55.681717, 37.269466], {
+            balloonContent: 'Наш офис'
+        });
+
+        map.geoObjects.add(placemark);
+    });
+</script>
 
 <?php
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
