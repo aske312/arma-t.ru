@@ -132,7 +132,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                                 // Проверяем цену, если 0 или не задана, выводим текст
                                 if ($price == 0 || empty($price)) {
-                                    echo 'Индивидуальная цена при заказе';
+                                    echo 'По запросу';
                                 } else {
                                     echo $price . ' руб.';
                                 }?>
