@@ -103,7 +103,9 @@ if ($element = $res->Fetch()) {
                     <button id="cart-button" class="cart-btn">
                         <div class="cart-icon-wrapper">
                             <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                            <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
+                            <span id="cart-count" class="cart-count" style="display: <?= $cartItemCount > 0 ? 'inline-block' : 'none' ?>;">
+                                <?= $cartItemCount ?>
+                            </span>
                         </div>
                     </button>
                 </div>
@@ -226,11 +228,6 @@ if ($element = $res->Fetch()) {
                 console.error('Ошибка при получении изображения раздела:', error);
                 return '/resources/img/production/0.png';
             }
-        }
-
-        const cartCount = <?= $cartItemCount ?>;
-        if (cartCount === 0) {
-        document.getElementById('cart-count').style.display = 'none';
         }
 
         function updateQuantity(productId, delta) {
