@@ -8,7 +8,7 @@ $APPLICATION->SetTitle("Каталог");
 // Берем значение секции
 $sectionId = intval($_GET['SECTION_ID']);
 if (empty($sectionId)) {
-    $sectionId = 2;
+    $sectionId = 1;
 }
 
 use Bitrix\Main\Page\Asset;
