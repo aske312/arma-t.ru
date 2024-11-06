@@ -11,14 +11,15 @@
                 $contactsFilter = [
                     'IBLOCK_ID' => 3, // ID инфоблока
                     'SECTION_ID' => 35, // ID раздела 35
-                    'ACTIVE' => 'Y'
+                    'ACTIVE' => 'Y' // Активные элементы
                 ];
 
-                $contactsSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE']; // Запросим название элемента и анонс
+                // Делаем выборку: ID элемента, Название и Текст анонса
+                $contactsSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE']; // Убедитесь, что у вас есть свойство ANNOUNCE
                 $contactsRes = CIBlockElement::GetList([], $contactsFilter, false, false, $contactsSelect);
 
                 while ($contact = $contactsRes->GetNext()) {
-                    // Проверяем, есть ли описание, если да, то выводим
+                    // Получаем анонс, если есть
                     $announceText = !empty($contact['PROPERTY_ANNOUNCE_VALUE']) ? $contact['PROPERTY_ANNOUNCE_VALUE'] : 'Не указано';
                     echo "<p><strong>" . $contact['NAME'] . ":</strong> " . $announceText . "</p>";
                 }
@@ -31,14 +32,15 @@
                 $requisitesFilter = [
                     'IBLOCK_ID' => 3, // ID инфоблока
                     'SECTION_ID' => 36, // ID раздела 36
-                    'ACTIVE' => 'Y'
+                    'ACTIVE' => 'Y' // Активные элементы
                 ];
 
-                $requisitesSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE']; // Запросим название элемента и анонс
+                // Делаем выборку: ID элемента, Название и Текст анонса
+                $requisitesSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE']; // Убедитесь, что у вас есть свойство ANNOUNCE
                 $requisitesRes = CIBlockElement::GetList([], $requisitesFilter, false, false, $requisitesSelect);
 
                 while ($requisite = $requisitesRes->GetNext()) {
-                    // Проверяем, есть ли описание, если да, то выводим
+                    // Получаем анонс, если есть
                     $announceText = !empty($requisite['PROPERTY_ANNOUNCE_VALUE']) ? $requisite['PROPERTY_ANNOUNCE_VALUE'] : 'Не указано';
                     echo "<p><strong>" . $requisite['NAME'] . ":</strong> " . $announceText . "</p>";
                 }
