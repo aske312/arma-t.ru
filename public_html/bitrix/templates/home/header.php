@@ -98,6 +98,87 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
 
+//*******************
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Функция для обновления количества товаров в корзине
+            function updateCartCount() {
+                const cartItems = getCartItems();  // Получаем товары из корзины (из localStorage)
+                const count = cartItems.reduce((total, item) => total + item.quantity, 0);  // Считаем общее количество товаров
+
+                // Обновляем отображаемое количество в элементе на странице
+                document.getElementById('cart-count').textContent = count;
+
+                // Если корзина пуста (count == 0), скрыть кнопку
+                const cartButton = document.getElementById('cart-button');
+                if (count === 0) {
+                    cartButton.style.display = 'none';  // Скрыть кнопку корзины
+                } else {
+                    cartButton.style.display = 'inline-block';  // Показать кнопку
+                }
+            }
+
+            // Функция для получения товаров из localStorage
+            function getCartItems() {
+                const storedData = JSON.parse(localStorage.getItem('cartItems'));
+                return storedData && storedData.cartItems ? storedData.cartItems : [];
+            }
+
+            // Вызываем функцию обновления корзины при загрузке страницы
+            updateCartCount();
+
+            // Функция для обновления товара в корзине
+            function setCartItems(cartItems) {
+                const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;  // Пример времени истечения сессии
+                const cartData = { cartItems, expiry: expiryDate };
+                localStorage.setItem('cartItems', JSON.stringify(cartData));
+                updateCartCount();  // Обновляем отображение корзины после изменения
+            }
+
+            // Пример для увеличения или уменьшения количества товара в корзине
+            function updateQuantity(productId, delta) {
+                const cartItems = getCartItems();
+                const item = cartItems.find(item => item.id === productId);
+
+                if (item) {
+                    item.quantity += delta;
+                    if (item.quantity < 1) {
+                        removeCartItem(productId);
+                    } else {
+                        setCartItems(cartItems);
+                    }
+                }
+            }
+
+            // Пример для удаления товара из корзины
+            function removeCartItem(productId) {
+                let cartItems = getCartItems();
+                cartItems = cartItems.filter(item => item.id !== productId);
+                setCartItems(cartItems);
+            }
+
+            // Пример добавления товара в корзину
+            function addToCart(item) {
+                const cartItems = getCartItems();
+                cartItems.push(item);
+                setCartItems(cartItems);
+            }
+
+            // Пример для очистки корзины
+            document.getElementById('clear-cart').addEventListener('click', function() {
+                localStorage.removeItem('cartItems');
+                updateCartCount();
+            });
+
+            // Функция для показа или скрытия модального окна корзины
+            document.getElementById('cart-button').addEventListener('click', function() {
+                const cartModal = document.getElementById('cart-modal');
+                cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+//*******************
+
         function getCartItems() {
             const storedData = JSON.parse(localStorage.getItem('cartItems'));
             return storedData && storedData.cartItems ? storedData.cartItems : [];

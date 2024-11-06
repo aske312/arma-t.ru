@@ -63,7 +63,7 @@
 <!-- Подпись о разработке -->
 <div class="section footer-title">
     <div class="developer-credit">
-        <p>Сайт разработан ХХХХХХХХХХ</p>
+        <!-- <p>Сайт разработан ХХХХХХХХХХ</p> -->
     </div>
 </div>
 
