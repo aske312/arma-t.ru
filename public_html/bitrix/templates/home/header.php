@@ -311,7 +311,7 @@ if ($element = $res->Fetch()) {
 //            }
 //
 //            // Собираем данные формы
-//            var formData = new FormData(this);
+            var formData = new FormData(this);
 //            formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
 
             // Создаем и отправляем запрос
