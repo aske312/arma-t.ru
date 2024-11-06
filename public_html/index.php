@@ -200,9 +200,9 @@ while ($section = $sections->Fetch()) {
                         <div class="category-text"><?= $arSection['NAME']; ?></div>
                     </div>
                 <?php endforeach; ?>
-            <?php else: ?>
+                <?php else: ?>
                 Нет доступных категорий
-            <?php endif; ?>
+                <?php endif; ?>
         </div>
     </div>
 </div>
