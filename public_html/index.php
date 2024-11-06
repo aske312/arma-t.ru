@@ -318,6 +318,14 @@ while ($section = $sections->Fetch()) {
         }
     }
 
+    function redirectToSection(sectionId) {
+        // Строим URL для страницы каталога, передавая параметр SECTION_ID
+        var url = "/catalog/index.php?SECTION_ID=" + sectionId;
+
+        // Перенаправляем пользователя на соответствующую страницу
+        window.location.href = url;
+    }
+
     document.getElementById('contactForm').addEventListener('submit', function (e) {
         e.preventDefault();  // Предотвращаем перезагрузку страницы
 
