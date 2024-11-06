@@ -14,6 +14,26 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 session_start(); // Запуск сессии
 $cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
+
+// Получаем телефон из инфоблока (ID = 3, раздел = 35, элемент ID = 67102)
+$phone = "";
+$res = CIBlockElement::GetList(
+    [],
+    [
+        "IBLOCK_ID" => 3,  // ID инфоблока
+        "SECTION_ID" => 35, // Раздел
+        "ID" => 67102,      // ID элемента
+        "ACTIVE" => "Y"     // Только активные элементы
+    ],
+    false,
+    false,
+    ["ID", "NAME", "PROPERTY_PHONE"] // Получаем телефон
+);
+
+if ($element = $res->Fetch()) {
+    // Если телефон найден, сохраняем его в переменную
+    $phone = $element['PROPERTY_PHONE_VALUE'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +67,12 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             </div>
 
             <div class="contact-container">
-                <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
+                <?php if ($phone): ?>
+                    <p><a href="tel:+<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
+                <?php else: ?>
+                    <p>Телефон не найден</p>
+                <?php endif; ?>
+
                 <button onclick="window.location.href='/#Cash'">Оставить заявку</button>
                 <!-- <button onclick="openForm()">Оставить заявку</button> -->
 
@@ -237,22 +262,12 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('cart-modal').style.display = 'none';
         });
 
-        // Открытие модального окна
-//        function openForm() {
-//            document.getElementById('Form').classList.add('active');
-//        }
-
         // Закрытие модального окна при клике вне формы
         window.onclick = function(event) {
             if (event.target === document.getElementById('Form')) {
                 document.getElementById('Form').classList.remove('active');
             }
         };
-
-        // Открытие формы (например, при клике на кнопку "Оставить заявку")
-//        document.querySelector('button[onclick="window.location.href=\'/#Form\'"]').addEventListener('click', function() {
-//            document.getElementById('Form').classList.add('active');
-//        });
 
         // Закрытие формы по кнопке
         document.querySelector('.close-form-header').addEventListener('click', function() {
