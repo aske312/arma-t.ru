@@ -99,20 +99,10 @@ if ($element = $res->Fetch()) {
             </div>
 
             <div class="cart-wrapper">
-<!--
-                <div class="cart-icon">
-                    <button id="cart-button" class="cart-btn">
-                        В Корзине (<span id="cart-count"><?= $cartItemCount ?></span>)
-                    </button>
-                </div>
--->
-
                 <div class="cart-icon">
                     <button id="cart-button" class="cart-btn">
                         <div class="cart-icon-wrapper">
-                            <!-- Изображение корзины -->
-                            <img src="/public_html/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                            <!-- Число на картинке -->
+                            <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
                             <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
                         </div>
                     </button>
