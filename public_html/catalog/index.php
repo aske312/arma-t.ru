@@ -124,7 +124,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <?php endif; ?>
 
                         <div class="catalog-item-info">
-                            <h3 class="catalog-item-name"><?= $arFields['DETAIL_TEXT']; ?></h3>
+                            <h3 class="catalog-item-name"><?= !empty($arFields['PREVIEW_TEXT']) ? $arFields['PREVIEW_TEXT'] : 'Нет анонса'; ?></h3>
                             <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
                             <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
                             <p><div class="catalog-item-price">
