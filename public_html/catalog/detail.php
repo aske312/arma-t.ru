@@ -96,7 +96,7 @@ if (CModule::IncludeModule("iblock")) {
 </div>
 
 <script>
-    // Определяем функцию addToCart вне обработчика DOMContentLoaded
+    // Функция добавления товара в корзину
     function addToCart(button) {
         // Получаем данные о товаре из атрибутов кнопки
         const productId = button.getAttribute('data-id');
@@ -127,9 +127,25 @@ if (CModule::IncludeModule("iblock")) {
         // Обновляем данные в localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
+        // Обновляем счетчик в интерфейсе
+        updateCartCounter();
+
         // Выводим уведомление или обновляем интерфейс
         alert('Товар добавлен в корзину');
+
+        // Обновляем страницу
+        location.reload();
     }
+
+    // Функция для обновления счетчика товаров в корзине
+    function updateCartCounter() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || { cartItems: [] };
+        const cartCount = cartItems.cartItems.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cart-count').innerText = cartCount;
+    }
+
+    // Обновляем счетчик при загрузке страницы
+    document.addEventListener('DOMContentLoaded', updateCartCounter);
 </script>
 
 <?php
