@@ -103,7 +103,9 @@ if ($element = $res->Fetch()) {
                     <button id="cart-button" class="cart-btn">
                         <div class="cart-icon-wrapper">
                             <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                            <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
+                            <?php if ($cartItemCount > 0): ?>
+                                <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
+                            <?php endif; ?>
                         </div>
                     </button>
                 </div>
