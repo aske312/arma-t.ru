@@ -35,50 +35,47 @@ while ($requisite = $resRequisites->Fetch()) {
 ?>
 
 <!-- Футер -->
-<footer>
-    <div class="footer-container">
+<div class="footer">
+    <div class="conts-wrapper">
         <!-- Контактная информация -->
-        <div class="footer-contact-info">
-            <h3>Контактная информация</h3>
+        <div class="cont-info">
+            <h2>Контактная информация</h2>
             <?php if (!empty($contacts)): ?>
-                <ul>
+                <div class="cont-details">
                     <?php foreach ($contacts as $contact): ?>
-                        <li>
-                            <strong><?= htmlspecialchars($contact['NAME']); ?></strong><br>
-                            <span><?= htmlspecialchars($contact['PREVIEW_TEXT']); ?></span>
-                        </li>
+                        <p><strong><?= htmlspecialchars($contact['NAME']); ?></strong></p>
+                        <p><?= htmlspecialchars($contact['PREVIEW_TEXT']); ?></p>
                     <?php endforeach; ?>
-                </ul>
+                </div>
             <?php else: ?>
                 <p>Контактная информация не найдена.</p>
             <?php endif; ?>
         </div>
 
         <!-- Реквизиты -->
-        <div class="footer-requisites">
-            <h3>Реквизиты</h3>
+        <div class="cont-info">
+            <h2>Реквизиты</h2>
             <?php if (!empty($requisites)): ?>
-                <ul>
+                <div class="cont-details">
                     <?php foreach ($requisites as $requisite): ?>
-                        <li>
-                            <strong><?= htmlspecialchars($requisite['NAME']); ?></strong><br>
-                            <span><?= htmlspecialchars($requisite['PREVIEW_TEXT']); ?></span>
-                        </li>
+                        <p><strong><?= htmlspecialchars($requisite['NAME']); ?></strong></p>
+                        <p><?= htmlspecialchars($requisite['PREVIEW_TEXT']); ?></p>
                     <?php endforeach; ?>
-                </ul>
+                </div>
             <?php else: ?>
                 <p>Реквизиты не найдены.</p>
             <?php endif; ?>
         </div>
 
-        <!-- Карта с точкой -->
-        <div class="footer-map">
-            <h3>Наша локация</h3>
-            <div id="map" style="width: 100%; height: 400px;"></div>
+        <!-- Карта -->
+        <div class="map">
+            <h2>Наша локация</h2>
+            <div id="map"></div>
         </div>
     </div>
-</footer>
+</div>
 
+<!-- Подключение API Яндекс.Карт -->
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=ВАШ_API_КЛЮЧ" type="text/javascript"></script>
 <script>
     ymaps.ready(function () {
