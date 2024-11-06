@@ -18,8 +18,8 @@
                 $contactsRes = CIBlockElement::GetList([], $contactsFilter, false, false, $contactsSelect);
 
                 while ($contact = $contactsRes->GetNext()) {
-                    // Выводим название и текст каждого элемента
-                    echo "<p>" . $contact['PROPERTY_ANNOUNCE'] . ": " . $contact['PROPERTY_TEXT'] . "</p>";
+                    // Выводим название и текст анонса каждого элемента
+                    echo "<p>" . $contact['NAME'] . ": " . $contact['PROPERTY_ANNOUNCE'] . "</p>";
                 }
                 ?>
 
@@ -37,8 +37,8 @@
                 $requisitesRes = CIBlockElement::GetList([], $requisitesFilter, false, false, $requisitesSelect);
 
                 while ($requisite = $requisitesRes->GetNext()) {
-                    // Выводим название и текст каждого элемента
-                    echo "<p>" . $requisite['PROPERTY_ANNOUNCE'] . ": " . $requisite['PROPERTY_TEXT'] . "</p>";
+                    // Выводим название и текст анонса каждого элемента
+                    echo "<p>" . $requisite['NAME'] . ": " . $requisite['PROPERTY_ANNOUNCE'] . "</p>";
                 }
                 ?>
             </div>
