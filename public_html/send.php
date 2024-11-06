@@ -1,5 +1,26 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Проверка reCAPTCHA
+    $recaptchaSecret = '6LcQqHYqAAAAAOjcdrqmn1L_EmarSeYkbVOGx0lN'; // Замените на ваш секретный ключ reCAPTCHA
+    $recaptchaResponse = $_POST['g-recaptcha-response'];  // Получаем ответ от капчи
+    $userIP = $_SERVER['REMOTE_ADDR'];  // IP пользователя
+
+    // Проверяем ответ капчи через API Google
+    $recaptchaVerifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+    $recaptchaResponseJson = file_get_contents(
+        $recaptchaVerifyUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse . '&remoteip=' . $userIP
+    );
+
+    $recaptchaResult = json_decode($recaptchaResponseJson);
+
+    if (!$recaptchaResult->success) {
+        // Если капча не прошла проверку, возвращаем ошибку
+        http_response_code(400);
+        echo json_encode(['status' => 'error', 'message' => 'Ошибка проверки капчи.']);
+        exit;
+    }
+
+    // Получаем данные формы
     $name = htmlspecialchars($_POST['name']);
     $email = htmlspecialchars($_POST['email']);
     $subject = htmlspecialchars($_POST['subject']);
@@ -47,12 +68,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body .= "--$boundary--";
 
     $to = "support@arma-t.ru";  // Укажите ваш email
-    $subject = "Application from $subject";
+    $emailSubject = "Application from $subject";
 
-    if (mail($to, $subject, $body, $headers)) {
+    // Отправляем письмо
+    if (mail($to, $emailSubject, $body, $headers)) {
         http_response_code(200);  // Сообщение об успешной отправке
+        echo json_encode(['status' => 'success', 'message' => 'Ваше сообщение было успешно отправлено!']);
     } else {
         http_response_code(500);  // Сообщение об ошибке
+        echo json_encode(['status' => 'error', 'message' => 'Произошла ошибка при отправке сообщения.']);
     }
 }
 ?>

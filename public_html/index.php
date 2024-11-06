@@ -75,6 +75,58 @@ $arResult['SECTIONS'] = [];
 while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }
+
+
+
+use Google\ApiCore\ApiException;
+use Google\Cloud\RecaptchaEnterprise\V1\Client\RecaptchaEnterpriseServiceClient;
+use Google\Cloud\RecaptchaEnterprise\V1\CreateKeyRequest;
+use Google\Cloud\RecaptchaEnterprise\V1\Key;
+use Google\Cloud\RecaptchaEnterprise\V1\WebKeySettings;
+use Google\Cloud\RecaptchaEnterprise\V1\WebKeySettings\IntegrationType;
+
+/**
+ * Create a site key for reCAPTCHA
+ *
+ * @param string $projectId Your Google Cloud project ID
+ * @param string $keyName The name of the key you wish to create
+ */
+function create_key(string $projectId, string $keyName): void
+{
+    $client = new RecaptchaEnterpriseServiceClient();
+    $formattedProject = $client->projectName($projectId);
+
+    // Create the settings for the key.
+    // In order to create other keys we'll use AndroidKeySettings or IOSKeySettings
+    $settings = new WebKeySettings();
+
+    // Allow the key to work for all domains(Not recommended)
+    $settings->setAllowAllDomains(true);
+    // ...or explicitly set the allowed domains for the key as an array of strings
+    // $settings->setAllowedDomains(['']);
+
+    // Specify the type of the key
+    // - score based key -> IntegrationType::SCORE
+    // - checkbox based key -> IntegrationType::CHECKBOX
+    // Read https://cloud.google.com/recaptcha-enterprise/docs/choose-key-type
+    $settings->setIntegrationType(IntegrationType::CHECKBOX);
+
+    $key = new Key();
+    $key->setDisplayName($keyName);
+    $key->setWebSettings($settings);
+
+    try {
+        $createKeyRequest = (new CreateKeyRequest())
+            ->setParent($formattedProject)
+            ->setKey($key);
+        $createdKey = $client->createKey($createKeyRequest);
+        printf('The key: %s is created.' . PHP_EOL, $createdKey->getName());
+    } catch (ApiException $e) {
+        print('createKey() call failed with the following error: ');
+        print($e);
+    }
+}
+
 ?>
 
 <div class="section section1">
@@ -264,6 +316,10 @@ while ($section = $sections->Fetch()) {
             <input type="email" id="email" name="email" placeholder="e-mail" required>
             <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
+
+            <!-- Добавляем reCAPTCHA -->
+            <div class="g-recaptcha" data-sitekey="6LcQqHYqAAAAAEs5PRrpZzwzKvKexhGs9BQaHfUH"></div>
+
             <div class="form-actions">
                 <button type="submit" id="submitButton">Отправить</button>
             </div>
@@ -300,6 +356,7 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
     function toggleMenu() {
         var nav = document.getElementById('mainNav');
@@ -329,7 +386,20 @@ while ($section = $sections->Fetch()) {
     document.getElementById('contactForm').addEventListener('submit', function (e) {
         e.preventDefault();  // Предотвращаем перезагрузку страницы
 
+        // Получаем ответ капчи
+        var recaptchaResponse = grecaptcha.getResponse();
+
+        // Проверяем, прошел ли пользователь капчу
+        if (recaptchaResponse.length === 0) {
+            alert("Пожалуйста, подтвердите, что вы не робот.");
+            return; // Если капча не пройдена, не отправляем форму
+        }
+
+        // Собираем данные формы
         var formData = new FormData(this);
+        formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
+
+        // Создаем и отправляем запрос
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'send.php', true);
 
