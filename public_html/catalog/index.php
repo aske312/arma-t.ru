@@ -198,6 +198,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         document.getElementById('cart-count').textContent = itemCount;
     }
 
+    // Находим все ссылки на детальные страницы и добавляем обработку кликов только для них
+    document.querySelectorAll('.catalog-item-link').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // Если клик не на кнопке "В корзину", переходим по ссылке
+            const buttonClicked = event.target.closest('.catalog-item-add-to-cart');
+            if (!buttonClicked) {
+                return; // Если это не кнопка "В корзину", переходить по ссылке
+            }
+        });
+    });
+
     document.addEventListener("DOMContentLoaded", updateCartCounter);
 </script>
 
