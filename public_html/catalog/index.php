@@ -3,7 +3,9 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 $APPLICATION->SetTitle("Каталог");
 
-// Получаем ID секции
+//session_start()
+
+// Берем значение секции
 $sectionId = intval($_GET['SECTION_ID']);
 if (empty($sectionId)) {
     $sectionId = 1;
@@ -11,9 +13,9 @@ if (empty($sectionId)) {
 
 use Bitrix\Main\Page\Asset;
 
-Asset::getInstance()->addCss("/resources/css/catalog.css"); // Подключаем CSS
+Asset::getInstance()->addCss("/resources/css/catalog.css"); //css
 
-// Фильтр для текущей секции
+// Получение текущей секции
 $sectionFilter = [
     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
     'ID' => $sectionId,
@@ -21,7 +23,99 @@ $sectionFilter = [
 ];
 $selectedSection = CIBlockSection::GetList([], $sectionFilter, false, ['ID', 'NAME', 'DESCRIPTION'])->Fetch();
 
-// Получаем список элементов с учетом фильтров и пагинации
+// Получение списка секций для бокового меню
+$sectionsFilter = [
+    'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+    'ACTIVE' => 'Y',
+    'GLOBAL_ACTIVE' => 'Y',
+];
+
+$arSelect = ['ID', 'NAME', 'SECTION_PAGE_URL', 'PICTURE'];
+$sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, $arSelect);
+$arResult['SECTIONS'] = [];
+while ($section = $sections->Fetch()) {
+    $arResult['SECTIONS'][] = $section;
+}
+
+// Инициализация свойств фильтров
+$filterProperties = [
+    'EL_TABLE_FIGURE',
+    'EL_CONNECTION_TYPE',
+    'EL_PRESSURE_PN',
+    'EL_BODY_MATERIAL',
+    'EL_TYPE_ZATVOR'
+];
+
+$arResult['FILTER_PROPERTIES'] = [];
+foreach ($filterProperties as $propertyCode) {
+    $arResult['FILTER_PROPERTIES'][$propertyCode] = [
+        'NAME' => CIBlockProperty::GetByID($propertyCode, $arParams['IBLOCK_ID'])->Fetch()['NAME'],
+        'VALUES' => []
+    ];
+}
+
+// Получение всех секций и сбор значений для фильтров
+$sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, ['ID']);
+while ($section = $sections->Fetch()) {
+    $elementFilter = [
+        'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+        'SECTION_ID' => $sectionId,
+        'ACTIVE' => 'Y',
+        'INCLUDE_SUBSECTIONS' => 'Y',
+    ];
+
+    $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
+    $res = CIBlockElement::GetList([], $elementFilter, false, false, $elementSelect);
+
+    // Проход по каждому элементу
+    while ($ob = $res->GetNextElement()) {
+        $arFields = $ob->GetFields();
+        $arProps = $ob->GetProperties();
+
+        foreach ($filterProperties as $propertyCode) {
+            $value = $arProps[$propertyCode]['VALUE'];
+
+            if (!empty($value)) {
+                if (is_array($value)) {
+                    foreach ($value as $val) {
+                        $arResult['FILTER_PROPERTIES'][$propertyCode]['VALUES'][] = $val;
+                    }
+                } else {
+                    $arResult['FILTER_PROPERTIES'][$propertyCode]['VALUES'][] = $value;
+                }
+            }
+        }
+    }
+}
+
+//// Наполнение фильтра
+//while ($ob = $res->GetNextElement()) {
+//    $arFields = $ob->GetFields();
+//    $arProps = $ob->GetProperties();
+//
+//    foreach ($filterProperties as $propertyCode) {
+//        $value = $arProps[$propertyCode]['VALUE'];
+//
+//        if (!empty($value)) {
+//            if (is_array($value)) {
+//                foreach ($value as $val) {
+//                    $arResult['FILTER_PROPERTIES'][$propertyCode]['VALUES'][] = $val;
+//                }
+//            } else {
+//                $arResult['FILTER_PROPERTIES'][$propertyCode]['VALUES'][] = $value;
+//            }
+//        }
+//    }
+//}
+
+// Удаление дублирующихся значений в фильтрах
+foreach ($arResult['FILTER_PROPERTIES'] as &$property) {
+    if (!empty($property['VALUES'])) {
+        $property['VALUES'] = array_unique($property['VALUES']);
+    }
+}
+
+// Применение фильтров к элементам каталога
 $elementFilter = [
     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
     'SECTION_ID' => $sectionId,
@@ -35,6 +129,7 @@ foreach ($filterProperties as $propertyCode) {
     }
 }
 
+// Получение списка элементов с учетом фильтров и пагинации
 $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
 $res = CIBlockElement::GetList(
     ['ID' => 'ASC'], // Сортировка по ID
@@ -81,7 +176,39 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Анимация загрузки -->
         <div id="loader" class="loader" style="display: none;">Загрузка...</div>
 
-        <!-- Список элементов каталога -->
+
+        <!-- Фильтры
+        <div class="filters">
+            <form method="GET" action="">
+                <table>
+                    <?php if (!empty($arResult['FILTER_PROPERTIES'])): ?>
+                    <?php foreach ($arResult['FILTER_PROPERTIES'] as $propertyCode => $property): ?>
+                        <th>
+                            <?= $property['NAME']; ?>
+                            <select name="<?= $propertyCode; ?>">
+                                <option value="all">Все</option>
+                                <?php foreach ($property['VALUES'] as $value): ?>
+                                <option value="<?= htmlspecialchars($value); ?>" <?= isset($_GET[$propertyCode]) && $_GET[$propertyCode] == $value ? 'selected' : ''; ?>>
+                                <?= htmlspecialchars($value); ?>
+                                </option>
+                            <?php endforeach; ?>
+                            </select>
+                        </th>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </table>
+                <button type="submit">Применить фильтр</button>
+            </form>
+        </div> -->
+
+        <!-- Чекбокс для выбора всех товаров -->
+        <div class="select-all">
+            <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
+            <label for="select-all">Выбрать все</label>
+            <button class="catalog-add-all">В корзину</button>
+        </div>
+
+        <!-- Список элементов каталога  -->
         <div class="catalog-items">
             <?php while ($ob = $res->GetNextElement()):
                 $arFields = $ob->GetFields();
@@ -98,19 +225,32 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <div class="catalog-item-info">
                             <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
                             <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
-                            <p class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE'] ?: 'Цену уточняйте у оператора'; ?> руб.</p>
+                            <p class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE'] + "руб." ?: 'Цену уточняйте у оператора'; ?></p>
                         </div>
                     </a>
+
                     <div class="catalog-item-controls">
                         <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>"
                                 data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>"
                                 data-article="<?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?>">В корзину</button>
                     </div>
                 </div>
-            <?php endwhile; ?>
+
+                <!-- Краткое описание элемента -->
+                <div class="catalog-item-properties">
+                    <table>
+                        <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
+                        <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
+                        <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
+                        <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
+                        <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                    </table>
+                </div>
+            </div>
+            <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
         </div>
 
-        <!-- Пагинация -->
+        <!-- Пагинация  -->
         <div class="pagination">
             <?= $arResult['NAV_STRING']; ?>
         </div>
@@ -158,9 +298,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         document.getElementById('cart-count').textContent = itemCount;
     }
 
+    // Инициализация обработчиков событий для кнопок "В корзину"
+    document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
+        button.addEventListener('click', event => {
+            const itemId = itemCheckbox.dataset.id;
+            const itemName = itemCheckbox.dataset.name;
+            const itemPrice = itemCheckbox.dataset.price;
+            const itemArticle = itemCheckbox.dataset.article;
+            addToCart(itemId, itemName, itemPrice, itemArticle);
+        });
+    });
+
     document.addEventListener("DOMContentLoaded", updateCartCounter);
 </script>
 
-<?php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
-?>
+
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
