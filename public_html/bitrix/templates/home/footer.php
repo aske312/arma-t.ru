@@ -43,23 +43,19 @@ while ($requisite = $resRequisites->Fetch()) {
             <?php if (!empty($contacts)): ?>
                 <div class="cont-details">
                     <?php foreach ($contacts as $contact): ?>
-                        <p><strong><?= htmlspecialchars($contact['NAME']); ?></strong></p>
-                        <p><?= htmlspecialchars($contact['PREVIEW_TEXT']); ?></p>
+                        <p><strong><?= htmlspecialchars($contact['NAME']); ?>:</strong> <?= htmlspecialchars($contact['PREVIEW_TEXT']); ?></p>
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
                 <p>Контактная информация не найдена.</p>
             <?php endif; ?>
-        </div>
 
-        <!-- Реквизиты -->
-        <div class="cont-info">
+            <!-- Реквизиты -->
             <h2>Реквизиты</h2>
             <?php if (!empty($requisites)): ?>
                 <div class="cont-details">
                     <?php foreach ($requisites as $requisite): ?>
-                        <p><strong><?= htmlspecialchars($requisite['NAME']); ?></strong></p>
-                        <p><?= htmlspecialchars($requisite['PREVIEW_TEXT']); ?></p>
+                        <p><strong><?= htmlspecialchars($requisite['NAME']); ?>:</strong> <?= htmlspecialchars($requisite['PREVIEW_TEXT']); ?></p>
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
@@ -69,28 +65,18 @@ while ($requisite = $resRequisites->Fetch()) {
 
         <!-- Карта -->
         <div class="map">
-            <h2>Наша локация</h2>
-            <div id="map"></div>
+            <h2>Наши координаты</h2>
+            <div class="map-container">
+                <div class="map-point"></div>
+            </div>
         </div>
     </div>
+
+    <!-- Сайт разработан -->
+    <div class="developer-credit">
+        <p>Сайт разработан <strong>Название компании</strong></p>
+    </div>
 </div>
-
-<!-- Подключение API Яндекс.Карт -->
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=ВАШ_API_КЛЮЧ" type="text/javascript"></script>
-<script>
-    ymaps.ready(function () {
-        var map = new ymaps.Map("map", {
-            center: [55.681717, 37.269466], // Координаты точки
-            zoom: 14
-        });
-
-        var placemark = new ymaps.Placemark([55.681717, 37.269466], {
-            balloonContent: 'Наш офис'
-        });
-
-        map.geoObjects.add(placemark);
-    });
-</script>
 
 <?php
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
