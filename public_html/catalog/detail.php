@@ -11,7 +11,7 @@ if (CModule::IncludeModule("iblock")) {
         // Получаем основные параметры товара
         $productName = $ar_res['NAME'];
         $productDescription = $ar_res['DETAIL_TEXT'];
-        $productImage = CFile::GetPath($ar_res['DETAIL_PICTURE']); // Изображение товара
+        $productImage = CFile::GetPath($ar_res['EL_IMAGES']); // Изображение товара
         $productPrice = ''; // Цена
         $productArticul = ''; // Артикул
         $productAvailability = ''; // Срок изготовления
