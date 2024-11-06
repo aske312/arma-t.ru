@@ -48,7 +48,7 @@ if (CModule::IncludeModule("iblock")) {
 
         // Условия для цены
         if (empty($productPrice) || $productPrice == 0) {
-            $productPrice = "Под заказ";
+            $productPrice = "По запросу";
         }
 ?>
 

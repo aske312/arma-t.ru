@@ -75,8 +75,8 @@ if ($element = $res->Fetch()) {
                     <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                 <?php endif; ?>
 
-                <button onclick="window.location.href='/#Cash'">Оставить заявку</button>
-                <!-- <button onclick="openForm()">Оставить заявку</button> -->
+                <!-- <button onclick="window.location.href='/#Cash'">Оставить заявку</button> -->
+                <button onclick="openForm()">Оставить заявку</button>
 
                 <!-- Модальное окно для формы -->
                 <div class="form-container-header" id="Form">
