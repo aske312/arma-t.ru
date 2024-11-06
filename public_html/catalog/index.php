@@ -222,9 +222,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <?php endif; ?>
                         <div class="catalog-item-info">
                             <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
-                            <p>Артикул: <?= $arProps['EL_ARTICUL']['VALUE']; ?></p>
-                            <p><?= $arProps['EL_AVAILABILITY']['VALUE']; ?></p>
-                            <p><div class="catalog-item-price"><?= $arProps['EL_PRICE']['VALUE']; ?> руб.</div></p>
+                            <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
+                            <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                            <p><div class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?> руб.</div></p>
                         </div>
                         <!-- Кнопка "В корзину" -->
                         <div class="catalog-item-controls">
@@ -235,11 +235,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <!-- Краткое описание элемента -->
                     <div class="catalog-item-properties">
                         <table>
-                            <th>Тип присоединения: <?= $arProps['EL_TYPE_S']['VALUE']; ?></th>
-                            <th>Тип привода: <?= $arProps['EL_TYPE_P']['VALUE']; ?></th>
-                            <th>Диаметр DN: <?= $arProps['EL_DIAMETR']['VALUE']; ?>мм</th>
-                            <th>Давление PN: <?= $arProps['EL_DOWN']['VALUE']; ?>кгс/см²</th>
-                            <th>Материал корпуса: <?= $arProps['EL_MATERIAL']['VALUE']; ?></th>
+                            <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
+                            <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
+                            <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
+                            <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
+                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
                         </table>
                     </div>
                 </div>
