@@ -92,66 +92,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     <div class="catalog-content">
 
-        <!-- Форма фильтров -->
-        <form id="filterForm" method="GET" action="">
-            <input type="hidden" name="SECTION_ID" value="<?= $sectionId; ?>">
-
-            <!-- Тип присоединения -->
-            <label>Тип присоединения:</label>
-            <select name="EL_CONNTYPE" onchange="document.getElementById('filterForm').submit()">
-                <option value="all">Все</option>
-                <?php foreach ($connectionTypes as $type): ?>
-                    <option value="<?= $type; ?>" <?= ($_GET['EL_CONNTYPE'] == $type) ? 'selected' : ''; ?>>
-                        <?= $type; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <!-- Тип привода -->
-            <label>Тип привода:</label>
-            <select name="EL_DRIVETYPE" onchange="document.getElementById('filterForm').submit()">
-                <option value="all">Все</option>
-                <?php foreach ($driveTypes as $type): ?>
-                    <option value="<?= $type; ?>" <?= ($_GET['EL_DRIVETYPE'] == $type) ? 'selected' : ''; ?>>
-                        <?= $type; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <!-- Диаметр DN -->
-            <label>Диаметр DN:</label>
-            <select name="EL_DN_DIAMETER_MM" onchange="document.getElementById('filterForm').submit()">
-                <option value="all">Все</option>
-                <?php foreach ($diameters as $diameter): ?>
-                    <option value="<?= $diameter; ?>" <?= ($_GET['EL_DN_DIAMETER_MM'] == $diameter) ? 'selected' : ''; ?>>
-                        <?= $diameter; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <!-- Давление PN -->
-            <label>Давление PN:</label>
-            <select name="EL_PN_PRESSURE_KGF_CM2" onchange="document.getElementById('filterForm').submit()">
-                <option value="all">Все</option>
-                <?php foreach ($pressures as $pressure): ?>
-                    <option value="<?= $pressure; ?>" <?= ($_GET['EL_PN_PRESSURE_KGF_CM2'] == $pressure) ? 'selected' : ''; ?>>
-                        <?= $pressure; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <!-- Материал корпуса -->
-            <label>Материал корпуса:</label>
-            <select name="EL_BODY_MATERIAL" onchange="document.getElementById('filterForm').submit()">
-                <option value="all">Все</option>
-                <?php foreach ($materials as $material): ?>
-                    <option value="<?= $material; ?>" <?= ($_GET['EL_BODY_MATERIAL'] == $material) ? 'selected' : ''; ?>>
-                        <?= $material; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </form>
-
         <!-- Анимация загрузки -->
         <div id="loader" class="loader" style="display: none;">Загрузка...</div>
 
