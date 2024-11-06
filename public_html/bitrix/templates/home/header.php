@@ -15,7 +15,7 @@ session_start(); // Запуск сессии
 $cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 
-// Получаем телефон из инфоблока (ID = 3, раздел = 35, элемент ID = 67102)
+// Получаем описание элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
 $res = CIBlockElement::GetList(
     [],
@@ -27,12 +27,14 @@ $res = CIBlockElement::GetList(
     ],
     false,
     false,
-    ["ID", "NAME", "PROPERTY_PHONE"] // Получаем телефон
+    ["ID", "NAME", "DETAIL_TEXT"] // Получаем описание
 );
 
 if ($element = $res->Fetch()) {
-    // Если телефон найден, сохраняем его в переменную
-    $phone = $element['PROPERTY_PHONE_VALUE'];
+    // Если описание найдено, извлекаем телефон
+    if (preg_match('/\+7\(\d{3}\)\s?\d{3}-\d{2}-\d{2}/', $element['DETAIL_TEXT'], $matches)) {
+        $phone = $matches[0];  // Сохраняем номер телефона из описания
+    }
 }
 ?>
 
@@ -68,7 +70,7 @@ if ($element = $res->Fetch()) {
 
             <div class="contact-container">
                 <?php if ($phone): ?>
-                    <p><a href="tel:+<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
+                    <p><a href="tel:<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
                 <?php else: ?>
                     <p>Телефон не найден</p>
                 <?php endif; ?>
