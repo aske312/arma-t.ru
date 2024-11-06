@@ -196,26 +196,20 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;
 
-    // Функция сохранения данных корзины в localStorage с сроком истечения
+    // Функция для сохранения товаров в localStorage
     function setCartItemsToStorage(cartItems) {
         const now = new Date().getTime();
         const data = {
             cartItems: cartItems,
-            expiry: now + (EXPIRY_DAYS * 24 * 60 * 60 * 1000) // 3 дня в миллисекундах
+            expiry: now + (3 * 24 * 60 * 60 * 1000)  // 3 дня в миллисекундах
         };
         localStorage.setItem('cartItems', JSON.stringify(data));
     }
 
-    // Функция получения товаров из localStorage с проверкой срока годности
+    // Функция для получения товаров из localStorage
     function getCartItemsFromStorage() {
         const data = JSON.parse(localStorage.getItem('cartItems'));
-        if (!data) return [];
-        const now = new Date().getTime();
-        if (now > data.expiry) {
-            localStorage.removeItem('cartItems');
-            return [];
-        }
-        return data.cartItems;
+        return data ? data.cartItems : [];
     }
 
     // Функция добавления товара в корзину
@@ -244,11 +238,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         updateCartCounter();
     }
 
-    // Обновление счетчика товаров в корзине
+    // Функция обновления счетчика товаров в корзине
     function updateCartCounter() {
         const cartItems = getCartItemsFromStorage();
         const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-        document.getElementById('cart-count').textContent = itemCount;
+        document.getElementById('cart-count').textContent = itemCount;  // Обновляем отображение счетчика
     }
 
     document.querySelector('.catalog-add-all').addEventListener('click', function() {
@@ -279,9 +273,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         updateCartCounter();
     });
 
+    // Обработчики для кнопок "В корзину"
     document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
         button.addEventListener('click', event => {
-            event.stopPropagation(); // Останавливаем переход на детальную страницу
+            event.stopPropagation(); // Останавливаем распространение события
+            event.preventDefault(); // Останавливаем переход по ссылке
 
             // Получаем данные из атрибутов кнопки
             const productId = button.getAttribute('data-id');
@@ -289,18 +285,37 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             const productPrice = button.getAttribute('data-price');
             const productArticle = button.getAttribute('data-article'); // Артикул товара
 
-            // Вызываем функцию добавления в корзину
+            // Вызываем функцию добавления товара в корзину
             addToCart(productId, productName, productPrice, productArticle);
         });
     });
 
-    // Пример функции добавления товара в корзину
-    function addToCart(id, name, price, article) {
-        // Логика добавления товара в корзину
-        console.log('Товар добавлен в корзину:', { id, name, price, article });
+    // Функция добавления товара в корзину
+    function addToCart(productId, productName, productPrice, productArticle) {
+        let cartItems = getCartItemsFromStorage();  // Получаем текущие товары в корзине
+        let found = false;
 
-        // Здесь можно добавить код для отправки товара в корзину через AJAX или обновления состояния корзины на странице
-        // Например, отправить данные на сервер или сохранить в localStorage
+        // Проверяем, есть ли товар в корзине
+        cartItems.forEach(item => {
+            if (item.id === productId) {
+                item.quantity += 1; // Если товар уже есть, увеличиваем количество
+                found = true;
+            }
+        });
+
+        if (!found) {
+            // Если товара нет в корзине, добавляем его
+            cartItems.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                article: productArticle,  // Добавляем артикул
+                quantity: 1
+            });
+        }
+
+        setCartItemsToStorage(cartItems);  // Сохраняем корзину в localStorage
+        updateCartCounter();  // Обновляем счетчик товаров в корзине
     }
 
     // Находим все ссылки на детальные страницы и добавляем обработку кликов только для них
