@@ -298,32 +298,36 @@ if ($element = $res->Fetch()) {
         });
 
         // Обработчик отправки формы
-        document.getElementById('contactForm-header').addEventListener('submit', function(e) {
-            e.preventDefault(); // Предотвращаем перезагрузку страницы
+        document.getElementById('contactForm-header').addEventListener('submit', function (e) {
+            e.preventDefault();  // Предотвращаем перезагрузку страницы
+
+            // Получаем ответ капчи
+            var recaptchaResponse = grecaptcha.getResponse();
+
+            // Проверяем, прошел ли пользователь капчу
+            if (recaptchaResponse.length === 0) {
+                alert("Пожалуйста, подтвердите, что вы не робот.");
+                return; // Если капча не пройдена, не отправляем форму
+            }
 
             // Собираем данные формы
-            const formData = new FormData(this);
+            var formData = new FormData(this);
+            formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
 
-            // Отправляем данные на сервер с помощью AJAX
+            // Создаем и отправляем запрос
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'send.php', true);
+            xhr.open('POST', '/send.php', true);
 
-            // Обработчик ответа
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.status === 'success') {
-                        alert('Ваша заявка успешно отправлена!');
-                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
-                        document.getElementById('contactForm-header').reset(); // Сброс формы
-                    } else {
-                        alert(response.message || 'Произошла ошибка при отправке заявки.');
-                    }
+                    document.getElementById('contactForm').reset();
+                    document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
+                    alert('Ваше сообщение было успешно отправлено!');
                 } else {
-                    alert('Ошибка отправки заявки.');
+                    alert('Произошла ошибка при отправке сообщения.');
                 }
             };
 
-            xhr.send(formData);
+            xhr.send(formData);  // Отправляем данные формы
         });
     </script>

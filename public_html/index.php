@@ -271,7 +271,6 @@ while ($section = $sections->Fetch()) {
             <div class="form-actions">
                 <button type="submit" id="submitButton">Отправить</button>
             </div>
-            <div id="fileList"></div>
         </form>
     </div>
 </div>
