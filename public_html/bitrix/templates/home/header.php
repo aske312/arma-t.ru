@@ -316,7 +316,7 @@ if ($element = $res->Fetch()) {
 
             // Создаем и отправляем запрос
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/send.php', true);
+            xhr.open('POST', '/public_html/resources/src/send.php', true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {
