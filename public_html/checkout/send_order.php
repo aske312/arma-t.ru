@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body .= "</ul></body></html>";
     $body .= "--$boundary--\r\n";
 
-    $to = 'support@arma-t.ru';
+    $to = 'info@arma-t.ru';
     $subject = "Новый заказ от $name";
     mail($to, $subject, $body, $headers);
 }
