@@ -1,24 +1,24 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Проверка reCAPTCHA
-    $recaptchaSecret = '6LcQqHYqAAAAAOjcdrqmn1L_EmarSeYkbVOGx0lN'; // Замените на ваш секретный ключ reCAPTCHA
-    $recaptchaResponse = $_POST['g-recaptcha-response'];  // Получаем ответ от капчи
-    $userIP = $_SERVER['REMOTE_ADDR'];  // IP пользователя
-
-    // Проверяем ответ капчи через API Google
-    $recaptchaVerifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
-    $recaptchaResponseJson = file_get_contents(
-        $recaptchaVerifyUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse . '&remoteip=' . $userIP
-    );
-
-    $recaptchaResult = json_decode($recaptchaResponseJson);
-
-    if (!$recaptchaResult->success) {
-        // Если капча не прошла проверку, возвращаем ошибку
-        http_response_code(400);
-        echo json_encode(['status' => 'error', 'message' => 'Ошибка проверки капчи.']);
-        exit;
-    }
+//    // Проверка reCAPTCHA
+//    $recaptchaSecret = '6LcQqHYqAAAAAOjcdrqmn1L_EmarSeYkbVOGx0lN'; // Замените на ваш секретный ключ reCAPTCHA
+//    $recaptchaResponse = $_POST['g-recaptcha-response'];  // Получаем ответ от капчи
+//    $userIP = $_SERVER['REMOTE_ADDR'];  // IP пользователя
+//
+//    // Проверяем ответ капчи через API Google
+//    $recaptchaVerifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+//    $recaptchaResponseJson = file_get_contents(
+//        $recaptchaVerifyUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse . '&remoteip=' . $userIP
+//    );
+//
+//    $recaptchaResult = json_decode($recaptchaResponseJson);
+//
+//    if (!$recaptchaResult->success) {
+//        // Если капча не прошла проверку, возвращаем ошибку
+//        http_response_code(400);
+//        echo json_encode(['status' => 'error', 'message' => 'Ошибка проверки капчи.']);
+//        exit;
+//    }
 
     // Получаем данные формы
     $name = htmlspecialchars($_POST['name']);
