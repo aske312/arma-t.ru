@@ -225,7 +225,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <div class="catalog-item-info">
                             <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
                             <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
-                            <p class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE'] + "руб." ?: 'Цену уточняйте у оператора'; ?></p>
+                            <p class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE'] ?: 'Цену уточняйте у оператора'; ?></p>
                         </div>
                     </a>
 
