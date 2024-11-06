@@ -21,6 +21,20 @@ $sectionFilter = [
 ];
 $selectedSection = CIBlockSection::GetList([], $sectionFilter, false, ['ID', 'NAME', 'DESCRIPTION'])->Fetch();
 
+// Получение списка секций для бокового меню
+$sectionsFilter = [
+    'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+    'ACTIVE' => 'Y',
+    'GLOBAL_ACTIVE' => 'Y',
+];
+
+$arSelect = ['ID', 'NAME', 'SECTION_PAGE_URL', 'PICTURE'];
+$sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, $arSelect);
+$arResult['SECTIONS'] = [];
+while ($section = $sections->Fetch()) {
+    $arResult['SECTIONS'][] = $section;
+}
+
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
