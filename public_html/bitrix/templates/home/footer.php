@@ -19,7 +19,7 @@
 
                 while ($contact = $contactsRes->GetNext()) {
                     // Выводим название и текст анонса каждого элемента
-                    echo "<p>" . $contact['NAME'] . ": " . $contact['PROPERTY_ANNOUNCE'] . "</p>";
+                    echo "<p>" . $contact['NAME'] . ": " . $contact['PROPERTY_TEXT'] . "</p>";
                 }
                 ?>
 
@@ -38,7 +38,7 @@
 
                 while ($requisite = $requisitesRes->GetNext()) {
                     // Выводим название и текст анонса каждого элемента
-                    echo "<p>" . $requisite['NAME'] . ": " . $requisite['PROPERTY_ANNOUNCE'] . "</p>";
+                    echo "<p>" . $requisite['NAME'] . ": " . $requisite['PROPERTY_TEXT'] . "</p>";
                 }
                 ?>
             </div>
