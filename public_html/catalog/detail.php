@@ -1,7 +1,7 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 use Bitrix\Main\Page\Asset;
-Asset::getInstance()->addCss("/resources/css/detail.css"); //css
+Asset::getInstance()->addCss("/resources/css/detail.css"); // css
 
 if (CModule::IncludeModule("iblock")) {
     $productId = intval($_GET['id']);
@@ -52,59 +52,53 @@ if (CModule::IncludeModule("iblock")) {
         }
 ?>
 
-        <div class="section-title">
-            <h2><?php echo htmlspecialchars($productName); ?></h2> <!-- Название раздела -->
-            <p>Подробное описание</p>
-        </div>
+<div class="section-title">
+    <h2><?php echo htmlspecialchars($productName); ?></h2> <!-- Название товара -->
+    <p>Подробное описание</p>
+</div>
 
-        <div class="product-detail" style="background-color: white; border-radius: 5px; padding: 20px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-            <div class="product-content">
-                <div class="product-image">
-                    <img src="<?php echo htmlspecialchars($productImage ?: $sectionImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>" style="width: 300px; height: auto;"> <!-- Изображение товара -->
-                </div>
-                <div class="product-info">
-                    <h1><?php echo htmlspecialchars($productName); ?></h1>
-                    <div class="product-articul-availability">Артикул: <?php echo htmlspecialchars($productArticul); ?> &nbsp; Срок изготовления: <?php echo htmlspecialchars($productAvailability); ?></div>
-                    <!-- <div class="product-availability">Срок изготовления: <?php echo htmlspecialchars($productAvailability); ?></div> -->
-                    <div class="product-price">
-                        <p>Цена: <?php echo htmlspecialchars($productPrice); ?></p>
-                    </div>
-                    <button class="add-to-cart" data-id="<?php echo $productId; ?>"
-                            data-name="<?php echo htmlspecialchars($productName); ?>"
-                            data-price="<?php echo htmlspecialchars($productPrice); ?>"
-                            data-articul="<?php echo htmlspecialchars($productArticul); ?>"
-                            onclick="addToCart(this)">
-                        В корзину
-                    </button>
-                </div>
+<div class="product-detail" style="background-color: white; border-radius: 5px; padding: 20px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <div class="product-content">
+        <div class="product-image">
+            <img src="<?php echo htmlspecialchars($productImage ?: $sectionImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>" style="width: 300px; height: auto;"> <!-- Изображение товара -->
+        </div>
+        <div class="product-info">
+            <h1><?php echo htmlspecialchars($productName); ?></h1>
+            <div class="product-articul-availability">Артикул: <?php echo htmlspecialchars($productArticul); ?> &nbsp; Срок изготовления: <?php echo htmlspecialchars($productAvailability); ?></div>
+            <div class="product-price">
+                <p>Цена: <?php echo htmlspecialchars($productPrice); ?></p>
             </div>
-            <?php if (!empty($productProperties)): ?>
-                <div class="product-attributes">
-                    <h2>Характеристики</h2>
-                    <table>
-                        <tbody>
-                            <?php foreach ($productProperties as $propName => $propValue): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($propName); ?></td>
-                                    <td><?php echo htmlspecialchars($propValue); ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php endif; ?>
-            <button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
+            <button class="add-to-cart" data-id="<?php echo $productId; ?>"
+                    data-name="<?php echo htmlspecialchars($productName); ?>"
+                    data-price="<?php echo htmlspecialchars($productPrice); ?>"
+                    data-articul="<?php echo htmlspecialchars($productArticul); ?>"
+                    onclick="addToCart(this)">
+                В корзину
+            </button>
         </div>
-
-<?php
-    } else {
-        echo "Товар не найден.";
-    }
-}
+    </div>
+    <?php if (!empty($productProperties)): ?>
+        <div class="product-attributes">
+            <h2>Характеристики</h2>
+            <table>
+                <tbody>
+                    <?php foreach ($productProperties as $propName => $propValue): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($propName); ?></td>
+                            <td><?php echo htmlspecialchars($propValue); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
+    <button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
+</div>
 
 <script>
+    // Проверяем, что DOM готов к работе
     document.addEventListener('DOMContentLoaded', function() {
-        // Код для установки обработчиков
+        // Функция добавления товара в корзину
         function addToCart(button) {
             // Получаем данные о товаре из атрибутов кнопки
             const productId = button.getAttribute('data-id');
@@ -135,10 +129,16 @@ if (CModule::IncludeModule("iblock")) {
             // Обновляем данные в localStorage
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-            // Выводим уведомление или обновляем интерфейс, если требуется
+            // Выводим уведомление или обновляем интерфейс
             alert('Товар добавлен в корзину');
         }
     });
 </script>
+
+<?php
+    } else {
+        echo "Товар не найден.";
+    }
+}
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
