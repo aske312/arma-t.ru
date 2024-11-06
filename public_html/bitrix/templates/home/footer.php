@@ -14,12 +14,13 @@
                     'ACTIVE' => 'Y'
                 ];
 
-                $contactsSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE', 'PROPERTY_TEXT'];
+                $contactsSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE']; // Запросим название элемента и анонс
                 $contactsRes = CIBlockElement::GetList([], $contactsFilter, false, false, $contactsSelect);
 
                 while ($contact = $contactsRes->GetNext()) {
-                    // Выводим название и текст анонса каждого элемента
-                    echo "<p>" . $contact['NAME'] . ": " . $contact['PROPERTY_TEXT'] . "</p>";
+                    // Проверяем, есть ли описание, если да, то выводим
+                    $announceText = !empty($contact['PROPERTY_ANNOUNCE_VALUE']) ? $contact['PROPERTY_ANNOUNCE_VALUE'] : 'Не указано';
+                    echo "<p><strong>" . $contact['NAME'] . ":</strong> " . $announceText . "</p>";
                 }
                 ?>
 
@@ -33,12 +34,13 @@
                     'ACTIVE' => 'Y'
                 ];
 
-                $requisitesSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE', 'PROPERTY_TEXT'];
+                $requisitesSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE']; // Запросим название элемента и анонс
                 $requisitesRes = CIBlockElement::GetList([], $requisitesFilter, false, false, $requisitesSelect);
 
                 while ($requisite = $requisitesRes->GetNext()) {
-                    // Выводим название и текст анонса каждого элемента
-                    echo "<p>" . $requisite['NAME'] . ": " . $requisite['PROPERTY_TEXT'] . "</p>";
+                    // Проверяем, есть ли описание, если да, то выводим
+                    $announceText = !empty($requisite['PROPERTY_ANNOUNCE_VALUE']) ? $requisite['PROPERTY_ANNOUNCE_VALUE'] : 'Не указано';
+                    echo "<p><strong>" . $requisite['NAME'] . ":</strong> " . $announceText . "</p>";
                 }
                 ?>
             </div>
