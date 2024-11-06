@@ -49,7 +49,7 @@ foreach ($filterProperties as $propertyCode) {
     }
 }
 
-$elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
+$elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'PROPERTY_*'];
 $res = CIBlockElement::GetList(
     ['ID' => 'ASC'], // Сортировка по ID
     $elementFilter,
