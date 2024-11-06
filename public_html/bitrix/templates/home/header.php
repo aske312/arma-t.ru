@@ -15,7 +15,7 @@ session_start(); // Запуск сессии
 $cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 
-// Получаем описание элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
+// Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
 $res = CIBlockElement::GetList(
     [],
@@ -27,13 +27,13 @@ $res = CIBlockElement::GetList(
     ],
     false,
     false,
-    ["ID", "NAME", "PROPERTY_EL_DESCRIPTION"] // Получаем описание
+    ["ID", "NAME", "PROPERTY_EL_DESCRIPTION"] // Получаем свойство EL_DESCRIPTION
 );
 
 if ($element = $res->Fetch()) {
-    // Если описание найдено, извлекаем телефон
-    if (preg_match('/\+7\(\d{3}\)\s?\d{3}-\d{2}-\d{2}/', $element['PROPERTY_EL_DESCRIPTION'], $matches)) {
-        $phone = $matches[0];  // Сохраняем номер телефона из описания
+    // Проверяем, что свойство EL_DESCRIPTION существует и содержит номер телефона
+    if (!empty($element["PROPERTY_EL_DESCRIPTION_VALUE"])) {
+        $phone = $element["PROPERTY_EL_DESCRIPTION_VALUE"];
     }
 }
 ?>
@@ -72,7 +72,7 @@ if ($element = $res->Fetch()) {
                 <?php if ($phone): ?>
                     <p><a href="tel:<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
                 <?php else: ?>
-                    <p>Телефон не найден</p>
+                    <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
                 <?php endif; ?>
 
                 <button onclick="window.location.href='/#Cash'">Оставить заявку</button>
