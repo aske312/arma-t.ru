@@ -61,6 +61,9 @@ public_html/bitrix/.settings.php
 public_html/bitrix/.access.php
 public_html/bitrix/components/
 public_html/bitrix/otp/
+public_html/bitrix/footer.php
+public_html/bitrix/index.php
+public_html/bitrix/header.php
 
 # Bitrix Modules
 public_html/bitrix/modules/
