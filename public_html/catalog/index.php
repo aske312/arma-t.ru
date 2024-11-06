@@ -132,7 +132,7 @@ foreach ($filterProperties as $propertyCode) {
 // Получение списка элементов с учетом фильтров и пагинации
 $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
 $res = CIBlockElement::GetList(
-    [$arParams['ELEMENT_SORT_FIELD'] => $arParams['ELEMENT_SORT_ORDER']],
+    ['ID' => 'ASC'], // Сортировка по возрастанию ID
     $elementFilter,
     false,
     ['nPageSize' => 10],  // Ограничение вывода до 10 позиций
@@ -172,83 +172,87 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     </div>
 
     <div class="catalog-content">
+        <div id="loading-indicator" style="display: none;">Загрузка...</div>
 
-        <!-- Фильтры
-        <div class="filters">
-            <form method="GET" action="">
-                <table>
-                    <?php if (!empty($arResult['FILTER_PROPERTIES'])): ?>
-                    <?php foreach ($arResult['FILTER_PROPERTIES'] as $propertyCode => $property): ?>
-                        <th>
-                            <?= $property['NAME']; ?>
-                            <select name="<?= $propertyCode; ?>">
-                                <option value="all">Все</option>
-                                <?php foreach ($property['VALUES'] as $value): ?>
-                                <option value="<?= htmlspecialchars($value); ?>" <?= isset($_GET[$propertyCode]) && $_GET[$propertyCode] == $value ? 'selected' : ''; ?>>
-                                <?= htmlspecialchars($value); ?>
-                                </option>
-                            <?php endforeach; ?>
-                            </select>
-                        </th>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                </table>
-                <button type="submit">Применить фильтр</button>
-            </form>
-        </div> -->
+        <div class="catalog-content" id="catalog-content">
 
-        <!-- Чекбокс для выбора всех товаров -->
-        <div class="select-all">
-            <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
-            <label for="select-all">Выбрать все</label>
-            <button class="catalog-add-all">В корзину</button>
-        </div>
-
-        <!-- Список элементов каталога  -->
-        <div class="catalog-items">
-            <?php while ($ob = $res->GetNextElement()):
-            $arFields = $ob->GetFields();
-            $arProps = $ob->GetProperties();
-            foreach ($arResult['SECTIONS'] as $arSection):
-            if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
-            <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
-                <div class="catalog-item-header">
-                    <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
-                    <?php if ($arSection['PICTURE']): ?>
-                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                    <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
-                    <?php else: ?>
-                    <img alt="Нет изображения" src="/resources/img/no_image.png">
-                    <?php endif; ?>
-                    <div class="catalog-item-info">
-                        <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
-                        <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
-                        <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
-                        <p><div class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?> руб.</div></p>
-                    </div>
-                    <!-- Кнопка "В корзину" -->
-                    <div class="catalog-item-controls">
-                        <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
-                    </div>
-                </div>
-
-                <!-- Краткое описание элемента -->
-                <div class="catalog-item-properties">
+            <!-- Фильтры
+            <div class="filters">
+                <form method="GET" action="">
                     <table>
-                        <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
-                        <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
-                        <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
-                        <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
-                        <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                        <?php if (!empty($arResult['FILTER_PROPERTIES'])): ?>
+                        <?php foreach ($arResult['FILTER_PROPERTIES'] as $propertyCode => $property): ?>
+                            <th>
+                                <?= $property['NAME']; ?>
+                                <select name="<?= $propertyCode; ?>">
+                                    <option value="all">Все</option>
+                                    <?php foreach ($property['VALUES'] as $value): ?>
+                                    <option value="<?= htmlspecialchars($value); ?>" <?= isset($_GET[$propertyCode]) && $_GET[$propertyCode] == $value ? 'selected' : ''; ?>>
+                                    <?= htmlspecialchars($value); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                                </select>
+                            </th>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </table>
-                </div>
-            </div>
-            <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
-        </div>
+                    <button type="submit">Применить фильтр</button>
+                </form>
+            </div> -->
 
-        <!-- Пагинация  -->
-        <div class="pagination">
-            <?= $arResult['NAV_STRING']; ?>
+            <!-- Чекбокс для выбора всех товаров -->
+            <div class="select-all">
+                <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
+                <label for="select-all">Выбрать все</label>
+                <button class="catalog-add-all">В корзину</button>
+            </div>
+
+            <!-- Список элементов каталога  -->
+            <div class="catalog-items">
+                <?php while ($ob = $res->GetNextElement()):
+                $arFields = $ob->GetFields();
+                $arProps = $ob->GetProperties();
+                foreach ($arResult['SECTIONS'] as $arSection):
+                if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
+                <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
+                    <div class="catalog-item-header">
+                        <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
+                        <?php if ($arSection['PICTURE']): ?>
+                        <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                        <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
+                        <?php else: ?>
+                        <img alt="Нет изображения" src="/resources/img/no_image.png">
+                        <?php endif; ?>
+                        <div class="catalog-item-info">
+                            <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
+                            <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
+                            <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                            <p><div class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?> руб.</div></p>
+                        </div>
+                        <!-- Кнопка "В корзину" -->
+                        <div class="catalog-item-controls">
+                            <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
+                        </div>
+                    </div>
+
+                    <!-- Краткое описание элемента -->
+                    <div class="catalog-item-properties">
+                        <table>
+                            <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
+                            <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
+                            <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
+                            <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
+                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                        </table>
+                    </div>
+                </div>
+                <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
+            </div>
+
+            <!-- Пагинация  -->
+            <div class="pagination">
+                <?= $arResult['NAV_STRING']; ?>
+            </div>
         </div>
     </div>
 
@@ -267,6 +271,20 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     function redirectToSection(sectionId) {
         window.location.href = '/catalog/index.php?SECTION_ID=' + sectionId;
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const contentBlock = document.querySelector(".catalog-content .catalog-items");
+        const loadingSpinner = document.querySelector(".loading-spinner");
+
+        // Показать спиннер перед загрузкой элементов
+        loadingSpinner.style.display = "block";
+
+        // Загружаем элементы после задержки для демонстрации анимации
+        setTimeout(() => {
+            loadingSpinner.style.display = "none";
+            contentBlock.style.display = "block";
+        }, 1000); // Задержка для демонстрации, настроить по необходимости
+    });
 
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;
@@ -294,13 +312,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     }
 
     // Функция добавления товара в корзину
-    function addToCart(productId, productName, productPrice) {
+    function addToCart(productId, productName, productPrice, productArticle) {
         let cartItems = getCartItemsFromStorage();
         let found = false;
 
         cartItems.forEach(item => {
             if (item.id === productId) {
-                item.quantity += 1; // Увеличиваем количество
+                item.quantity += 1;
                 found = true;
             }
         });
@@ -310,6 +328,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 id: productId,
                 name: productName,
                 price: productPrice,
+                article: productArticle,  // Добавляем артикул
                 quantity: 1
             });
         }
@@ -324,6 +343,34 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
         document.getElementById('cart-count').textContent = itemCount;
     }
+
+    document.querySelector('.catalog-add-all').addEventListener('click', function() {
+        const selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
+        let cartItems = getCartItemsFromStorage();
+
+        selectedItems.forEach(item => {
+            const productId = item.dataset.id;
+            const productName = item.dataset.name;
+            const productPrice = item.dataset.price;
+            const productArticle = item.dataset.article;
+
+            let existingItem = cartItems.find(i => i.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cartItems.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    article: productArticle,
+                    quantity: 1
+                });
+            }
+        });
+
+        setCartItemsToStorage(cartItems);
+        updateCartCounter();
+    });
 
     // Инициализация обработчиков событий для кнопок "В корзину"
     document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
