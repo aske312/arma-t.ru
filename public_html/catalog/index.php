@@ -274,14 +274,30 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         updateCartCounter();
     });
 
-    // Инициализация обработчиков событий для кнопок "В корзину"
-    document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
-        button.addEventListener('click', event => {
-            event.stopPropagation(); // Останавливаем переход на детальную страницу
-            const productId = button.getAttribute('data-id');
-            const productName = button.getAttribute('data-name');
-            const productPrice = button.getAttribute('data-price');
-            addToCart(productId, productName, productPrice);
+    document.querySelectorAll('.catalog-item-add-to-cart').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            // Блокируем действие ссылки, если клик был на кнопку "В корзину"
+            event.stopPropagation(); // Прекращаем распространение события
+            event.preventDefault(); // Отменяем действие по умолчанию (переход по ссылке)
+
+            // Здесь можно добавить логику для добавления в корзину
+            const productId = this.dataset.id;
+            const productName = this.dataset.name;
+            const productPrice = this.dataset.price;
+
+            console.log("Товар добавлен в корзину:", productId, productName, productPrice);
+            // Пример: отправить запрос на сервер для добавления товара в корзину
+        });
+    });
+
+    // Находим все ссылки на детальные страницы и добавляем обработку кликов только для них
+    document.querySelectorAll('.catalog-item-link').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // Если клик не на кнопке "В корзину", переходим по ссылке
+            const buttonClicked = event.target.closest('.catalog-item-add-to-cart');
+            if (!buttonClicked) {
+                return; // Если это не кнопка "В корзину", переходить по ссылке
+            }
         });
     });
 
