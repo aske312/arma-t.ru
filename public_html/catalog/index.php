@@ -15,7 +15,7 @@ Asset::getInstance()->addCss("/resources/css/catalog.css"); // Подключа�
 
 // Фильтр для текущей секции
 $sectionFilter = [
-    'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+    'IBLOCK_ID' => 1,
     'ID' => $sectionId,
     'ACTIVE' => 'Y',
 ];
@@ -23,7 +23,7 @@ $selectedSection = CIBlockSection::GetList([], $sectionFilter, false, ['ID', 'NA
 
 // Получение списка секций для бокового меню
 $sectionsFilter = [
-    'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+    'IBLOCK_ID' => 1,
     'ACTIVE' => 'Y',
     'GLOBAL_ACTIVE' => 'Y',
 ];
@@ -37,7 +37,7 @@ while ($section = $sections->Fetch()) {
 
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
-    'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+    'IBLOCK_ID' => 1,
     'SECTION_ID' => $sectionId,
     'ACTIVE' => 'Y',
     'INCLUDE_SUBSECTIONS' => 'Y',
