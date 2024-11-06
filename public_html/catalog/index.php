@@ -132,15 +132,15 @@ foreach ($filterProperties as $propertyCode) {
 // Получение списка элементов с учетом фильтров и пагинации
 $elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_PICTURE', 'PROPERTY_*'];
 $res = CIBlockElement::GetList(
-    ['ID' => 'ASC'], // Сортировка по ID
+    [$arParams['ELEMENT_SORT_FIELD'] => $arParams['ELEMENT_SORT_ORDER']],
     $elementFilter,
     false,
-    ['nPageSize' => 10],  // Пагинация: по 10 элементов на страницу
+    ['nPageSize' => 10],  // Ограничение вывода до 10 позиций
     $elementSelect
 );
 
-$res->NavStart(10); // Устанавливаем навигацию
-$arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default");
+$res->NavStart(10); // Устанавливаем навигацию с количеством элементов на страницу
+$arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default"); // Генерация строки навигации
 ?>
 
 <!-- Названия каталога и описания -->
@@ -172,10 +172,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     </div>
 
     <div class="catalog-content">
-
-        <!-- Анимация загрузки -->
-        <div id="loader" class="loader" style="display: none;">Загрузка...</div>
-
 
         <!-- Фильтры
         <div class="filters">
@@ -211,28 +207,28 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Список элементов каталога  -->
         <div class="catalog-items">
             <?php while ($ob = $res->GetNextElement()):
-                $arFields = $ob->GetFields();
-                $arProps = $ob->GetProperties();
-                ?>
-                <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
-                    <a href="detail.php?ELEMENT_ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
-                        <?php if ($arFields['PREVIEW_PICTURE']): ?>
-                            <?php $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']); ?>
-                            <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
-                        <?php else: ?>
-                            <img alt="Нет изображения" src="/resources/img/no_image.png" class="catalog-item-image">
-                        <?php endif; ?>
-                        <div class="catalog-item-info">
-                            <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
-                            <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
-                            <p class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE'] ?: 'Цену уточняйте у оператора'; ?></p>
-                        </div>
-                    </a>
-
+            $arFields = $ob->GetFields();
+            $arProps = $ob->GetProperties();
+            foreach ($arResult['SECTIONS'] as $arSection):
+            if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
+            <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
+                <div class="catalog-item-header">
+                    <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
+                    <?php if ($arSection['PICTURE']): ?>
+                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                    <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
+                    <?php else: ?>
+                    <img alt="Нет изображения" src="/resources/img/no_image.png">
+                    <?php endif; ?>
+                    <div class="catalog-item-info">
+                        <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
+                        <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
+                        <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                        <p><div class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?> руб.</div></p>
+                    </div>
+                    <!-- Кнопка "В корзину" -->
                     <div class="catalog-item-controls">
-                        <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>"
-                                data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>"
-                                data-article="<?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?>">В корзину</button>
+                        <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
                     </div>
                 </div>
 
@@ -255,45 +251,76 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <?= $arResult['NAV_STRING']; ?>
         </div>
     </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 <script>
-    // Показываем анимацию загрузки
-    function showLoader(show) {
-        document.getElementById('loader').style.display = show ? 'block' : 'none';
+
+    // Функция для выбора всех товаров
+    function toggleSelectAll(checkbox) {
+        const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
+        checkboxes.forEach(item => {
+            item.checked = checkbox.checked;
+        });
     }
 
-    // Добавление товара в корзину
-    function addToCart(productId, productName, productPrice, productArticle) {
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        const itemIndex = cartItems.findIndex(item => item.id === productId);
+    // Функция перехода на каталог по секциям
+    function redirectToSection(sectionId) {
+        window.location.href = '/catalog/index.php?SECTION_ID=' + sectionId;
+    }
 
-        if (itemIndex !== -1) {
-            cartItems[itemIndex].quantity += 1;
-        } else {
-            cartItems.push({ id: productId, name: productName, price: productPrice, article: productArticle, quantity: 1 });
+    // *** ЛОГИКА КОРЗИНЫ *** //
+    const EXPIRY_DAYS = 3;
+
+    // Функция сохранения данных корзины в localStorage с сроком истечения
+    function setCartItemsToStorage(cartItems) {
+        const now = new Date().getTime();
+        const data = {
+            cartItems: cartItems,
+            expiry: now + (EXPIRY_DAYS * 24 * 60 * 60 * 1000) // 3 дня в миллисекундах
+        };
+        localStorage.setItem('cartItems', JSON.stringify(data));
+    }
+
+    // Функция получения товаров из localStorage с проверкой срока годности
+    function getCartItemsFromStorage() {
+        const data = JSON.parse(localStorage.getItem('cartItems'));
+        if (!data) return [];
+        const now = new Date().getTime();
+        if (now > data.expiry) {
+            localStorage.removeItem('cartItems');
+            return [];
+        }
+        return data.cartItems;
+    }
+
+    // Функция добавления товара в корзину
+    function addToCart(productId, productName, productPrice) {
+        let cartItems = getCartItemsFromStorage();
+        let found = false;
+
+        cartItems.forEach(item => {
+            if (item.id === productId) {
+                item.quantity += 1; // Увеличиваем количество
+                found = true;
+            }
+        });
+
+        if (!found) {
+            cartItems.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                quantity: 1
+            });
         }
 
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        setCartItemsToStorage(cartItems);
         updateCartCounter();
     }
 
-    // Добавление всех выбранных товаров в корзину
-    document.querySelector('.catalog-add-all').addEventListener('click', () => {
-        document.querySelectorAll('.catalog-item-checkbox:checked').forEach(itemCheckbox => {
-            const itemId = itemCheckbox.dataset.id;
-            const itemName = itemCheckbox.dataset.name;
-            const itemPrice = itemCheckbox.dataset.price;
-            const itemArticle = itemCheckbox.dataset.article;
-            addToCart(itemId, itemName, itemPrice, itemArticle);
-        });
-        alert('Товары добавлены в корзину');
-    });
-
-    // Показ количества товаров в корзине
+    // Обновление счетчика товаров в корзине
     function updateCartCounter() {
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartItems = getCartItemsFromStorage();
         const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
         document.getElementById('cart-count').textContent = itemCount;
     }
@@ -301,16 +328,16 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // Инициализация обработчиков событий для кнопок "В корзину"
     document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
         button.addEventListener('click', event => {
-            const itemId = itemCheckbox.dataset.id;
-            const itemName = itemCheckbox.dataset.name;
-            const itemPrice = itemCheckbox.dataset.price;
-            const itemArticle = itemCheckbox.dataset.article;
-            addToCart(itemId, itemName, itemPrice, itemArticle);
+            event.stopPropagation(); // Останавливаем переход на детальную страницу
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productPrice = button.getAttribute('data-price');
+            addToCart(productId, productName, productPrice);
         });
     });
 
-    document.addEventListener("DOMContentLoaded", updateCartCounter);
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', updateCartCounter);
 </script>
-
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
