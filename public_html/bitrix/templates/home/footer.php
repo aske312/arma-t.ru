@@ -9,7 +9,7 @@
                     <?
                     // Получаем контактную информацию
                     $arSelect = Array("ID", "NAME", "PROPERTY_PHONE", "PROPERTY_EMAIL", "PROPERTY_ADDRESS");
-                    $arFilter = Array("IBLOCK_ID"=>1, "ACTIVE"=>"Y", "SECTION_ID"=>1); // 1 - ID раздела Контактная информация
+                    $arFilter = Array("IBLOCK_ID"=>3, "ACTIVE"=>"Y", "SECTION_ID"=>3); // 1 - ID раздела Контактная информация
                     $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
                     while($ob = $res->GetNextElement()):
                         $arFields = $ob->GetFields();
@@ -23,7 +23,7 @@
                     <?
                     // Получаем реквизиты
                     $arSelect = Array("ID", "NAME", "PROPERTY_INN", "PROPERTY_OGRN", "PROPERTY_KPP");
-                    $arFilter = Array("IBLOCK_ID"=>1, "ACTIVE"=>"Y", "SECTION_ID"=>2); // 2 - ID раздела Реквизиты
+                    $arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "SECTION_ID"=>4); // 2 - ID раздела Реквизиты
                     $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
                     while($ob = $res->GetNextElement()):
                         $arFields = $ob->GetFields();
