@@ -301,18 +301,18 @@ if ($element = $res->Fetch()) {
         document.getElementById('contactForm-header').addEventListener('submit', function (e) {
             e.preventDefault();  // Предотвращаем перезагрузку страницы
 
-            // Получаем ответ капчи
-            var recaptchaResponse = grecaptcha.getResponse();
-
-            // Проверяем, прошел ли пользователь капчу
-            if (recaptchaResponse.length === 0) {
-                alert("Пожалуйста, подтвердите, что вы не робот.");
-                return; // Если капча не пройдена, не отправляем форму
-            }
-
-            // Собираем данные формы
-            var formData = new FormData(this);
-            formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
+//            // Получаем ответ капчи
+//            var recaptchaResponse = grecaptcha.getResponse();
+//
+//            // Проверяем, прошел ли пользователь капчу
+//            if (recaptchaResponse.length === 0) {
+//                alert("Пожалуйста, подтвердите, что вы не робот.");
+//                return; // Если капча не пройдена, не отправляем форму
+//            }
+//
+//            // Собираем данные формы
+//            var formData = new FormData(this);
+//            formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
 
             // Создаем и отправляем запрос
             var xhr = new XMLHttpRequest();
