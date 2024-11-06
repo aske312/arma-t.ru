@@ -102,7 +102,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <button class="catalog-add-all">В корзину</button>
         </div>
 
-        <!-- Список элементов каталога  -->
+        <!-- Список элементов каталога -->
         <div class="catalog-items">
             <?php while ($ob = $res->GetNextElement()):
             $arFields = $ob->GetFields();
@@ -111,6 +111,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
 
             <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
+
+                <!-- Ссылка на детальную страницу -->
                 <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                     <div class="catalog-item-header">
                         <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
@@ -130,9 +132,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                         <!-- Кнопка "В корзину" -->
                         <div class="catalog-item-controls">
-                            <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
+                            <button class="catalog-item-add-to-cart"
+                                    data-id="<?= $arFields['ID']; ?>"
+                                    data-name="<?= $arFields['NAME']; ?>"
+                                    data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>"
+                                    data-article="<?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?>">В корзину</button>
                         </div>
-
                     </div>
 
                     <!-- Краткое описание элемента -->
@@ -274,21 +279,29 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         updateCartCounter();
     });
 
-    document.querySelectorAll('.catalog-item-add-to-cart').forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            // Блокируем действие ссылки, если клик был на кнопку "В корзину"
-            event.stopPropagation(); // Прекращаем распространение события
-            event.preventDefault(); // Отменяем действие по умолчанию (переход по ссылке)
+    document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
+        button.addEventListener('click', event => {
+            event.stopPropagation(); // Останавливаем переход на детальную страницу
 
-            // Здесь можно добавить логику для добавления в корзину
-            const productId = this.dataset.id;
-            const productName = this.dataset.name;
-            const productPrice = this.dataset.price;
+            // Получаем данные из атрибутов кнопки
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productPrice = button.getAttribute('data-price');
+            const productArticle = button.getAttribute('data-article'); // Артикул товара
 
-            console.log("Товар добавлен в корзину:", productId, productName, productPrice);
-            // Пример: отправить запрос на сервер для добавления товара в корзину
+            // Вызываем функцию добавления в корзину
+            addToCart(productId, productName, productPrice, productArticle);
         });
     });
+
+    // Пример функции добавления товара в корзину
+    function addToCart(id, name, price, article) {
+        // Логика добавления товара в корзину
+        console.log('Товар добавлен в корзину:', { id, name, price, article });
+
+        // Здесь можно добавить код для отправки товара в корзину через AJAX или обновления состояния корзины на странице
+        // Например, отправить данные на сервер или сохранить в localStorage
+    }
 
     // Находим все ссылки на детальные страницы и добавляем обработку кликов только для них
     document.querySelectorAll('.catalog-item-link').forEach(function(link) {
