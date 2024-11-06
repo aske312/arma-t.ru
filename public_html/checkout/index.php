@@ -1,7 +1,7 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 use Bitrix\Main\Page\Asset;
-Asset::getInstance()->addCss("/resources/css/checkout.css"); // Подключение CSS
+Asset::getInstance()->addCss("/resources/css/checkout.css");
 ?>
 
 <div class="checkout">
