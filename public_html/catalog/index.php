@@ -275,7 +275,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     document.querySelectorAll('.catalog-item').forEach(item => {
         item.addEventListener('click', (event) => {
             if (!event.target.closest('.add-to-cart-button')) { // Предотвращаем переход на детальную с кнопки "в корзину"
-                window.location.href = `/detail/${item.getAttribute('data-id')}`;
+                window.location.href = `/catalog/detail.php?id=${item.getAttribute('data-id')}`;
             }
         });
     });
