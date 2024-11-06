@@ -27,12 +27,12 @@ $res = CIBlockElement::GetList(
     ],
     false,
     false,
-    ["ID", "NAME", "DETAIL_TEXT"] // Получаем описание
+    ["ID", "NAME", "PROPERTY_EL_DESCRIPTION"] // Получаем описание
 );
 
 if ($element = $res->Fetch()) {
     // Если описание найдено, извлекаем телефон
-    if (preg_match('/\+7\(\d{3}\)\s?\d{3}-\d{2}-\d{2}/', $element['DETAIL_TEXT'], $matches)) {
+    if (preg_match('/\+7\(\d{3}\)\s?\d{3}-\d{2}-\d{2}/', $element['PROPERTY_EL_DESCRIPTION'], $matches)) {
         $phone = $matches[0];  // Сохраняем номер телефона из описания
     }
 }
