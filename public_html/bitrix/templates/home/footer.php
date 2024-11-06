@@ -14,14 +14,14 @@
                     'ACTIVE' => 'Y' // Активные элементы
                 ];
 
-                // Делаем выборку: ID элемента, Название и Текст анонса
-                $contactsSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE']; // Убедитесь, что у вас есть свойство ANNOUNCE
+                // Делаем выборку: ID элемента, Название и Текст описания (EL_DESCRIPTION)
+                $contactsSelect = ['ID', 'NAME', 'PROPERTY_EL_DESCRIPTION']; // Используем свойство EL_DESCRIPTION
                 $contactsRes = CIBlockElement::GetList([], $contactsFilter, false, false, $contactsSelect);
 
                 while ($contact = $contactsRes->GetNext()) {
-                    // Получаем анонс, если есть
-                    $announceText = !empty($contact['PROPERTY_ANNOUNCE_VALUE']) ? $contact['PROPERTY_ANNOUNCE_VALUE'] : 'Не указано';
-                    echo "<p><strong>" . $contact['NAME'] . ":</strong> " . $announceText . "</p>";
+                    // Получаем текст описания, если есть
+                    $descriptionText = !empty($contact['PROPERTY_EL_DESCRIPTION_VALUE']) ? $contact['PROPERTY_EL_DESCRIPTION_VALUE'] : 'Не указано';
+                    echo "<p><strong>" . $contact['NAME'] . ":</strong> " . $descriptionText . "</p>";
                 }
                 ?>
 
@@ -35,14 +35,14 @@
                     'ACTIVE' => 'Y' // Активные элементы
                 ];
 
-                // Делаем выборку: ID элемента, Название и Текст анонса
-                $requisitesSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE']; // Убедитесь, что у вас есть свойство ANNOUNCE
+                // Делаем выборку: ID элемента, Название и Текст описания (EL_DESCRIPTION)
+                $requisitesSelect = ['ID', 'NAME', 'PROPERTY_EL_DESCRIPTION']; // Используем свойство EL_DESCRIPTION
                 $requisitesRes = CIBlockElement::GetList([], $requisitesFilter, false, false, $requisitesSelect);
 
                 while ($requisite = $requisitesRes->GetNext()) {
-                    // Получаем анонс, если есть
-                    $announceText = !empty($requisite['PROPERTY_ANNOUNCE_VALUE']) ? $requisite['PROPERTY_ANNOUNCE_VALUE'] : 'Не указано';
-                    echo "<p><strong>" . $requisite['NAME'] . ":</strong> " . $announceText . "</p>";
+                    // Получаем текст описания, если есть
+                    $descriptionText = !empty($requisite['PROPERTY_EL_DESCRIPTION_VALUE']) ? $requisite['PROPERTY_EL_DESCRIPTION_VALUE'] : 'Не указано';
+                    echo "<p><strong>" . $requisite['NAME'] . ":</strong> " . $descriptionText . "</p>";
                 }
                 ?>
             </div>
