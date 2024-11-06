@@ -102,31 +102,39 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <button class="catalog-add-all">В корзину</button>
         </div>
 
-        <!-- Список элементов каталога -->
+        <!-- Список элементов каталога  -->
         <div class="catalog-items">
             <?php while ($ob = $res->GetNextElement()):
-                $arFields = $ob->GetFields();
-                $arProps = $ob->GetProperties();
-                ?>
-                <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
-                    <a href="detail.php?ELEMENT_ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
-                        <?php if ($arFields['PREVIEW_PICTURE']): ?>
-                            <?php $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']); ?>
-                            <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
+            $arFields = $ob->GetFields();
+            $arProps = $ob->GetProperties();
+            foreach ($arResult['SECTIONS'] as $arSection):
+            if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
+
+            <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
+                <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
+                    <div class="catalog-item-header">
+                        <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
+                        <?php if ($arSection['PICTURE']): ?>
+                        <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                        <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
                         <?php else: ?>
-                            <img alt="Нет изображения" src="/resources/img/no_image.png" class="catalog-item-image">
+                        <img alt="Нет изображения" src="/resources/img/no_image.png">
                         <?php endif; ?>
+
                         <div class="catalog-item-info">
                             <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
                             <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
-                            <p class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE'] ?: 'Цену уточняйте у оператора'; ?> руб.</p>
+                            <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                            <p><div class="catalog-item-price"><?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?> руб.</div></p>
                         </div>
-                    </a>
-                    <div class="catalog-item-controls">
-                        <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>"
-                                data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>"
-                                data-article="<?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?>">В корзину</button>
+
+                        <!-- Кнопка "В корзину" -->
+                        <div class="catalog-item-controls">
+                            <button class="catalog-item-add-to-cart" data-id="<?= $arFields['ID']; ?>" data-name="<?= $arFields['NAME']; ?>" data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>">В корзину</button>
+                        </div>
+
                     </div>
+
                     <!-- Краткое описание элемента -->
                     <div class="catalog-item-properties">
                         <table>
@@ -137,8 +145,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
                         </table>
                     </div>
-                </div>
-            <?php endwhile; ?>
+                </a>
+            </div>
+            <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
         </div>
 
         <!-- Пагинация -->
