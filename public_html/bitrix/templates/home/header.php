@@ -76,22 +76,24 @@ if ($element = $res->Fetch()) {
                 <?php endif; ?>
 
                 <!-- <button onclick="window.location.href='/#Cash'">Оставить заявку</button> -->
-                <button onclick="openForm()">Оставить заявку</button>
+                <div class="form-header-containers">
+                    <button onclick="openForm()">Оставить заявку</button>
 
-                <!-- Модальное окно с формой -->
-                <div class="form-container-header" id="Form">
-                    <div class="contact-form-header">
-                        <span class="close-form-header" onclick="closeForm()">&times;</span>
-                        <form id="contactForm-header" method="post" enctype="multipart/form-data">
-                            <h2>Оставить заявку</h2>
-                            <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
-                            <input type="email" id="email" name="email" placeholder="e-mail" required>
-                            <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
-                            <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
-                            <div class="form-actions-header">
-                                <button type="submit" id="contactForm-header">Отправить</button>
-                            </div>
-                        </form>
+                    <!-- Модальное окно с формой -->
+                    <div class="form-container-header" id="Form">
+                        <div class="contact-form-header">
+                            <span class="close-form-header" onclick="closeForm()">&times;</span>
+                            <form id="contactForm-header" method="post" enctype="multipart/form-data">
+                                <h2>Оставить заявку</h2>
+                                <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
+                                <input type="email" id="email" name="email" placeholder="e-mail" required>
+                                <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
+                                <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
+                                <div class="form-actions-header">
+                                    <button type="submit" id="contactForm-header">Отправить</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

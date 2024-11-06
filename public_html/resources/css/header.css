@@ -113,6 +113,10 @@ header {
 }
 
 /********** Модальная форма (форма заявки) **********/
+.form-header-containers {
+    color: black;
+}
+
 .form-container-header {
     display: none; /* Скрыто по умолчанию */
     position: fixed;
