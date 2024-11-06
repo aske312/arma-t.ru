@@ -103,39 +103,42 @@ if (CModule::IncludeModule("iblock")) {
 }
 
 <script>
-    function addToCart(button) {
-        // Получаем данные о товаре из атрибутов кнопки
-        const productId = button.getAttribute('data-id');
-        const productName = button.getAttribute('data-name');
-        const productPrice = button.getAttribute('data-price');
-        const productArticul = button.getAttribute('data-articul');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Код для установки обработчиков
+        function addToCart(button) {
+            // Получаем данные о товаре из атрибутов кнопки
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productPrice = button.getAttribute('data-price');
+            const productArticul = button.getAttribute('data-articul');
 
-        // Получаем текущие элементы корзины из localStorage
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || { cartItems: [], expiry: Date.now() + 3 * 24 * 60 * 60 * 1000 };
+            // Получаем текущие элементы корзины из localStorage
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || { cartItems: [], expiry: Date.now() + 3 * 24 * 60 * 60 * 1000 };
 
-        // Проверяем, есть ли уже такой товар в корзине
-        let existingItem = cartItems.cartItems.find(item => item.id === productId);
+            // Проверяем, есть ли уже такой товар в корзине
+            let existingItem = cartItems.cartItems.find(item => item.id === productId);
 
-        if (existingItem) {
-            // Если товар уже есть, увеличиваем его количество
-            existingItem.quantity += 1;
-        } else {
-            // Если товара нет, добавляем его в корзину
-            cartItems.cartItems.push({
-                id: productId,
-                name: productName,
-                price: productPrice,
-                article: productArticul,
-                quantity: 1
-            });
+            if (existingItem) {
+                // Если товар уже есть, увеличиваем его количество
+                existingItem.quantity += 1;
+            } else {
+                // Если товара нет, добавляем его в корзину
+                cartItems.cartItems.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    article: productArticul,
+                    quantity: 1
+                });
+            }
+
+            // Обновляем данные в localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            // Выводим уведомление или обновляем интерфейс, если требуется
+            alert('Товар добавлен в корзину');
         }
-
-        // Обновляем данные в localStorage
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-        // Выводим уведомление или обновляем интерфейс, если требуется
-        alert('Товар добавлен в корзину');
-    }
+    });
 </script>
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
