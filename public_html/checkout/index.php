@@ -57,7 +57,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 
         var formData = new FormData(this);
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'send_order.php', true);
+        xhr.open('POST', '/resources/src/send_order.php', true);
 
         xhr.onload = function () {
             if (xhr.status === 200) {
