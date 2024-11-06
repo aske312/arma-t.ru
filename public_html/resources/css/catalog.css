@@ -4,6 +4,15 @@ pre { /* DEBUG */
     color: red;
 }
 
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    font-size: 16px;
+    color: #666;
+}
+
 .section-title {
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Заполнение всей доступной области без растягивания */
