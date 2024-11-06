@@ -1,64 +1,78 @@
-<? if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die(); ?>
-    </div>
-    <div class="section footer" id="contact">
-        <div class="conts-wrapper">
-            <div class="cont-info">
-                <h2>Контакты</h2>
+<?php
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetTitle("Футер");
 
-                <div class="cont-details">
-                    <?
-                    // Получаем контактную информацию
-                    $arSelect = Array("ID", "NAME", "PROPERTY_PHONE", "PROPERTY_EMAIL", "PROPERTY_ADDRESS");
-                    $arFilter = Array("IBLOCK_ID"=>3, "ACTIVE"=>"Y", "SECTION_ID"=>3); // 1 - ID раздела Контактная информация
-                    $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-                    while($ob = $res->GetNextElement()):
-                        $arFields = $ob->GetFields();
-                    ?>
-                        <p>Тел.: <?= $arFields["PROPERTY_PHONE_VALUE"] ?></p>
-                        <p>Почта: <?= $arFields["PROPERTY_EMAIL_VALUE"] ?></p>
-                        <p>Адрес: <?= $arFields["PROPERTY_ADDRESS_VALUE"] ?></p>
-                    <? endwhile; ?>
+// Массив для хранения информации из раздела 35 (Контактная информация)
+$contacts = [];
+// Массив для хранения информации из раздела 36 (Реквизиты)
+$requisites = [];
 
-                    <h3>Наши реквизиты:</h3>
-                    <?
-                    // Получаем реквизиты
-                    $arSelect = Array("ID", "NAME", "PROPERTY_INN", "PROPERTY_OGRN", "PROPERTY_KPP");
-                    $arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "SECTION_ID"=>4); // 2 - ID раздела Реквизиты
-                    $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-                    while($ob = $res->GetNextElement()):
-                        $arFields = $ob->GetFields();
-                    ?>
-                        <p>ИНН: <?= $arFields["PROPERTY_INN_VALUE"] ?></p>
-                        <p>ОГРН: <?= $arFields["PROPERTY_OGRN_VALUE"] ?></p>
-                        <p>КПП: <?= $arFields["PROPERTY_KPP_VALUE"] ?></p>
-                    <? endwhile; ?>
-                </div>
+// Получаем элементы из инфоблока для контактной информации (Раздел 35)
+$contactFilter = [
+    'IBLOCK_ID' => 3, // ID вашего инфоблока для контактной информации
+    'SECTION_ID' => 35, // Раздел для контактной информации
+    'ACTIVE' => 'Y'
+];
 
-                <!--
-                <div class="cont-details">
-                    <p>Тел.: +7 (000) 000-00-00</p>
-                    <p>Почта: support@arma-t.ru</p>
-                    <p>улица Маршала Жукова, 36, г. Москва</p>
-                    <p>ул. ХХХХХХХХХХ, 00</p>
-                    <h3>Наши реквизиты:</h3>
-                    <p>ИНН: 00000000000000</p>
-                    <p>ОГРН: 0000000000000</p>
-                    <p>КПП: 00000000000000</p>
-                </div>
-                -->
+$contactSelect = ['ID', 'NAME', 'PREVIEW_TEXT']; // Название и анонс текста
+$resContacts = CIBlockElement::GetList([], $contactFilter, false, false, $contactSelect);
+while ($contact = $resContacts->Fetch()) {
+    $contacts[] = $contact;
+}
 
-            </div>
-            <div class="map">
-                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A91f7b8e166afeeae94308f6df98ec9af515a64477bc6ed62f27b0ed0b78e66f8&source=constructor&point=37.269466, 55.681717" width="475" height="475" frameborder="0"></iframe>
-            </div>
+// Получаем элементы из инфоблока для реквизитов (Раздел 36)
+$requisiteFilter = [
+    'IBLOCK_ID' => 3, // ID вашего инфоблока для реквизитов
+    'SECTION_ID' => 36, // Раздел для реквизитов
+    'ACTIVE' => 'Y'
+];
+
+$requisiteSelect = ['ID', 'NAME', 'PREVIEW_TEXT']; // Название и анонс текста
+$resRequisites = CIBlockElement::GetList([], $requisiteFilter, false, false, $requisiteSelect);
+while ($requisite = $resRequisites->Fetch()) {
+    $requisites[] = $requisite;
+}
+?>
+
+<!-- Футер -->
+<footer>
+    <div class="footer-container">
+        <!-- Контактная информация -->
+        <div class="footer-contact-info">
+            <h3>Контактная информация</h3>
+            <?php if (!empty($contacts)): ?>
+                <ul>
+                    <?php foreach ($contacts as $contact): ?>
+                        <li>
+                            <strong><?= htmlspecialchars($contact['NAME']); ?></strong><br>
+                            <span><?= htmlspecialchars($contact['PREVIEW_TEXT']); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>Контактная информация не найдена.</p>
+            <?php endif; ?>
+        </div>
+
+        <!-- Реквизиты -->
+        <div class="footer-requisites">
+            <h3>Реквизиты</h3>
+            <?php if (!empty($requisites)): ?>
+                <ul>
+                    <?php foreach ($requisites as $requisite): ?>
+                        <li>
+                            <strong><?= htmlspecialchars($requisite['NAME']); ?></strong><br>
+                            <span><?= htmlspecialchars($requisite['PREVIEW_TEXT']); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>Реквизиты не найдены.</p>
+            <?php endif; ?>
         </div>
     </div>
-    <div class="section footer-title">
-        <div class="developer-credit">
-            <p>Сайт разработан ХХХХХХХХХХ</p>
-        </div>
-    </div>
-<!-- -->
+</footer>
 
-	</body>
-</html>
+<?php
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
+?>
