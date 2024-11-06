@@ -31,9 +31,9 @@ if (CModule::IncludeModule("iblock")) {
         $properties = CIBlockElement::GetProperty($ar_res['IBLOCK_ID'], $productId, array("sort" => "asc"), array());
         while ($prop = $properties->Fetch()) {
             if (!empty($prop['VALUE'])) {
-                if ($prop['CODE'] === 'EL_ARTICUL') {
+                if ($prop['CODE'] === 'EL_ARTICLE_CODE') {
                     $productArticul = $prop['VALUE'];
-                } elseif ($prop['CODE'] === 'EL_AVAILABILITY') {
+                } elseif ($prop['CODE'] === 'EL_PRODUCTION_TIME') {
                     $productAvailability = $prop['VALUE'];
                 } else {
                     $productProperties[$prop['NAME']] = $prop['VALUE'];
