@@ -31,6 +31,11 @@ if (CModule::IncludeModule("iblock")) {
         $properties = CIBlockElement::GetProperty($ar_res['IBLOCK_ID'], $productId, array("sort" => "asc"), array());
         while ($prop = $properties->Fetch()) {
             if (!empty($prop['VALUE'])) {
+                // Пропускаем элемент EL_IMAGES
+                if ($prop['CODE'] === 'EL_IMAGES') {
+                    continue;
+                }
+
                 if ($prop['CODE'] === 'EL_ARTICLE_CODE') {
                     $productArticul = $prop['VALUE'];
                 } elseif ($prop['CODE'] === 'EL_PRODUCTION_TIME') {
