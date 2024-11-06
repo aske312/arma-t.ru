@@ -272,18 +272,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         window.location.href = '/catalog/index.php?SECTION_ID=' + sectionId;
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const contentBlock = document.querySelector(".catalog-content .catalog-items");
-        const loadingSpinner = document.querySelector(".loading-spinner");
+    document.querySelectorAll('.catalog-item').forEach(item => {
+        item.addEventListener('click', (event) => {
+            if (!event.target.closest('.add-to-cart-button')) { // Предотвращаем переход на детальную с кнопки "в корзину"
+                window.location.href = `/detail/${item.getAttribute('data-id')}`;
+            }
+        });
+    });
 
-        // Показать спиннер перед загрузкой элементов
-        loadingSpinner.style.display = "block";
-
-        // Загружаем элементы после задержки для демонстрации анимации
-        setTimeout(() => {
-            loadingSpinner.style.display = "none";
-            contentBlock.style.display = "block";
-        }, 1000); // Задержка для демонстрации, настроить по необходимости
+    document.querySelectorAll('.add-to-cart-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.stopPropagation(); // Останавливаем всплытие
+            // Логика добавления в корзину
+        });
     });
 
     // *** ЛОГИКА КОРЗИНЫ *** //
