@@ -70,6 +70,15 @@ if (CModule::IncludeModule("iblock")) {
                         <p>Цена: <?php echo htmlspecialchars($productPrice); ?></p>
                     </div>
                     <button class="add-to-cart">В корзину</button>
+
+                        <div class="catalog-item-controls">
+                            <button class="catalog-item-add-to-cart"
+                                    data-id="<?= $arFields['ID']; ?>"
+                                    data-name="<?= $arFields['NAME']; ?>"
+                                    data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>"
+                                    data-article="<?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?>">В корзину</button>
+                        </div>
+
                 </div>
             </div>
             <?php if (!empty($productProperties)): ?>
@@ -95,5 +104,72 @@ if (CModule::IncludeModule("iblock")) {
         echo "Товар не найден.";
     }
 }
+
+<script>
+
+    // Функция для сохранения товаров в localStorage
+    function setCartItemsToStorage(cartItems) {
+        const now = new Date().getTime();
+        const data = {
+            cartItems: cartItems,
+            expiry: now + (3 * 24 * 60 * 60 * 1000)  // 3 дня в миллисекундах
+        };
+        localStorage.setItem('cartItems', JSON.stringify(data));
+    }
+
+    // Функция обновления счетчика товаров в корзине
+    function updateCartCounter() {
+        const cartItems = getCartItemsFromStorage();
+        const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cart-count').textContent = itemCount;  // Обновляем отображение счетчика
+    }
+
+    // Обработчики для кнопок "В корзину"
+    document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
+        button.addEventListener('click', event => {
+            event.stopPropagation(); // Останавливаем распространение события
+            event.preventDefault(); // Останавливаем переход по ссылке
+
+            // Получаем данные из атрибутов кнопки
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productPrice = button.getAttribute('data-price');
+            const productArticle = button.getAttribute('data-article'); // Артикул товара
+
+            // Вызываем функцию добавления товара в корзину
+            addToCart(productId, productName, productPrice, productArticle);
+        });
+    });
+
+    // Функция добавления товара в корзину
+    function addToCart(productId, productName, productPrice, productArticle) {
+        let cartItems = getCartItemsFromStorage();  // Получаем текущие товары в корзине
+        let found = false;
+
+        // Проверяем, есть ли товар в корзине
+        cartItems.forEach(item => {
+            if (item.id === productId) {
+                item.quantity += 1; // Если товар уже есть, увеличиваем количество
+                found = true;
+            }
+        });
+
+        if (!found) {
+            // Если товара нет в корзине, добавляем его
+            cartItems.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                article: productArticle,  // Добавляем артикул
+                quantity: 1
+            });
+        }
+
+        setCartItemsToStorage(cartItems);  // Сохраняем корзину в localStorage
+        updateCartCounter();  // Обновляем счетчик товаров в корзине
+    }
+
+
+</script>
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
