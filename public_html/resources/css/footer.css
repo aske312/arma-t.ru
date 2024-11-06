@@ -1,68 +1,74 @@
-    .footer {
-        background-color: #162139;
-        width: 100%;
-        padding: 40px 0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
+/********* Сектора *********/
+	.section {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		font-size: 24px;
+		text-align: center;
+		height: 100%;
+	}
 
-    .conts-wrapper {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        max-width: 1050px;
-        margin: 0 auto;
-    }
+/********* Блок Контакты *********/
+	.footer {
+		background-color: #162139;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.conts-wrapper {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		max-width: 1050px;
+		margin: 0 auto;
+	}
+	.cont-info {
+		flex: 1;
+		text-align: left;
+		color: white;
+		padding: 0px;
+		height: 450px;
+	}
+	.cont-info h2 {
+		margin-bottom: 80px;
+	}
+	.cont-details {
+		display: flex;
+		flex-direction: column;
+		margin-top: 50px;
+		text-align: left;
+		margin-bottom: 20px;
+	}
+	.cont-details p {
+		font-size: 18px;
+		line-height: 1.6;
+		margin: 0px 0;
+		text-align: left;
+	}
+	.map {
+		flex: 1;
+		text-align: center;
+		padding: 20px;
+	}
+	.map iframe {
+		max-width: 450px;
+		height: 450px;
+		border: none;
+		display: block;
+	}
 
-    .cont-info {
-        flex: 1;
-        color: white;
-        padding-right: 20px;
-    }
-
-    .cont-info h2 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        color: #fff;
-    }
-
-    .cont-details p {
-        font-size: 18px;
-        line-height: 1.6;
-        margin: 10px 0;
-    }
-
-    .map {
-        flex: 1;
-        color: white;
-        padding-left: 20px;
-        text-align: center;
-    }
-
-    .map-container {
-        width: 100%;
-        height: 350px;
-        background-color: #ddd;
-        position: relative;
-    }
-
-    .map-point {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 10px;
-        height: 10px;
-        background-color: red;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .developer-credit {
-        background-color: #162139;
-        width: 100%;
-        color: white;
-        text-align: center;
-        padding: 10px 0;
-        font-size: 16px;
-    }
+/********! Нужна каллибровка !************/
+	.footer-title {
+		background-color: #162139;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+	}
+	.developer-credit {
+		display: flex;
+		width: 1050px;
+		text-align: left;
+	}

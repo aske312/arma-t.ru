@@ -1,83 +1,62 @@
-<?php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Футер");
+<?php if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die(); ?>
 
-// Массив для хранения информации из раздела 35 (Контактная информация)
-$contacts = [];
-// Массив для хранения информации из раздела 36 (Реквизиты)
-$requisites = [];
-
-// Получаем элементы из инфоблока для контактной информации (Раздел 35)
-$contactFilter = [
-    'IBLOCK_ID' => 3, // ID вашего инфоблока для контактной информации
-    'SECTION_ID' => 35, // Раздел для контактной информации
-    'ACTIVE' => 'Y'
-];
-
-$contactSelect = ['ID', 'NAME', 'PREVIEW_TEXT']; // Название и анонс текста
-$resContacts = CIBlockElement::GetList([], $contactFilter, false, false, $contactSelect);
-while ($contact = $resContacts->Fetch()) {
-    $contacts[] = $contact;
-}
-
-// Получаем элементы из инфоблока для реквизитов (Раздел 36)
-$requisiteFilter = [
-    'IBLOCK_ID' => 3, // ID вашего инфоблока для реквизитов
-    'SECTION_ID' => 36, // Раздел для реквизитов
-    'ACTIVE' => 'Y'
-];
-
-$requisiteSelect = ['ID', 'NAME', 'PREVIEW_TEXT']; // Название и анонс текста
-$resRequisites = CIBlockElement::GetList([], $requisiteFilter, false, false, $requisiteSelect);
-while ($requisite = $resRequisites->Fetch()) {
-    $requisites[] = $requisite;
-}
-?>
-
-<!-- Футер -->
-<div class="footer">
+<div class="section footer" id="contact">
     <div class="conts-wrapper">
         <!-- Контактная информация -->
         <div class="cont-info">
-            <h2>Контактная информация</h2>
-            <?php if (!empty($contacts)): ?>
-                <div class="cont-details">
-                    <?php foreach ($contacts as $contact): ?>
-                        <p><strong><?= htmlspecialchars($contact['NAME']); ?>:</strong> <?= htmlspecialchars($contact['PREVIEW_TEXT']); ?></p>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <p>Контактная информация не найдена.</p>
-            <?php endif; ?>
+            <h2>Контакты</h2>
+            <div class="cont-details">
+                <?php
+                // Получаем элементы инфоблока с контактной информацией (раздел 35)
+                $contactsFilter = [
+                    'IBLOCK_ID' => 3, // ID инфоблока
+                    'SECTION_ID' => 35, // ID раздела 35
+                    'ACTIVE' => 'Y'
+                ];
 
-            <!-- Реквизиты -->
-            <h2>Реквизиты</h2>
-            <?php if (!empty($requisites)): ?>
-                <div class="cont-details">
-                    <?php foreach ($requisites as $requisite): ?>
-                        <p><strong><?= htmlspecialchars($requisite['NAME']); ?>:</strong> <?= htmlspecialchars($requisite['PREVIEW_TEXT']); ?></p>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <p>Реквизиты не найдены.</p>
-            <?php endif; ?>
-        </div>
+                $contactsSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE', 'PROPERTY_TEXT'];
+                $contactsRes = CIBlockElement::GetList([], $contactsFilter, false, false, $contactsSelect);
 
-        <!-- Карта -->
-        <div class="map">
-            <h2>Наши координаты</h2>
-            <div class="map-container">
-                <div class="map-point"></div>
+                while ($contact = $contactsRes->GetNext()) {
+                    // Выводим название и текст каждого элемента
+                    echo "<p>" . $contact['PROPERTY_ANNOUNCE'] . ": " . $contact['PROPERTY_TEXT'] . "</p>";
+                }
+                ?>
+
+                <h3>Наши реквизиты:</h3>
+
+                <?php
+                // Получаем элементы инфоблока с реквизитами (раздел 36)
+                $requisitesFilter = [
+                    'IBLOCK_ID' => 3, // ID инфоблока
+                    'SECTION_ID' => 36, // ID раздела 36
+                    'ACTIVE' => 'Y'
+                ];
+
+                $requisitesSelect = ['ID', 'NAME', 'PROPERTY_ANNOUNCE', 'PROPERTY_TEXT'];
+                $requisitesRes = CIBlockElement::GetList([], $requisitesFilter, false, false, $requisitesSelect);
+
+                while ($requisite = $requisitesRes->GetNext()) {
+                    // Выводим название и текст каждого элемента
+                    echo "<p>" . $requisite['PROPERTY_ANNOUNCE'] . ": " . $requisite['PROPERTY_TEXT'] . "</p>";
+                }
+                ?>
             </div>
         </div>
-    </div>
 
-    <!-- Сайт разработан -->
-    <div class="developer-credit">
-        <p>Сайт разработан <strong>Название компании</strong></p>
+        <!-- Блок с картой -->
+        <div class="map">
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A91f7b8e166afeeae94308f6df98ec9af515a64477bc6ed62f27b0ed0b78e66f8&source=constructor&point=55.681717,37.269466" width="475" height="475" frameborder="0"></iframe>
+        </div>
     </div>
 </div>
 
-<?php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
-?>
+<!-- Подпись о разработке -->
+<div class="section footer-title">
+    <div class="developer-credit">
+        <p>Сайт разработан ХХХХХХХХХХ</p>
+    </div>
+</div>
+
+</body>
+</html>
