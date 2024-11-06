@@ -47,12 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body .= "--$boundary--";
 
     $to = "info@arma-t.ru";  // Укажите ваш email
-    $subject = "Application from $subject";
+    $emailSubject = "Application from $subject";
 
-    if (mail($to, $subject, $body, $headers)) {
+    // Отправляем письмо
+    if (mail($to, $emailSubject, $body, $headers)) {
         http_response_code(200);  // Сообщение об успешной отправке
+        echo json_encode(['status' => 'success', 'message' => 'Ваше сообщение было успешно отправлено!']);
     } else {
         http_response_code(500);  // Сообщение об ошибке
+        echo json_encode(['status' => 'error', 'message' => 'Произошла ошибка при отправке сообщения.']);
     }
 }
 ?>
