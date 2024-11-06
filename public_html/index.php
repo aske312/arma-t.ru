@@ -189,20 +189,20 @@ while ($section = $sections->Fetch()) {
     <div class="category">
         <div class="category-table">
             <?php if (!empty($arResult['SECTIONS'])): ?>
-                <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-                    <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
-                        <?php if ($arSection['PICTURE']): ?>
-                            <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                            <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                        <?php else: ?>
-                            <img alt="Нет изображения" src="/resources/img/no_image.png">
-                        <?php endif; ?>
-                        <div class="category-text"><?= $arSection['NAME']; ?></div>
-                    </div>
-                <?php endforeach; ?>
+            <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+            <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                <?php if ($arSection['PICTURE']): ?>
+                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                    <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
                 <?php else: ?>
-                Нет доступных категорий
+                    <img alt="Нет изображения" src="/resources/img/no_image.png">
                 <?php endif; ?>
+                <div class="category-text"><?= $arSection['NAME']; ?></div>
+            </div>
+            <?php endforeach; ?>
+            <?php else: ?>
+            Нет доступных категорий
+            <?php endif; ?>
         </div>
     </div>
 </div>
