@@ -98,13 +98,25 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
 
-//*******************
-
         document.addEventListener('DOMContentLoaded', function() {
+            // Функция для получения товаров из localStorage
+            function getCartItems() {
+                const storedData = JSON.parse(localStorage.getItem('cartItems'));
+                return storedData && storedData.cartItems ? storedData.cartItems : [];
+            }
+
+            // Функция для сохранения товаров в localStorage
+            function setCartItems(cartItems) {
+                const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000; // Пример времени истечения сессии
+                const cartData = { cartItems, expiry: expiryDate };
+                localStorage.setItem('cartItems', JSON.stringify(cartData));
+                updateCartCount(); // Обновляем отображение корзины после изменения
+            }
+
             // Функция для обновления количества товаров в корзине
             function updateCartCount() {
-                const cartItems = getCartItems();  // Получаем товары из корзины (из localStorage)
-                const count = cartItems.reduce((total, item) => total + item.quantity, 0);  // Считаем общее количество товаров
+                const cartItems = getCartItems(); // Получаем товары из корзины (из localStorage)
+                const count = cartItems.reduce((total, item) => total + item.quantity, 0); // Считаем общее количество товаров
 
                 // Обновляем отображаемое количество в элементе на странице
                 document.getElementById('cart-count').textContent = count;
@@ -112,30 +124,13 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 // Если корзина пуста (count == 0), скрыть кнопку
                 const cartButton = document.getElementById('cart-button');
                 if (count === 0) {
-                    cartButton.style.display = 'none';  // Скрыть кнопку корзины
+                    cartButton.style.display = 'none'; // Скрыть кнопку корзины
                 } else {
-                    cartButton.style.display = 'inline-block';  // Показать кнопку
+                    cartButton.style.display = 'inline-block'; // Показать кнопку
                 }
             }
 
-            // Функция для получения товаров из localStorage
-            function getCartItems() {
-                const storedData = JSON.parse(localStorage.getItem('cartItems'));
-                return storedData && storedData.cartItems ? storedData.cartItems : [];
-            }
-
-            // Вызываем функцию обновления корзины при загрузке страницы
-            updateCartCount();
-
-            // Функция для обновления товара в корзине
-            function setCartItems(cartItems) {
-                const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;  // Пример времени истечения сессии
-                const cartData = { cartItems, expiry: expiryDate };
-                localStorage.setItem('cartItems', JSON.stringify(cartData));
-                updateCartCount();  // Обновляем отображение корзины после изменения
-            }
-
-            // Пример для увеличения или уменьшения количества товара в корзине
+            // Функция для увеличения или уменьшения количества товара в корзине
             function updateQuantity(productId, delta) {
                 const cartItems = getCartItems();
                 const item = cartItems.find(item => item.id === productId);
@@ -150,223 +145,181 @@ $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']
                 }
             }
 
-            // Пример для удаления товара из корзины
+            // Функция для удаления товара из корзины
             function removeCartItem(productId) {
                 let cartItems = getCartItems();
                 cartItems = cartItems.filter(item => item.id !== productId);
                 setCartItems(cartItems);
             }
 
-            // Пример добавления товара в корзину
+            // Функция для добавления товара в корзину
             function addToCart(item) {
                 const cartItems = getCartItems();
                 cartItems.push(item);
                 setCartItems(cartItems);
             }
 
-            // Пример для очистки корзины
+            // Обработчик клика по кнопке "Очистить корзину"
             document.getElementById('clear-cart').addEventListener('click', function() {
                 localStorage.removeItem('cartItems');
                 updateCartCount();
             });
 
-            // Функция для показа или скрытия модального окна корзины
+            // Обработчик открытия/закрытия модального окна корзины
             document.getElementById('cart-button').addEventListener('click', function() {
                 const cartModal = document.getElementById('cart-modal');
                 cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+                loadCartData();
             });
-        });
 
-//*******************
+            // Закрытие модального окна корзины при клике на overlay или крестик
+            document.getElementById('close-cart-modal').addEventListener('click', function() {
+                document.getElementById('cart-modal').style.display = 'none';
+            });
 
-        function getCartItems() {
-            const storedData = JSON.parse(localStorage.getItem('cartItems'));
-            return storedData && storedData.cartItems ? storedData.cartItems : [];
-        }
+            document.getElementById('cart-modal-overlay').addEventListener('click', function() {
+                document.getElementById('cart-modal').style.display = 'none';
+            });
 
-        function setCartItems(cartItems) {
-            const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;
-            const cartData = { cartItems, expiry: expiryDate };
-            localStorage.setItem('cartItems', JSON.stringify(cartData));
-        }
+            // Загрузка данных корзины и отображение товаров
+            function loadCartData() {
+                const cartItems = getCartItems();
+                const cartItemsContainer = document.getElementById('cart-items');
+                cartItemsContainer.innerHTML = '';
+                let totalSum = 0;
 
-        function updateCartCount() {
-            const cartItems = getCartItems();
-            const count = cartItems.reduce((total, item) => total + item.quantity, 0);
-            document.getElementById('cart-count').textContent = count;
-        }
-
-        function loadCartData() {
-            const cartItems = getCartItems();
-            const cartItemsContainer = document.getElementById('cart-items');
-            cartItemsContainer.innerHTML = '';
-            let totalSum = 0;
-
-            if (cartItems.length === 0) {
-                cartItemsContainer.innerHTML = '<p>Корзина пуста</p>';
-                document.getElementById('cart-total').innerText = 'Общая сумма: Под заказ';
-                return;
-            }
-
-            cartItems.forEach(async (item) => {
-                const itemTotal = (item.price * item.quantity).toFixed(2);
-                totalSum += parseFloat(itemTotal); // Считаем общую сумму здесь
-
-                // Если у товара нет изображения, запрашиваем изображение раздела
-                let imageUrl = item.image || '/resources/img/production/0.png';
-                if (!item.image) {
-                    imageUrl = await fetchSectionImage(item.id);
+                if (cartItems.length === 0) {
+                    cartItemsContainer.innerHTML = '<p>Корзина пуста</p>';
+                    document.getElementById('cart-total').innerText = 'Общая сумма: Под заказ';
+                    return;
                 }
 
-                const cartItemHTML = `
-                    <div class="cart-item-card">
-                        <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
-                        <div class="cart-item-details">
-                            <p class="cart-item-name">${item.name}</p>
-                            <p class="cart-item-article">Артикул: ${item.article}</p>
-                            <p class="cart-item-price">
-                                ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
-                            </p>
+                cartItems.forEach(async (item) => {
+                    const itemTotal = (item.price * item.quantity).toFixed(2);
+                    totalSum += parseFloat(itemTotal); // Считаем общую сумму здесь
+
+                    // Если у товара нет изображения, запрашиваем изображение раздела
+                    let imageUrl = item.image || '/resources/img/production/0.png';
+                    if (!item.image) {
+                        imageUrl = await fetchSectionImage(item.id);
+                    }
+
+                    const cartItemHTML = `
+                        <div class="cart-item-card">
+                            <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <p class="cart-item-name">${item.name}</p>
+                                <p class="cart-item-article">Артикул: ${item.article}</p>
+                                <p class="cart-item-price">
+                                    ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
+                                </p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
+                                <span class="cart-item-total">${itemTotal} руб.</span>
+                                <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
+                            </div>
                         </div>
-                        <div class="cart-item-actions">
-                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
-                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
-                            <span class="cart-item-total">${itemTotal} руб.</span>
-                            <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
-                        </div>
-                    </div>
-                `;
+                    `;
 
-                cartItemsContainer.innerHTML += cartItemHTML;
-            });
+                    cartItemsContainer.innerHTML += cartItemHTML;
+                });
 
-            // Проверяем общую сумму и выводим "Под заказ", если сумма равна 0
-            document.getElementById('cart-total').innerText = totalSum > 0
-                ? `Общая сумма: ${totalSum.toFixed(2)} руб.`
-                : 'Общая сумма: Под заказ';
-        }
-
-        // Функция для получения изображения раздела
-        async function fetchSectionImage(itemId) {
-            try {
-                const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
-                const data = await response.json();
-                return data.imageUrl;
-            } catch (error) {
-                console.error('Ошибка при получении изображения раздела:', error);
-                return '/resources/img/production/0.png';
+                // Проверяем общую сумму и выводим "Под заказ", если сумма равна 0
+                document.getElementById('cart-total').innerText = totalSum > 0
+                    ? `Общая сумма: ${totalSum.toFixed(2)} руб.`
+                    : 'Общая сумма: Под заказ';
             }
-        }
 
-        function updateQuantity(productId, delta) {
-            const cartItems = getCartItems();
-            const item = cartItems.find(item => item.id === productId);
+            // Функция для получения изображения раздела
+            async function fetchSectionImage(itemId) {
+                try {
+                    const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
+                    const data = await response.json();
+                    return data.imageUrl;
+                } catch (error) {
+                    console.error('Ошибка при получении изображения раздела:', error);
+                    return '/resources/img/production/0.png';
+                }
+            }
 
-            if (item) {
-                item.quantity += delta;
-                if (item.quantity < 1) {
-                    removeCartItem(productId);
-                } else {
+            // Функция для обновления количества товара вручную
+            function updateQuantityManual(productId, value) {
+                const cartItems = getCartItems();
+                const item = cartItems.find(item => item.id === productId);
+
+                if (item) {
+                    item.quantity = Math.max(1, parseInt(value) || 1);
                     setCartItems(cartItems);
                     loadCartData();
                 }
             }
-        }
 
-        function updateQuantityManual(productId, value) {
-            const cartItems = getCartItems();
-            const item = cartItems.find(item => item.id === productId);
+            // Добавление товара в корзину через кнопку (пример)
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const item = {
+                        id: button.dataset.productId,
+                        name: button.dataset.productName,
+                        price: parseFloat(button.dataset.productPrice),
+                        quantity: 1
+                    };
+                    addToCart(item);
+                });
+            });
 
-            if (item) {
-                item.quantity = Math.max(1, parseInt(value) || 1);
-                setCartItems(cartItems);
-                loadCartData();
-            }
-        }
+            // Открытие модального окна формы (при необходимости)
+            // function openForm() {
+            //     document.getElementById('Form').classList.add('active');
+            // }
 
-        function removeCartItem(productId) {
-            let cartItems = getCartItems();
-            cartItems = cartItems.filter(item => item.id !== productId);
-            setCartItems(cartItems);
-            loadCartData();
-        }
-
-        document.getElementById('clear-cart').addEventListener('click', function() {
-            localStorage.removeItem('cartItems');
-            loadCartData();
-            updateCartCount();
-        });
-
-        updateCartCount();
-
-        document.getElementById('checkout').addEventListener('click', function() {
-            window.location.href = '/checkout/';
-        });
-
-        document.getElementById('cart-button').addEventListener('click', function() {
-            const cartModal = document.getElementById('cart-modal');
-            cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
-            loadCartData();
-        });
-
-        document.getElementById('close-cart-modal').addEventListener('click', function() {
-            document.getElementById('cart-modal').style.display = 'none';
-        });
-
-        document.getElementById('cart-modal-overlay').addEventListener('click', function() {
-            document.getElementById('cart-modal').style.display = 'none';
-        });
-
-        // Открытие модального окна
-//        function openForm() {
-//            document.getElementById('Form').classList.add('active');
-//        }
-
-        // Закрытие модального окна при клике вне формы
-        window.onclick = function(event) {
-            if (event.target === document.getElementById('Form')) {
-                document.getElementById('Form').classList.remove('active');
-            }
-        };
-
-        // Открытие формы (например, при клике на кнопку "Оставить заявку")
-//        document.querySelector('button[onclick="window.location.href=\'/#Form\'"]').addEventListener('click', function() {
-//            document.getElementById('Form').classList.add('active');
-//        });
-
-        // Закрытие формы по кнопке
-        document.querySelector('.close-form-header').addEventListener('click', function() {
-            document.getElementById('Form').classList.remove('active');
-        });
-
-        // Обработчик отправки формы
-        document.getElementById('contactForm-header').addEventListener('submit', function(e) {
-            e.preventDefault(); // Предотвращаем перезагрузку страницы
-
-            // Собираем данные формы
-            const formData = new FormData(this);
-
-            // Отправляем данные на сервер с помощью AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'send.php', true);
-
-            // Обработчик ответа
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.status === 'success') {
-                        alert('Ваша заявка успешно отправлена!');
-                        document.getElementById('Form').classList.remove('active'); // Закрытие формы
-                        document.getElementById('contactForm-header').reset(); // Сброс формы
-                    } else {
-                        alert(response.message || 'Произошла ошибка при отправке заявки.');
-                    }
-                } else {
-                    alert('Ошибка отправки заявки.');
+            // Закрытие модального окна при клике вне формы
+            window.onclick = function(event) {
+                if (event.target === document.getElementById('Form')) {
+                    document.getElementById('Form').classList.remove('active');
                 }
             };
 
-            xhr.send(formData);
+            // Открытие формы (например, при клике на кнопку "Оставить заявку")
+            // document.querySelector('button[onclick="window.location.href=\'/#Form\'"]').addEventListener('click', function() {
+            //     document.getElementById('Form').classList.add('active');
+            // });
+
+            // Закрытие формы по кнопке
+            document.querySelector('.close-form-header').addEventListener('click', function() {
+                document.getElementById('Form').classList.remove('active');
+            });
+
+            // Обработчик отправки формы
+            document.getElementById('contactForm-header').addEventListener('submit', function(e) {
+                e.preventDefault(); // Предотвращаем перезагрузку страницы
+
+                // Собираем данные формы
+                const formData = new FormData(this);
+
+                // Отправляем данные на сервер с помощью AJAX
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'send.php', true);
+
+                // Обработчик ответа
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.status === 'success') {
+                            alert('Ваша заявка успешно отправлена!');
+                            document.getElementById('Form').classList.remove('active');
+                        } else {
+                            alert('Произошла ошибка при отправке заявки!');
+                        }
+                    }
+                };
+
+                xhr.send(formData);
+            });
+
+            // Загружаем начальное состояние корзины
+            updateCartCount();
         });
     </script>
