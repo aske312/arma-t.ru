@@ -54,28 +54,17 @@ foreach ($filterProperties as $propertyCode) {
     );
     while ($ob = $res->GetNextElement()) {
         $props = $ob->GetProperties();
-        if ($props['EL_CONNTYPE']) {
-            $filterValues['EL_CONNTYPE'][] = $props['EL_CONNTYPE']['VALUE'];
-        }
-        if ($props['EL_DRIVETYPE']) {
-            $filterValues['EL_DRIVETYPE'][] = $props['EL_DRIVETYPE']['VALUE'];
-        }
-        if ($props['EL_DN_DIAMETER_MM']) {
-            $filterValues['EL_DN_DIAMETER_MM'][] = $props['EL_DN_DIAMETER_MM']['VALUE'];
-        }
-        if ($props['EL_PN_PRESSURE_KGF_CM2']) {
-            $filterValues['EL_PN_PRESSURE_KGF_CM2'][] = $props['EL_PN_PRESSURE_KGF_CM2']['VALUE'];
-        }
-        if ($props['EL_BODY_MATERIAL']) {
-            $filterValues['EL_BODY_MATERIAL'][] = $props['EL_BODY_MATERIAL']['VALUE'];
+        if ($props[$propertyCode]) {
+            $filterValues[$propertyCode][] = $props[$propertyCode]['VALUE'];
         }
     }
-
     // Убираем дубли
-    foreach ($filterValues as $propertyCode => $values) {
-        $filterValues[$propertyCode] = array_unique($values);
-    }
+    $filterValues[$propertyCode] = array_unique($filterValues[$propertyCode]);
 }
+
+echo '<pre>';
+print_r($filterValues);  // Посмотрим, какие значения получаем
+echo '</pre>';
 
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
@@ -110,12 +99,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <h2><?= isset($selectedSection['NAME']) ? $selectedSection['NAME'] : 'Применен фильтр'; ?></h2>
     <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберете необходимые позиции'; ?></p>
 </div>
-
-<?php
-echo '<pre>';
-print_r($filterValues);
-echo '</pre>';
-?>
 
 <div class="catalog-container">
 
