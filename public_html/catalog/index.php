@@ -375,7 +375,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         // Собираем текущие фильтры
         <?php foreach ($filterProperties as $propertyCode): ?>
-            let filterValue = document.getElementById('<?= $propertyCode ?>').value;
+            var filterValue = document.getElementById('<?= $propertyCode ?>').value;
 
             // Если значение пустое, ставим 'all'
             if (!filterValue) {
