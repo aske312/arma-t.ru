@@ -136,42 +136,65 @@ pre { /* DEBUG */
 }
 
 /* Стили для фильтров */
+/* Основной контейнер фильтров */
 .catalog-filters {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    margin-top: 20px;
 }
 
+/* Общая стилизация для каждого фильтра */
 .filter {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 200px;
+    width: 250px;
 }
 
+/* Каждый фильтр в отдельности */
 .filter-item {
+    background-color: #f4f4f4; /* Серый фон */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+/* Метки фильтров сверху */
+.filter-label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Содержимое фильтра (выпадающий список и единицы измерения) */
+.filter-content {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
 }
 
-.filter-item label {
-    padding: 10px;
-    font-size: 14px;
-    color: #333;
-}
-
-.filter-item select {
-    padding: 5px;
+/* Стилизация для выпадающего списка */
+.filter-content select {
+    width: 100%;
+    padding: 8px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    flex-grow: 1;
+    background-color: #fff;
 }
 
+/* Единицы измерения (мм, кгс/см²) */
 .unit {
     font-size: 14px;
     color: #666;
+}
+
+/* Для маленьких экранов, делаем фильтры вертикальными */
+@media (max-width: 768px) {
+    .catalog-filters {
+        flex-direction: column;
+    }
 }
 
 /* Стили для чекбокса выбора всех товаров */
