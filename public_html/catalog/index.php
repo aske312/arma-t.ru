@@ -88,11 +88,6 @@ foreach ($filterValues as $propertyCode => $values) {
     sort($filterValues[$propertyCode]); // Сортируем для удобства
 }
 
-// Выводим результат для отладки
-//echo '<pre>';
-//print_r($filterValues); // Смотрим, что получилось
-//echo '</pre>';
-
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
     'IBLOCK_ID' => 1,
@@ -155,63 +150,65 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         <!-- Фильтры -->
         <div class="catalog-filters">
-            <?php foreach ($filterProperties as $propertyCode): ?>
-                <?php if (!empty($filterValues[$propertyCode])): ?>
-                    <div class="filter">
-                        <!-- Название фильтра -->
-                        <label for="<?= $propertyCode ?>" class="filter-title"><?= GetMessage($propertyCode); ?></label>
-
-                        <!-- Фильтр с единицей измерения -->
-                        <div class="filter-select-container">
-                            <div class="filter-select">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
-                                    <?php foreach ($filterValues[$propertyCode] as $value): ?>
-                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                            <?= $value ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-
-                                <!-- Единица измерения -->
-                                <?php if ($propertyCode === 'EL_DN_DIAMETER_MM'): ?>
-                                    <span class="unit">мм</span>
-                                <?php elseif ($propertyCode === 'EL_PN_PRESSURE_KGF_CM2'): ?>
-                                    <span class="unit">кгс/см²</span>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-
-                        <!-- Пояснение к фильтру -->
-                        <div class="filter-description">
-                            <?php
-                                switch ($propertyCode) {
-                                    case 'EL_DN_DIAMETER_MM':
-                                        echo "<p>Выберите диаметр в миллиметрах.</p>";
-                                        break;
-                                    case 'EL_PN_PRESSURE_KGF_CM2':
-                                        echo "<p>Выберите давление в кгс/см².</p>";
-                                        break;
-                                    case 'EL_CONNTYPE':
-                                        echo "<p>Тип присоединения.</p>";
-                                        break;
-                                    case 'EL_DRIVETYPE':
-                                        echo "<p>Тип привода.</p>";
-                                        break;
-                                    case 'EL_BODY_MATERIAL':
-                                        echo "<p>Материал корпуса.</p>";
-                                        break;
-                                    default:
-                                        echo "<p>Выберите значение для этого фильтра.</p>";
-                                }
-                            ?>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <div class="filter-empty">
-                        <p>Фильтр <?= $propertyCode ?> пуст.</p>
-                    </div>
-                <?php endif; ?>
+            <?php foreach ($filterValues as $propertyCode => $values): ?>
+                <div class="filter">
+                    <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
+                        <!-- Фильтр для диаметра -->
+                        <label for="<?= $propertyCode ?>">Диаметр - мм</label>
+                        <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                            <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                            <?php foreach ($values as $value): ?>
+                                <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                    <?= $value ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
+                        <!-- Фильтр для давления -->
+                        <label for="<?= $propertyCode ?>">Давление - кгс/см²</label>
+                        <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                            <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                            <?php foreach ($values as $value): ?>
+                                <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                    <?= $value ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php elseif ($propertyCode == 'EL_CONNTYPE'): ?>
+                        <!-- Фильтр для типа соединения -->
+                        <label for="<?= $propertyCode ?>">Тип присоединения</label>
+                        <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                            <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                            <?php foreach ($values as $value): ?>
+                                <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                    <?= $value ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php elseif ($propertyCode == 'EL_DRIVETYPE'): ?>
+                        <!-- Фильтр для типа привода -->
+                        <label for="<?= $propertyCode ?>">Тип привода</label>
+                        <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                            <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                            <?php foreach ($values as $value): ?>
+                                <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                    <?= $value ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php elseif ($propertyCode == 'EL_BODY_MATERIAL'): ?>
+                        <!-- Фильтр для материала корпуса -->
+                        <label for="<?= $propertyCode ?>">Материал корпуса</label>
+                        <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                            <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                            <?php foreach ($values as $value): ?>
+                                <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                    <?= $value ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php endif; ?>
+                </div>
             <?php endforeach; ?>
         </div>
 
