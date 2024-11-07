@@ -136,74 +136,43 @@ pre { /* DEBUG */
 }
 
 /* Стили для фильтров */
-/* Основной контейнер для фильтров */
 .catalog-filters {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-/* Отдельный фильтр */
 .filter {
-    width: 32%; /* Уменьшаем ширину до 32%, чтобы они располагались в 3 колонки */
-    min-width: 250px;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 200px;
 }
 
-/* Название фильтра */
-.filter-title {
-    font-weight: bold;
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-item label {
     font-size: 14px;
-    margin-bottom: 8px;
-    display: block;
+    color: #333;
 }
 
-/* Контейнер для селектора */
-.filter-select-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-/* Селект */
-.filter-select {
-    display: flex;
-    align-items: center;
+.filter-item select {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     flex-grow: 1;
 }
 
-/* Селект */
-.filter-select select {
-    width: 100%; /* Селект растягивается по ширине */
-    padding: 8px;
-    font-size: 14px;
-    box-sizing: border-box; /* Чтобы ширина учитывала padding */
-}
-
-/* Единица измерения */
 .unit {
-    margin-left: 5px;
     font-size: 14px;
-    color: #555;
+    color: #666;
 }
 
-/* Пояснение под фильтром */
-.filter-description {
-    font-size: 12px;
-    color: #777;
-    margin-top: 5px;
-}
-
-/* Стиль для пустых фильтров */
-.filter-empty {
-    color: #d9534f;
-    font-size: 14px;
-}
-
-.filter-empty p {
-    margin: 0;
-    font-style: italic;
-}
 /* Стили для чекбокса выбора всех товаров */
 .select-all {
     margin-bottom: 20px;
