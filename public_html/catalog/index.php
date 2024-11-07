@@ -167,6 +167,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 </option>
                             <?php endforeach; ?>
                         </select>
+                        <!-- Добавляем единицы измерения для конкретных фильтров -->
+                        <?php if ($propertyCode === 'EL_DN_DIAMETER_MM'): ?>
+                            <span class="unit">мм</span>
+                        <?php elseif ($propertyCode === 'EL_PN_PRESSURE_KGF_CM2'): ?>
+                            <span class="unit">кгс/см²</span>
+                        <?php endif; ?>
                     </div>
                 <?php else: ?>
                     <div class="filter-empty">
