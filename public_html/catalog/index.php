@@ -154,6 +154,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Фильтры -->
         <div class="catalog-filters">
             <?php foreach ($filterValues as $propertyCode => $values): ?>
+                <?php if (empty($values)) continue; ?> <!-- Если значений нет, пропускаем этот фильтр -->
                 <div class="filter">
                     <!-- Фильтр для диаметра -->
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
