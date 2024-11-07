@@ -114,7 +114,6 @@ header {
 
 /********** Модальная форма (форма заявки) **********/
 .form-header-containers {
-    color: black;
 }
 
 .form-container-header {
@@ -146,31 +145,35 @@ header {
 }
 
 .contact-form-header h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
+    color: black;
+    text-align: left;
+    margin-bottom: 15px;
 }
 
 .contact-form-header input,
 .contact-form-header textarea {
-    width: 100%;
+    margin-bottom: 15px;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 450px;
 }
 
 .contact-form-header button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
+    padding: 8px 15px;
+    background-color: #2654A2;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    width: 175px;
+    margin-left: 10px;
 }
 
 .contact-form-header button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 /* Стили для закрытия формы (кнопка крестика или клик по области) */

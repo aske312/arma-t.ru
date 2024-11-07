@@ -60,6 +60,38 @@ $res = CIBlockElement::GetList(
 
 $res->NavStart(10); // Устанавливаем навигацию
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default");
+
+// Получаем уникальные значения для фильтров
+$filterValues = [
+    'EL_CONNTYPE' => [],
+    'EL_DRIVETYPE' => [],
+    'EL_DN_DIAMETER_MM' => [],
+    'EL_PN_PRESSURE_KGF_CM2' => [],
+    'EL_BODY_MATERIAL' => []
+];
+
+// Запрос для получения уникальных значений характеристик из инфоблока
+$propertyFilter = [
+    'IBLOCK_ID' => 1,
+    'ACTIVE' => 'Y'
+];
+$properties = CIBlockElement::GetList([], $propertyFilter, false, false, array_keys($filterValues));
+
+while ($property = $properties->GetNextElement()) {
+    $props = $property->GetProperties();
+    foreach ($filterValues as $key => &$values) {
+        if (!in_array($props[$key]['VALUE'], $values)) {
+            $values[] = $props[$key]['VALUE'];
+        }
+    }
+}
+
+$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
+foreach ($filterProperties as $propertyCode) {
+    if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
+        $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
+    }
+}
 ?>
 
 <!-- Названия каталога и описания -->
@@ -91,6 +123,24 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     </div>
 
     <div class="catalog-content">
+
+        <!-- Блок фильтров -->
+        <div class="catalog-filters">
+            <form action="" method="GET">
+                <?php foreach ($filterValues as $propertyCode => $values): ?>
+                    <label for="<?= $propertyCode; ?>"><?= $propertyCode; ?></label>
+                    <select name="<?= $propertyCode; ?>" id="<?= $propertyCode; ?>">
+                        <option value="all">Все</option>
+                        <?php foreach ($values as $value): ?>
+                            <option value="<?= htmlspecialchars($value); ?>" <?= ($_GET[$propertyCode] ?? 'all') == $value ? 'selected' : ''; ?>>
+                                <?= htmlspecialchars($value); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php endforeach; ?>
+                <button type="submit">Применить фильтры</button>
+            </form>
+        </div>
 
         <!-- Анимация загрузки -->
         <div id="loader" class="loader" style="display: none;">Загрузка...</div>

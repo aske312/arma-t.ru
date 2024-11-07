@@ -87,7 +87,7 @@ if ($element = $res->Fetch()) {
                                 <h2>Оставить заявку</h2>
                                 <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
                                 <input type="email" id="email" name="email" placeholder="e-mail" required>
-                                <input type="text" id="subject" name="subject" placeholder="Название Вашей компании" required>
+                                <input type="text" id="subject" name="subject" placeholder="Название компании" required>
                                 <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
                                 <div class="form-actions-header">
                                     <button type="submit" id="contactForm-header">Отправить</button>
