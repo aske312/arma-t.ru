@@ -108,20 +108,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <!-- Боковое меню категорий -->
     <div class="catalog-sidebar">
         <ul id="catalog-menu" class="catalog-menu">
-            <?php $sectionId = intval($_GET['SECTION_ID']); // Получаем ID активной секции из запроса
-            if (!empty($arResult['SECTIONS'])): ?>
             <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-            <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
-            <li>
-                <div class="category-block <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
-                    <?php if ($arSection['PICTURE']): ?>
-                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                    <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                    <?php else: ?><img alt="Нет изображения" src="/resources/img/no_image.png"><?php endif; ?>
-                    <div class="category-text"> <?= $arSection['NAME']; ?> </div>
-                </div>
-            </li>
-            <?php endforeach; ?><?php endif; ?>
+                <li>
+                    <div class="category-block" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                        <img alt="<?= $arSection['NAME']; ?>" src="<?= CFile::GetPath($arSection['PICTURE']); ?>">
+                        <div class="category-text"><?= $arSection['NAME']; ?></div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
 
@@ -142,76 +136,27 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <?php endforeach; ?>
         </div>
 
-        <!-- Анимация загрузки -->
-        <div id="loader" class="loader" style="display: none;">Загрузка...</div>
-
-        <!-- Чекбокс для выбора всех товаров -->
-        <div class="select-all">
-            <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
-            <label for="select-all">Выбрать все</label>
-            <button class="catalog-add-all">В корзину</button>
-        </div>
-
         <!-- Список элементов каталога -->
         <div class="catalog-items">
-            <?php while ($ob = $res->GetNextElement()):
-            $arFields = $ob->GetFields();
-            $arProps = $ob->GetProperties();
-            foreach ($arResult['SECTIONS'] as $arSection):
-            if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']): ?>
-
-            <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
-
-                <!-- Ссылка на детальную страницу -->
-                <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
-                    <div class="catalog-item-header">
-                        <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
-                        <?php if ($arSection['PICTURE']): ?>
-                        <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                        <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
-                        <?php else: ?>
-                        <img alt="Нет изображения" src="/resources/img/no_image.png">
-                        <?php endif; ?>
-
-                        <div class="catalog-item-info">
-                            <h3 class="catalog-item-name"><?= !empty($arFields['PREVIEW_TEXT']) ? $arFields['PREVIEW_TEXT'] : 'Нет анонса'; ?></h3>
-                            <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
-                            <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
-                            <p><div class="catalog-item-price">
-                                <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
-
-                                // Проверяем цену, если 0 или не задана, выводим текст
-                                if ($price == 0 || empty($price)) {
-                                    echo 'По запросу';
-                                } else {
-                                    echo $price . ' руб.';
-                                }?>
-                            </div></p>
+            <?php while ($ob = $res->GetNextElement()): ?>
+                <?php
+                    $arFields = $ob->GetFields();
+                    $arProps = $ob->GetProperties();
+                ?>
+                <div class="catalog-item">
+                    <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
+                        <div class="catalog-item-header">
+                            <img src="<?= CFile::GetPath($arFields['PREVIEW_PICTURE']); ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
+                            <div class="catalog-item-info">
+                                <h3 class="catalog-item-name"><?= $arFields['NAME']; ?></h3>
+                                <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
+                                <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                                <p><?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?> руб.</p>
+                            </div>
                         </div>
-
-                        <!-- Кнопка "В корзину" -->
-                        <div class="catalog-item-controls">
-                            <button class="catalog-item-add-to-cart"
-                                    data-id="<?= $arFields['ID']; ?>"
-                                    data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
-                                    data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>"
-                                    data-article="<?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?>">В корзину</button>
-                        </div>
-                    </div>
-
-                    <!-- Краткое описание элемента -->
-                    <div class="catalog-item-properties">
-                        <table>
-                            <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
-                            <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
-                            <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
-                            <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
-                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
-                        </table>
-                    </div>
-                </a>
-            </div>
-            <?php endif; ?><?php endforeach; ?><?php endwhile; ?>
+                    </a>
+                </div>
+            <?php endwhile; ?>
         </div>
 
         <!-- Пагинация -->
