@@ -55,7 +55,11 @@ foreach ($filterProperties as $propertyCode) {
     while ($ob = $res->GetNextElement()) {
         $props = $ob->GetProperties();
         if ($props[$propertyCode]) {
-            print_r($props[$propertyCode]['VALUE']);
+
+            echo '<pre>';
+            print_r($props[$propertyCode]['VALUE']);  // Посмотрим, какие значения получаем
+            echo '</pre>';
+
             $filterValues[$propertyCode][] = $props[$propertyCode]['VALUE'];
         }
     }
@@ -63,9 +67,9 @@ foreach ($filterProperties as $propertyCode) {
     $filterValues[$propertyCode] = array_unique($filterValues[$propertyCode]);
 }
 
-echo '<pre>';
-print_r($filterValues);  // Посмотрим, какие значения получаем
-echo '</pre>';
+//echo '<pre>';
+//print_r($filterValues);  // Посмотрим, какие значения получаем
+//echo '</pre>';
 
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
