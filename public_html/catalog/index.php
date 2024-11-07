@@ -4,14 +4,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Каталог");
 
 // Получаем ID секции
-$sectionId = intval($_GET['SECTION_ID']);
-if (empty($sectionId)) {
-    $sectionId = 1;
-}
-
-use Bitrix\Main\Page\Asset;
-
-Asset::getInstance()->addCss("/resources/css/catalog.css"); // Подключаем CSS
+$sectionId = intval($_GET['SECTION_ID']) ?: 1;
 
 // Фильтр для текущей секции
 $sectionFilter = [
@@ -21,21 +14,19 @@ $sectionFilter = [
 ];
 $selectedSection = CIBlockSection::GetList([], $sectionFilter, false, ['ID', 'NAME', 'DESCRIPTION'])->Fetch();
 
-// Получение списка секций для бокового меню
-$sectionsFilter = [
-    'IBLOCK_ID' => 1,
-    'ACTIVE' => 'Y',
-    'GLOBAL_ACTIVE' => 'Y',
-];
-
-$arSelect = ['ID', 'NAME', 'SECTION_PAGE_URL', 'PICTURE'];
-$sections = CIBlockSection::GetList(['SORT' => 'ASC'], $sectionsFilter, false, $arSelect);
+// Боковое меню секций
+$sections = CIBlockSection::GetList(
+    ['SORT' => 'ASC'],
+    ['IBLOCK_ID' => 1, 'ACTIVE' => 'Y', 'GLOBAL_ACTIVE' => 'Y'],
+    false,
+    ['ID', 'NAME', 'SECTION_PAGE_URL', 'PICTURE']
+);
 $arResult['SECTIONS'] = [];
 while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }
 
-// Получаем список элементов с учетом фильтров и пагинации
+// Получение элементов каталога с учетом фильтров и пагинации
 $elementFilter = [
     'IBLOCK_ID' => 1,
     'SECTION_ID' => $sectionId,
@@ -49,13 +40,12 @@ foreach ($filterProperties as $propertyCode) {
     }
 }
 
-$elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'PROPERTY_*'];
 $res = CIBlockElement::GetList(
-    ['ID' => 'ASC'], // Сортировка по ID
+    ['ID' => 'ASC'],
     $elementFilter,
     false,
-    ['nPageSize' => 10],  // Пагинация: по 10 элементов на страницу
-    $elementSelect
+    ['nPageSize' => 10],
+    ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'PROPERTY_*']
 );
 
 $res->NavStart(10); // Устанавливаем навигацию
@@ -223,10 +213,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         const filters = {
             EL_CONNTYPE: document.getElementById('filter-EL_CONNTYPE').value,
             EL_DRIVETYPE: document.getElementById('filter-EL_DRIVETYPE').value,
-            // Добавьте другие фильтры здесь
         };
 
-        document.getElementById('loader').style.display = 'block'; // Показать загрузку
+        document.getElementById('loader').style.display = 'block';
 
         fetch('/catalog/filter.php', {
             method: 'POST',
@@ -235,15 +224,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('loader').style.display = 'none'; // Скрыть загрузку
-            updateCatalogItems(data); // Функция обновления каталога
+            document.getElementById('loader').style.display = 'none';
+            updateCatalogItems(data);
         });
     }
 
     function updateCatalogItems(items) {
         const container = document.querySelector('.catalog-items');
-        container.innerHTML = ''; // Очистка текущих элементов
-
+        container.innerHTML = '';
         items.forEach(item => {
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('catalog-item');
