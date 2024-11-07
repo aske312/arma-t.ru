@@ -60,51 +60,6 @@ $res = CIBlockElement::GetList(
 
 $res->NavStart(10); // Устанавливаем навигацию
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default");
-
-// Получаем уникальные значения для фильтров
-$filterValues = [
-    'EL_CONNTYPE' => [],
-    'EL_DRIVETYPE' => [],
-    'EL_DN_DIAMETER_MM' => [],
-    'EL_PN_PRESSURE_KGF_CM2' => [],
-    'EL_BODY_MATERIAL' => []
-];
-
-// Запрос для получения уникальных значений характеристик из инфоблока
-$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
-$filterValues = [];
-
-// Получаем значения для каждого свойства из элементов каталога
-foreach ($filterProperties as $propertyCode) {
-    $propertyValues = [];
-    $propertyFilter = [
-        'IBLOCK_ID' => 1,
-        'ACTIVE' => 'Y',
-        '!PROPERTY_' . $propertyCode => false,
-    ];
-
-    $res = CIBlockElement::GetList([], $propertyFilter, ['PROPERTY_' . $propertyCode]);
-    while ($value = $res->Fetch()) {
-        $propertyValues[] = [
-            'ID' => $value['PROPERTY_' . $propertyCode . '_VALUE'],
-            'VALUE' => $value['PROPERTY_' . $propertyCode . '_VALUE']
-        ];
-    }
-    $filterValues[$propertyCode] = $propertyValues;
-}
-
-$elementFilter = [
-    'IBLOCK_ID' => 1,
-    'SECTION_ID' => $sectionId,
-    'ACTIVE' => 'Y',
-    'INCLUDE_SUBSECTIONS' => 'Y',
-];
-
-foreach ($filterProperties as $propertyCode) {
-    if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
-        $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
-    }
-}
 ?>
 
 <!-- Названия каталога и описания -->
@@ -138,50 +93,19 @@ foreach ($filterProperties as $propertyCode) {
     <div class="catalog-content">
 
         <!-- Блок фильтров -->
-        <div class="catalog-filter">
-            <form id="filter-form" method="GET" action="/catalog/index.php">
-                <label for="connType">Тип присоединения:</label>
-                <select name="EL_CONNTYPE" id="connType">
+        <div class="filter-container">
+            <label>Тип присоединения:
+                <select id="filter-EL_CONNTYPE" onchange="applyFilter()">
                     <option value="all">Все</option>
-                    <?php foreach ($filterValues['EL_CONNTYPE'] as $value): ?>
-                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_CONNTYPE'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
-                    <?php endforeach; ?>
+                    <!-- Динамически загружаемые опции -->
                 </select>
-
-                <label for="driveType">Тип привода:</label>
-                <select name="EL_DRIVETYPE" id="driveType">
+            </label>
+            <label>Тип привода:
+                <select id="filter-EL_DRIVETYPE" onchange="applyFilter()">
                     <option value="all">Все</option>
-                    <?php foreach ($filterValues['EL_DRIVETYPE'] as $value): ?>
-                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_DRIVETYPE'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
-                    <?php endforeach; ?>
                 </select>
-
-                <label for="dnDiameter">Диаметр DN:</label>
-                <select name="EL_DN_DIAMETER_MM" id="dnDiameter">
-                    <option value="all">Все</option>
-                    <?php foreach ($filterValues['EL_DN_DIAMETER_MM'] as $value): ?>
-                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_DN_DIAMETER_MM'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-
-                <label for="pnPressure">Давление PN:</label>
-                <select name="EL_PN_PRESSURE_KGF_CM2" id="pnPressure">
-                    <option value="all">Все</option>
-                    <?php foreach ($filterValues['EL_PN_PRESSURE_KGF_CM2'] as $value): ?>
-                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_PN_PRESSURE_KGF_CM2'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-
-                <label for="bodyMaterial">Материал корпуса:</label>
-                <select name="EL_BODY_MATERIAL" id="bodyMaterial">
-                    <option value="all">Все</option>
-                    <?php foreach ($filterValues['EL_BODY_MATERIAL'] as $value): ?>
-                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_BODY_MATERIAL'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-
-                <button type="submit">Применить фильтр</button>
-            </form>
+            </label>
+            <!-- Другие фильтры аналогично -->
         </div>
 
         <!-- Анимация загрузки -->
@@ -293,6 +217,40 @@ foreach ($filterProperties as $propertyCode) {
             // Логика добавления в корзину
         });
     });
+
+    // *** ФИЛЬТРЫ *** //
+    function applyFilter() {
+        const filters = {
+            EL_CONNTYPE: document.getElementById('filter-EL_CONNTYPE').value,
+            EL_DRIVETYPE: document.getElementById('filter-EL_DRIVETYPE').value,
+            // Добавьте другие фильтры здесь
+        };
+
+        document.getElementById('loader').style.display = 'block'; // Показать загрузку
+
+        fetch('/catalog/filter.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(filters),
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('loader').style.display = 'none'; // Скрыть загрузку
+            updateCatalogItems(data); // Функция обновления каталога
+        });
+    }
+
+    function updateCatalogItems(items) {
+        const container = document.querySelector('.catalog-items');
+        container.innerHTML = ''; // Очистка текущих элементов
+
+        items.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('catalog-item');
+            itemDiv.innerHTML = `<h3>${item.name}</h3><p>${item.price} руб.</p>`;
+            container.appendChild(itemDiv);
+        });
+    }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;
