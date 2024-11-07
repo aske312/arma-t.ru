@@ -154,7 +154,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <div class="filter">
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <!-- Фильтр для диаметра -->
-                        <label for="<?= $propertyCode ?>">Диаметр - мм</label>
+                        <label for="<?= $propertyCode ?>">Диаметр:</label>
                         <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                             <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
                             <?php foreach ($values as $value): ?>
@@ -163,9 +163,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 </option>
                             <?php endforeach; ?>
                         </select>
+                        <label for="<?= $propertyCode ?>">мм</label>
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
                         <!-- Фильтр для давления -->
-                        <label for="<?= $propertyCode ?>">Давление - кгс/см²</label>
+                        <label for="<?= $propertyCode ?>">Давление:</label>
                         <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                             <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
                             <?php foreach ($values as $value): ?>
@@ -174,9 +175,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 </option>
                             <?php endforeach; ?>
                         </select>
+                        <label for="<?= $propertyCode ?>">кгс/см²</label>
                     <?php elseif ($propertyCode == 'EL_CONNTYPE'): ?>
                         <!-- Фильтр для типа соединения -->
-                        <label for="<?= $propertyCode ?>">Тип присоединения</label>
+                        <label for="<?= $propertyCode ?>">Тип присоединения:</label>
                         <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                             <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
                             <?php foreach ($values as $value): ?>
@@ -187,7 +189,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         </select>
                     <?php elseif ($propertyCode == 'EL_DRIVETYPE'): ?>
                         <!-- Фильтр для типа привода -->
-                        <label for="<?= $propertyCode ?>">Тип привода</label>
+                        <label for="<?= $propertyCode ?>">Тип привода:</label>
                         <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                             <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
                             <?php foreach ($values as $value): ?>
@@ -198,7 +200,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         </select>
                     <?php elseif ($propertyCode == 'EL_BODY_MATERIAL'): ?>
                         <!-- Фильтр для материала корпуса -->
-                        <label for="<?= $propertyCode ?>">Материал корпуса</label>
+                        <label for="<?= $propertyCode ?>">Материал корпуса:</label>
                         <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                             <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
                             <?php foreach ($values as $value): ?>
