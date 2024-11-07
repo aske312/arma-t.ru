@@ -111,9 +111,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберете необходимые позиции'; ?></p>
 </div>
 
+<?php
 echo '<pre>';
 print_r($filterValues);
 echo '</pre>';
+?>
 
 <div class="catalog-container">
 
