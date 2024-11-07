@@ -240,15 +240,16 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Анимация загрузки -->
         <div id="loader" class="loader" style="display: none;">Загрузка...</div>
 
-        <!-- Чекбокс для выбора всех товаров -->
-        <div class="select-all">
-            <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
-            <label for="select-all">Выбрать все</label>
-            <button class="catalog-add-all">В корзину</button>
-        </div>
-
         <!-- Список элементов каталога -->
         <div class="catalog-items">
+
+            <!-- Чекбокс для выбора всех товаров -->
+            <div class="select-all">
+                <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
+                <label for="select-all">Выбрать все</label>
+                <button class="catalog-add-all">В корзину</button>
+            </div>
+
             <?php
             $itemsFound = false; // Флаг, чтобы проверить, были ли элементы
 

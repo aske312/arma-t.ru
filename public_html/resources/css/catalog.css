@@ -242,6 +242,11 @@ pre { /* DEBUG */
     color: black;
 }
 
+.catalog-items p {
+    align-items: center;
+    color: #333;
+}
+
 .catalog-item {
     border: 1px solid #ddd;
     border-radius: 4px;
