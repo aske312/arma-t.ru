@@ -44,7 +44,6 @@ $filterProperties = [
     'EL_BODY_MATERIAL'    // Материал корпуса
 ];
 
-// Массив для хранения уникальных значений фильтров
 // Указываем ID инфоблока и секции
 $iblockId = 1;  // ID инфоблока
 $sectionId = intval($_GET['SECTION_ID']);  // ID текущей секции (получаем через GET-запрос)
@@ -68,10 +67,11 @@ $res = CIBlockElement::GetList(
 
 // Перебираем все элементы
 while ($ob = $res->GetNextElement()) {
-    $props = $ob->GetProperties(); // Получаем все свойства текущего элемента
+    $arFields = $ob->GetFields();       // Получаем поля элемента
+    $arProps = $ob->GetProperties();    // Получаем все свойства элемента
 
     // Пройдемся по всем свойствам текущего элемента
-    foreach ($props as $propertyCode => $propertyValue) {
+    foreach ($arProps as $propertyCode => $propertyValue) {
         // Проверяем, если свойство имеет значение (не пустое)
         if (!empty($propertyValue['VALUE'])) {
             // Если это массив (например, множественное свойство), проходим по всем значениям
