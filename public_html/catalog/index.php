@@ -384,6 +384,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
             var filterValue = element.value;
 
+            // Выводим значение filterValue в консоль
+            console.log("Значение фильтра <?= $propertyCode ?>:", filterValue);
+
             // Если значение пустое, ставим 'all'
             if (!filterValue) {
                 filterValue = 'all';
@@ -400,6 +403,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
 
         <?php endforeach; ?>
+
+        // Выводим весь объект filterValues
+        console.log("Полученные значения фильтров:", JSON.stringify(filterValues, null, 2));
 
         // Проверка на то, есть ли фильтры
         if (filters.length === 0) {
