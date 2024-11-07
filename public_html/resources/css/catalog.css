@@ -136,9 +136,49 @@ pre { /* DEBUG */
 }
 
 /* Стили для фильтров */
+/* Стиль для контейнера с фильтрами */
 .catalog-filters {
-    display: block;
-    margin: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Перенос элементов на новую строку, если не помещаются */
+    gap: 20px; /* Расстояние между фильтрами */
+}
+
+/* Каждый отдельный фильтр */
+.filter {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+}
+
+/* Для label, чтобы сделать отступ от фильтра */
+.filter label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Стили для select */
+.filter select {
+    padding: 5px 10px;
+    font-size: 14px;
+    min-width: 120px;
+}
+
+/* Для единиц измерения */
+.unit {
+    margin-left: 5px;
+    font-size: 12px;
+    color: #666; /* Тусклый цвет для единиц измерения */
+}
+
+/* Если фильтр пустой */
+.filter-empty {
+    color: #d9534f; /* Цвет для пустых фильтров */
+    font-size: 14px;
+}
+
+/* Стиль для пустых фильтров */
+.filter-empty p {
+    margin: 0;
+    font-style: italic;
 }
 
 /* Стили для чекбокса выбора всех товаров */
