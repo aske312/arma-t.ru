@@ -35,6 +35,48 @@ while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }
 
+// Получаем значения фильтров из свойств текущих элементов
+$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
+$filterValues = [];
+foreach ($filterProperties as $propertyCode) {
+    $filterValues[$propertyCode] = [];
+    $res = CIBlockElement::GetList(
+        [],
+        [
+            'IBLOCK_ID' => 1,
+            'SECTION_ID' => $sectionId,
+            'ACTIVE' => 'Y',
+            'INCLUDE_SUBSECTIONS' => 'Y',
+        ],
+        false,
+        false,
+        ['PROPERTY_' . $propertyCode]
+    );
+    while ($ob = $res->GetNextElement()) {
+        $props = $ob->GetProperties();
+        if ($props['EL_CONNTYPE']) {
+            $filterValues['EL_CONNTYPE'][] = $props['EL_CONNTYPE']['VALUE'];
+        }
+        if ($props['EL_DRIVETYPE']) {
+            $filterValues['EL_DRIVETYPE'][] = $props['EL_DRIVETYPE']['VALUE'];
+        }
+        if ($props['EL_DN_DIAMETER_MM']) {
+            $filterValues['EL_DN_DIAMETER_MM'][] = $props['EL_DN_DIAMETER_MM']['VALUE'];
+        }
+        if ($props['EL_PN_PRESSURE_KGF_CM2']) {
+            $filterValues['EL_PN_PRESSURE_KGF_CM2'][] = $props['EL_PN_PRESSURE_KGF_CM2']['VALUE'];
+        }
+        if ($props['EL_BODY_MATERIAL']) {
+            $filterValues['EL_BODY_MATERIAL'][] = $props['EL_BODY_MATERIAL']['VALUE'];
+        }
+    }
+
+    // Убираем дубли
+    foreach ($filterValues as $propertyCode => $values) {
+        $filterValues[$propertyCode] = array_unique($values);
+    }
+}
+
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
     'IBLOCK_ID' => 1,
@@ -43,6 +85,7 @@ $elementFilter = [
     'INCLUDE_SUBSECTIONS' => 'Y',
 ];
 
+// Применяем фильтры из GET-запроса
 foreach ($filterProperties as $propertyCode) {
     if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
         $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
@@ -91,6 +134,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     </div>
 
     <div class="catalog-content">
+
+        <!-- Фильтры -->
+        <div class="catalog-filters">
+            <?php foreach ($filterProperties as $propertyCode): ?>
+                <div class="filter">
+                    <label for="<?= $propertyCode ?>"><?= GetMessage($propertyCode); ?></label>
+                    <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                        <option value="all">Все</option>
+                        <?php foreach ($filterValues[$propertyCode] as $value): ?>
+                            <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>><?= $value ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            <?php endforeach; ?>
+        </div>
 
         <!-- Анимация загрузки -->
         <div id="loader" class="loader" style="display: none;">Загрузка...</div>
@@ -201,6 +259,22 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             // Логика добавления в корзину
         });
     });
+
+    // *** FILTERS *** //
+
+    // Функция для применения фильтра
+    function applyFilter() {
+        let filters = [];
+        <?php foreach ($filterProperties as $propertyCode): ?>
+            let value = document.getElementById('<?= $propertyCode ?>').value;
+            if (value !== 'all') {
+                filters.push('<?= $propertyCode ?>=' + value);
+            }
+        <?php endforeach; ?>
+
+        // Перезагружаем страницу с новыми параметрами фильтра
+        window.location.search = filters.join('&');
+    }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;
