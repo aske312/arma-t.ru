@@ -50,7 +50,7 @@ $res = CIBlockElement::GetList(
     ],
     false,
     false,
-    ['ID', 'NAME', 'PROPERTY_EL_CONNTYPE', 'PROPERTY_EL_DRIVETYPE', 'PROPERTY_EL_DN_DIAMETER_MM', 'PROPERTY_EL_PN_PRESSURE_KGF_CM2', 'PROPERTY_EL_BODY_MATERIAL']
+    ['ID', 'NAME', 'PROPERTY_*']
 );
 
 // Проверим, есть ли вообще элементы
@@ -58,11 +58,6 @@ if ($res->SelectedRowsCount() > 0) {
     // Перебираем все элементы, чтобы собрать значения фильтров
     while ($ob = $res->GetNextElement()) {
         $props = $ob->GetProperties(); // Получаем свойства для текущего элемента
-
-        // Для отладки выведем все свойства элемента
-        echo '<pre>';
-        print_r($props);
-        echo '</pre>';
 
         // Перебираем все нужные свойства фильтров
         foreach ($filterProperties as $propertyCode) {
