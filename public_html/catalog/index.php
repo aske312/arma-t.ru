@@ -39,43 +39,53 @@ while ($section = $sections->Fetch()) {
 $filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
 $filterValues = [];
 
-// Перебираем все свойства, для которых нужно собрать значения фильтров
-foreach ($filterProperties as $propertyCode) {
-    // Инициализируем массив для каждого фильтра
-    $filterValues[$propertyCode] = [];
+// Получаем элементы для выбранной секции
+$res = CIBlockElement::GetList(
+    [],
+    [
+        'IBLOCK_ID' => 1,
+        'SECTION_ID' => $sectionId,
+        'ACTIVE' => 'Y',
+        'INCLUDE_SUBSECTIONS' => 'Y',
+    ],
+    false,
+    false,
+    ['ID', 'NAME', 'PROPERTY_EL_CONNTYPE', 'PROPERTY_EL_DRIVETYPE', 'PROPERTY_EL_DN_DIAMETER_MM', 'PROPERTY_EL_PN_PRESSURE_KGF_CM2', 'PROPERTY_EL_BODY_MATERIAL']
+);
 
-    // Получаем все элементы, которые соответствуют фильтру
-    $res = CIBlockElement::GetList(
-        [],
-        [
-            'IBLOCK_ID' => 1,
-            'SECTION_ID' => $sectionId,
-            'ACTIVE' => 'Y',
-            'INCLUDE_SUBSECTIONS' => 'Y',
-        ],
-        false,
-        false,
-        ['PROPERTY_' . $propertyCode] // Собираем только значения нужного свойства
-    );
-
-    // Перебираем элементы и собираем значения свойства
+// Проверим, есть ли вообще элементы
+if ($res->SelectedRowsCount() > 0) {
+    // Перебираем все элементы, чтобы собрать значения фильтров
     while ($ob = $res->GetNextElement()) {
-        $props = $ob->GetProperties(); // Получаем все свойства элемента
+        $props = $ob->GetProperties(); // Получаем свойства для текущего элемента
 
-        // Проверяем, существует ли нужное свойство и оно не пустое
-        if (isset($props[$propertyCode]) && !empty($props[$propertyCode]['VALUE'])) {
-            // Добавляем значение свойства в массив, если оно не пустое
-            $filterValues[$propertyCode][] = $props[$propertyCode]['VALUE'];
+        // Для отладки выведем все свойства элемента
+        echo '<pre>';
+        print_r($props);
+        echo '</pre>';
+
+        // Перебираем все нужные свойства фильтров
+        foreach ($filterProperties as $propertyCode) {
+            // Если свойство существует у элемента и его значение не пустое, добавляем в массив
+            if (isset($props[$propertyCode]) && !empty($props[$propertyCode]['VALUE'])) {
+                // Собираем все уникальные значения для фильтров
+                $filterValues[$propertyCode][] = $props[$propertyCode]['VALUE'];
+            }
         }
     }
 
-    // Убираем дубли и сортируем значения для фильтров
-    $filterValues[$propertyCode] = array_unique($filterValues[$propertyCode]);
-    sort($filterValues[$propertyCode]);
+    // Убираем дубли и сортируем
+    foreach ($filterValues as $propertyCode => $values) {
+        $filterValues[$propertyCode] = array_unique($values);
+        sort($filterValues[$propertyCode]);
+    }
+} else {
+    echo "Нет элементов в выбранной секции.";
 }
 
+// Отладочный вывод фильтров
 echo '<pre>';
-print_r($filterValues);  // Отладочная информация для проверки
+print_r($filterValues);  // Выведем массив значений фильтров
 echo '</pre>';
 
 // Получаем список элементов с учетом фильтров и пагинации
