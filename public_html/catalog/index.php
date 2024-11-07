@@ -303,19 +303,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <div class="catalog-item-properties">
                                 <table>
                                     <?php if (!empty($arProps['EL_CONNTYPE']['VALUE'])): ?>
-                                        <tr><th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th></tr>
+                                        <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
                                     <?php endif; ?>
                                     <?php if (!empty($arProps['EL_DRIVETYPE']['VALUE'])): ?>
-                                        <tr><th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th></tr>
+                                        <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
                                     <?php endif; ?>
                                     <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
-                                        <tr><th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th></tr>
+                                        <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
                                     <?php endif; ?>
                                     <?php if (!empty($arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE'])): ?>
-                                        <tr><th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th></tr>
+                                        <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
                                     <?php endif; ?>
                                     <?php if (!empty($arProps['EL_BODY_MATERIAL']['VALUE'])): ?>
-                                        <tr><th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th></tr>
+                                        <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
                                     <?php endif; ?>
                                 </table>
                                 </div>
