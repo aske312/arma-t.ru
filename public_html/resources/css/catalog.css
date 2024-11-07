@@ -141,7 +141,7 @@ pre { /* DEBUG */
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     text-align: left;
     padding-left: 15px;
@@ -162,10 +162,10 @@ pre { /* DEBUG */
 /* Каждый фильтр в отдельности */
 .filter-item {
     background-color: #f5f7fa;
-    padding: 1px;
+    padding: 3px;
     color: #333;
     border-radius: 8px;
-    box-shadow: 0 0 5px #191970;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
 }
 
