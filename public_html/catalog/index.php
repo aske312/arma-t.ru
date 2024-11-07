@@ -266,9 +266,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     function applyFilter() {
         let filters = [];
         <?php foreach ($filterProperties as $propertyCode): ?>
-            let value = document.getElementById('<?= $propertyCode ?>').value;
-            if (value !== 'all') {
-                filters.push('<?= $propertyCode ?>=' + value);
+            let value_<?= $propertyCode ?> = document.getElementById('<?= $propertyCode ?>').value;
+            if (value_<?= $propertyCode ?> !== 'all') {
+                filters.push('<?= $propertyCode ?>=' + value_<?= $propertyCode ?>);
             }
         <?php endforeach; ?>
 
