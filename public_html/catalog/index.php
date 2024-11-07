@@ -148,9 +148,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     <div class="catalog-content">
 
+        <!-- Заголовок для фильтров -->
+        <h2 class="filter-title">Фильтры</h2>
+
         <!-- Фильтры -->
         <div class="catalog-filters">
-            <h2>Фильтры</h2>
             <?php foreach ($filterValues as $propertyCode => $values): ?>
                 <div class="filter">
                     <!-- Фильтр для диаметра -->
