@@ -89,9 +89,9 @@ foreach ($filterValues as $propertyCode => $values) {
 }
 
 // Выводим результат для отладки
-echo '<pre>';
-print_r($filterValues); // Смотрим, что получилось
-echo '</pre>';
+//echo '<pre>';
+//print_r($filterValues); // Смотрим, что получилось
+//echo '</pre>';
 
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
@@ -153,8 +153,16 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         <!-- Фильтры -->
         <div class="catalog-filters">
-            <?php foreach ($filterProperties as $propertyCode): ?>
-                <?php if (!empty($filterValues[$propertyCode])): ?>
+            <?php
+            // Проверяем содержимое массива фильтров перед выводом
+            echo '<pre>';
+            print_r($filterValues);  // Отладочный вывод фильтров
+            echo '</pre>';
+
+            // Перебор фильтров
+            foreach ($filterProperties as $propertyCode):
+                if (!empty($filterValues[$propertyCode])):
+                    ?>
                     <div class="filter">
                         <label for="<?= $propertyCode ?>"><?= GetMessage($propertyCode); ?></label>
                         <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
