@@ -36,11 +36,6 @@ while ($section = $sections->Fetch()) {
 }
 
 // Фильтры
-// ID инфоблока и секции, которые мы фильтруем
-$iblockId = 1;  // Указываем ID инфоблока
-$sectionId = intval($_GET['SECTION_ID']);  // ID текущей секции (получаем через GET-запрос)
-
-// Массив для хранения уникальных значений фильтров
 $filterValues = [
     'EL_CONNTYPE' => [],
     'EL_DRIVETYPE' => [],
@@ -53,7 +48,7 @@ $filterValues = [
 $res = CIBlockElement::GetList(
     [],
     [
-        'IBLOCK_ID' => $iblockId,  // Указываем ID инфоблока
+        'IBLOCK_ID' => 1,  // Указываем ID инфоблока
         'SECTION_ID' => $sectionId,  // ID секции
         'ACTIVE' => 'Y',  // Только активные элементы
         'INCLUDE_SUBSECTIONS' => 'Y',  // Включаем подкатегории
@@ -68,14 +63,21 @@ while ($ob = $res->GetNextElement()) {
     $arFields = $ob->GetFields();       // Получаем поля элемента
     $arProps = $ob->GetProperties();    // Получаем все свойства элемента
 
+    // Выводим все свойства элемента для отладки
+    echo '<pre>';
+    print_r($arProps);  // Посмотреть, что содержат свойства
+    echo '</pre>';
+
     // Проходим по необходимым свойствам и собираем уникальные значения
     foreach (['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'] as $propertyCode) {
         // Проверяем, если свойство существует и содержит значения
-        if (!empty($arProps[$propertyCode]['VALUE'])) {
+        if (isset($arProps[$propertyCode]) && !empty($arProps[$propertyCode]['VALUE'])) {
+            // Убедимся, что это массив, если нет - сделаем его массивом
             $values = is_array($arProps[$propertyCode]['VALUE']) ? $arProps[$propertyCode]['VALUE'] : [$arProps[$propertyCode]['VALUE']];
 
             // Добавляем уникальные значения в массив фильтров
             foreach ($values as $value) {
+                // Проверяем, есть ли уже это значение в массиве фильтров
                 if (!in_array($value, $filterValues[$propertyCode])) {
                     $filterValues[$propertyCode][] = $value;
                 }
