@@ -154,25 +154,22 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Фильтры -->
         <div class="catalog-filters">
             <?php foreach ($filterProperties as $propertyCode): ?>
-                <?php if (!empty($filterValues[$propertyCode])): // Проверяем, есть ли значения для фильтра ?>
+                <?php if (!empty($filterValues[$propertyCode])): ?>
                     <div class="filter">
-                        <!-- Заголовок фильтра -->
                         <label for="<?= $propertyCode ?>"><?= GetMessage($propertyCode); ?></label>
-
-                        <!-- Выпадающий список фильтров -->
                         <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                            <!-- Опция для выбора всех значений -->
-                            <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>
-                                Все
-                            </option>
-
-                            <!-- Выводим все уникальные значения для текущего фильтра -->
+                            <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
                             <?php foreach ($filterValues[$propertyCode] as $value): ?>
                                 <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
                                     <?= $value ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
+                    </div>
+                <?php else: ?>
+                    <!-- Отладочная информация, если для текущего фильтра нет значений -->
+                    <div class="filter-empty">
+                        <p>Фильтр <?= $propertyCode ?> пуст.</p>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
