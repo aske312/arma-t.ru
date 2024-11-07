@@ -287,11 +287,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     });
 
     // *** FILTERS *** //
-
-    // Функция для применения фильтра
     function applyFilter() {
         let filters = [];
         let filterValues = {};
+
+        // Собираем текущие фильтры
         <?php foreach ($filterProperties as $propertyCode): ?>
             filterValues['<?= $propertyCode ?>'] = document.getElementById('<?= $propertyCode ?>').value;
             if (filterValues['<?= $propertyCode ?>'] !== 'all') {
@@ -299,8 +299,22 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
         <?php endforeach; ?>
 
-        // Перезагружаем страницу с новыми параметрами фильтра
-        window.location.search = filters.join('&');
+        // Получаем текущие параметры URL
+        let urlParams = new URLSearchParams(window.location.search);
+
+        // Добавляем SECTION_ID, если он присутствует
+        <?php if (isset($_GET['SECTION_ID'])): ?>
+            urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
+        <?php endif; ?>
+
+        // Добавляем фильтры
+        filters.forEach(function (filter) {
+            let [key, value] = filter.split('=');
+            urlParams.set(key, value);
+        });
+
+        // Перезагружаем страницу с новыми параметрами
+        window.location.search = urlParams.toString();
     }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
