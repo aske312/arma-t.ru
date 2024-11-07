@@ -214,6 +214,8 @@ pre { /* DEBUG */
     display: flex;
     align-items: center;
     color: #333;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .select-all input[type="checkbox"] {
