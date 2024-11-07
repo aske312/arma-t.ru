@@ -144,9 +144,15 @@ pre { /* DEBUG */
     margin-top: 20px;
 }
 
+.catalog-filters h2 {
+    color: black;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
 /* Общая стилизация для каждого фильтра */
 .filter {
-    width: 250px;
+    width: auto;
 }
 
 /* Каждый фильтр в отдельности */
