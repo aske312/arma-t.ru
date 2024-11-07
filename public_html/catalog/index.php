@@ -154,15 +154,23 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Фильтры -->
         <div class="catalog-filters">
             <?php foreach ($filterProperties as $propertyCode): ?>
-                <div class="filter">
-                    <label for="<?= $propertyCode ?>"><?= GetMessage($propertyCode); ?></label>
-                    <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                        <option value="all">Все</option>
-                        <?php foreach ($filterValues[$propertyCode] as $value): ?>
-                            <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>><?= $value ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                <!-- Отладка для каждого фильтра -->
+                <pre>Property: <?= $propertyCode ?></pre>
+
+                <!-- Если фильтр имеет значения, то отображаем -->
+                <?php if (isset($filterValues[$propertyCode]) && !empty($filterValues[$propertyCode])): ?>
+                    <div class="filter">
+                        <label for="<?= $propertyCode ?>"><?= GetMessage($propertyCode); ?></label>
+                        <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                            <option value="all">Все</option>
+                            <?php foreach ($filterValues[$propertyCode] as $value): ?>
+                                <option value="<?= $value ?>" <?= isset($_GET[$propertyCode]) && $_GET[$propertyCode] == $value ? 'selected' : ''; ?>>
+                                    <?= $value ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
 
