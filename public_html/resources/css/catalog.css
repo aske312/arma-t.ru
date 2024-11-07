@@ -143,7 +143,6 @@ pre { /* DEBUG */
     margin-bottom: 20px;
     border-bottom: 2px solid #ddd;
     padding-bottom: 10px;
-    background-color: #f9f9f9;
     text-align: left;
     padding-left: 15px;
 }
@@ -162,10 +161,10 @@ pre { /* DEBUG */
 
 /* Каждый фильтр в отдельности */
 .filter-item {
-    background-color: #f4f4f4; /* Серый фон */
-    padding: 10px;
+    background-color: #f5f7fa;
+    padding: 1px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px #191970;
     margin-bottom: 10px;
 }
 
