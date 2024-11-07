@@ -45,6 +45,7 @@ $filterValues = [
 ];
 
 // Получаем все элементы в текущей секции
+$filterElementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'PROPERTY_*'];
 $res = CIBlockElement::GetList(
     [],
     [
@@ -55,7 +56,7 @@ $res = CIBlockElement::GetList(
     ],
     false,
     false,
-    ['ID', 'NAME', 'PROPERTY_*']  // Получаем только необходимые свойства
+    $filterElementSelect  // Получаем только необходимые свойства
 );
 
 // Перебираем все элементы
