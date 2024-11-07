@@ -55,6 +55,7 @@ foreach ($filterProperties as $propertyCode) {
     while ($ob = $res->GetNextElement()) {
         $props = $ob->GetProperties();
         if ($props[$propertyCode]) {
+            print_r($props[$propertyCode]['VALUE']);
             $filterValues[$propertyCode][] = $props[$propertyCode]['VALUE'];
         }
     }
