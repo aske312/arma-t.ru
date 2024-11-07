@@ -55,18 +55,13 @@ $res = CIBlockElement::GetList(
     ],
     false,
     false,
-    ['ID', 'NAME', 'PROPERTY_EL_CONNTYPE', 'PROPERTY_EL_DRIVETYPE', 'PROPERTY_EL_DN_DIAMETER_MM', 'PROPERTY_EL_PN_PRESSURE_KGF_CM2', 'PROPERTY_EL_BODY_MATERIAL']  // Получаем только необходимые свойства
+    ['ID', 'NAME', 'PROPERTY_*']  // Получаем только необходимые свойства
 );
 
 // Перебираем все элементы
 while ($ob = $res->GetNextElement()) {
     $arFields = $ob->GetFields();       // Получаем поля элемента
     $arProps = $ob->GetProperties();    // Получаем все свойства элемента
-
-    // Выводим все свойства элемента для отладки
-    echo '<pre>';
-    print_r($arProps);  // Посмотреть, что содержат свойства
-    echo '</pre>';
 
     // Проходим по необходимым свойствам и собираем уникальные значения
     foreach (['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'] as $propertyCode) {
