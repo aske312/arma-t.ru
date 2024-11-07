@@ -45,41 +45,51 @@ $filterProperties = [
 ];
 
 // Массив для хранения уникальных значений фильтров
+// Указываем ID инфоблока и секции
+$iblockId = 1;  // ID инфоблока
+$sectionId = intval($_GET['SECTION_ID']);  // ID текущей секции (получаем через GET-запрос)
+
+// Массив для хранения уникальных значений фильтров
 $filterValues = [];
 
-// Получаем все элементы для выбранной секции
+// Получаем все элементы в текущей секции
 $res = CIBlockElement::GetList(
     [],
     [
-        'IBLOCK_ID' => 1,  // Указываем ID инфоблока
-        'SECTION_ID' => $sectionId,  // ID текущей секции
+        'IBLOCK_ID' => $iblockId,  // Указываем ID инфоблока
+        'SECTION_ID' => $sectionId,  // ID секции
         'ACTIVE' => 'Y',  // Только активные элементы
         'INCLUDE_SUBSECTIONS' => 'Y',  // Включаем подкатегории
     ],
     false,
     false,
-    ['ID', 'NAME', 'PROPERTY_' . implode(', PROPERTY_', $filterProperties)] // Указываем необходимые свойства для выборки
+    ['ID', 'NAME', 'PROPERTY_*']  // Получаем все свойства элементов
 );
 
 // Перебираем все элементы
 while ($ob = $res->GetNextElement()) {
     $props = $ob->GetProperties(); // Получаем все свойства текущего элемента
 
-    // Перебираем все свойства для фильтров
-    foreach ($filterProperties as $propertyCode) {
-        // Проверяем, если это свойство существует у элемента и имеет значение
-        if (isset($props[$propertyCode]) && !empty($props[$propertyCode]['VALUE'])) {
-            // Добавляем уникальные значения в массив
-            foreach ((array)$props[$propertyCode]['VALUE'] as $value) {
-                if (!in_array($value, $filterValues[$propertyCode])) {
-                    $filterValues[$propertyCode][] = $value;
+    // Пройдемся по всем свойствам текущего элемента
+    foreach ($props as $propertyCode => $propertyValue) {
+        // Проверяем, если свойство имеет значение (не пустое)
+        if (!empty($propertyValue['VALUE'])) {
+            // Если это массив (например, множественное свойство), проходим по всем значениям
+            $values = is_array($propertyValue['VALUE']) ? $propertyValue['VALUE'] : [$propertyValue['VALUE']];
+
+            // Собираем уникальные значения для каждого свойства
+            foreach ($values as $value) {
+                // Пропускаем пустые значения
+                if (!empty($value)) {
+                    // Добавляем уникальные значения в массив фильтров
+                    if (!in_array($value, $filterValues[$propertyCode])) {
+                        $filterValues[$propertyCode][] = $value;
+                    }
                 }
             }
         }
     }
 }
-
-// Теперь фильтры содержат уникальные значения для каждого свойства
 
 // Убираем дубли и сортируем значения для каждого фильтра
 foreach ($filterValues as $propertyCode => $values) {
