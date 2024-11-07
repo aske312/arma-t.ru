@@ -167,12 +167,40 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 </option>
                             <?php endforeach; ?>
                         </select>
+
                         <!-- Добавляем единицы измерения для конкретных фильтров -->
                         <?php if ($propertyCode === 'EL_DN_DIAMETER_MM'): ?>
                             <span class="unit">мм</span>
                         <?php elseif ($propertyCode === 'EL_PN_PRESSURE_KGF_CM2'): ?>
                             <span class="unit">кгс/см²</span>
                         <?php endif; ?>
+
+                        <!-- Добавляем пояснение к каждому фильтру -->
+                        <div class="filter-description">
+                            <?php
+                                // Условия для пояснений по каждому фильтру
+                                switch ($propertyCode) {
+                                    case 'EL_DN_DIAMETER_MM':
+                                        echo "<p>Выберите диаметр в миллиметрах.</p>";
+                                        break;
+                                    case 'EL_PN_PRESSURE_KGF_CM2':
+                                        echo "<p>Выберите давление в кгс/см².</p>";
+                                        break;
+                                    case 'EL_CONNTYPE':
+                                        echo "<p>Тип присоединения.</p>";
+                                        break;
+                                    case 'EL_DRIVETYPE':
+                                        echo "<p>Тип привода.</p>";
+                                        break;
+                                    case 'EL_BODY_MATERIAL':
+                                        echo "<p>Материал корпуса.</p>";
+                                        break;
+                                    default:
+                                        echo "<p>Выберите значение для этого фильтра.</p>";
+                                }
+                            ?>
+                        </div>
+
                     </div>
                 <?php else: ?>
                     <div class="filter-empty">
