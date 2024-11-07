@@ -379,7 +379,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
             // Пропускаем элемент, если его нет на странице
             if (!element) {
-                return; // Пропускаем дальнейшую обработку для этого фильтра
+                return; // Пропускаем этот фильтр
             }
 
             var filterValue = element.value;
@@ -389,16 +389,24 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 filterValue = 'all';
             }
 
+            // Сохраняем в объект
             filterValues['<?= $propertyCode ?>'] = filterValue;
 
-            // Если выбрано "Все" (или пустое значение), добавляем параметр в виде propertyCode=all
-            if (filterValue === 'all') {
-                filters.push('<?= $propertyCode ?>=all');
-            } else {
-                // Добавляем только те фильтры, которые не равны "all"
+            // Если значение фильтра не 'all', добавляем его в фильтры
+            if (filterValue !== 'all') {
                 filters.push('<?= $propertyCode ?>=' + filterValue);
+            } else {
+                filters.push('<?= $propertyCode ?>=all');
             }
+
         <?php endforeach; ?>
+
+        // Проверка на то, есть ли фильтры
+        if (filters.length === 0) {
+            console.log("Нет активных фильтров");
+        } else {
+            console.log("Активные фильтры:", filters);
+        }
 
         // Получаем текущие параметры URL
         let urlParams = new URLSearchParams(window.location.search);
@@ -413,6 +421,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             let [key, value] = filter.split('=');
             urlParams.set(key, value);
         });
+
+        // Проверка перед редиректом
+        console.log("Формируемый URL:", window.location.pathname + '?' + urlParams.toString());
 
         // Перезагружаем страницу с новыми параметрами
         window.location.search = urlParams.toString();
