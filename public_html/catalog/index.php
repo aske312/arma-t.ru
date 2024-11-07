@@ -373,19 +373,24 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         let filters = [];
         let filterValues = {};
 
+        // Перечень всех возможных фильтров
+        const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
+
         // Собираем текущие фильтры
-        <?php foreach ($filterProperties as $propertyCode): ?>
-            var element = document.getElementById('<?= $propertyCode ?>');
+        allFilterProperties.forEach(function(propertyCode) {
+            var element = document.getElementById(propertyCode);
 
             // Пропускаем элемент, если его нет на странице
             if (!element) {
-                return; // Пропускаем этот фильтр
+                filterValues[propertyCode] = 'all';  // Если элемента нет на странице, присваиваем 'all'
+                filters.push(propertyCode + '=all'); // Добавляем фильтр с значением 'all'
+                return; // Пропускаем дальнейшую обработку для этого фильтра
             }
 
             var filterValue = element.value;
 
             // Выводим значение filterValue в консоль
-            console.log("Значение фильтра <?= $propertyCode ?>:", filterValue);
+            console.log("Значение фильтра " + propertyCode + ":", filterValue);
 
             // Если значение пустое, ставим 'all'
             if (!filterValue) {
@@ -393,16 +398,15 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
 
             // Сохраняем в объект
-            filterValues['<?= $propertyCode ?>'] = filterValue;
+            filterValues[propertyCode] = filterValue;
 
             // Если значение фильтра не 'all', добавляем его в фильтры
             if (filterValue !== 'all') {
-                filters.push('<?= $propertyCode ?>=' + filterValue);
+                filters.push(propertyCode + '=' + filterValue);
             } else {
-                filters.push('<?= $propertyCode ?>=all');
+                filters.push(propertyCode + '=all');
             }
-
-        <?php endforeach; ?>
+        });
 
         // Выводим весь объект filterValues
         console.log("Полученные значения фильтров:", JSON.stringify(filterValues, null, 2));
