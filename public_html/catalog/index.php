@@ -294,7 +294,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         // Собираем текущие фильтры
         <?php foreach ($filterProperties as $propertyCode): ?>
             filterValues['<?= $propertyCode ?>'] = document.getElementById('<?= $propertyCode ?>').value;
-            if (filterValues['<?= $propertyCode ?>'] !== 'all') {
+
+            // Если выбрано "Все", добавляем параметр в виде propertyCode=all
+            if (filterValues['<?= $propertyCode ?>'] === 'all') {
+                filters.push('<?= $propertyCode ?>=all');
+            } else if (filterValues['<?= $propertyCode ?>'] !== 'all') {
+                // Добавляем только те фильтры, которые не равны "all"
                 filters.push('<?= $propertyCode ?>=' + filterValues['<?= $propertyCode ?>']);
             }
         <?php endforeach; ?>
@@ -307,7 +312,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
         <?php endif; ?>
 
-        // Добавляем фильтры
+        // Добавляем фильтры в URL
         filters.forEach(function (filter) {
             let [key, value] = filter.split('=');
             urlParams.set(key, value);
