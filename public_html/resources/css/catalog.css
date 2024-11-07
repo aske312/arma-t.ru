@@ -145,36 +145,46 @@ pre { /* DEBUG */
 
 /* Отдельный фильтр */
 .filter {
-    width: 30%; /* Можно регулировать ширину каждого фильтра */
+    width: 32%; /* Уменьшаем ширину до 32%, чтобы они располагались в 3 колонки */
     min-width: 250px;
+    margin-bottom: 20px;
 }
 
 /* Название фильтра */
 .filter-title {
     font-weight: bold;
     font-size: 14px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     display: block;
 }
 
-/* Блок с селектом и единицей измерения */
+/* Контейнер для селектора */
+.filter-select-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Селект */
 .filter-select {
     display: flex;
     align-items: center;
+    flex-grow: 1;
 }
 
 /* Селект */
 .filter-select select {
-    margin-right: 5px;
-    padding: 5px;
+    width: 100%; /* Селект растягивается по ширине */
+    padding: 8px;
     font-size: 14px;
-    width: 80%;
+    box-sizing: border-box; /* Чтобы ширина учитывала padding */
 }
 
 /* Единица измерения */
 .unit {
+    margin-left: 5px;
     font-size: 14px;
-    color: #333;
+    color: #555;
 }
 
 /* Пояснение под фильтром */
@@ -194,7 +204,6 @@ pre { /* DEBUG */
     margin: 0;
     font-style: italic;
 }
-
 /* Стили для чекбокса выбора всех товаров */
 .select-all {
     margin-bottom: 20px;

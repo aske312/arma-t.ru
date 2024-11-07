@@ -161,23 +161,25 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <!-- Название фильтра -->
                         <label for="<?= $propertyCode ?>" class="filter-title"><?= GetMessage($propertyCode); ?></label>
 
-                        <!-- Сам фильтр -->
-                        <div class="filter-select">
-                            <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
-                                <?php foreach ($filterValues[$propertyCode] as $value): ?>
-                                    <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                        <?= $value ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
+                        <!-- Фильтр с единицей измерения -->
+                        <div class="filter-select-container">
+                            <div class="filter-select">
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($filterValues[$propertyCode] as $value): ?>
+                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
 
-                            <!-- Единица измерения, если она есть -->
-                            <?php if ($propertyCode === 'EL_DN_DIAMETER_MM'): ?>
-                                <span class="unit">мм</span>
-                            <?php elseif ($propertyCode === 'EL_PN_PRESSURE_KGF_CM2'): ?>
-                                <span class="unit">кгс/см²</span>
-                            <?php endif; ?>
+                                <!-- Единица измерения -->
+                                <?php if ($propertyCode === 'EL_DN_DIAMETER_MM'): ?>
+                                    <span class="unit">мм</span>
+                                <?php elseif ($propertyCode === 'EL_PN_PRESSURE_KGF_CM2'): ?>
+                                    <span class="unit">кгс/см²</span>
+                                <?php endif; ?>
+                            </div>
                         </div>
 
                         <!-- Пояснение к фильтру -->
