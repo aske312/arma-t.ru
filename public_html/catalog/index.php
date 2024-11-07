@@ -71,22 +71,35 @@ $filterValues = [
 ];
 
 // Запрос для получения уникальных значений характеристик из инфоблока
-$propertyFilter = [
-    'IBLOCK_ID' => 1,
-    'ACTIVE' => 'Y'
-];
-$properties = CIBlockElement::GetList([], $propertyFilter, false, false, array_keys($filterValues));
+$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
+$filterValues = [];
 
-while ($property = $properties->GetNextElement()) {
-    $props = $property->GetProperties();
-    foreach ($filterValues as $key => &$values) {
-        if (!in_array($props[$key]['VALUE'], $values)) {
-            $values[] = $props[$key]['VALUE'];
-        }
+// Получаем значения для каждого свойства из элементов каталога
+foreach ($filterProperties as $propertyCode) {
+    $propertyValues = [];
+    $propertyFilter = [
+        'IBLOCK_ID' => 1,
+        'ACTIVE' => 'Y',
+        '!PROPERTY_' . $propertyCode => false,
+    ];
+
+    $res = CIBlockElement::GetList([], $propertyFilter, ['PROPERTY_' . $propertyCode]);
+    while ($value = $res->Fetch()) {
+        $propertyValues[] = [
+            'ID' => $value['PROPERTY_' . $propertyCode . '_VALUE'],
+            'VALUE' => $value['PROPERTY_' . $propertyCode . '_VALUE']
+        ];
     }
+    $filterValues[$propertyCode] = $propertyValues;
 }
 
-$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
+$elementFilter = [
+    'IBLOCK_ID' => 1,
+    'SECTION_ID' => $sectionId,
+    'ACTIVE' => 'Y',
+    'INCLUDE_SUBSECTIONS' => 'Y',
+];
+
 foreach ($filterProperties as $propertyCode) {
     if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
         $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
@@ -125,20 +138,49 @@ foreach ($filterProperties as $propertyCode) {
     <div class="catalog-content">
 
         <!-- Блок фильтров -->
-        <div class="catalog-filters">
-            <form action="" method="GET">
-                <?php foreach ($filterValues as $propertyCode => $values): ?>
-                    <label for="<?= $propertyCode; ?>"><?= $propertyCode; ?></label>
-                    <select name="<?= $propertyCode; ?>" id="<?= $propertyCode; ?>">
-                        <option value="all">Все</option>
-                        <?php foreach ($values as $value): ?>
-                            <option value="<?= htmlspecialchars($value); ?>" <?= ($_GET[$propertyCode] ?? 'all') == $value ? 'selected' : ''; ?>>
-                                <?= htmlspecialchars($value); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                <?php endforeach; ?>
-                <button type="submit">Применить фильтры</button>
+        <div class="catalog-filter">
+            <form id="filter-form" method="GET" action="/catalog/index.php">
+                <label for="connType">Тип присоединения:</label>
+                <select name="EL_CONNTYPE" id="connType">
+                    <option value="all">Все</option>
+                    <?php foreach ($filterValues['EL_CONNTYPE'] as $value): ?>
+                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_CONNTYPE'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="driveType">Тип привода:</label>
+                <select name="EL_DRIVETYPE" id="driveType">
+                    <option value="all">Все</option>
+                    <?php foreach ($filterValues['EL_DRIVETYPE'] as $value): ?>
+                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_DRIVETYPE'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="dnDiameter">Диаметр DN:</label>
+                <select name="EL_DN_DIAMETER_MM" id="dnDiameter">
+                    <option value="all">Все</option>
+                    <?php foreach ($filterValues['EL_DN_DIAMETER_MM'] as $value): ?>
+                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_DN_DIAMETER_MM'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="pnPressure">Давление PN:</label>
+                <select name="EL_PN_PRESSURE_KGF_CM2" id="pnPressure">
+                    <option value="all">Все</option>
+                    <?php foreach ($filterValues['EL_PN_PRESSURE_KGF_CM2'] as $value): ?>
+                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_PN_PRESSURE_KGF_CM2'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="bodyMaterial">Материал корпуса:</label>
+                <select name="EL_BODY_MATERIAL" id="bodyMaterial">
+                    <option value="all">Все</option>
+                    <?php foreach ($filterValues['EL_BODY_MATERIAL'] as $value): ?>
+                        <option value="<?= $value['ID']; ?>" <?= ($_GET['EL_BODY_MATERIAL'] == $value['ID']) ? 'selected' : ''; ?>><?= $value['VALUE']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <button type="submit">Применить фильтр</button>
             </form>
         </div>
 
