@@ -38,6 +38,8 @@ while ($section = $sections->Fetch()) {
 // Получаем значения фильтров из свойств текущих элементов
 $filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
 $filterValues = [];
+
+// Собираем уникальные значения свойств для фильтров
 foreach ($filterProperties as $propertyCode) {
     $filterValues[$propertyCode] = [];
     $res = CIBlockElement::GetList(
@@ -54,27 +56,17 @@ foreach ($filterProperties as $propertyCode) {
     );
     while ($ob = $res->GetNextElement()) {
         $props = $ob->GetProperties();
-        if ($props['EL_CONNTYPE']) {
-            $filterValues['EL_CONNTYPE'][] = $props['EL_CONNTYPE']['VALUE'];
-        }
-        if ($props['EL_DRIVETYPE']) {
-            $filterValues['EL_DRIVETYPE'][] = $props['EL_DRIVETYPE']['VALUE'];
-        }
-        if ($props['EL_DN_DIAMETER_MM']) {
-            $filterValues['EL_DN_DIAMETER_MM'][] = $props['EL_DN_DIAMETER_MM']['VALUE'];
-        }
-        if ($props['EL_PN_PRESSURE_KGF_CM2']) {
-            $filterValues['EL_PN_PRESSURE_KGF_CM2'][] = $props['EL_PN_PRESSURE_KGF_CM2']['VALUE'];
-        }
-        if ($props['EL_BODY_MATERIAL']) {
-            $filterValues['EL_BODY_MATERIAL'][] = $props['EL_BODY_MATERIAL']['VALUE'];
+        if (isset($props[$propertyCode]) && is_array($props[$propertyCode]['VALUE'])) {
+            foreach ($props[$propertyCode]['VALUE'] as $value) {
+                $filterValues[$propertyCode][] = $value;
+            }
+        } elseif (isset($props[$propertyCode]['VALUE'])) {
+            $filterValues[$propertyCode][] = $props[$propertyCode]['VALUE'];
         }
     }
 
     // Убираем дубли
-    foreach ($filterValues as $propertyCode => $values) {
-        $filterValues[$propertyCode] = array_unique($values);
-    }
+    $filterValues[$propertyCode] = array_unique($filterValues[$propertyCode]);
 }
 
 // Получаем список элементов с учетом фильтров и пагинации
