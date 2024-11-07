@@ -375,14 +375,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         // Собираем текущие фильтры
         <?php foreach ($filterProperties as $propertyCode): ?>
-            filterValues['<?= $propertyCode ?>'] = document.getElementById('<?= $propertyCode ?>').value;
+            let filterValue = document.getElementById('<?= $propertyCode ?>').value;
 
-            // Если выбрано "Все", добавляем параметр в виде propertyCode=all
-            if (filterValues['<?= $propertyCode ?>'] === 'all') {
+            // Если значение пустое, ставим 'all'
+            if (!filterValue) {
+                filterValue = 'all';
+            }
+
+            filterValues['<?= $propertyCode ?>'] = filterValue;
+
+            // Если выбрано "Все" (или пустое значение), добавляем параметр в виде propertyCode=all
+            if (filterValue === 'all') {
                 filters.push('<?= $propertyCode ?>=all');
-            } else if (filterValues['<?= $propertyCode ?>'] !== 'all') {
+            } else {
                 // Добавляем только те фильтры, которые не равны "all"
-                filters.push('<?= $propertyCode ?>=' + filterValues['<?= $propertyCode ?>']);
+                filters.push('<?= $propertyCode ?>=' + filterValue);
             }
         <?php endforeach; ?>
 
