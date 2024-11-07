@@ -158,7 +158,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <!-- Фильтр для диаметра -->
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Диаметр:</label>
+                            <label for="<?= $propertyCode ?>" class="filter-label">Диаметр DN:</label>
                             <div class="filter-content">
                                 <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                                     <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
@@ -174,7 +174,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
                         <!-- Фильтр для давления -->
                         <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Давление:</label>
+                            <label for="<?= $propertyCode ?>" class="filter-label">Давление PN:</label>
                             <div class="filter-content">
                                 <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                                     <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
