@@ -136,25 +136,11 @@ pre { /* DEBUG */
 }
 
 /* Стили для фильтров */
-.catalog-filter {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+.catalog-filters {
+    display: block;
+    margin: 20px;
 }
-.catalog-filter label {
-    margin-bottom: 5px;
-}
-.catalog-filter select {
-    margin-bottom: 10px;
-    padding: 5px;
-}
-.catalog-filter button {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
+
 /* Стили для чекбокса выбора всех товаров */
 .select-all {
     margin-bottom: 20px;

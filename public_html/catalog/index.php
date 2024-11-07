@@ -101,6 +101,8 @@ $elementFilter = [
     'INCLUDE_SUBSECTIONS' => 'Y',
 ];
 
+$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
+
 // Применяем фильтры из GET-запроса
 foreach ($filterProperties as $propertyCode) {
     if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
@@ -167,7 +169,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         </select>
                     </div>
                 <?php else: ?>
-                    <!-- Отладочная информация, если для текущего фильтра нет значений -->
                     <div class="filter-empty">
                         <p>Фильтр <?= $propertyCode ?> пуст.</p>
                     </div>
