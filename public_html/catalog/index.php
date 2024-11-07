@@ -35,11 +35,16 @@ while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }
 
-// Получаем значения фильтров из свойств текущих элементов
+// Массив свойств для фильтров
 $filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
 $filterValues = [];
+
+// Перебираем все свойства, для которых нужно собрать значения фильтров
 foreach ($filterProperties as $propertyCode) {
+    // Инициализируем массив для каждого фильтра
     $filterValues[$propertyCode] = [];
+
+    // Получаем все элементы, которые соответствуют фильтру
     $res = CIBlockElement::GetList(
         [],
         [
@@ -50,26 +55,28 @@ foreach ($filterProperties as $propertyCode) {
         ],
         false,
         false,
-        ['PROPERTY_' . $propertyCode]
+        ['PROPERTY_' . $propertyCode] // Собираем только значения нужного свойства
     );
+
+    // Перебираем элементы и собираем значения свойства
     while ($ob = $res->GetNextElement()) {
-        $props = $ob->GetProperties();
-        if ($props[$propertyCode]) {
+        $props = $ob->GetProperties(); // Получаем все свойства элемента
 
-            echo '<pre>';
-            print_r($props[$propertyCode]['VALUE']);  // Посмотрим, какие значения получаем
-            echo '</pre>';
-
+        // Проверяем, существует ли нужное свойство и оно не пустое
+        if (isset($props[$propertyCode]) && !empty($props[$propertyCode]['VALUE'])) {
+            // Добавляем значение свойства в массив, если оно не пустое
             $filterValues[$propertyCode][] = $props[$propertyCode]['VALUE'];
         }
     }
-    // Убираем дубли
+
+    // Убираем дубли и сортируем значения для фильтров
     $filterValues[$propertyCode] = array_unique($filterValues[$propertyCode]);
+    sort($filterValues[$propertyCode]);
 }
 
-//echo '<pre>';
-//print_r($filterValues);  // Посмотрим, какие значения получаем
-//echo '</pre>';
+echo '<pre>';
+print_r($filterValues);  // Отладочная информация для проверки
+echo '</pre>';
 
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
