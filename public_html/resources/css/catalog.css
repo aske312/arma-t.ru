@@ -162,7 +162,7 @@ pre { /* DEBUG */
 /* Каждый фильтр в отдельности */
 .filter-item {
     background-color: #f5f7fa;
-    padding: 3px;
+    padding: 5px;
     color: #333;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
