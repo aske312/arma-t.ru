@@ -35,21 +35,19 @@ while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }
 
-// Массив свойств для фильтрации
-$filterProperties = [
-    'EL_CONNTYPE',        // Тип соединения
-    'EL_DRIVETYPE',       // Тип привода
-    'EL_DN_DIAMETER_MM',  // Диаметр DN
-    'EL_PN_PRESSURE_KGF_CM2', // Давление PN
-    'EL_BODY_MATERIAL'    // Материал корпуса
-];
-
-// Указываем ID инфоблока и секции
-$iblockId = 1;  // ID инфоблока
+// Фильтры
+// ID инфоблока и секции, которые мы фильтруем
+$iblockId = 1;  // Указываем ID инфоблока
 $sectionId = intval($_GET['SECTION_ID']);  // ID текущей секции (получаем через GET-запрос)
 
 // Массив для хранения уникальных значений фильтров
-$filterValues = [];
+$filterValues = [
+    'EL_CONNTYPE' => [],
+    'EL_DRIVETYPE' => [],
+    'EL_DN_DIAMETER_MM' => [],
+    'EL_PN_PRESSURE_KGF_CM2' => [],
+    'EL_BODY_MATERIAL' => []
+];
 
 // Получаем все элементы в текущей секции
 $res = CIBlockElement::GetList(
@@ -62,7 +60,7 @@ $res = CIBlockElement::GetList(
     ],
     false,
     false,
-    ['ID', 'NAME', 'PROPERTY_*']  // Получаем все свойства элементов
+    ['ID', 'NAME', 'PROPERTY_EL_CONNTYPE', 'PROPERTY_EL_DRIVETYPE', 'PROPERTY_EL_DN_DIAMETER_MM', 'PROPERTY_EL_PN_PRESSURE_KGF_CM2', 'PROPERTY_EL_BODY_MATERIAL']  // Получаем только необходимые свойства
 );
 
 // Перебираем все элементы
@@ -70,21 +68,16 @@ while ($ob = $res->GetNextElement()) {
     $arFields = $ob->GetFields();       // Получаем поля элемента
     $arProps = $ob->GetProperties();    // Получаем все свойства элемента
 
-    // Пройдемся по всем свойствам текущего элемента
-    foreach ($arProps as $propertyCode => $propertyValue) {
-        // Проверяем, если свойство имеет значение (не пустое)
-        if (!empty($propertyValue['VALUE'])) {
-            // Если это массив (например, множественное свойство), проходим по всем значениям
-            $values = is_array($propertyValue['VALUE']) ? $propertyValue['VALUE'] : [$propertyValue['VALUE']];
+    // Проходим по необходимым свойствам и собираем уникальные значения
+    foreach (['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'] as $propertyCode) {
+        // Проверяем, если свойство существует и содержит значения
+        if (!empty($arProps[$propertyCode]['VALUE'])) {
+            $values = is_array($arProps[$propertyCode]['VALUE']) ? $arProps[$propertyCode]['VALUE'] : [$arProps[$propertyCode]['VALUE']];
 
-            // Собираем уникальные значения для каждого свойства
+            // Добавляем уникальные значения в массив фильтров
             foreach ($values as $value) {
-                // Пропускаем пустые значения
-                if (!empty($value)) {
-                    // Добавляем уникальные значения в массив фильтров
-                    if (!in_array($value, $filterValues[$propertyCode])) {
-                        $filterValues[$propertyCode][] = $value;
-                    }
+                if (!in_array($value, $filterValues[$propertyCode])) {
+                    $filterValues[$propertyCode][] = $value;
                 }
             }
         }
