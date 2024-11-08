@@ -462,7 +462,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             // Кодируем строку поиска с помощью encodeURIComponent, чтобы корректно передавать русские символы
             filters.push('search=' + encodeURIComponent(searchQuery));
         } else {
-            filters.push('search=all');
+            filters.push('search=');
         }
 
         let urlParams = new URLSearchParams(window.location.search);
