@@ -78,6 +78,25 @@ header {
     display: block;
 }
 
+/* Форма поиска */
+.nav-search-form {
+    width: 100%; /* Делаем форму на всю ширину контейнера */
+    margin-top: 10px; /* Отступ сверху */
+}
+
+.full-width-search {
+    width: 100%; /* Полная ширина формы */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.full-width-search:focus {
+    border-color: #007bff; /* Стиль для фокуса */
+    outline: none;
+}
+
 /********** Контактная информация **********/
 .contact-container {
     display: flex;
