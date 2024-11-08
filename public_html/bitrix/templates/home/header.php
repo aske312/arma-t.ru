@@ -96,13 +96,8 @@ if ($element = $res->Fetch()) {
 
                 <!-- Расширенная поисковая строка -->
                 <form class="nav-search-form" method="GET" action="index.php">
-                    <input type="text"
-                           id="search"
-                           class="full-width-search" 
-                           placeholder="Поиск по названию"
-                           value="<?= htmlspecialchars(urldecode($_GET['search'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
-                           oninput="fetchSearchSuggestions(this.value)">
-                    <div id="suggestions-container" class="suggestions-container"></div>
+                        <input type="text" id="search" placeholder="Поиск по имени элемента">
+                        <div id="suggestions"></div>
                 </form>
             </div>
 
@@ -191,41 +186,35 @@ if ($element = $res->Fetch()) {
         }
 
         // *** Поиск ***//
-        function fetchSearchSuggestions(query) {
-            if (query.length < 3) {  // Минимум 3 символа для начала поиска
-                document.getElementById("suggestions-container").innerHTML = '';
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value;
+
+            // Если строка пустая, убираем предложения
+            if (!query) {
+                document.getElementById('suggestions').innerHTML = '';
                 return;
             }
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/resources/src/search_suggestions.php?q=' + encodeURIComponent(query), true);
+            // Отправляем запрос на сервер
+            fetch(`/search_suggestions.php?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const suggestionsDiv = document.getElementById('suggestions');
+                    suggestionsDiv.innerHTML = ''; // Очищаем текущие предложения
 
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var suggestions = JSON.parse(xhr.responseText);
-                    var suggestionsContainer = document.getElementById("suggestions-container");
-                    suggestionsContainer.innerHTML = '';  // Очистить контейнер
-
-                    if (suggestions.length > 0) {
-                        var list = document.createElement('ul');
-                        suggestions.forEach(function(suggestion) {
-                            var listItem = document.createElement('li');
-                            listItem.textContent = suggestion.name; // Или другое свойство элемента
-                            listItem.onclick = function() {
-                                document.getElementById("search").value = suggestion.name;
-                                suggestionsContainer.innerHTML = '';
-                            };
-                            list.appendChild(listItem);
+                    // Если есть предложения
+                    if (data.length > 0) {
+                        data.forEach(item => {
+                            const div = document.createElement('div');
+                            div.textContent = item.name;
+                            suggestionsDiv.appendChild(div);
                         });
-                        suggestionsContainer.appendChild(list);
                     } else {
-                        suggestionsContainer.innerHTML = '<p>Нет результатов</p>';
+                        suggestionsDiv.innerHTML = 'Ничего не найдено';
                     }
-                }
-            };
-
-            xhr.send();
-        }
+                })
+                .catch(error => console.error('Error fetching search suggestions:', error));
+        });
 
 //        let searchTimeout;
 //
