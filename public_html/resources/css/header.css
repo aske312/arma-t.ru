@@ -81,33 +81,27 @@ header {
     display: block;
 }
 
-/* Форма поиска */
+/********** Форма поиска **********/
 .nav-search-form {
-    width: 100%; /* Делаем форму на всю ширину контейнера */
-    margin-top: 5px; /* Отступ сверху */
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Центрируем форму поиска */
 }
 
 .full-width-search {
-    width: 100%; /* Полная ширина формы */
-    padding: 5px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-}
-
-.full-width-search:focus {
-    border-color: #007bff; /* Стиль для фокуса */
-    outline: none;
-}
-
-/* Основной стиль для поля поиска */
-
-#search {
     width: 100%;
+    max-width: 500px; /* Ограничиваем максимальную ширину */
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
+    background-color: #1f2a3e; /* Темный фон для поля */
+    color: white;
+}
+
+.full-width-search:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
 /* Стиль для блока с предложениями */
