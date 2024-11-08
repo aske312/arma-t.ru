@@ -196,7 +196,7 @@ if ($element = $res->Fetch()) {
             }
 
             // Отправляем запрос на сервер
-            fetch(`/search_suggestions.php?q=${encodeURIComponent(query)}`)
+            fetch(`/resources/src/search_suggestions.php?q=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
                     const suggestionsDiv = document.getElementById('suggestions');
