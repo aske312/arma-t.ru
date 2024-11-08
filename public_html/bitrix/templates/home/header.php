@@ -67,8 +67,9 @@ if ($element = $res->Fetch()) {
                     <a href="/#pay">Оплата</a>
                 </nav>
 
-                <form class="nav-search" method="GET" action="index.php">
-                    <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                <!-- Расширенная поисковая строка -->
+                <form class="nav-search-form" method="GET" action="index.php">
+                    <input type="text" id="search" class="full-width-search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
                 </form>
             </div>
 

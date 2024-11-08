@@ -44,6 +44,26 @@ header {
     align-items: center;
 }
 
+/* Форматирование поиска для его растяжения */
+.nav-search-form {
+    width: 100%; /* Заставляем форму занимать всю доступную ширину */
+    max-width: 100%; /* Убедитесь, что форма не превышает 100% ширины */
+    margin: 10px 0;
+}
+
+.full-width-search {
+    width: 100%; /* Поиск растягивается на всю ширину контейнера */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.full-width-search:focus {
+    border-color: #007bff; /* Стиль для фокуса */
+    outline: none;
+}
+
 #mainNav a {
     color: white;
     margin-left: 20px;
