@@ -84,14 +84,14 @@ header {
 /* Форма поиска */
 .nav-search-form {
     width: 100%; /* Делаем форму на всю ширину контейнера */
-    margin-top: 10px; /* Отступ сверху */
+    margin-top: 5px; /* Отступ сверху */
 }
 
 .full-width-search {
     width: 100%; /* Полная ширина формы */
-    padding: 10px;
+    padding: 5px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 5px;
 }
 
