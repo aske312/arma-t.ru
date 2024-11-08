@@ -89,6 +89,9 @@ foreach ($filterValues as $propertyCode => $values) {
     sort($filterValues[$propertyCode]); // Сортируем для удобства
 }
 
+// Форма поиска
+$searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
+
 // Получаем список элементов с учетом фильтров и пагинации
 $elementFilter = [
     'IBLOCK_ID' => 1,
@@ -96,6 +99,10 @@ $elementFilter = [
     'ACTIVE' => 'Y',
     'INCLUDE_SUBSECTIONS' => 'Y',
 ];
+
+if ($searchQuery) {
+    $elementFilter['%NAME'] = $searchQuery;
+}
 
 $filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
 
@@ -123,6 +130,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 <div class="section-title">
     <h2><?= isset($selectedSection['NAME']) ? $selectedSection['NAME'] : 'Применен фильтр'; ?></h2>
     <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберете необходимые позиции'; ?></p>
+
+    <form method="GET" action="/catalog.php">
+        <input type="hidden" name="SECTION_ID" value="<?= htmlspecialchars($sectionId) ?>">
+        <input type="text" name="search" value="<?= htmlspecialchars($searchQuery) ?>" placeholder="Поиск по названию">
+        <button type="submit">Найти</button>
+    </form>
+
 </div>
 
 <div class="catalog-container">
