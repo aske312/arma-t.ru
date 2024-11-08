@@ -34,7 +34,7 @@ $res = CIBlockElement::GetList(
     $elementFilter,      // Фильтр, по которому ищем элементы
     false,               // Без группировки
     ['nTopCount' => 10], // Ограничиваем количество результатов до 10
-    ['ID', 'NAME']       // Получаем только ID и NAME для вывода
+    ['ID', 'NAME', 'DETAIL_PAGE_URL'] // Получаем ID, NAME и URL для вывода
 );
 
 // Массив для хранения предложений
@@ -42,10 +42,34 @@ $suggestions = [];
 while ($item = $res->Fetch()) {
     $suggestions[] = [
         'id' => $item['ID'],
-        'name' => $item['NAME']
+        'name' => $item['NAME'],
+        'url' => $item['DETAIL_PAGE_URL'],  // URL страницы элемента
     ];
 }
 
-// Возвращаем результаты в формате JSON
-echo json_encode($suggestions);
+// Если нашли результаты, формируем HTML для вывода
+if (!empty($suggestions)) {
+    // Массив HTML-контента для вывода
+    $html = '';
+
+    // Перебираем все найденные элементы
+    foreach ($suggestions as $suggestion) {
+        // Кликабельный блок с ссылкой
+        $html .= '<div class="search-result-item">';
+        $html .= '<a href="' . $suggestion['url'] . '" class="search-result-link">';
+        $html .= htmlspecialchars($suggestion['name']); // Выводим имя элемента
+        $html .= '</a>';
+        $html .= '</div>';
+    }
+
+    // Добавляем кнопку для показа всех результатов
+    $html .= '<div class="show-all-results">';
+    $html .= '<button onclick="window.location.href=\'/search/?q=' . urlencode($query) . '\'" class="show-all-btn">Показать все результаты</button>';
+    $html .= '</div>';
+
+    // Выводим HTML-структуру
+    echo json_encode(['html' => $html]);
+} else {
+    echo json_encode([]);
+}
 ?>
