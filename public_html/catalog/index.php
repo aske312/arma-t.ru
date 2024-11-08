@@ -123,6 +123,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <h2><?= isset($selectedSection['NAME']) ? $selectedSection['NAME'] : 'Применен фильтр'; ?></h2>
     <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберете необходимые позиции'; ?></p>
 
+    <meta charset="UTF-8">
+
     <form method="GET" action="index.php">
         <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
     </form>
@@ -427,7 +429,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     });
 
     // *** FILTERS *** //
-    // Функция для применения фильтров
     function applyFilter() {
         let filters = [];
         let filterValues = {};
@@ -458,7 +459,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         var searchElement = document.getElementById('search');
         var searchQuery = searchElement ? searchElement.value.trim() : '';
         if (searchQuery) {
-            // Кодируем строку поиска, чтобы русские буквы не превращались в код
+            // Кодируем строку поиска с помощью encodeURIComponent, чтобы корректно передавать русские символы
             filters.push('search=' + encodeURIComponent(searchQuery));
         } else {
             filters.push('search=all');
@@ -466,6 +467,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         let urlParams = new URLSearchParams(window.location.search);
 
+        // Добавляем текущий SECTION_ID
         <?php if (isset($_GET['SECTION_ID'])): ?>
             urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
         <?php endif; ?>
@@ -475,7 +477,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             urlParams.set(key, value);
         });
 
-        window.location.search = urlParams.toString();  // Перезагружаем страницу с новыми параметрами
+        // Перезагружаем страницу с новыми параметрами
+        window.location.search = urlParams.toString();
     }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
