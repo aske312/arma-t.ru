@@ -1,75 +1,52 @@
 <?php
-// Подключение ядра Битрикс
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+use Bitrix\Main\Loader;
 
-// Включаем вывод ошибок для отладки (если в дальнейшем потребуется)
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+$APPLICATION->SetTitle("Поиск");
 
-// Получаем строку поиска из GET-параметра 'q'
-$query = isset($_GET['q']) ? urldecode(trim($_GET['q'])) : '';
+header('Content-Type: application/json');
 
-// Если строка поиска пуста, сразу возвращаем пустой массив
+// Подключаем модуль инфоблоков
+if (!Loader::includeModule("iblock")) {
+    echo json_encode([]);
+    exit();
+}
+
+// Получаем параметр поиска из запроса
+$query = isset($_GET['q']) ? trim($_GET['q']) : '';
+
+// Если запрос пустой, возвращаем пустой массив
 if (empty($query)) {
     echo json_encode([]);
-    exit;
+    exit();
 }
 
-// Проверка, подключен ли модуль инфоблоков
-if (!CModule::IncludeModule('iblock')) {
-    echo json_encode(['error' => 'Модуль инфоблоков не подключен']);
-    exit;
-}
-
-// Фильтр для поиска элементов по имени
-$elementFilter = [
-    'IBLOCK_ID' => 1,     // ID инфоблока, замените на нужный
-    'ACTIVE' => 'Y',      // Только активные элементы
-    '%NAME' => $query,    // Ищем по полю NAME, символ % означает поиск по подстроке
+// Фильтруем элементы инфоблока по имени
+$filter = [
+    'IBLOCK_ID' => 1, // ID вашего инфоблока
+    'ACTIVE' => 'Y',
+    '%NAME' => $query  // Поиск по имени
 ];
 
-// Запрос к инфоблоку для получения элементов
 $res = CIBlockElement::GetList(
-    ['NAME' => 'ASC'],   // Сортировка по имени в алфавитном порядке
-    $elementFilter,      // Фильтр, по которому ищем элементы
-    false,               // Без группировки
-    ['nTopCount' => 10], // Ограничиваем количество результатов до 10
-    ['ID', 'NAME', 'DETAIL_PAGE_URL'] // Получаем ID, NAME и URL для вывода
+    ['NAME' => 'ASC'], // Сортировка по имени
+    $filter,
+    false,
+    ['nTopCount' => 10], // Ограничение на 10 результатов
+    ['ID', 'NAME', 'DETAIL_PAGE_URL']  // Выбираем нужные поля
 );
 
-// Массив для хранения предложений
 $suggestions = [];
-while ($item = $res->Fetch()) {
+
+while ($ob = $res->GetNext()) {
     $suggestions[] = [
-        'id' => $item['ID'],
-        'name' => $item['NAME'],
-        'url' => $item['DETAIL_PAGE_URL'],  // URL страницы элемента
+        'name' => $ob['NAME'],
+        'url' => $ob['DETAIL_PAGE_URL']  // Ссылка на детальную страницу элемента
     ];
 }
 
-// Если нашли результаты, формируем HTML для вывода
-if (!empty($suggestions)) {
-    // Массив HTML-контента для вывода
-    $html = '';
+// Возвращаем результаты в формате JSON
+echo json_encode($suggestions);
 
-    // Перебираем все найденные элементы
-    foreach ($suggestions as $suggestion) {
-        // Кликабельный блок с ссылкой
-        $html .= '<div class="search-result-item">';
-        $html .= '<a href="' . $suggestion['url'] . '" class="search-result-link">';
-        $html .= htmlspecialchars($suggestion['name']); // Выводим имя элемента
-        $html .= '</a>';
-        $html .= '</div>';
-    }
-
-    // Добавляем кнопку для показа всех результатов
-    $html .= '<div class="show-all-results">';
-    $html .= '<button onclick="window.location.href=\'/search/?q=' . urlencode($query) . '\'" class="show-all-btn">Показать все результаты</button>';
-    $html .= '</div>';
-
-    // Выводим HTML-структуру
-    echo json_encode(['html' => $html]);
-} else {
-    echo json_encode([]);
-}
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
 ?>

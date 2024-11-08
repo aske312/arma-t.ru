@@ -96,8 +96,8 @@ if ($element = $res->Fetch()) {
 
                 <!-- Расширенная поисковая строка -->
                 <form class="nav-search-form" method="GET" action="index.php">
-                        <input type="text" id="search" class="full-width-search"  placeholder="Поиск...">
-                        <div id="suggestions"></div>
+                    <input type="text" id="search" class="full-width-search" placeholder="Поиск...">
+                    <div id="suggestions"></div> <!-- Здесь будут отображаться предложения -->
                 </form>
             </div>
 
@@ -192,10 +192,11 @@ if ($element = $res->Fetch()) {
             // Если строка пустая, убираем предложения
             if (!query) {
                 document.getElementById('suggestions').innerHTML = '';
+                document.getElementById('suggestions').style.display = 'none';
                 return;
             }
 
-            // Отправляем запрос на сервер
+            // Отправляем запрос на сервер для получения предложений
             fetch(`/resources/src/search_suggestions.php?q=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
@@ -207,10 +208,15 @@ if ($element = $res->Fetch()) {
                         data.forEach(item => {
                             const div = document.createElement('div');
                             div.textContent = item.name;
+                            div.classList.add('suggestion-item');  // Добавляем класс для стилей
+                            div.onclick = () => window.location.href = item.url;  // Перенаправление при клике
                             suggestionsDiv.appendChild(div);
                         });
+                        // Показываем блок с предложениями
+                        suggestionsDiv.style.display = 'block';
                     } else {
                         suggestionsDiv.innerHTML = 'Ничего не найдено';
+                        suggestionsDiv.style.display = 'block';
                     }
                 })
                 .catch(error => console.error('Error fetching search suggestions:', error));

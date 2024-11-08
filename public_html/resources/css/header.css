@@ -100,34 +100,60 @@ header {
     outline: none;
 }
 
-/* предварительная выдача */
-/*
-.suggestions-container {
+/* Основной стиль для поля поиска */
+#search {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Стиль для блока с предложениями */
+#suggestions {
+    border: 1px solid #ccc;
+    border-top: none;
     position: absolute;
-    background-color: #fff;
+    background-color: white;
     width: 100%;
     max-height: 200px;
     overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    display: none; /* Скрыто по умолчанию */
     z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.suggestions-container ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.suggestions-container li {
-    padding: 8px;
+/* Стиль для каждого элемента предложения */
+#suggestions div {
+    padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.suggestions-container li:hover {
-    background-color: #f0f0f0;
+/* При наведении на предложение */
+#suggestions div:hover {
+    background-color: #f1f1f1;
 }
-*/
+
+/* Стиль для отображения кнопки "Показать все результаты" */
+.show-all-results {
+    padding: 10px;
+    text-align: center;
+}
+
+.show-all-btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.show-all-btn:hover {
+    background-color: #0056b3;
+}
+
 /********** Контактная информация **********/
 .contact-container {
     display: flex;
