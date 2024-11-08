@@ -69,12 +69,12 @@ if ($element = $res->Fetch()) {
 
                 <!-- Расширенная поисковая строка -->
                 <form class="nav-search-form" method="GET" action="index.php">
-                    <!-- Декодируем значение при выводе в поле ввода -->
+                    <!-- Декодируем URL-кодированное значение из $_GET, если оно есть -->
                     <input type="text"
                            id="search"
                            class="full-width-search"
                            placeholder="Поиск по названию"
-                           value="<?= htmlspecialchars(html_entity_decode($_GET['search'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
+                           value="<?= htmlspecialchars(urldecode($_GET['search'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
                 </form>
             </div>
 
