@@ -1,8 +1,6 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-$APPLICATION->SetTitle("Поиск");
-
 header('Content-Type: application/json');  // Устанавливаем тип контента для JSON
 
 // Получаем строку запроса от клиента
