@@ -3,7 +3,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 $APPLICATION->SetTitle("Каталог");
 
-// Получаем параметр SECTION_ID
+// Получаем параметр SECTION_ID из GET-запроса
 $sectionId = isset($_GET['SECTION_ID']) ? $_GET['SECTION_ID'] : 'all';
 
 // Подключаем CSS
@@ -20,6 +20,7 @@ if ($sectionId !== 'all') {
     $sectionFilter['ID'] = intval($sectionId);
 }
 
+// Получаем выбранную секцию, если она не 'all'
 $selectedSection = ($sectionId !== 'all')
     ? CIBlockSection::GetList([], $sectionFilter, false, ['ID', 'NAME', 'DESCRIPTION'])->Fetch()
     : null;
@@ -55,13 +56,15 @@ $filterValues = [
 $elementFilter = [
     'IBLOCK_ID' => 1,
     'ACTIVE' => 'Y',
-    'INCLUDE_SUBSECTIONS' => 'Y',
+    'INCLUDE_SUBSECTIONS' => 'Y', // Включаем подкатегории, если они есть
 ];
 
+// Если SECTION_ID не 'all', добавляем фильтрацию по секции
 if ($sectionId !== 'all') {
     $elementFilter['SECTION_ID'] = intval($sectionId);
 }
 
+// Если есть запрос в поиске, добавляем его в фильтр
 if ($searchQuery) {
     $elementFilter['%NAME'] = $searchQuery;
 }
@@ -74,7 +77,7 @@ foreach ($filterProperties as $propertyCode) {
     }
 }
 
-// Получаем все элементы в текущей секции
+// Получаем все элементы в текущей секции или во всех секциях, если SECTION_ID='all'
 $filterElementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'PROPERTY_*'];
 $res = CIBlockElement::GetList([], $elementFilter, false, false, $filterElementSelect);
 
@@ -83,6 +86,7 @@ while ($ob = $res->GetNextElement()) {
     $arFields = $ob->GetFields();
     $arProps = $ob->GetProperties();
 
+    // Собираем все уникальные значения для каждого фильтра
     foreach ($filterProperties as $propertyCode) {
         if (isset($arProps[$propertyCode]) && !empty($arProps[$propertyCode]['VALUE'])) {
             $values = is_array($arProps[$propertyCode]['VALUE']) ? $arProps[$propertyCode]['VALUE'] : [$arProps[$propertyCode]['VALUE']];
