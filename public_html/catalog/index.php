@@ -3,25 +3,28 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 $APPLICATION->SetTitle("Каталог");
 
-// Получаем ID секции
-$sectionId = intval($_GET['SECTION_ID']);
-if (empty($sectionId)) {
-    $sectionId = 1;
-}
+// Получаем параметр SECTION_ID
+$sectionId = isset($_GET['SECTION_ID']) ? $_GET['SECTION_ID'] : 'all';
 
+// Подключаем CSS
 use Bitrix\Main\Page\Asset;
-
-Asset::getInstance()->addCss("/resources/css/catalog.css"); // Подключаем CSS
+Asset::getInstance()->addCss("/resources/css/catalog.css");
 
 // Фильтр для текущей секции
 $sectionFilter = [
     'IBLOCK_ID' => 1,
-    'ID' => $sectionId,
     'ACTIVE' => 'Y',
 ];
-$selectedSection = CIBlockSection::GetList([], $sectionFilter, false, ['ID', 'NAME', 'DESCRIPTION'])->Fetch();
 
-// Получение списка секций для бокового меню
+if ($sectionId !== 'all') {
+    $sectionFilter['ID'] = intval($sectionId);
+}
+
+$selectedSection = ($sectionId !== 'all')
+    ? CIBlockSection::GetList([], $sectionFilter, false, ['ID', 'NAME', 'DESCRIPTION'])->Fetch()
+    : null;
+
+// Получаем список всех активных секций для бокового меню
 $sectionsFilter = [
     'IBLOCK_ID' => 1,
     'ACTIVE' => 'Y',
@@ -35,6 +38,9 @@ while ($section = $sections->Fetch()) {
     $arResult['SECTIONS'][] = $section;
 }
 
+// Форма поиска
+$searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
+
 // Фильтры
 $filterValues = [
     'EL_CONNTYPE' => [],
@@ -45,36 +51,42 @@ $filterValues = [
     'EL_BODY_MATERIAL' => []
 ];
 
+// Фильтр для элементов каталога
+$elementFilter = [
+    'IBLOCK_ID' => 1,
+    'ACTIVE' => 'Y',
+    'INCLUDE_SUBSECTIONS' => 'Y',
+];
+
+if ($sectionId !== 'all') {
+    $elementFilter['SECTION_ID'] = intval($sectionId);
+}
+
+if ($searchQuery) {
+    $elementFilter['%NAME'] = $searchQuery;
+}
+
+// Применение фильтров из GET-параметров
+$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
+foreach ($filterProperties as $propertyCode) {
+    if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
+        $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
+    }
+}
+
 // Получаем все элементы в текущей секции
 $filterElementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'PROPERTY_*'];
-$res = CIBlockElement::GetList(
-    [],
-    [
-        'IBLOCK_ID' => 1,  // Указываем ID инфоблока
-        'SECTION_ID' => $sectionId,  // ID секции
-        'ACTIVE' => 'Y',  // Только активные элементы
-        'INCLUDE_SUBSECTIONS' => 'Y',  // Включаем подкатегории
-    ],
-    false,
-    false,
-    $filterElementSelect  // Получаем только необходимые свойства
-);
+$res = CIBlockElement::GetList([], $elementFilter, false, false, $filterElementSelect);
 
-// Перебираем все элементы
+// Перебираем все элементы для фильтров
 while ($ob = $res->GetNextElement()) {
-    $arFields = $ob->GetFields();       // Получаем поля элемента
-    $arProps = $ob->GetProperties();    // Получаем все свойства элемента
+    $arFields = $ob->GetFields();
+    $arProps = $ob->GetProperties();
 
-    // Проходим по необходимым свойствам и собираем уникальные значения
-    foreach (['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'] as $propertyCode) {
-        // Проверяем, если свойство существует и содержит значения
+    foreach ($filterProperties as $propertyCode) {
         if (isset($arProps[$propertyCode]) && !empty($arProps[$propertyCode]['VALUE'])) {
-            // Убедимся, что это массив, если нет - сделаем его массивом
             $values = is_array($arProps[$propertyCode]['VALUE']) ? $arProps[$propertyCode]['VALUE'] : [$arProps[$propertyCode]['VALUE']];
-
-            // Добавляем уникальные значения в массив фильтров
             foreach ($values as $value) {
-                // Проверяем, есть ли уже это значение в массиве фильтров
                 if (!in_array($value, $filterValues[$propertyCode])) {
                     $filterValues[$propertyCode][] = $value;
                 }
@@ -85,44 +97,20 @@ while ($ob = $res->GetNextElement()) {
 
 // Убираем дубли и сортируем значения для каждого фильтра
 foreach ($filterValues as $propertyCode => $values) {
-    $filterValues[$propertyCode] = array_unique($values); // Убираем дубли
-    sort($filterValues[$propertyCode]); // Сортируем для удобства
+    $filterValues[$propertyCode] = array_unique($values);
+    sort($filterValues[$propertyCode]);
 }
 
-// Форма поиска
-$searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
-
-// Получаем список элементов с учетом фильтров и пагинации
-$elementFilter = [
-    'IBLOCK_ID' => 1,
-    'SECTION_ID' => $sectionId,
-    'ACTIVE' => 'Y',
-    'INCLUDE_SUBSECTIONS' => 'Y',
-];
-
-if ($searchQuery) {
-    $elementFilter['%NAME'] = $searchQuery;
-}
-
-$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
-
-// Применяем фильтры из GET-запроса
-foreach ($filterProperties as $propertyCode) {
-    if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
-        $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
-    }
-}
-
-$elementSelect = ['ID', 'NAME', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'PROPERTY_*'];
+// Получаем элементы с учётом фильтров и пагинации
 $res = CIBlockElement::GetList(
-    ['ID' => 'ASC'], // Сортировка по ID
+    ['ID' => 'ASC'],
     $elementFilter,
     false,
-    ['nPageSize' => 10],  // Пагинация: по 10 элементов на страницу
+    ['nPageSize' => 10],
     $elementSelect
 );
 
-$res->NavStart(10); // Устанавливаем навигацию
+$res->NavStart(10);
 $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".default");
 ?>
 
@@ -132,10 +120,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберете необходимые позиции'; ?></p>
 
     <form method="GET" action="index.php">
-        <!-- <input type="hidden" name="SECTION_ID" value="<?= htmlspecialchars($sectionId) ?>"> -->
-        <!-- <input type="text" name="search" value="<?= htmlspecialchars($searchQuery) ?>" placeholder="Поиск по названию"> -->
         <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
-        <!-- <button type="submit">Найти</button> -->
     </form>
 
 </div>
