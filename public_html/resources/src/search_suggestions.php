@@ -48,6 +48,4 @@ while ($ob = $res->GetNext()) {
 
 // Возвращаем результаты в формате JSON
 echo json_encode($suggestions);
-
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
 ?>
