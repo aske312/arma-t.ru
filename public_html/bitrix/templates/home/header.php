@@ -36,33 +36,6 @@ if ($element = $res->Fetch()) {
         $phone = $element["PROPERTY_EL_DESCRIPTION_VALUE"];
     }
 }
-
-//header('Content-Type: application/json'); // Устанавливаем тип контента для JSON
-
-//$query = isset($_GET['q']) ? trim($_GET['q']) : '';
-//
-//// Если строка пустая или слишком короткая, не выполнять поиск
-//if (empty($query) || strlen($query) < 3) {
-//    echo json_encode([]);
-//    exit;
-//}
-//
-//// Здесь выполняем запрос к БД или к инфоблоку. Пример для Bitrix:
-//$filter = ['NAME' => '%'.$query.'%']; // Поиск по названию
-//$select = ['ID', 'NAME']; // Выбираем нужные поля
-//$result = CIBlockElement::GetList([], $filter, false, false, $select);
-//
-//$suggestions = [];
-//
-//while ($item = $result->Fetch()) {
-//    $suggestions[] = [
-//        'id' => $item['ID'],
-//        'name' => $item['NAME']
-//    ];
-//}
-//
-//// Отправляем результат в формате JSON
-//echo json_encode($suggestions);
 ?>
 
 <!DOCTYPE html>
@@ -222,18 +195,6 @@ if ($element = $res->Fetch()) {
                 .catch(error => console.error('Error fetching search suggestions:', error));
         });
 
-//        let searchTimeout;
-//
-//        document.getElementById('search').addEventListener('input', function() {
-//            // Очищаем таймер при каждом новом вводе
-//            clearTimeout(searchTimeout);
-//
-//            // Устанавливаем новый таймер на 3 секунды
-//            searchTimeout = setTimeout(function() {
-//                applyFilter(); // Вызываем функцию фильтрации после 3 секунд бездействия
-//            }, 3000);
-//        });
-
         // Открытие формы
         function openForm() {
             document.getElementById('Form').classList.add('active');
@@ -389,18 +350,8 @@ if ($element = $res->Fetch()) {
         document.getElementById('contactForm-header').addEventListener('submit', function (e) {
             e.preventDefault();  // Предотвращаем перезагрузку страницы
 
-//            // Получаем ответ капчи
-//            var recaptchaResponse = grecaptcha.getResponse();
-//
-//            // Проверяем, прошел ли пользователь капчу
-//            if (recaptchaResponse.length === 0) {
-//                alert("Пожалуйста, подтвердите, что вы не робот.");
-//                return; // Если капча не пройдена, не отправляем форму
-//            }
-//
-//            // Собираем данные формы
+            // Собираем данные формы
             var formData = new FormData(this);
-//            formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
 
             // Создаем и отправляем запрос
             var xhr = new XMLHttpRequest();
