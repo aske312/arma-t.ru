@@ -66,11 +66,11 @@ if ($element = $res->Fetch()) {
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
                 </nav>
-            </div>
 
-            <form class="nav-search" method="GET" action="index.php">
-                <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
-            </form>
+                <form class="nav-search" method="GET" action="index.php">
+                    <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                </form>
+            </div>
 
             <div class="contact-container">
                 <?php if ($phone): ?>
