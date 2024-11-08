@@ -68,6 +68,10 @@ if ($element = $res->Fetch()) {
                 </nav>
             </div>
 
+            <form method="GET" action="index.php">
+                <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+            </form>
+
             <div class="contact-container">
                 <?php if ($phone): ?>
                     <p><a href="tel:<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
@@ -151,6 +155,18 @@ if ($element = $res->Fetch()) {
             const count = cartItems.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cart-count').textContent = count;
         }
+
+        let searchTimeout;
+
+        document.getElementById('search').addEventListener('input', function() {
+            // Очищаем таймер при каждом новом вводе
+            clearTimeout(searchTimeout);
+
+            // Устанавливаем новый таймер на 3 секунды
+            searchTimeout = setTimeout(function() {
+                applyFilter(); // Вызываем функцию фильтрации после 3 секунд бездействия
+            }, 3000);
+        });
 
         // Открытие формы
         function openForm() {

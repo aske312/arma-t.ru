@@ -125,10 +125,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     <meta charset="UTF-8">
 
-    <form method="GET" action="index.php">
-        <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
-    </form>
-
 </div>
 
 <div class="catalog-container">
@@ -416,17 +412,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     });
 
     // *** SEARCH *** //
-    let searchTimeout;
-
-    document.getElementById('search').addEventListener('input', function() {
-        // Очищаем таймер при каждом новом вводе
-        clearTimeout(searchTimeout);
-
-        // Устанавливаем новый таймер на 3 секунды
-        searchTimeout = setTimeout(function() {
-            applyFilter(); // Вызываем функцию фильтрации после 3 секунд бездействия
-        }, 3000);
-    });
 
     // *** FILTERS *** //
     function applyFilter() {
