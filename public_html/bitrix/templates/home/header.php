@@ -68,7 +68,7 @@ if ($element = $res->Fetch()) {
                 </nav>
             </div>
 
-            <form method="GET" action="index.php">
+            <form class="nav-search" method="GET" action="index.php">
                 <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
             </form>
 
