@@ -95,7 +95,7 @@ header {
     font-size: 16px;
     border-radius: 5px;
     border: 2px solid #ccc;
-    background-color: #1f2a3e; /* Темный фон для поля */
+    /* background-color: #1f2a3e;  Темный фон для поля */
     color: white;
 }
 
@@ -113,7 +113,7 @@ header {
     width: 100%;
     max-width: 500px; /* Ограничим ширину предложения */
     top: 100%; /* Сдвиг блока вниз относительно поля */
-    left: 0;
+
     z-index: 1000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: none;
