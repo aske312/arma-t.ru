@@ -111,7 +111,7 @@ header {
     position: absolute;
     background-color: #1f2a3e; /* Тот же темный фон */
     width: 100%;
-    max-width: auto; /* Ограничим ширину предложения */
+    max-width: 700px; /* Ограничим ширину предложения */
     top: 100%; /* Сдвиг блока вниз относительно поля */
 
     z-index: 1000;
