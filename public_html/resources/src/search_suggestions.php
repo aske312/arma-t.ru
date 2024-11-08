@@ -1,9 +1,14 @@
 <?php
-// Подключаем необходимые файлы Битрикс
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Поиск");
+// Проверка на запрос с ошибкой
+define("STOP_STATISTICS", true);
+define("NO_KEEP_STATISTIC", true);
+define("NOT_CHECK_PERMISSIONS", true);
 
-header('Content-Type: application/json');  // Устанавливаем тип контента для JSON
+// Подключаем ядро Битрикс для работы с инфоблоками
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+
+// Устанавливаем тип контента для JSON
+header('Content-Type: application/json');
 
 // Получаем строку поиска
 $query = isset($_GET['q']) ? urldecode(trim($_GET['q'])) : '';
@@ -16,8 +21,8 @@ if (empty($query) || strlen($query) < 3) {
 
 // Фильтр для поиска по инфоблоку с ID = 1
 $elementFilter = [
-    'IBLOCK_ID' => 1,
-    'ACTIVE' => 'Y',
+    'IBLOCK_ID' => 1,  // ID инфоблока
+    'ACTIVE' => 'Y',    // Только активные элементы
     '%NAME' => $query,  // Фильтрация по вхождению в поле NAME
 ];
 
