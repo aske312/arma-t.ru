@@ -46,4 +46,3 @@ while ($item = $res->Fetch()) {
 
 // Возвращаем результаты в формате JSON
 echo json_encode($suggestions);
-?>
