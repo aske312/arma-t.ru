@@ -49,12 +49,12 @@ header {
 
 /* Форма поиска */
 .nav-search-form {
-    width: auto; /* Делаем форму на всю ширину контейнера */
+    width: 100%; /* Делаем форму на всю ширину контейнера */
     margin-top: 10px; /* Отступ сверху */
 }
 
 .full-width-search {
-    width: 100%; /* Полная ширина формы */
+    width: auto; /* Полная ширина формы */
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
