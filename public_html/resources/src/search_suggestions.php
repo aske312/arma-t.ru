@@ -1,5 +1,6 @@
 <?php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+// Подключение ядра Битрикс
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 use Bitrix\Main\Loader;
 
 $APPLICATION->SetTitle("Поиск");
