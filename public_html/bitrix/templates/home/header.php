@@ -39,30 +39,30 @@ if ($element = $res->Fetch()) {
 
 //header('Content-Type: application/json'); // Устанавливаем тип контента для JSON
 
-$query = isset($_GET['q']) ? trim($_GET['q']) : '';
-
-// Если строка пустая или слишком короткая, не выполнять поиск
-if (empty($query) || strlen($query) < 3) {
-    echo json_encode([]);
-    exit;
-}
-
-// Здесь выполняем запрос к БД или к инфоблоку. Пример для Bitrix:
-$filter = ['NAME' => '%'.$query.'%']; // Поиск по названию
-$select = ['ID', 'NAME']; // Выбираем нужные поля
-$result = CIBlockElement::GetList([], $filter, false, false, $select);
-
-$suggestions = [];
-
-while ($item = $result->Fetch()) {
-    $suggestions[] = [
-        'id' => $item['ID'],
-        'name' => $item['NAME']
-    ];
-}
-
-// Отправляем результат в формате JSON
-echo json_encode($suggestions);
+//$query = isset($_GET['q']) ? trim($_GET['q']) : '';
+//
+//// Если строка пустая или слишком короткая, не выполнять поиск
+//if (empty($query) || strlen($query) < 3) {
+//    echo json_encode([]);
+//    exit;
+//}
+//
+//// Здесь выполняем запрос к БД или к инфоблоку. Пример для Bitrix:
+//$filter = ['NAME' => '%'.$query.'%']; // Поиск по названию
+//$select = ['ID', 'NAME']; // Выбираем нужные поля
+//$result = CIBlockElement::GetList([], $filter, false, false, $select);
+//
+//$suggestions = [];
+//
+//while ($item = $result->Fetch()) {
+//    $suggestions[] = [
+//        'id' => $item['ID'],
+//        'name' => $item['NAME']
+//    ];
+//}
+//
+//// Отправляем результат в формате JSON
+//echo json_encode($suggestions);
 ?>
 
 <!DOCTYPE html>
