@@ -101,6 +101,7 @@ header {
 }
 
 /* предварительная выдача */
+/*
 .suggestions-container {
     position: absolute;
     background-color: #fff;
@@ -126,7 +127,7 @@ header {
 .suggestions-container li:hover {
     background-color: #f0f0f0;
 }
-
+*/
 /********** Контактная информация **********/
 .contact-container {
     display: flex;
