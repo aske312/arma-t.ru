@@ -98,7 +98,7 @@ if ($element = $res->Fetch()) {
                 <form class="nav-search-form" method="GET" action="index.php">
                     <input type="text"
                            id="search"
-                           class="full-width-search"
+                           class="full-width-search" 
                            placeholder="Поиск по названию"
                            value="<?= htmlspecialchars(urldecode($_GET['search'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
                            oninput="fetchSearchSuggestions(this.value)">
@@ -191,27 +191,26 @@ if ($element = $res->Fetch()) {
         }
 
         // *** Поиск ***//
-
         function fetchSearchSuggestions(query) {
-            if (query.length < 3) {
+            if (query.length < 3) {  // Минимум 3 символа для начала поиска
                 document.getElementById("suggestions-container").innerHTML = '';
-                return; // Не делать запрос, если длина ввода меньше 3 символов
+                return;
             }
 
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'search_suggestions.php?q=' + encodeURIComponent(query), true);
+            xhr.open('GET', '/resources/src/search_suggestions.php?q=' + encodeURIComponent(query), true);
 
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var suggestions = JSON.parse(xhr.responseText);
                     var suggestionsContainer = document.getElementById("suggestions-container");
-                    suggestionsContainer.innerHTML = ''; // Очистить предыдущие предложения
+                    suggestionsContainer.innerHTML = '';  // Очистить контейнер
 
                     if (suggestions.length > 0) {
                         var list = document.createElement('ul');
                         suggestions.forEach(function(suggestion) {
                             var listItem = document.createElement('li');
-                            listItem.textContent = suggestion.name; // Или любое другое свойство объекта
+                            listItem.textContent = suggestion.name; // Или другое свойство элемента
                             listItem.onclick = function() {
                                 document.getElementById("search").value = suggestion.name;
                                 suggestionsContainer.innerHTML = '';
