@@ -459,7 +459,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         if (searchQuery) {
             filters.push('search=' + encodeURIComponent(searchQuery));
         } else {
-            filters.push('search=all');
+            filters.push('search=');
         }
 
         let urlParams = new URLSearchParams(window.location.search);
