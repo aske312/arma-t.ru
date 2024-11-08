@@ -133,21 +133,34 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     <!-- Боковое меню категорий -->
     <div class="catalog-sidebar">
+        <h3>Разделы</h3>
+
         <ul id="catalog-menu" class="catalog-menu">
-            <?php $sectionId = intval($_GET['SECTION_ID']); // Получаем ID активной секции из запроса
-            if (!empty($arResult['SECTIONS'])): ?>
-            <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-            <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
+            <!-- Кнопка для сброса фильтрации по секции (Все позиции) -->
             <li>
-                <div class="category-block <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
-                    <?php if ($arSection['PICTURE']): ?>
-                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                    <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                    <?php else: ?><img alt="Нет изображения" src="/resources/img/no_image.png"><?php endif; ?>
-                    <div class="category-text"> <?= $arSection['NAME']; ?> </div>
+                <div class="category-block <?= ($sectionId === 'all') ? 'active' : ''; ?>"
+                     onclick="redirectToSection('all')">
+                    <img alt="Все позиции" src="/resources/img/all_positions.png">
+                    <div class="category-text">Все позиции</div>
                 </div>
             </li>
-            <?php endforeach; ?><?php endif; ?>
+
+            <?php if (!empty($arResult['SECTIONS'])): ?>
+                <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+                    <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
+                    <li>
+                        <div class="category-block <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                            <?php if ($arSection['PICTURE']): ?>
+                                <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                                <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
+                            <?php else: ?>
+                                <img alt="Нет изображения" src="/resources/img/no_image.png">
+                            <?php endif; ?>
+                            <div class="category-text"> <?= $arSection['NAME']; ?> </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </ul>
     </div>
 
