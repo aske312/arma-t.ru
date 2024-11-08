@@ -427,6 +427,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     });
 
     // *** FILTERS *** //
+    // Функция для применения фильтров
     function applyFilter() {
         let filters = [];
         let filterValues = {};
@@ -457,23 +458,24 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         var searchElement = document.getElementById('search');
         var searchQuery = searchElement ? searchElement.value.trim() : '';
         if (searchQuery) {
+            // Кодируем строку поиска, чтобы русские буквы не превращались в код
             filters.push('search=' + encodeURIComponent(searchQuery));
         } else {
-            filters.push('search=');
+            filters.push('search=all');
         }
 
         let urlParams = new URLSearchParams(window.location.search);
 
-        // Проверка, если SECTION_ID существует в URL, добавляем его в параметры
-        const sectionId = new URLSearchParams(window.location.search).get('SECTION_ID') || 'all';
-        urlParams.set('SECTION_ID', sectionId);
+        <?php if (isset($_GET['SECTION_ID'])): ?>
+            urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
+        <?php endif; ?>
 
         filters.forEach(function (filter) {
             let [key, value] = filter.split('=');
             urlParams.set(key, value);
         });
 
-        window.location.search = urlParams.toString();
+        window.location.search = urlParams.toString();  // Перезагружаем страницу с новыми параметрами
     }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
