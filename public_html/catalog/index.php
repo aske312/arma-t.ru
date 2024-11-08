@@ -131,7 +131,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <h2><?= isset($selectedSection['NAME']) ? $selectedSection['NAME'] : 'Применен фильтр'; ?></h2>
     <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберете необходимые позиции'; ?></p>
 
-    <form method="GET" action="/catalog.php">
+    <form method="GET" action="catalog/index.php">
         <input type="hidden" name="SECTION_ID" value="<?= htmlspecialchars($sectionId) ?>">
         <input type="text" name="search" value="<?= htmlspecialchars($searchQuery) ?>" placeholder="Поиск по названию">
         <button type="submit">Найти</button>
