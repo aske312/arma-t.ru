@@ -36,6 +36,33 @@ if ($element = $res->Fetch()) {
         $phone = $element["PROPERTY_EL_DESCRIPTION_VALUE"];
     }
 }
+
+header('Content-Type: application/json'); // Устанавливаем тип контента для JSON
+
+$query = isset($_GET['q']) ? trim($_GET['q']) : '';
+
+// Если строка пустая или слишком короткая, не выполнять поиск
+if (empty($query) || strlen($query) < 3) {
+    echo json_encode([]);
+    exit;
+}
+
+// Здесь выполняем запрос к БД или к инфоблоку. Пример для Bitrix:
+$filter = ['NAME' => '%'.$query.'%']; // Поиск по названию
+$select = ['ID', 'NAME']; // Выбираем нужные поля
+$result = CIBlockElement::GetList([], $filter, false, false, $select);
+
+$suggestions = [];
+
+while ($item = $result->Fetch()) {
+    $suggestions[] = [
+        'id' => $item['ID'],
+        'name' => $item['NAME']
+    ];
+}
+
+// Отправляем результат в формате JSON
+echo json_encode($suggestions);
 ?>
 
 <!DOCTYPE html>
@@ -69,12 +96,13 @@ if ($element = $res->Fetch()) {
 
                 <!-- Расширенная поисковая строка -->
                 <form class="nav-search-form" method="GET" action="index.php">
-                    <!-- Декодируем URL-кодированное значение из $_GET, если оно есть -->
                     <input type="text"
                            id="search"
                            class="full-width-search"
                            placeholder="Поиск по названию"
-                           value="<?= htmlspecialchars(urldecode($_GET['search'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
+                           value="<?= htmlspecialchars(urldecode($_GET['search'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                           oninput="fetchSearchSuggestions(this.value)">
+                    <div id="suggestions-container" class="suggestions-container"></div>
                 </form>
             </div>
 
@@ -162,17 +190,55 @@ if ($element = $res->Fetch()) {
             document.getElementById('cart-count').textContent = count;
         }
 
-        let searchTimeout;
+        // *** Поиск ***//
 
-        document.getElementById('search').addEventListener('input', function() {
-            // Очищаем таймер при каждом новом вводе
-            clearTimeout(searchTimeout);
+        function fetchSearchSuggestions(query) {
+            if (query.length < 3) {
+                document.getElementById("suggestions-container").innerHTML = '';
+                return; // Не делать запрос, если длина ввода меньше 3 символов
+            }
 
-            // Устанавливаем новый таймер на 3 секунды
-            searchTimeout = setTimeout(function() {
-                applyFilter(); // Вызываем функцию фильтрации после 3 секунд бездействия
-            }, 3000);
-        });
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'search_suggestions.php?q=' + encodeURIComponent(query), true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var suggestions = JSON.parse(xhr.responseText);
+                    var suggestionsContainer = document.getElementById("suggestions-container");
+                    suggestionsContainer.innerHTML = ''; // Очистить предыдущие предложения
+
+                    if (suggestions.length > 0) {
+                        var list = document.createElement('ul');
+                        suggestions.forEach(function(suggestion) {
+                            var listItem = document.createElement('li');
+                            listItem.textContent = suggestion.name; // Или любое другое свойство объекта
+                            listItem.onclick = function() {
+                                document.getElementById("search").value = suggestion.name;
+                                suggestionsContainer.innerHTML = '';
+                            };
+                            list.appendChild(listItem);
+                        });
+                        suggestionsContainer.appendChild(list);
+                    } else {
+                        suggestionsContainer.innerHTML = '<p>Нет результатов</p>';
+                    }
+                }
+            };
+
+            xhr.send();
+        }
+
+//        let searchTimeout;
+//
+//        document.getElementById('search').addEventListener('input', function() {
+//            // Очищаем таймер при каждом новом вводе
+//            clearTimeout(searchTimeout);
+//
+//            // Устанавливаем новый таймер на 3 секунды
+//            searchTimeout = setTimeout(function() {
+//                applyFilter(); // Вызываем функцию фильтрации после 3 секунд бездействия
+//            }, 3000);
+//        });
 
         // Открытие формы
         function openForm() {
