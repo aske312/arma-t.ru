@@ -41,6 +41,7 @@ $filterValues = [
     'EL_DRIVETYPE' => [],
     'EL_DN_DIAMETER_MM' => [],
     'EL_PN_PRESSURE_KGF_CM2' => [],
+    'EL_FIGTABLE' => [],
     'EL_BODY_MATERIAL' => []
 ];
 
@@ -65,7 +66,7 @@ while ($ob = $res->GetNextElement()) {
     $arProps = $ob->GetProperties();    // Получаем все свойства элемента
 
     // Проходим по необходимым свойствам и собираем уникальные значения
-    foreach (['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'] as $propertyCode) {
+    foreach (['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'] as $propertyCode) {
         // Проверяем, если свойство существует и содержит значения
         if (isset($arProps[$propertyCode]) && !empty($arProps[$propertyCode]['VALUE'])) {
             // Убедимся, что это массив, если нет - сделаем его массивом
@@ -96,7 +97,7 @@ $elementFilter = [
     'INCLUDE_SUBSECTIONS' => 'Y',
 ];
 
-$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
+$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
 
 // Применяем фильтры из GET-запроса
 foreach ($filterProperties as $propertyCode) {
@@ -222,6 +223,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <!-- Фильтр для материала корпуса -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Материал корпуса:</label>
+                            <div class="filter-content">
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($values as $value): ?>
+                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    <?php elseif ($propertyCode == 'EL_FIGTABLE'): ?>
+                        <!-- Фильтр для таблиц фигур -->
+                        <div class="filter-item">
+                            <label for="<?= $propertyCode ?>" class="filter-label">Таблица фигур:</label>
                             <div class="filter-content">
                                 <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                                     <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
@@ -374,7 +390,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         let filterValues = {};
 
         // Перечень всех возможных фильтров
-        const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL'];
+        const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
 
         // Собираем текущие фильтры
         allFilterProperties.forEach(function(propertyCode) {
