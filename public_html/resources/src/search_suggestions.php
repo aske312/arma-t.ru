@@ -1,8 +1,8 @@
 <?php
-// Подключаем ядро Битрикс
+// Подключение ядра Битрикс
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-// Включаем вывод ошибок для отладки
+// Включаем вывод ошибок для отладки (если в дальнейшем потребуется)
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -15,9 +15,15 @@ if (empty($query)) {
     exit;
 }
 
+// Проверка, подключен ли модуль инфоблоков
+if (!CModule::IncludeModule('iblock')) {
+    echo json_encode(['error' => 'Модуль инфоблоков не подключен']);
+    exit;
+}
+
 // Фильтр для поиска элементов по имени
 $elementFilter = [
-    'IBLOCK_ID' => 1,     // ID инфоблока (замените на нужный)
+    'IBLOCK_ID' => 1,     // ID инфоблока, замените на нужный
     'ACTIVE' => 'Y',      // Только активные элементы
     '%NAME' => $query,    // Ищем по полю NAME, символ % означает поиск по подстроке
 ];
