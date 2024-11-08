@@ -37,7 +37,7 @@ if ($element = $res->Fetch()) {
     }
 }
 
-header('Content-Type: application/json'); // Устанавливаем тип контента для JSON
+//header('Content-Type: application/json'); // Устанавливаем тип контента для JSON
 
 $query = isset($_GET['q']) ? trim($_GET['q']) : '';
 
