@@ -115,15 +115,14 @@ header {
     border: 1px solid #ccc;
     border-top: none;
     position: absolute;
-    background-color: white;
-    width: auto;
-    max-height: auto;
-    overflow-y: auto;
-    display: none; /* Скрыто по умолчанию */
+    background-color: #1f2a3e; /* Тот же темный фон */
+    width: 100%;
+    max-width: 500px; /* Ограничим ширину предложения */
+    top: 100%; /* Сдвиг блока вниз относительно поля */
+    left: 0;
     z-index: 1000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    align-items: center;
-    text-align: center;
+    display: none;
 }
 
 /* Стиль для каждого элемента предложения */
@@ -131,11 +130,12 @@ header {
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
+    color: white;
 }
 
 /* При наведении на предложение */
 #suggestions div:hover {
-    background-color: #f1f1f1;
+    background-color: #263c56; /* Светлее оттенок фона */
 }
 
 /* Стиль для отображения кнопки "Показать все результаты" */
@@ -147,7 +147,7 @@ header {
 .show-all-btn {
     padding: 8px 16px;
     background-color: #007bff;
-    color: black;
+    color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
