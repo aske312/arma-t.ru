@@ -40,7 +40,7 @@ while ($section = $sections->Fetch()) {
 }
 
 // Форма поиска
-$searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
+$searchQuery = isset($_GET['search']) ? urldecode(trim($_GET['search'])) : '';
 
 // Фильтры
 $filterValues = [
@@ -133,7 +133,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     <!-- Боковое меню категорий -->
     <div class="catalog-sidebar">
-        <h3>Разделы</h3>
+        <h2>Разделы</h2>
 
         <ul id="catalog-menu" class="catalog-menu">
             <!-- Кнопка для сброса фильтрации по секции (Все позиции) -->
