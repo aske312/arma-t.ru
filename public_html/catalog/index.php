@@ -364,9 +364,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     }
 
-    // Функция перехода на каталог по секциям
     function redirectToSection(sectionId) {
-        window.location.href = '/catalog/index.php?SECTION_ID=' + sectionId;
+        let urlParams = new URLSearchParams(window.location.search);
+
+        // Добавляем/обновляем параметр SECTION_ID
+        urlParams.set('SECTION_ID', sectionId);
+
+        // Передаем все фильтры
+        const filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
+
+        filterProperties.forEach(function (property) {
+            var filterValue = document.getElementById(property) ? document.getElementById(property).value : 'all';
+            urlParams.set(property, filterValue);
+        });
+
+        window.location.href = '/catalog/index.php?' + urlParams.toString();
     }
 
     document.querySelectorAll('.catalog-item').forEach(item => {
@@ -435,9 +447,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         let urlParams = new URLSearchParams(window.location.search);
 
-        <?php if (isset($_GET['SECTION_ID'])): ?>
-            urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
-        <?php endif; ?>
+        // Проверка, если SECTION_ID существует в URL, добавляем его в параметры
+        const sectionId = new URLSearchParams(window.location.search).get('SECTION_ID') || 'all';
+        urlParams.set('SECTION_ID', sectionId);
 
         filters.forEach(function (filter) {
             let [key, value] = filter.split('=');
