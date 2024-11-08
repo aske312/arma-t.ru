@@ -134,6 +134,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <form method="GET" action="index.php">
         <input type="hidden" name="SECTION_ID" value="<?= htmlspecialchars($sectionId) ?>">
         <input type="text" name="search" value="<?= htmlspecialchars($searchQuery) ?>" placeholder="Поиск по названию">
+        <input type="text" id="search" placeholder="Поиск по названию" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
         <button type="submit">Найти</button>
     </form>
 
@@ -409,31 +410,33 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         // Собираем текущие фильтры
         allFilterProperties.forEach(function(propertyCode) {
             var element = document.getElementById(propertyCode);
-
-            // Пропускаем элемент, если его нет на странице
             if (!element) {
-                filterValues[propertyCode] = 'all';  // Если элемента нет на странице, присваиваем 'all'
-                filters.push(propertyCode + '=all'); // Добавляем фильтр с значением 'all'
-                return; // Пропускаем дальнейшую обработку для этого фильтра
+                filterValues[propertyCode] = 'all';
+                filters.push(propertyCode + '=all');
+                return;
             }
 
             var filterValue = element.value;
-
-            // Если значение пустое, ставим 'all'
             if (!filterValue) {
                 filterValue = 'all';
             }
-
-            // Сохраняем в объект
             filterValues[propertyCode] = filterValue;
 
-            // Если значение фильтра не 'all', добавляем его в фильтры
             if (filterValue !== 'all') {
                 filters.push(propertyCode + '=' + filterValue);
             } else {
                 filters.push(propertyCode + '=all');
             }
         });
+
+        // Добавляем параметр поиска, если он используется
+        var searchElement = document.getElementById('search');
+        var searchQuery = searchElement ? searchElement.value.trim() : '';
+        if (searchQuery) {
+            filters.push('search=' + encodeURIComponent(searchQuery));
+        } else {
+            filters.push('search=all');
+        }
 
         // Получаем текущие параметры URL
         let urlParams = new URLSearchParams(window.location.search);
