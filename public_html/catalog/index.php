@@ -399,15 +399,26 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     });
 
+    // *** SEARCH *** //
+    let searchTimeout;
+
+    document.getElementById('search').addEventListener('input', function() {
+        // Очищаем таймер при каждом новом вводе
+        clearTimeout(searchTimeout);
+
+        // Устанавливаем новый таймер на 3 секунды
+        searchTimeout = setTimeout(function() {
+            applyFilter(); // Вызываем функцию фильтрации после 3 секунд бездействия
+        }, 3000);
+    });
+
     // *** FILTERS *** //
     function applyFilter() {
         let filters = [];
         let filterValues = {};
 
-        // Перечень всех возможных фильтров
         const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
 
-        // Собираем текущие фильтры
         allFilterProperties.forEach(function(propertyCode) {
             var element = document.getElementById(propertyCode);
             if (!element) {
@@ -429,7 +440,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             }
         });
 
-        // Добавляем параметр поиска, если он используется
         var searchElement = document.getElementById('search');
         var searchQuery = searchElement ? searchElement.value.trim() : '';
         if (searchQuery) {
@@ -438,21 +448,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             filters.push('search=all');
         }
 
-        // Получаем текущие параметры URL
         let urlParams = new URLSearchParams(window.location.search);
 
-        // Добавляем SECTION_ID, если он присутствует
         <?php if (isset($_GET['SECTION_ID'])): ?>
             urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
         <?php endif; ?>
 
-        // Добавляем фильтры в URL
         filters.forEach(function (filter) {
             let [key, value] = filter.split('=');
             urlParams.set(key, value);
         });
 
-        // Перезагружаем страницу с новыми параметрами
         window.location.search = urlParams.toString();
     }
 
