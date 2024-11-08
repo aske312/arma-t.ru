@@ -1,42 +1,44 @@
 <?php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+// Подключаем необходимые файлы Битрикс
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetTitle("Поиск");
 
 header('Content-Type: application/json');  // Устанавливаем тип контента для JSON
 
-// Получаем строку запроса от клиента
-$query = isset($_GET['q']) ? trim($_GET['q']) : '';
+// Получаем строку поиска
+$query = isset($_GET['q']) ? urldecode(trim($_GET['q'])) : '';
 
-// Если строка пустая или меньше 3 символов, сразу выходим
+// Если строка поиска пустая или слишком короткая, сразу выходим
 if (empty($query) || strlen($query) < 3) {
     echo json_encode([]);
     exit;
 }
 
-// Подключаем компоненты Битрикс для поиска по инфоблокам
-use Bitrix\Iblock\ElementTable;
+// Фильтр для поиска по инфоблоку с ID = 1
+$elementFilter = [
+    'IBLOCK_ID' => 1,
+    'ACTIVE' => 'Y',
+    '%NAME' => $query,  // Фильтрация по вхождению в поле NAME
+];
 
-// Указываем ID инфоблока, по которому будет производиться поиск
-$iblockId = 1;  // ID инфоблока, например, 1 — это ваш инфоблок с названием элементов
-
-// Делаем запрос к БД для поиска элементов по названию (поле NAME)
+// Запрос к инфоблоку для получения элементов с учетом фильтра
 $res = CIBlockElement::GetList(
-    array('NAME' => 'ASC'),  // Сортировка по имени
-    array('IBLOCK_ID' => $iblockId, '%NAME' => $query), // Фильтр по имени элемента
-    false,  // Не нужно группировать
-    array('nTopCount' => 10), // Ограничиваем количество результатов (10)
-    array('ID', 'NAME')  // Выбираем ID и NAME (название элемента)
+    ['NAME' => 'ASC'],  // Сортировка по имени
+    $elementFilter,     // Фильтр по имени и статусу
+    false,              // Не группируем
+    ['nTopCount' => 10], // Ограничиваем 10 результатами
+    ['ID', 'NAME']      // Возвращаем только ID и NAME
 );
 
+// Собираем результаты
 $suggestions = [];
-
-// Обрабатываем результаты запроса
 while ($item = $res->Fetch()) {
     $suggestions[] = [
         'id' => $item['ID'],
-        'name' => $item['NAME']  // Возвращаем только имя элемента
+        'name' => $item['NAME']
     ];
 }
 
-// Возвращаем список подсказок в формате JSON
+// Возвращаем результаты в формате JSON
 echo json_encode($suggestions);
 ?>
