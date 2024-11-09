@@ -296,7 +296,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <div class="catalog-item-header">
                                     <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
                                     <?php if ($arSection['PICTURE']): ?>
-                                        <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                                        <?php $imgPath = CFile::GetPath($arSection['PREVIEW_PICTURE']); ?>
                                         <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
                                     <?php else: ?>
                                         <img alt="Нет изображения" src="/resources/img/no_image.png">
