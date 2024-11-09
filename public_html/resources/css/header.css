@@ -85,7 +85,7 @@ header {
 .nav-search-form {
     padding: 10px;
     width: 100%;
-    height: 25px;
+    height: 100%;
     display: flex;
     justify-content: center; /* Центрируем форму поиска */
 }
