@@ -12,7 +12,7 @@ if (CModule::IncludeModule("iblock")) {
         $productName = $ar_res['NAME'];
         $productShortName = $ar_res['PREVIEW_TEXT'];
         $productDescription = $ar_res['DETAIL_TEXT'];
-        $productImage = CFile::GetPath($ar_res['EL_IMAGES']); // Изображение товара
+        $productImage = CFile::GetPath($ar_res['PREVIEW_PICTURE']); // Изображение анонса товара
         $productPrice = ''; // Цена
         $productArticul = ''; // Артикул
         $productAvailability = ''; // Срок изготовления
@@ -25,6 +25,9 @@ if (CModule::IncludeModule("iblock")) {
             $sectionName = $section['NAME']; // Название раздела
         }
 
+        // Если у товара нет изображения, используем изображение раздела
+        $productImage = $productImage ?: $sectionImage;
+
         // Массив для хранения характеристик
         $productProperties = [];
 
@@ -33,9 +36,9 @@ if (CModule::IncludeModule("iblock")) {
         while ($prop = $properties->Fetch()) {
             if (!empty($prop['VALUE'])) {
                 // Пропускаем элемент EL_IMAGES
-                if ($prop['CODE'] === 'EL_IMAGES') {
-                    continue;
-                }
+//                if ($prop['CODE'] === 'EL_IMAGES') {
+//                    continue;
+//                }
 
                 if ($prop['CODE'] === 'EL_ARTICLE_CODE') {
                     $productArticul = $prop['VALUE'];
@@ -71,7 +74,7 @@ if (CModule::IncludeModule("iblock")) {
 <div class="product-detail" style="background-color: white; border-radius: 5px; padding: 20px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
     <div class="product-content">
         <div class="product-image">
-            <img src="<?php echo htmlspecialchars($productImage ?: $sectionImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>" style="width: 300px; height: auto;"> <!-- Изображение товара -->
+            <img src="<?php echo htmlspecialchars($productImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>" style="width: 300px; height: auto;"> <!-- Изображение товара -->
         </div>
         <div class="product-info">
             <h1><?php echo htmlspecialchars($productName); ?></h1>
