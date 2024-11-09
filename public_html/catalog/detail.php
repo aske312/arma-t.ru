@@ -59,9 +59,9 @@ if (CModule::IncludeModule("iblock")) {
 
     <!-- Хлебные крошки -->
     <div class="breadcrumbs">
-        <a href="<?php echo htmlspecialchars($homepageUrl); ?>">Главная</a> -
-        <a href="<?php echo htmlspecialchars($catalogUrl); ?>">Каталог</a> -
-        <a href="<?php echo htmlspecialchars($catalogUrl . '?SECTION_ID=' . $sectionId); ?>">
+        <a href="<?php echo htmlspecialchars('/'); ?>">Главная</a> -
+        <a href="<?php echo htmlspecialchars('/catalog/'); ?>">Каталог</a> -
+        <a href="<?php echo htmlspecialchars('/catalog/index.php?' . '?SECTION_ID=' . $sectionId); ?>">
             <?php echo htmlspecialchars($sectionName); ?>
         </a> -
         <?php echo htmlspecialchars($productShortName); ?>
