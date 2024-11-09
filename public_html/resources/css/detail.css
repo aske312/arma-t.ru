@@ -57,7 +57,7 @@
 .product-image img {
     width: 250px;
     height: 250px;
-    object-fit: relative;
+    object-fit: cover;
     border-radius: 5px;
 }
 
