@@ -132,6 +132,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         <ul id="catalog-menu" class="catalog-menu">
             <!-- Кнопка для сброса фильтрации по секции (Все позиции) -->
+<!--
             <li>
                 <div class="category-block <?= ($sectionId === 'all') ? 'active' : ''; ?>"
                      onclick="redirectToSection('all')">
@@ -139,7 +140,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <div class="category-text">Все позиции</div>
                 </div>
             </li>
-
+-->
             <?php if (!empty($arResult['SECTIONS'])): ?>
                 <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
                     <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
