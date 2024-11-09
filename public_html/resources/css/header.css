@@ -114,7 +114,7 @@ header {
     max-width: 500px; /* Ограничим ширину предложения */
     /* top: calc(100% + 20px); /* Отступ от поля поиска, с учетом высоты хедера */
     margin: 0;
-    margin-top: 50px;
+    margin-top: 45px;
     z-index: 1000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: none;
