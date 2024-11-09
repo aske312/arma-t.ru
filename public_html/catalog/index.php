@@ -280,14 +280,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Список элементов каталога -->
         <div class="catalog-items">
             <?php
-            $itemsFound = false; // Флаг, чтобы проверить, были ли элементы
+            $itemsFound = false;
 
             while ($ob = $res->GetNextElement()):
                 $arFields = $ob->GetFields();
                 $arProps = $ob->GetProperties();
                 foreach ($arResult['SECTIONS'] as $arSection):
                     if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
-                        $itemsFound = true; // Если элемент найден, меняем флаг
+                        $itemsFound = true;
                         ?>
                         <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
 
@@ -295,9 +295,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                                 <div class="catalog-item-header">
                                     <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
-                                    <?php if ($arSection['PICTURE']): ?>
-                                        <?php $imgPath = CFile::GetPath($arSection['PREVIEW_PICTURE']); ?>
-                                        <img src="<?= $imgPath; ?>" alt="<?= $arSection['NAME']; ?>" class="catalog-item-image">
+                                    <?php if ($arFields['PREVIEW_PICTURE']): ?>
+                                        <?php $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']); ?>
+                                        <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                                     <?php else: ?>
                                         <img alt="Нет изображения" src="/resources/img/no_image.png">
                                     <?php endif; ?>
@@ -309,16 +309,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         <p><div class="catalog-item-price">
                                             <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
 
-                                            // Проверяем цену, если 0 или не задана, выводим текст
                                             if ($price == 0 || empty($price)) {
                                                 echo 'По запросу';
                                             } else {
                                                 echo $price . ' руб.';
-                                            }?>
+                                            } ?>
                                         </div></p>
                                     </div>
 
-                                    <!-- Кнопка "В корзину" -->
                                     <div class="catalog-item-controls">
                                         <button class="catalog-item-add-to-cart"
                                                 data-id="<?= $arFields['ID']; ?>"
@@ -330,30 +328,29 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                                 <!-- Краткое описание элемента -->
                                 <div class="catalog-item-properties">
-                                <table>
-                                    <?php if (!empty($arProps['EL_CONNTYPE']['VALUE'])): ?>
-                                        <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
-                                    <?php endif; ?>
-                                    <?php if (!empty($arProps['EL_DRIVETYPE']['VALUE'])): ?>
-                                        <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
-                                    <?php endif; ?>
-                                    <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
-                                        <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
-                                    <?php endif; ?>
-                                    <?php if (!empty($arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE'])): ?>
-                                        <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
-                                    <?php endif; ?>
-                                    <?php if (!empty($arProps['EL_BODY_MATERIAL']['VALUE'])): ?>
-                                        <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
-                                    <?php endif; ?>
-                                </table>
+                                    <table>
+                                        <?php if (!empty($arProps['EL_CONNTYPE']['VALUE'])): ?>
+                                            <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
+                                        <?php endif; ?>
+                                        <?php if (!empty($arProps['EL_DRIVETYPE']['VALUE'])): ?>
+                                            <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
+                                        <?php endif; ?>
+                                        <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
+                                            <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
+                                        <?php endif; ?>
+                                        <?php if (!empty($arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE'])): ?>
+                                            <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
+                                        <?php endif; ?>
+                                        <?php if (!empty($arProps['EL_BODY_MATERIAL']['VALUE'])): ?>
+                                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                                        <?php endif; ?>
+                                    </table>
                                 </div>
                             </a>
                         </div>
                     <?php endif; ?><?php endforeach; ?>
             <?php endwhile; ?>
 
-            <!-- Если элементы не найдены, выводим сообщение -->
             <?php if (!$itemsFound): ?>
                 <p>Ничего не найдено</p>
             <?php endif; ?>
