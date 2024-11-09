@@ -54,16 +54,18 @@ if (CModule::IncludeModule("iblock")) {
 ?>
 
 <div class="section-title">
-    <p>
+    <h2><?php echo htmlspecialchars($productShortName); ?></h2>
+    <p>Подробное описание</p>
+
+    <!-- Хлебные крошки -->
+    <div class="breadcrumbs">
         <a href="<?php echo htmlspecialchars($homepageUrl); ?>">Главная</a> -
         <a href="<?php echo htmlspecialchars($catalogUrl); ?>">Каталог</a> -
         <a href="<?php echo htmlspecialchars($catalogUrl . '?SECTION_ID=' . $sectionId); ?>">
             <?php echo htmlspecialchars($sectionName); ?>
         </a> -
         <?php echo htmlspecialchars($productShortName); ?>
-    </p>
-    <h2><?php echo htmlspecialchars($productShortName); ?></h2>
-    <p>Подробное описание</p>
+    </div>
 </div>
 
 <div class="product-detail" style="background-color: white; border-radius: 5px; padding: 20px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
