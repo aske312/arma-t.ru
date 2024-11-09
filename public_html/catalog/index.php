@@ -300,7 +300,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     if ($arFields['PREVIEW_PICTURE']) {
                                         $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
                                     } elseif ($arSection['PICTURE']) {
-                                        $imgPath = CFile::GetPath($arSection['PICTURE']);
+                                        $sectionPicture = CFile::GetFileArray($arSection['PICTURE']);
+                                        $imgPath = $sectionPicture['SRC'];
                                     } else {
                                         $imgPath = "/resources/img/no_image.png";
                                     }
