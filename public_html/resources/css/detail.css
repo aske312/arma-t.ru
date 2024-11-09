@@ -55,8 +55,8 @@
 }
 
 .product-image img {
-    width: 1500px;
-    height: 1500px;
+    width: 250px;
+    height: 250px;
     object-fit: cover;
     border-radius: 5px;
 }
