@@ -74,7 +74,7 @@ if (CModule::IncludeModule("iblock")) {
 <div class="product-detail" style="background-color: white; border-radius: 5px; padding: 20px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
     <div class="product-content">
         <div class="product-image">
-            <img src="<?php echo htmlspecialchars($productImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>" style="width: 300px; height: auto;"> <!-- Изображение товара -->
+            <img src="<?php echo htmlspecialchars($productImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>"> <!-- Изображение товара -->
         </div>
         <div class="product-info">
             <h1><?php echo htmlspecialchars($productName); ?></h1>
