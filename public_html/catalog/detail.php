@@ -12,7 +12,8 @@ if (CModule::IncludeModule("iblock")) {
         $productName = $ar_res['NAME'];
         $productShortName = $ar_res['PREVIEW_TEXT'];
         $productDescription = $ar_res['DETAIL_TEXT'];
-        $productImage = CFile::GetPath($ar_res['PREVIEW_PICTURE']); // Изображение анонса товара
+        $productImage = getProductImagePath($arFields, $arSection);
+        //$productImage = CFile::GetPath($ar_res['PREVIEW_PICTURE']); // Изображение анонса товара
         $productPrice = ''; // Цена
         $productArticul = ''; // Артикул
         $productAvailability = ''; // Срок изготовления
@@ -156,6 +157,19 @@ if (CModule::IncludeModule("iblock")) {
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || { cartItems: [] };
         const cartCount = cartItems.cartItems.reduce((total, item) => total + item.quantity, 0);
         document.getElementById('cart-count').innerText = cartCount;
+    }
+
+    function getProductImagePath($elementFields, $sectionFields) {
+        // Проверяем наличие картинки элемента, а затем картинки анонса и картинки раздела
+        if ($elementFields['PICTURE']) {
+            return CFile::GetPath($elementFields['PICTURE']);
+        } elseif ($elementFields['PREVIEW_PICTURE']) {
+            return CFile::GetPath($elementFields['PREVIEW_PICTURE']);
+        } elseif ($sectionFields['PICTURE']) {
+            return CFile::GetPath($sectionFields['PICTURE']);
+        } else {
+            return "/resources/img/no_image.png"; // Путь к изображению по умолчанию
+        }
     }
 
     // Обновляем счетчик при загрузке страницы
