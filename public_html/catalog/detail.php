@@ -36,9 +36,9 @@ if (CModule::IncludeModule("iblock")) {
         while ($prop = $properties->Fetch()) {
             if (!empty($prop['VALUE'])) {
                 // Пропускаем элемент EL_IMAGES
-//                if ($prop['CODE'] === 'EL_IMAGES') {
-//                    continue;
-//                }
+                if ($prop['CODE'] === 'EL_IMAGES') {
+                    continue;
+                }
 
                 if ($prop['CODE'] === 'EL_ARTICLE_CODE') {
                     $productArticul = $prop['VALUE'];
