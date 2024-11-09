@@ -297,17 +297,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
 
                                     <?php
-                                    if ($arFields['PREVIEW_PICTURE']) {
+                                    if ($arFields['PICTURE']) {
+                                        $imgPath = CFile::GetPath($arFields['PICTURE']);
+                                    } elseif ($arFields['PREVIEW_PICTURE']) {
                                         $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
                                     } elseif ($arSection['PICTURE']) {
-                                        $sectionPicture = CFile::GetFileArray($arSection['PICTURE']);
-                                        $imgPath = $sectionPicture['SRC'];
+                                        // Один вызов CFile::GetPath для картинки раздела
+                                        $imgPath = CFile::GetPath($arSection['PICTURE']);
                                     } else {
                                         $imgPath = "/resources/img/no_image.png";
                                     }
                                     ?>
-                                    <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
 
+                                    <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                                     <div class="catalog-item-info">
                                         <h3 class="catalog-item-name"><?= !empty($arFields['PREVIEW_TEXT']) ? $arFields['PREVIEW_TEXT'] : 'Нет анонса'; ?></h3>
                                         <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
