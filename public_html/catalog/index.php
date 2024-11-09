@@ -295,12 +295,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                                 <div class="catalog-item-header">
                                     <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
-                                    <?php if ($arFields['PREVIEW_PICTURE']): ?>
-                                        <?php $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']); ?>
-                                        <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
-                                    <?php else: ?>
-                                        <img alt="Нет изображения" src="/resources/img/no_image.png">
-                                    <?php endif; ?>
+
+                                    <?php
+                                    if ($arFields['PREVIEW_PICTURE']) {
+                                        $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+                                    } elseif ($arSection['PICTURE']) {
+                                        $imgPath = CFile::GetPath($arSection['PICTURE']);
+                                    } else {
+                                        $imgPath = "/resources/img/no_image.png";
+                                    }
+                                    ?>
+                                    <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
 
                                     <div class="catalog-item-info">
                                         <h3 class="catalog-item-name"><?= !empty($arFields['PREVIEW_TEXT']) ? $arFields['PREVIEW_TEXT'] : 'Нет анонса'; ?></h3>
