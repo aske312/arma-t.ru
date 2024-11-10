@@ -250,16 +250,7 @@ pre { /* DEBUG */
 }
 
 .dropdown-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    padding: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    text-overflow: ellipsis;  /* Обрезка текста с многоточием */
-    white-space: nowrap;      /* Запрещаем перенос строк */
-    overflow: hidden;         /* Скрываем текст, выходящий за пределы */
+    margin-bottom: 5px;
 }
 
 .dropdown-item:hover {
