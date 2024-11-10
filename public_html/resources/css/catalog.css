@@ -280,7 +280,7 @@ pre { /* DEBUG */
 }
 
 /* Стиль для крестика при наведении */
-.dropdown-toggle:hover .clear-filter {
+.clear-filter {
     display: inline;
     margin-left: 5px;
     color: red;
@@ -290,7 +290,6 @@ pre { /* DEBUG */
 .clear-filter {
     display: none;
 }
-
 
 /* Стили для чекбокса выбора всех товаров */
 .select-all {

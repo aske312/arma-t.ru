@@ -169,12 +169,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <div class="catalog-filters">
             <?php
             $filters = [
-                'EL_DN_DIAMETER_MM' => ['label' => 'Диаметр DN', 'suffix' => 'мм'],
-                'EL_PN_PRESSURE_KGF_CM2' => ['label' => 'Давление PN', 'suffix' => 'кгс/см²'],
                 'EL_CONNTYPE' => ['label' => 'Тип присоединения', 'suffix' => ''],
                 'EL_DRIVETYPE' => ['label' => 'Тип привода', 'suffix' => ''],
                 'EL_BODY_MATERIAL' => ['label' => 'Материал корпуса', 'suffix' => ''],
-                'EL_FIGTABLE' => ['label' => 'Таблица фигур', 'suffix' => '']
+                'EL_FIGTABLE' => ['label' => 'Таблица фигур', 'suffix' => ''],
+                'EL_DN_DIAMETER_MM' => ['label' => 'Диаметр DN', 'suffix' => 'мм'],
+                'EL_PN_PRESSURE_KGF_CM2' => ['label' => 'Давление PN', 'suffix' => 'кгс/см²']
             ];
 
             foreach ($filters as $propertyCode => $filter):
