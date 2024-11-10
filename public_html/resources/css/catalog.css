@@ -155,6 +155,7 @@ pre { /* DEBUG */
     display: none;
     flex-wrap: wrap;
     gap: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 /* Общая стилизация для каждого фильтра */
