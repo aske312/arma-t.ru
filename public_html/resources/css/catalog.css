@@ -270,7 +270,7 @@ pre { /* DEBUG */
 }
 
 .dropdown-item:hover {
-    background-color: #f0f8ff;  /* Легкое изменение фона при наведении на элемент */
+    background-color: #2654A2;  /* Легкое изменение фона при наведении на элемент */
 }
 
 .apply-button {
