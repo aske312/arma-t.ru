@@ -247,11 +247,11 @@ pre { /* DEBUG */
     padding: 10px;
     z-index: 1;
 }
-
+/*
 .show {
     display: block;
 }
-
+*/
 .dropdown-options {
     max-height: 200px;
     overflow-y: auto;
@@ -279,7 +279,7 @@ pre { /* DEBUG */
     text-align: center;
 }
 
-/* Стиль для крестика при наведении */
+/* Стиль для крестика при наведении *//*
 .dropdown-toggle:hover .clear-filter {
     display: inline;
     margin-left: 5px;
@@ -300,7 +300,7 @@ pre { /* DEBUG */
     cursor: pointer;
     margin-top: 10px;
 }
-
+*/
 /* Стили для чекбокса выбора всех товаров */
 .select-all {
     margin-bottom: 20px;
