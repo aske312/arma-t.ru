@@ -200,6 +200,11 @@ pre { /* DEBUG */
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.filter-content select:focus {
+    border-color: #007bff;
 }
 
 /* Единицы измерения (мм, кгс/см²) */
