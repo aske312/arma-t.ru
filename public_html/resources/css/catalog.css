@@ -142,7 +142,7 @@ pre { /* DEBUG */
     font-size: 24px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     /* border-bottom: 1px solid #ddd; */
     /* padding-bottom: 10px; */
     text-align: left;
@@ -156,7 +156,7 @@ pre { /* DEBUG */
 .catalog-filters {
     display: none;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 1px;
     /* margin-top: 20px; */
 }
 
