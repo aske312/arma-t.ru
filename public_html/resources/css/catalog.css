@@ -137,6 +137,8 @@ pre { /* DEBUG */
 
 /* Стили для фильтров */
 .filter-title {
+    cursor: pointer;
+    user-select: none;
     font-size: 24px;
     font-weight: bold;
     color: #333;
@@ -145,7 +147,12 @@ pre { /* DEBUG */
     padding-bottom: 10px;
     text-align: left;
     padding-left: 15px;
+    background: none;
+    border: none;
+    display: inline-flex;
+    align-items: center;
 }
+
 .catalog-filters {
     display: none;
     flex-wrap: wrap;
