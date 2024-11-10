@@ -467,22 +467,18 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
 
         allFilterProperties.forEach(function(propertyCode) {
-            let selectedValues = [];
             const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]:checked`);
+            let values = Array.from(checkboxes).map(cb => cb.value);
 
-            checkboxes.forEach(function(checkbox) {
-                selectedValues.push(checkbox.value);
-            });
-
-            if (selectedValues.length > 0) {
-                filters.push(propertyCode + '=' + selectedValues.join(','));
+            if (values.length > 0) {
+                filters.push(propertyCode + '=' + encodeURIComponent(values.join(',')));
             } else {
                 filters.push(propertyCode + '=all');
             }
         });
 
-//        var searchElement = document.getElementById('search');
-//        var searchQuery = searchElement ? searchElement.value.trim() : '';
+//        let searchElement = document.getElementById('search');
+//        let searchQuery = searchElement ? searchElement.value.trim() : '';
 //        if (searchQuery) {
 //            filters.push('search=' + encodeURIComponent(searchQuery));
 //        } else {
@@ -490,6 +486,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 //        }
 
         let urlParams = new URLSearchParams(window.location.search);
+
         <?php if (isset($_GET['SECTION_ID'])): ?>
             urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
         <?php endif; ?>
