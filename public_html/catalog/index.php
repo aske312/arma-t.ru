@@ -198,7 +198,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
                         <div class="dropdown">
                             <button class="dropdown-toggle" onclick="toggleDropdown('filterPN')">
-                                Диаметр DN
+                                Давление PN
                                 <span id="filterPN-counter" class="counter"></span>
                                 <span id="filterPN-arrow" class="arrow">▼</span>
                             </button>
@@ -220,7 +220,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <?php elseif ($propertyCode == 'EL_CONNTYPE'): ?>
                         <div class="dropdown">
                             <button class="dropdown-toggle" onclick="toggleDropdown('filterCT')">
-                                Диаметр DN
+                                Тип присоединения
                                 <span id="filterCT-counter" class="counter"></span>
                                 <span id="filterCT-arrow" class="arrow">▼</span>
                             </button>
@@ -242,7 +242,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <?php elseif ($propertyCode == 'EL_DRIVETYPE'): ?>
                         <div class="dropdown">
                             <button class="dropdown-toggle" onclick="toggleDropdown('filterDT')">
-                                Диаметр DN
+                                Тип привода
                                 <span id="filterDT-counter" class="counter"></span>
                                 <span id="filterDT-arrow" class="arrow">▼</span>
                             </button>
@@ -264,7 +264,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <?php elseif ($propertyCode == 'EL_BODY_MATERIAL'): ?>
                         <div class="dropdown">
                             <button class="dropdown-toggle" onclick="toggleDropdown('filterBM')">
-                                Диаметр DN
+                                Материал корпуса
                                 <span id="filterDT-counter" class="counter"></span>
                                 <span id="filterDT-arrow" class="arrow">▼</span>
                             </button>
@@ -286,7 +286,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <?php elseif ($propertyCode == 'EL_FIGTABLE'): ?>
                         <div class="dropdown">
                             <button class="dropdown-toggle" onclick="toggleDropdown('filterFT')">
-                                Диаметр DN
+                                Таблица фигур
                                 <span id="filterFT-counter" class="counter"></span>
                                 <span id="filterFT-arrow" class="arrow">▼</span>
                             </button>
