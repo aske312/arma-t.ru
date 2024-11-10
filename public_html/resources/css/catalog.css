@@ -135,7 +135,7 @@ pre { /* DEBUG */
     padding-left: 10px;
 }
 
-/* Стили для фильтров */
+/* Стили для кнопки "Фильтры" */
 .filter-title {
     cursor: pointer;
     user-select: none;
@@ -154,10 +154,12 @@ pre { /* DEBUG */
 }
 
 #filters-container {
+    display: none; /* Скрываем фильтры по умолчанию */
     transition: all 0.3s ease;
 }
 
 #filters-arrow {
+    margin-left: 10px;
     transition: transform 0.3s ease;
 }
 
@@ -166,7 +168,7 @@ pre { /* DEBUG */
 }
 
 #filters-arrow.up {
-    transform: rotate(180deg); /* Поворот стрелочки вверх */
+    transform: rotate(180deg); /* Стрелочка вверх */
 }
 
 #filters-arrow.down {
