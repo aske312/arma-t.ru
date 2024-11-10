@@ -247,11 +247,11 @@ pre { /* DEBUG */
     padding: 10px;
     z-index: 1;
 }
-/*
+
 .show {
     display: block;
 }
-*/
+
 .dropdown-options {
     max-height: 200px;
     overflow-y: auto;
@@ -268,7 +268,7 @@ pre { /* DEBUG */
 .dropdown-item {
     margin-bottom: 5px;
 }
-
+/*
 #applyFilterButton {
     width: 100%;
     padding: 8px;
@@ -277,7 +277,7 @@ pre { /* DEBUG */
     border: none;
     cursor: pointer;
     text-align: center;
-}
+} */
 
 /* Стиль для крестика при наведении *//*
 .dropdown-toggle:hover .clear-filter {
@@ -290,7 +290,8 @@ pre { /* DEBUG */
 .clear-filter {
     display: none;
 }
-
+*/
+/*
 #applyButton {
     width: 100%;
     padding: 10px;
@@ -299,8 +300,8 @@ pre { /* DEBUG */
     border: none;
     cursor: pointer;
     margin-top: 10px;
-}
-*/
+}*/
+
 /* Стили для чекбокса выбора всех товаров */
 .select-all {
     margin-bottom: 20px;
