@@ -17,7 +17,7 @@ pre { /* DEBUG */
     padding: 20px;
     text-align: left;
     margin-bottom: 20px;
-    width: 1300px; /* Максимальная ширина контейнера */
+    width: 1180px; /* Максимальная ширина контейнера */
     margin: 0 auto; /* Центрирование контейнера */
     height: 100%; /* Высота контейнера */
 }
