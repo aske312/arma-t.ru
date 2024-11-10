@@ -396,13 +396,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     }
 
-    // Функция для того, чтобы показывать или скрывать кнопку "Показать" для каждого фильтра
+    // Функция для того, чтобы показывать или скрывать кнопку "Показать" на уровне всех фильтров
     function toggleShowApplyButton() {
-        // Перебираем все фильтры
-        const allFilters = document.querySelectorAll(`.filter`);  // все контейнеры фильтров
+        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
         allFilters.forEach(filter => {
-            const checkboxes = filter.querySelectorAll(`input[type="checkbox"]`);  // все чекбоксы внутри фильтра
-            const applyButton = filter.querySelector(`.apply-button`);  // кнопка "Показать" внутри фильтра
+            const checkboxes = filter.querySelectorAll('input[type="checkbox"]');  // все чекбоксы внутри фильтра
+            const applyButton = filter.querySelector('.apply-button');  // кнопка "Показать" внутри фильтра
 
             const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
             // Показываем или скрываем кнопку для текущего фильтра
@@ -423,7 +422,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         // Обновляем счетчик
         counter.innerText = selectedCount > 0 ? selectedCount : '';
 
-        // Показываем/скрываем кнопку "Показать" для данного фильтра
+        // Показываем/скрываем кнопку "Показать"
         if (applyButton) {
             applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
@@ -432,9 +431,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         if (clearFilter) {
             clearFilter.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
-
-        // Проверяем, нужно ли показывать кнопку "Показать" на уровне всех фильтров
-        toggleShowApplyButton();
     }
 
     // Функция для применения фильтра
@@ -442,28 +438,23 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         let filters = [];
         let filterValues = {};
 
-        // Проходим по всем фильтрам и собираем значения
-        const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-        allCheckboxes.forEach(checkbox => {
-            const propertyCode = checkbox.name.replace('[]', ''); // Извлекаем propertyCode
-            if (checkbox.checked) {
-                if (!filterValues[propertyCode]) {
-                    filterValues[propertyCode] = [];
-                }
-                filterValues[propertyCode].push(checkbox.value);
-            } else {
-                if (!filterValues[propertyCode]) {
-                    filterValues[propertyCode] = ['all']; // Если ничего не выбрано, передаем 'all'
-                }
-            }
-        });
+        const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]`);
+        const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
-        // Строим URL с параметрами фильтрации
-        const urlParams = new URLSearchParams(window.location.search);
-        for (const [key, values] of Object.entries(filterValues)) {
-            urlParams.set(key, values.join(','));
+        if (selectedValues.length > 0) {
+            filterValues[propertyCode] = selectedValues;
+            filters.push(propertyCode + '=' + encodeURIComponent(selectedValues.join(',')));
+        } else {
+            filterValues[propertyCode] = 'all';
+            filters.push(propertyCode + '=all');
         }
 
+        // Перезагружаем страницу с новыми параметрами
+        const urlParams = new URLSearchParams(window.location.search);
+        filters.forEach(function (filter) {
+            const [key, value] = filter.split('=');
+            urlParams.set(key, value);
+        });
         window.location.search = urlParams.toString();
     }
 
