@@ -165,6 +165,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Заголовок для фильтров (кнопка) -->
         <button class="filter-title" onclick="toggleFilters()">
             Фильтры  <span id="filters-arrow">▼</span>
+            <button class="clear-filters-button" onclick="clearFilters()" style="display: none;">Очистить фильтры</button>
         </button>
 
         <!-- Фильтры -->
@@ -542,6 +543,39 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
         checkboxes.forEach(checkbox => checkbox.checked = false);
         updateCounter(dropdownId); // Обновляем отображение кнопки и счетчика
+    }
+
+    // *** Очистка фильтров *** //
+
+    // Функция для проверки, есть ли фильтры в URL
+    function isFilterApplied() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterKeys = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_BODY_MATERIAL', 'EL_FIGTABLE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2'];
+        return filterKeys.some(key => urlParams.has(key) && urlParams.get(key) !== 'all');
+    }
+
+    // Функция для отображения/скрытия кнопки "Очистить фильтры"
+    function toggleClearButton() {
+        const clearButton = document.querySelector('.clear-filters-button');
+        if (isFilterApplied()) {
+            clearButton.style.display = 'inline-block';  // Показываем кнопку
+        } else {
+            clearButton.style.display = 'none';  // Скрываем кнопку
+        }
+    }
+
+    // Функция для очистки фильтров
+    function clearFilters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterKeys = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_BODY_MATERIAL', 'EL_FIGTABLE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2'];
+
+        // Удаляем все фильтры из URL
+        filterKeys.forEach(key => {
+            urlParams.delete(key);
+        });
+
+        // Перезагружаем страницу без фильтров
+        window.location.search = urlParams.toString();
     }
 
     // *** ЛОГИКА КОРЗИНЫ *** //

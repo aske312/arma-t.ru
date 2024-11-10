@@ -369,6 +369,23 @@ pre { /* DEBUG */
     background-color: #0056b3;
 }
 
+/* Стили для кнопки "Очистить фильтры" */
+.clear-filters-button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #f44336;  /* Красный цвет */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    display: none;  /* Скрыта по умолчанию */
+    transition: all 0.3s;
+}
+
+.clear-filters-button:hover {
+    background-color: #d32f2f;  /* Темный красный при наведении */
+}
+
 /* Стили для чекбокса выбора всех товаров */
 .select-all {
     margin-bottom: 20px;
