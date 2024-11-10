@@ -556,7 +556,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     // Функция для отображения/скрытия кнопки "Очистить фильтры"
     function toggleClearButton() {
-        const clearButton = document.querySelector('.clear-filters-button');
+        const clearButton = document.querySelector(`.clear-filters-button`);
         if (isFilterApplied()) {
             clearButton.style.display = 'inline-block';  // Показываем кнопку
         } else {
