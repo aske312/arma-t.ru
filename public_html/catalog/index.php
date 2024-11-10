@@ -375,16 +375,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         }
     }
 
-    // Если вы хотите, чтобы стрелка также поворачивалась плавно, используйте класс 'open' и классы для стрелок.
-    function toggleFilters() {
-        const filtersContainer = document.getElementById('filters-container');
-        const arrow = document.getElementById('filters-arrow');
-
-        filtersContainer.classList.toggle('open');
-        arrow.classList.toggle('up');
-        arrow.classList.toggle('down');
-    }
-
     // Функция для открытия/закрытия выпадающего списка
     function toggleDropdown(id) {
         const dropdownContent = document.getElementById(id);
