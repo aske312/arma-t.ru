@@ -219,7 +219,7 @@ pre { /* DEBUG */
     cursor: pointer;
     background: none;
     border: none;
-    font-size: 14px;
+    font-size: 12px;
     color: #000;
 }
 
@@ -242,7 +242,7 @@ pre { /* DEBUG */
     display: none;
     position: absolute;
     background-color: #fff;
-    min-width: 200px;
+    min-width: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 10px;
     z-index: 1;
