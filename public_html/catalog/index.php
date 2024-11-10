@@ -169,8 +169,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <div class="catalog-filters">
             <?php foreach ($filterValues as $propertyCode => $values): ?>
                 <?php if (empty($values)) continue; ?> <!-- Если значений нет, пропускаем этот фильтр -->
-                <div class="filter">
 
+                <div class="filter">
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
                             <label class="filter-label">Диаметр DN:</label>
@@ -188,22 +188,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     </div>
                                     <button id="applyButton" onclick="applyFilter()" style="display: none;">Показать</button>
                                 </div>
-                            </div>
-                        </div>
-
-                    <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
-                        <!-- Фильтр для давления PN -->
-                        <div class="filter-item">
-                            <label class="filter-label">Давление PN:</label>
-                            <div class="filter-content">
-                                <?php foreach ($values as $value): ?>
-                                    <label>
-                                        <input type="checkbox" name="<?= $propertyCode ?>[]" value="<?= $value ?>"
-                                            onchange="applyFilter()"
-                                            <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'checked' : ''; ?>>
-                                        <?= $value ?> кгс/см²
-                                    </label>
-                                <?php endforeach; ?>
                             </div>
                         </div>
                     <?php endif; ?>
