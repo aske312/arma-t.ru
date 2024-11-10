@@ -243,6 +243,8 @@ pre { /* DEBUG */
     display: flex;
     flex-direction: column;
     gap: 5px;
+    max-height: 320px;        /* Ограничиваем высоту списка, показываем 10 элементов */
+    overflow-y: auto;         /* Добавляем прокрутку по вертикали */
 }
 
 .dropdown-item {
@@ -253,6 +255,9 @@ pre { /* DEBUG */
     padding: 5px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    text-overflow: ellipsis;  /* Обрезка текста с многоточием */
+    white-space: nowrap;      /* Запрещаем перенос строк */
+    overflow: hidden;         /* Скрываем текст, выходящий за пределы */
 }
 
 .dropdown-item:hover {
@@ -301,8 +306,8 @@ pre { /* DEBUG */
 
 /* Стиль для контейнера фильтров с прокруткой */
 .dropdown-options {
-    max-height: 200px;
-    overflow-y: auto;
+    max-height: 320px;        /* Ограничение по высоте */
+    overflow-y: auto;         /* Прокрутка по вертикали */
 }
 
 /* Класс для скрытия элементов */
