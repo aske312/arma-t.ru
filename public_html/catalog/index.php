@@ -171,9 +171,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <?php if (empty($values)) continue; ?> <!-- Если значений нет, пропускаем этот фильтр -->
 
                 <div class="filter">
+
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
-                            <!-- <label class="filter-label">Диаметр DN:</label> -->
                             <div class="dropdown">
                                 <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">
                                     Диаметр DN
@@ -195,101 +195,118 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
-
-                    <!-- Фильтр для диаметра -->
-                    <!--
-                    <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
-
-                        <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Диаметр DN:</label>
-                            <div class="filter-content">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
-                                    <?php foreach ($values as $value): ?>
-                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                            <?= $value ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <span class="unit">мм</span>
-                            </div>
-                        </div>
 
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
-                        <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Давление PN:</label>
-                            <div class="filter-content">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" onclick="toggleDropdown('filterPN')">
+                                Диаметр DN
+                                <span id="filterPN-counter" class="counter"></span>
+                                <span id="filterPN-arrow" class="arrow">▼</span>
+                            </button>
+                            <div id="filterPN" class="dropdown-content">
+                                <div class="dropdown-items">
                                     <?php foreach ($values as $value): ?>
-                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                            <?= $value ?>
-                                        </option>
+                                        <label class="dropdown-item">
+                                            <input type="checkbox" name="EL_PN_PRESSURE_KGF_CM2[]" value="<?= $value ?>"
+                                                   onchange="updateCounter('filterPN')"
+                                                   <?= (isset($_GET['EL_PN_PRESSURE_KGF_CM2']) && in_array($value, (array)$_GET['EL_PN_PRESSURE_KGF_CM2'])) ? 'checked' : ''; ?>>
+                                            <?= $value ?> кгс/см²
+                                        </label>
                                     <?php endforeach; ?>
-                                </select>
-                                <span class="unit">кгс/см²</span>
+                                </div>
+                                <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
                             </div>
                         </div>
-                    <?php elseif ($propertyCode == 'EL_CONNTYPE'): ?>
-                        <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Тип присоединения:</label>
-                            <div class="filter-content">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
-                                    <?php foreach ($values as $value): ?>
-                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                            <?= $value ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                    <?php elseif ($propertyCode == 'EL_DRIVETYPE'): ?>
-                        <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Тип привода:</label>
-                            <div class="filter-content">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
-                                    <?php foreach ($values as $value): ?>
-                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                            <?= $value ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                    <?php elseif ($propertyCode == 'EL_BODY_MATERIAL'): ?>
-                        <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Материал корпуса:</label>
-                            <div class="filter-content">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
-                                    <?php foreach ($values as $value): ?>
-                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                            <?= $value ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                    <?php elseif ($propertyCode == 'EL_FIGTABLE'): ?>
-                        <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Таблица фигур:</label>
-                            <div class="filter-content">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
-                                    <?php foreach ($values as $value): ?>
-                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                            <?= $value ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    -->
 
+                    <?php elseif ($propertyCode == 'EL_CONNTYPE'): ?>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" onclick="toggleDropdown('filterCT')">
+                                Диаметр DN
+                                <span id="filterCT-counter" class="counter"></span>
+                                <span id="filterCT-arrow" class="arrow">▼</span>
+                            </button>
+                            <div id="filterCT" class="dropdown-content">
+                                <div class="dropdown-items">
+                                    <?php foreach ($values as $value): ?>
+                                        <label class="dropdown-item">
+                                            <input type="checkbox" name="EL_CONNTYPE[]" value="<?= $value ?>"
+                                                   onchange="updateCounter('filterCT')"
+                                                   <?= (isset($_GET['EL_CONNTYPE']) && in_array($value, (array)$_GET['EL_CONNTYPE'])) ? 'checked' : ''; ?>>
+                                            <?= $value ?>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                                <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
+                            </div>
+                        </div>
+
+                    <?php elseif ($propertyCode == 'EL_DRIVETYPE'): ?>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" onclick="toggleDropdown('filterDT')">
+                                Диаметр DN
+                                <span id="filterDT-counter" class="counter"></span>
+                                <span id="filterDT-arrow" class="arrow">▼</span>
+                            </button>
+                            <div id="filterDT" class="dropdown-content">
+                                <div class="dropdown-items">
+                                    <?php foreach ($values as $value): ?>
+                                        <label class="dropdown-item">
+                                            <input type="checkbox" name="EL_DRIVETYPE[]" value="<?= $value ?>"
+                                                   onchange="updateCounter('filterDT')"
+                                                   <?= (isset($_GET['EL_DRIVETYPE']) && in_array($value, (array)$_GET['EL_DRIVETYPE'])) ? 'checked' : ''; ?>>
+                                            <?= $value ?>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                                <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
+                            </div>
+                        </div>
+
+                    <?php elseif ($propertyCode == 'EL_BODY_MATERIAL'): ?>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" onclick="toggleDropdown('filterBM')">
+                                Диаметр DN
+                                <span id="filterDT-counter" class="counter"></span>
+                                <span id="filterDT-arrow" class="arrow">▼</span>
+                            </button>
+                            <div id="filterBM" class="dropdown-content">
+                                <div class="dropdown-items">
+                                    <?php foreach ($values as $value): ?>
+                                        <label class="dropdown-item">
+                                            <input type="checkbox" name="EL_BODY_MATERIAL[]" value="<?= $value ?>"
+                                                   onchange="updateCounter('filterBM')"
+                                                   <?= (isset($_GET['EL_BODY_MATERIAL']) && in_array($value, (array)$_GET['EL_BODY_MATERIAL'])) ? 'checked' : ''; ?>>
+                                            <?= $value ?>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                                <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
+                            </div>
+                        </div>
+
+                    <?php elseif ($propertyCode == 'EL_FIGTABLE'): ?>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" onclick="toggleDropdown('filterFT')">
+                                Диаметр DN
+                                <span id="filterFT-counter" class="counter"></span>
+                                <span id="filterFT-arrow" class="arrow">▼</span>
+                            </button>
+                            <div id="filterFT" class="dropdown-content">
+                                <div class="dropdown-items">
+                                    <?php foreach ($values as $value): ?>
+                                        <label class="dropdown-item">
+                                            <input type="checkbox" name="EL_FIGTABLE[]" value="<?= $value ?>"
+                                                   onchange="updateCounter('filterFT')"
+                                                   <?= (isset($_GET['EL_FIGTABLE']) && in_array($value, (array)$_GET['EL_FIGTABLE'])) ? 'checked' : ''; ?>>
+                                            <?= $value ?>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                                <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
+                            </div>
+                        </div>
+
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
