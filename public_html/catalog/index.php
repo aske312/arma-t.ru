@@ -396,13 +396,20 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     }
 
-    // Функция для того, чтобы показывать или скрывать кнопку "Показать" на уровне всех фильтров
+    // Функция для того, чтобы показывать или скрывать кнопку "Показать" для каждого фильтра
     function toggleShowApplyButton() {
-        const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-        const applyButton = document.querySelector(`.apply-button`); // Допустим, у вас есть кнопка на уровне всех фильтров
+        // Перебираем все фильтры
+        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
+        allFilters.forEach(filter => {
+            const checkboxes = filter.querySelectorAll('input[type="checkbox"]');  // все чекбоксы внутри фильтра
+            const applyButton = filter.querySelector('.apply-button');  // кнопка "Показать" внутри фильтра
 
-        const selectedCount = Array.from(allCheckboxes).filter(checkbox => checkbox.checked).length;
-        applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
+            const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+            // Показываем или скрываем кнопку для текущего фильтра
+            if (applyButton) {
+                applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
+            }
+        });
     }
 
     // Функция для обновления счетчика и отображения кнопки "Показать"
@@ -416,7 +423,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         // Обновляем счетчик
         counter.innerText = selectedCount > 0 ? selectedCount : '';
 
-        // Показываем/скрываем кнопку "Показать"
+        // Показываем/скрываем кнопку "Показать" для данного фильтра
         if (applyButton) {
             applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
@@ -426,7 +433,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             clearFilter.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
 
-        // Проверка, чтобы кнопка "Показать" была активной на уровне всех фильтров
+        // Проверяем, нужно ли показывать кнопку "Показать" на уровне всех фильтров
         toggleShowApplyButton();
     }
 
