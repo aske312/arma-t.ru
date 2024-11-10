@@ -165,7 +165,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Заголовок для фильтров (кнопка) -->
         <button class="filter-title" onclick="toggleFilters()">
             Фильтры  <span id="filters-arrow">▼</span>
-            <button class="clear-filters-button" onclick="clearFilters()" style="display: none;">Очистить фильтры</button>
         </button>
 
         <!-- Фильтры -->
@@ -209,6 +208,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     </div>
                 </div>
             <?php endforeach; ?>
+            <button class="clear-filters-button" onclick="clearFilters()" style="display: none;">Очистить фильтры</button>
             <button class="apply-button-all" onclick="applyFilters()" disabled>Применить фильтры</button>
         </div>
 
