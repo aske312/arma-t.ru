@@ -391,10 +391,17 @@ while ($section = $sections->Fetch()) {
     function currentSlide(n) {
         slideIndex = n;
         showSlides();
+        resetAutoSlide(); // Сброс интервала при переходе вручную
     }
 
-    // Автоматический переход между слайдами
-    setInterval(showSlides, 5000); // Переход каждые 5 секунд
+    // Функция для сброса и установки нового таймера
+    function resetAutoSlide() {
+        clearInterval(slideInterval); // Останавливаем предыдущий интервал
+        slideInterval = setInterval(showSlides, 5000); // Устанавливаем новый интервал для автоматического переключения слайдов
+    }
+
+    // Автоматическое переключение слайдов
+    slideInterval = setInterval(showSlides, 5000); // Переход каждые 5 секунд
 </script>
 
 <?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
