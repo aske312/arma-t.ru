@@ -175,10 +175,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Диаметр DN:</label>
                             <div class="filter-content">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>[]" multiple size="5">
                                     <?php foreach ($values as $value): ?>
-                                        <option value="<?= $value ?>" <?= (isset($_GET[$propertyCode]) && $_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                        <option value="<?= $value ?>" <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'selected' : ''; ?>>
                                             <?= $value ?> мм
                                         </option>
                                     <?php endforeach; ?>
@@ -186,6 +185,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <span class="unit">мм</span>
                             </div>
                         </div>
+                        <div class="filter-button">
+                            <button type="button" onclick="applyFilter()">Показать</button>
+                        </div>
+
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
                         <!-- Фильтр для давления PN -->
                         <div class="filter-item">
