@@ -397,30 +397,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         }
     }
 
-    // Функция для показа/скрытия кнопки "Показать"
-    function toggleApplyButton(dropdownId) {
-        updateCounter(dropdownId); // Обновляем счетчик и отображение кнопки
-    }
-
-    // Пример использования функции applyFilter из исходного кода
-    function applyFilter() {
+    // Функция для применения фильтра
+    function applyFilter(propertyCode) {
         let filters = [];
         let filterValues = {};
 
-        const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
+        const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]`);
+        const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
-        allFilterProperties.forEach(function(propertyCode) {
-            const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]`);
-            const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-
-            if (selectedValues.length > 0) {
-                filterValues[propertyCode] = selectedValues;
-                filters.push(propertyCode + '=' + encodeURIComponent(selectedValues.join(',')));
-            } else {
-                filterValues[propertyCode] = 'all';
-                filters.push(propertyCode + '=all');
-            }
-        });
+        if (selectedValues.length > 0) {
+            filterValues[propertyCode] = selectedValues;
+            filters.push(propertyCode + '=' + encodeURIComponent(selectedValues.join(',')));
+        } else {
+            filterValues[propertyCode] = 'all';
+            filters.push(propertyCode + '=all');
+        }
 
         // Перезагружаем страницу с новыми параметрами
         const urlParams = new URLSearchParams(window.location.search);
