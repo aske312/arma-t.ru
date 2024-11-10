@@ -162,29 +162,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     <div class="catalog-content">
 
-        <!-- Заголовок для фильтров (кнопка) -->
-        <button class="filter-title" onclick="toggleFilters()">
-            Фильтры  <span id="filters-arrow">▼</span>
-        </button>
+        <!-- Заголовок для фильтров -->
+        <h2 class="filter-title">Фильтры</h2>
 
         <!-- Фильтры -->
         <div class="catalog-filters">
-            <?php
-//            $filters = [
-//                'EL_CONNTYPE' => ['label' => 'Тип присоединения', 'suffix' => ''],
-//                'EL_DRIVETYPE' => ['label' => 'Тип привода', 'suffix' => ''],
-//                'EL_BODY_MATERIAL' => ['label' => 'Материал корпуса', 'suffix' => ''],
-//                'EL_FIGTABLE' => ['label' => 'Таблица фигур', 'suffix' => ''],
-//                'EL_DN_DIAMETER_MM' => ['label' => 'Диаметр DN', 'suffix' => 'мм'],
-//                'EL_PN_PRESSURE_KGF_CM2' => ['label' => 'Давление PN', 'suffix' => 'кгс/см²']
-//            ];
-//
-//            foreach ($filters as $propertyCode => $filter):
-//                if (empty($filterValues[$propertyCode])) continue;
-            ?>
-
-            <!-- OLD VERSION -->
-
             <?php foreach ($filterValues as $propertyCode => $values): ?>
                 <?php if (empty($values)) continue; ?> <!-- Если значений нет, пропускаем этот фильтр -->
                 <div class="filter">
@@ -283,52 +265,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
-
-<!--
-                <div class="filter">
-                    <div class="filter-item">
-                        <div class="dropdown">
-                            <button class="dropdown-toggle" onclick="toggleDropdown('filter<?= $propertyCode ?>')">
-                                <?= $filter['label'] ?>
-                                <span id="filter<?= $propertyCode ?>-counter" class="counter"></span>
-                                <span id="filter<?= $propertyCode ?>-arrow" class="arrow">▼</span>
-                            </button>
-                            <span class="clear-filter hidden" onclick="clearFilter('filter<?= $propertyCode ?>')">✖</span>
-                            <div id="filter<?= $propertyCode ?>" class="dropdown-content">
-                                <div class="dropdown-items">
-                                    <?php foreach ($filterValues[$propertyCode] as $value): ?>
-                                        <label class="dropdown-item">
-                                            <input type="checkbox" name="<?= $propertyCode ?>[]" value="<?= $value ?>"
-                                                   onchange="updateCounter('filter<?= $propertyCode ?>')"
-                                                   <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'checked' : ''; ?>>
-                                            <?= $value ?> <?= $filter['suffix'] ?>
-                                        </label>
-                                    <?php endforeach; ?>
-                                </div>
-                                <!-- <button class="apply-button" id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter('<?= $propertyCode ?>')" style="display: none;">Показать</button> -->
-                            </div>
-                        </div>
-                    </div>
-                -->
-                </div>
-            <?php
-                // endforeach;
-            ?>
-            <!-- <button class="clear-filters-button" onclick="clearFilters()" style="display: none;">Очистить фильтры</button> -->
-            <!-- <button class="apply-button-all" onclick="applyFilters()" disabled>Применить фильтры</button> -->
         </div>
 
         <!-- Анимация загрузки -->
         <div id="loader" class="loader" style="display: none;">Загрузка...</div>
 
         <!-- Чекбокс для выбора всех товаров -->
-
-        <!--
         <div class="select-all">
             <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
             <label for="select-all">Выбрать все</label>
             <button class="catalog-add-all">В корзину</button>
-        </div> -->
+        </div>
 
         <!-- Список элементов каталога -->
         <div class="catalog-items">
@@ -347,7 +294,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <!-- Ссылка на детальную страницу -->
                             <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                                 <div class="catalog-item-header">
-                                    <!-- <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>"> -->
+                                    <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
 
                                     <?php
                                     if ($arFields['PICTURE']) {
@@ -467,8 +414,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     });
 
-    // *** FILTERS *** //
+    // *** SEARCH *** //
 
+    // *** FILTERS *** //
     function applyFilter() {
         let filters = [];
         let filterValues = {};
@@ -520,199 +468,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         // Перезагружаем страницу с новыми параметрами
         window.location.search = urlParams.toString();
     }
-
-//    function toggleFilters() {
-////        const filtersContainer = document.getElementById('filters-container');
-//        const arrow = document.getElementById('filters-arrow');
-//        const filtersContainer = document.querySelector(`.catalog-filters`);
-//
-//        // Переключаем состояние отображения фильтров
-//        if (filtersContainer.style.display === 'none' || filtersContainer.style.display === '') {
-//            filtersContainer.style.display = 'flex';
-//            arrow.classList.remove('down');
-//            arrow.classList.add('up');
-//        } else {
-//            filtersContainer.style.display = 'none';
-//            arrow.classList.remove('up');
-//            arrow.classList.add('down');
-//        }
-//    }
-//
-//    // Функция для открытия/закрытия выпадающего списка
-//    function toggleDropdown(id) {
-//        const dropdownContent = document.getElementById(id);
-//        const arrow = document.getElementById(id + '-arrow');
-//
-//        dropdownContent.classList.toggle('show');
-//        arrow.classList.toggle('up');
-//
-//        // Закрытие списка при клике вне элемента
-//        document.addEventListener('click', function handleClickOutside(event) {
-//            if (!dropdownContent.contains(event.target) && !event.target.matches('.dropdown-toggle')) {
-//                dropdownContent.classList.remove('show');
-//                arrow.classList.remove('up');
-//                document.removeEventListener('click', handleClickOutside);
-//            }
-//        });
-//    }
-//
-//    // Функция для того, чтобы показывать или скрывать кнопку "Показать" на уровне всех фильтров
-//    function toggleShowApplyButton() {
-//        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
-//        const applyButtonForAllFilters = document.querySelector('.apply-button-all'); // кнопка для всех фильтров
-//
-//        const selectedCount = Array.from(allFilters).some(filter => {
-//            const checkboxes = filter.querySelectorAll('input[type="checkbox"]');
-//            return Array.from(checkboxes).some(checkbox => checkbox.checked);
-//        });
-//
-//        // Показываем или скрываем кнопку для всех фильтров
-//        if (applyButtonForAllFilters) {
-//            applyButtonForAllFilters.style.display = selectedCount ? 'inline' : 'none';
-//        }
-//    }
-//
-//    // Функция для обновления состояния кнопки "Применить фильтры"
-//    function updateApplyButtonState() {
-//        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
-//        const applyButton = document.querySelector('.apply-button-all');  // кнопка для всех фильтров
-//
-//        // Проверяем, есть ли хотя бы один выбранный фильтр
-//        const selectedCount = Array.from(allFilters).some(filter => {
-//            const checkboxes = filter.querySelectorAll('input[type="checkbox"]');
-//            return Array.from(checkboxes).some(checkbox => checkbox.checked);
-//        });
-//
-//        // Если фильтр выбран, делаем кнопку активной
-//        if (applyButton) {
-//            if (selectedCount) {
-//                applyButton.classList.add('active');  // Добавляем активный класс
-//                applyButton.disabled = false;  // Разрешаем клик
-//            } else {
-//                applyButton.classList.remove('active');  // Убираем активный класс
-//                applyButton.disabled = true;  // Блокируем клик
-//            }
-//        }
-//    }
-//
-//    // Функция для применения всех фильтров
-//    function applyFilters() {
-//        let filters = [];
-//        let filterValues = {};
-//
-//        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
-//
-//        // Проходим по каждому фильтру
-//        allFilters.forEach(filter => {
-//            const propertyCode = filter.querySelector('input[type="checkbox"]').name.replace('[]', '');
-//            const checkboxes = filter.querySelectorAll(`input[name="${propertyCode}[]"]`);
-//            const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-//
-//            // Если значения выбраны, добавляем их в фильтры, иначе передаем 'all'
-//            filterValues[propertyCode] = selectedValues.length > 0 ? selectedValues : ['all'];
-//            filters.push(propertyCode + '=' + encodeURIComponent(filterValues[propertyCode].join(',')));
-//        });
-//
-//        // Перезагружаем страницу с новыми параметрами
-//        const urlParams = new URLSearchParams(window.location.search);
-//        filters.forEach(function (filter) {
-//            const [key, value] = filter.split('=');
-//            urlParams.set(key, value);
-//        });
-//        window.location.search = urlParams.toString();
-//    }
-//
-//    // Функция для обновления счетчика и отображения кнопки "Показать"
-//    function updateCounter(dropdownId) {
-//        const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
-//        const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-//        const counter = document.getElementById(`${dropdownId}-counter`);
-//        const applyButton = document.querySelector(`#${dropdownId} .apply-button`);
-//        const clearFilter = document.querySelector(`#${dropdownId} .clear-filter`);
-//
-//        // Обновляем счетчик
-//        counter.innerText = selectedCount > 0 ? selectedCount : '';
-//
-//        // Показываем/скрываем кнопку "Показать"
-//        if (applyButton) {
-//            applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
-//        }
-//
-//        // Показываем/скрываем крестик для очистки
-//        if (clearFilter) {
-//            clearFilter.style.display = selectedCount > 0 ? 'inline' : 'none';
-//        }
-//
-//        // Обновляем состояние кнопки "Применить фильтры"
-//        updateApplyButtonState();
-//    }
-//
-//    // Функция для применения всех фильтров
-//    function applyFilter(propertyCode) {
-//        let filters = [];
-//        let filterValues = {};
-//
-//        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
-//
-//        // Проходим по каждому фильтру
-//        allFilters.forEach(filter => {
-//            const propertyCode = filter.querySelector('input[type="checkbox"]').name.replace('[]', '');
-//            const checkboxes = filter.querySelectorAll(`input[name="${propertyCode}[]"]`);
-//            const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-//
-//            // Если значения выбраны, добавляем их в фильтры, иначе передаем 'all'
-//            filterValues[propertyCode] = selectedValues.length > 0 ? selectedValues : ['all'];
-//            filters.push(propertyCode + '=' + encodeURIComponent(filterValues[propertyCode].join(',')));
-//        });
-//
-//        // Перезагружаем страницу с новыми параметрами
-//        const urlParams = new URLSearchParams(window.location.search);
-//        filters.forEach(function (filter) {
-//            const [key, value] = filter.split('=');
-//            urlParams.set(key, value);
-//        });
-//        window.location.search = urlParams.toString();
-//    }
-//
-//    // Очистка фильтра
-//    function clearFilter(dropdownId) {
-//        const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
-//        checkboxes.forEach(checkbox => checkbox.checked = false);
-//        updateCounter(dropdownId); // Обновляем отображение кнопки и счетчика
-//    }
-
-    // *** Очистка фильтров *** //
-
-//    // Функция для проверки, есть ли фильтры в URL
-//    function isFilterApplied() {
-//        const urlParams = new URLSearchParams(window.location.search);
-//        const filterKeys = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_BODY_MATERIAL', 'EL_FIGTABLE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2'];
-//        return filterKeys.some(key => urlParams.has(key) && urlParams.get(key) !== 'all');
-//    }
-//
-//    // Функция для отображения/скрытия кнопки "Очистить фильтры"
-//    function toggleClearButton() {
-//        const clearButton = document.querySelector(`.clear-filters-button`);
-//        if (isFilterApplied()) {
-//            clearButton.style.display = 'inline-block';  // Показываем кнопку
-//        } else {
-//            clearButton.style.display = 'none';  // Скрываем кнопку
-//        }
-//    }
-//
-//    // Функция для очистки фильтров
-//    function clearFilters() {
-//        const urlParams = new URLSearchParams(window.location.search);
-//        const filterKeys = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_BODY_MATERIAL', 'EL_FIGTABLE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2'];
-//
-//        // Удаляем все фильтры из URL
-//        filterKeys.forEach(key => {
-//            urlParams.delete(key);
-//        });
-//
-//        // Перезагружаем страницу без фильтров
-//        window.location.search = urlParams.toString();
-//    }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;
