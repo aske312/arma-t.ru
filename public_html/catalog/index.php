@@ -178,8 +178,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">
                                     Диаметр DN <span id="filterDN-counter"></span>
                                 </button>
-                                <div id="filterDN" class="dropdown-content">
-                                    <div>
+                                <div>
+                                    <div id="filterDN" class="dropdown-content">
                                         <?php foreach ($values as $value): ?>
                                             <label class="dropdown-item">
                                                 <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
