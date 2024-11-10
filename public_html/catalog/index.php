@@ -309,8 +309,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                         </div>
                     </div>
+                -->
                 </div>
-            -->
             <?php
                 // endforeach;
             ?>
