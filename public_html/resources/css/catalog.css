@@ -195,7 +195,7 @@ pre { /* DEBUG */
 
 /* Стилизация для выпадающего списка */
 .filter-content select {
-    width: 100%;
+    width: 110px;
     padding: 8px;
     font-size: 12px;
     border: 1px solid #ccc;
