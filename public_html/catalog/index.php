@@ -453,28 +453,40 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // *** SEARCH *** //
 
     // *** FILTERS *** //
+
+    // Открытие и закрытие выпадающего списка
+    function toggleDropdown(id) {
+        document.getElementById(id).classList.toggle("show");
+    }
+
+    // Функция для применения фильтров
     function applyFilter() {
-        const params = new URLSearchParams(window.location.search); // Загружаем текущие параметры URL
+        const params = new URLSearchParams(window.location.search);
 
-        // Обрабатываем каждый фильтр с multiple-select
-        document.querySelectorAll('.filter-item select[multiple]').forEach(select => {
-            const selectedValues = Array.from(select.selectedOptions).map(option => option.value);
-            const paramName = select.name.replace('[]', ''); // Убираем [] из имени для формирования параметра
+        // Получаем все выбранные фильтры
+        document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(checkbox => {
+            const paramName = checkbox.name.replace('[]', ''); // Имя параметра без '[]'
 
-            // Удаляем существующие параметры для этого фильтра
-            params.delete(paramName + '[]');
-
-            // Добавляем новые выбранные значения в параметры URL
-            selectedValues.forEach(value => {
-                if (value !== 'all') { // Пропускаем значение 'all' если выбрано
-                    params.append(paramName + '[]', value);
-                }
-            });
+            // Если чекбокс отмечен, добавляем его значение, иначе удаляем
+            if (checkbox.checked) {
+                params.append(paramName + '[]', checkbox.value);
+            } else {
+                params.delete(paramName + '[]');
+            }
         });
 
-        // Устанавливаем URL с новыми параметрами фильтра
+        // Обновляем URL с новыми параметрами фильтра
         window.location.search = params.toString();
     }
+
+    // Закрываем выпадающее меню, если пользователь кликнул вне его
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropdown-toggle')) {
+            document.querySelectorAll(".dropdown-content").forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+        }
+    };
 
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;
