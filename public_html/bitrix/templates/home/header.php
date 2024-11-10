@@ -55,7 +55,7 @@ if ($element = $res->Fetch()) {
     <header id="siteHeader" class="header">
         <div class="header-content">
             <div class="logo">
-                <a href="/"><img src="/resources/img/logo/resource_1.png" alt="My Logo"></a>
+                <a href="/"><img src="/resources/img/logo/resource_1.png" alt="ARMA-T.RU"></a>
             </div>
             <div class="nav-search">
                 <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
