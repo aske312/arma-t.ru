@@ -173,10 +173,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <div class="filter">
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
-                            <label class="filter-label">Диаметр DN:</label>
+                            <!-- <label class="filter-label">Диаметр DN:</label> -->
                             <div class="dropdown">
                                 <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">
-                                    Диаметр DN <span id="filterDN-counter">0</span>
+                                    Диаметр DN <span id="filterDN-counter"></span>
                                 </button>
                                 <div id="filterDN" class="dropdown-content">
                                     <div class="dropdown-items">
