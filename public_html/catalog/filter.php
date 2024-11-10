@@ -15,7 +15,6 @@ foreach ($filterProperties as $propertyCode) {
         if (is_array($_POST[$propertyCode])) {
             $elementFilter['PROPERTY_' . $propertyCode] = $_POST[$propertyCode];
         } else {
-            // Если передано одно значение, применяем его напрямую
             $elementFilter['PROPERTY_' . $propertyCode] = [$_POST[$propertyCode]];
         }
     }

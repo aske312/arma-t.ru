@@ -177,17 +177,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <div class="dropdown">
                                 <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">Выберите значения</button>
                                 <div id="filterDN" class="dropdown-content">
-                                    <?php foreach ($values as $value): ?>
-                                        <label>
-                                            <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
-                                                <?= (isset($_GET['EL_DN_DIAMETER_MM']) && in_array($value, (array)$_GET['EL_DN_DIAMETER_MM'])) ? 'checked' : ''; ?>>
-                                            <?= $value ?> мм
-                                        </label>
-                                    <?php endforeach; ?>
+                                    <div class="dropdown-options">
+                                        <?php foreach ($values as $value): ?>
+                                            <label>
+                                                <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
+                                                    <?= (isset($_GET['EL_DN_DIAMETER_MM']) && in_array($value, (array)$_GET['EL_DN_DIAMETER_MM'])) ? 'checked' : ''; ?>>
+                                                <?= $value ?> мм
+                                            </label>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <button id="applyButton" onclick="applyFilter()" style="display: none;">Показать</button>
                                 </div>
                             </div>
                         </div>
-                        <button onclick="applyFilter()">Показать</button>
 
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
                         <!-- Фильтр для давления PN -->
@@ -450,43 +452,59 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     });
 
-    // *** SEARCH *** //
-
     // *** FILTERS *** //
 
-    // Открытие и закрытие выпадающего списка
-    function toggleDropdown(id) {
-        document.getElementById(id).classList.toggle("show");
+    // Функция для открытия/закрытия выпадающего списка
+    function toggleDropdown(dropdownId) {
+        const dropdownContent = document.getElementById(dropdownId);
+        dropdownContent.style.display = dropdownContent.style.display === 'none' || dropdownContent.style.display === '' ? 'block' : 'none';
+    }
+
+    // Функция для отображения кнопки "Показать" при выборе фильтров
+    function updateSelection() {
+        const checkboxes = document.querySelectorAll('#filterDN input[type="checkbox"]');
+        const applyButton = document.getElementById('applyButton');
+        const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+
+        if (selectedCount > 0) {
+            applyButton.style.display = 'block';
+            applyButton.textContent = `Показать: ${selectedCount}`;
+        } else {
+            applyButton.style.display = 'none';
+        }
     }
 
     // Функция для применения фильтров
     function applyFilter() {
-        const params = new URLSearchParams(window.location.search);
+        let filters = [];
+        const filterValues = {};
 
-        // Получаем все выбранные фильтры
-        document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(checkbox => {
-            const paramName = checkbox.name.replace('[]', ''); // Имя параметра без '[]'
+        const checkboxes = document.querySelectorAll('#filterDN input[type="checkbox"]');
+        const selectedValues = Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
 
-            // Если чекбокс отмечен, добавляем его значение, иначе удаляем
-            if (checkbox.checked) {
-                params.append(paramName + '[]', checkbox.value);
+        filterValues['EL_DN_DIAMETER_MM'] = selectedValues.length ? selectedValues : 'all';
+
+        // Создаем параметры URL для фильтров
+        let urlParams = new URLSearchParams(window.location.search);
+
+        // Добавляем текущий SECTION_ID
+        <?php if (isset($_GET['SECTION_ID'])): ?>
+            urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
+        <?php endif; ?>
+
+        for (const [key, value] of Object.entries(filterValues)) {
+            if (Array.isArray(value)) {
+                value.forEach((v, i) => urlParams.append(`${key}[${i}]`, v));
             } else {
-                params.delete(paramName + '[]');
+                urlParams.set(key, value);
             }
-        });
-
-        // Обновляем URL с новыми параметрами фильтра
-        window.location.search = params.toString();
-    }
-
-    // Закрываем выпадающее меню, если пользователь кликнул вне его
-    window.onclick = function(event) {
-        if (!event.target.matches('.dropdown-toggle')) {
-            document.querySelectorAll(".dropdown-content").forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
         }
-    };
+
+        // Перезагружаем страницу с новыми параметрами
+        window.location.search = urlParams.toString();
+    }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;

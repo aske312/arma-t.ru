@@ -208,7 +208,6 @@ pre { /* DEBUG */
     }
 }
 
-/* Основной стиль для кнопки и выпадающего списка */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -216,34 +215,39 @@ pre { /* DEBUG */
 
 .dropdown-toggle {
     padding: 10px;
-    font-size: 14px;
     cursor: pointer;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    top: 100%;
+    left: 0;
+    background-color: white;
     border: 1px solid #ddd;
-    max-height: 150px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    max-height: 250px;
     overflow-y: auto;
     width: 200px;
+    z-index: 10;
+}
+
+.dropdown-options {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#applyButton {
+    width: 100%;
     padding: 10px;
-    z-index: 1;
-}
-
-.dropdown-content label {
-    display: block;
-    padding: 5px;
-}
-
-.dropdown-content input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-/* Показать содержимое выпадающего списка при открытии */
-.show {
-    display: block;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 /* Стили для чекбокса выбора всех товаров */
