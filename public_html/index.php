@@ -387,9 +387,7 @@ while ($section = $sections->Fetch()) {
         dots[slideIndex - 1].className += ' active';
     }
 
-    function startAutoSlide() {
-        slideInterval = setInterval(showSlides, 5000); // Интервал переключения - 5 секунд
-    }
+    slideInterval = setInterval(showSlides, 5000); // Интервал переключения - 5 секунд
 
     function stopAutoSlide() {
         clearInterval(slideInterval);
@@ -397,10 +395,8 @@ while ($section = $sections->Fetch()) {
 
     // Функция для перехода к определенному слайду при клике на точку
     function currentSlide(n) {
-        stopAutoSlide();
         slideIndex = n;
         showSlides();
-        startAutoSlide();
     }
 
     window.onload = function() {
