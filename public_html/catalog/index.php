@@ -168,7 +168,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         </button>
 
         <!-- Фильтры -->
-        <div class="catalog-filters" id="filters-container" style="display: none;">
+        <div class="catalog-filters">
             <?php
             $filters = [
                 'EL_CONNTYPE' => ['label' => 'Тип присоединения', 'suffix' => ''],
