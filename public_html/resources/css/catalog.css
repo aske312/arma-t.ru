@@ -228,7 +228,8 @@ pre { /* DEBUG */
 }
 
 .dropdown-content {
-    display: none;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 100%;
     left: 0;
@@ -245,6 +246,10 @@ pre { /* DEBUG */
 .dropdown-options {
     max-height: 200px;
     overflow-y: auto;
+}
+
+.dropdown-item {
+    margin-bottom: 5px;
 }
 
 #applyButton {

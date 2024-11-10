@@ -173,23 +173,24 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <div class="filter">
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
-                            <label class="filter-label"></label>
+                            <label class="filter-label">Диаметр DN:</label>
                             <div class="dropdown">
-                                <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">Диаметр DN:</button>
+                                <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">
+                                    Диаметр DN <span id="filterDN-counter">0</span>
+                                </button>
                                 <div id="filterDN" class="dropdown-content">
-                                    <div class="dropdown-options">
-                                        <?php foreach ($values as $value): ?>
-                                            <label>
-                                                <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
-                                                    <?= (isset($_GET['EL_DN_DIAMETER_MM']) && in_array($value, (array)$_GET['EL_DN_DIAMETER_MM'])) ? 'checked' : ''; ?>>
-                                                <?= $value ?> мм
-                                            </label>
-                                        <?php endforeach; ?>
-                                    </div>
-                                    <button id="applyButton" onclick="applyFilter()" style="display: none;">Показать</button>
+                                    <?php foreach ($values as $value): ?>
+                                        <label class="dropdown-item">
+                                            <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
+                                                   onchange="updateCounter('filterDN')"
+                                                   <?= (isset($_GET['EL_DN_DIAMETER_MM']) && in_array($value, (array)$_GET['EL_DN_DIAMETER_MM'])) ? 'checked' : ''; ?>>
+                                            <?= $value ?> мм
+                                        </label>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
+                        <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
                     <?php endif; ?>
 
                     <!-- Фильтр для диаметра -->
@@ -439,9 +440,18 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // *** FILTERS *** //
 
     // Функция для открытия/закрытия выпадающего списка
-    function toggleDropdown(dropdownId) {
-        const dropdownContent = document.getElementById(dropdownId);
-        dropdownContent.style.display = dropdownContent.style.display === 'none' || dropdownContent.style.display === '' ? 'block' : 'none';
+    function toggleDropdown(id) {
+        document.getElementById(id).classList.toggle('show');
+    }
+
+    function updateCounter(dropdownId) {
+        const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
+        const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+        document.getElementById(`${dropdownId}-counter`).innerText = selectedCount;
+
+        // Отображаем кнопку "Показать" только если выбраны элементы
+        const applyFilterButton = document.getElementById('applyFilterButton');
+        applyFilterButton.style.display = selectedCount > 0 ? 'block' : 'none';
     }
 
     // Функция для отображения кнопки "Показать" при выборе фильтров
@@ -458,35 +468,44 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         }
     }
 
-    // Функция для применения фильтров
-    function applyFilter() {
-        let filters = [];
-        const filterValues = {};
-
-        const checkboxes = document.querySelectorAll('#filterDN input[type="checkbox"]');
-        const selectedValues = Array.from(checkboxes)
-            .filter(checkbox => checkbox.checked)
-            .map(checkbox => checkbox.value);
-
-        filterValues['EL_DN_DIAMETER_MM'] = selectedValues.length ? selectedValues : 'all';
-
-        // Создаем параметры URL для фильтров
-        let urlParams = new URLSearchParams(window.location.search);
-
-        // Добавляем текущий SECTION_ID
-        <?php if (isset($_GET['SECTION_ID'])): ?>
-            urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
-        <?php endif; ?>
-
-        for (const [key, value] of Object.entries(filterValues)) {
-            if (Array.isArray(value)) {
-                value.forEach((v, i) => urlParams.append(`${key}[${i}]`, v));
-            } else {
-                urlParams.set(key, value);
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropdown-toggle')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
             }
         }
+    }
+
+    // Пример использования функции applyFilter из исходного кода
+    function applyFilter() {
+        let filters = [];
+        let filterValues = {};
+
+        const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
+
+        allFilterProperties.forEach(function(propertyCode) {
+            const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]`);
+            const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+            if (selectedValues.length > 0) {
+                filterValues[propertyCode] = selectedValues;
+                filters.push(propertyCode + '=' + encodeURIComponent(selectedValues.join(',')));
+            } else {
+                filterValues[propertyCode] = 'all';
+                filters.push(propertyCode + '=all');
+            }
+        });
 
         // Перезагружаем страницу с новыми параметрами
+        const urlParams = new URLSearchParams(window.location.search);
+        filters.forEach(function (filter) {
+            const [key, value] = filter.split('=');
+            urlParams.set(key, value);
+        });
         window.location.search = urlParams.toString();
     }
 
