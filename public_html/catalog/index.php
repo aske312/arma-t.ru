@@ -214,11 +214,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <div id="loader" class="loader" style="display: none;">Загрузка...</div>
 
         <!-- Чекбокс для выбора всех товаров -->
+
+        <!--
         <div class="select-all">
             <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
             <label for="select-all">Выбрать все</label>
             <button class="catalog-add-all">В корзину</button>
-        </div>
+        </div> -->
 
         <!-- Список элементов каталога -->
         <div class="catalog-items">
@@ -237,7 +239,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <!-- Ссылка на детальную страницу -->
                             <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
                                 <div class="catalog-item-header">
-                                    <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>">
+                                    <!-- <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>"> -->
 
                                     <?php
                                     if ($arFields['PICTURE']) {
