@@ -188,7 +188,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <span id="filter<?= $propertyCode ?>-counter" class="counter"></span>
                                 <span id="filter<?= $propertyCode ?>-arrow" class="arrow">▼</span>
                             </button>
-
+                            <span class="clear-filter" onclick="clearFilter('filter<?= $propertyCode ?>')" style="display: none;">✖</span>
                             <div id="filter<?= $propertyCode ?>" class="dropdown-content">
                                 <div class="dropdown-items">
                                     <?php foreach ($filterValues[$propertyCode] as $value): ?>
@@ -200,8 +200,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         </label>
                                     <?php endforeach; ?>
                                 </div>
-                                <button class="applyFilterButton" id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter('<?= $propertyCode ?>')" style="display: none;">Показать</button>
-                                <span class="clear-filter" onclick="clearFilter('filter<?= $propertyCode ?>')" style="display: none;">✖</span>
+                                <button class="apply-button" id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter('<?= $propertyCode ?>')" style="display: none;">Показать</button>
                             </div>
                         </div>
                     </div>
@@ -382,6 +381,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
         const counter = document.getElementById(`${dropdownId}-counter`);
         const applyFilterButton = document.getElementById('applyFilterButton-' + dropdownId);
+        const applyButton = document.querySelector(`#${dropdownId} .apply-button`);
         const clearFilter = document.querySelector(`#${dropdownId} .clear-filter`);
 
         // Обновляем счетчик
@@ -390,6 +390,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         // Показываем/скрываем кнопку "Показать"
         if (applyFilterButton) {
             applyFilterButton.style.display = selectedCount > 0 ? 'inline' : 'none';
+        }
+
+        // Показываем/скрываем крестик для очистки
+        if (applyButton) {
+            applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
 
         // Показываем/скрываем крестик для очистки
