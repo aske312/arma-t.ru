@@ -454,40 +454,26 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     // *** FILTERS *** //
     function applyFilter() {
-        let filters = [];
-        const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
+        const params = new URLSearchParams(window.location.search); // Загружаем текущие параметры URL
 
-        allFilterProperties.forEach(function(propertyCode) {
-            const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]:checked`);
-            let values = Array.from(checkboxes).map(cb => cb.value);
+        // Обрабатываем каждый фильтр с multiple-select
+        document.querySelectorAll('.filter-item select[multiple]').forEach(select => {
+            const selectedValues = Array.from(select.selectedOptions).map(option => option.value);
+            const paramName = select.name.replace('[]', ''); // Убираем [] из имени для формирования параметра
 
-            if (values.length > 0) {
-                filters.push(propertyCode + '=' + encodeURIComponent(values.join(',')));
-            } else {
-                filters.push(propertyCode + '=all');
-            }
+            // Удаляем существующие параметры для этого фильтра
+            params.delete(paramName + '[]');
+
+            // Добавляем новые выбранные значения в параметры URL
+            selectedValues.forEach(value => {
+                if (value !== 'all') { // Пропускаем значение 'all' если выбрано
+                    params.append(paramName + '[]', value);
+                }
+            });
         });
 
-//        let searchElement = document.getElementById('search');
-//        let searchQuery = searchElement ? searchElement.value.trim() : '';
-//        if (searchQuery) {
-//            filters.push('search=' + encodeURIComponent(searchQuery));
-//        } else {
-//            filters.push('search=');
-//        }
-
-        let urlParams = new URLSearchParams(window.location.search);
-
-        <?php if (isset($_GET['SECTION_ID'])): ?>
-            urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
-        <?php endif; ?>
-
-        filters.forEach(function (filter) {
-            let [key, value] = filter.split('=');
-            urlParams.set(key, value);
-        });
-
-        window.location.search = urlParams.toString();
+        // Устанавливаем URL с новыми параметрами фильтра
+        window.location.search = params.toString();
     }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
