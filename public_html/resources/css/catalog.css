@@ -151,11 +151,23 @@ pre { /* DEBUG */
     align-items: center;
 }
 
+#filters-arrow {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+#filters-arrow.up {
+    transform: rotate(180deg); /* Стрелочка вверх */
+}
+
+#filters-arrow.down {
+    transform: rotate(0deg); /* Стрелочка вниз */
+}
+
 .catalog-filters {
     display: none;
     flex-wrap: wrap;
     gap: 10px;
-    border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
 
