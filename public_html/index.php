@@ -387,28 +387,14 @@ while ($section = $sections->Fetch()) {
         dots[slideIndex - 1].className += ' active';
     }
 
-    slideInterval = setInterval(showSlides, 5000); // Интервал переключения - 5 секунд
-
-    function stopAutoSlide() {
-        clearInterval(slideInterval);
-    }
-
     // Функция для перехода к определенному слайду при клике на точку
     function currentSlide(n) {
         slideIndex = n;
         showSlides();
     }
 
-    window.onload = function() {
-        showSlides();
-        startAutoSlide();
-    };
-
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].addEventListener('click', function() {
-            currentSlide(i + 1);
-        });
-    }
+    // Автоматический переход между слайдами
+    setInterval(showSlides, 5000); // Переход каждые 5 секунд
 </script>
 
 <?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
