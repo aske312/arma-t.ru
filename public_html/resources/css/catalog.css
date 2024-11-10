@@ -270,7 +270,7 @@ pre { /* DEBUG */
 }
 
 .dropdown-item:hover {
-    background-color: #2654A2;  /* Легкое изменение фона при наведении на элемент */
+    background-color: #f0f8ff;  /* Легкое изменение фона при наведении на элемент */
 }
 
 .apply-button {
@@ -359,14 +359,14 @@ pre { /* DEBUG */
 
 /* Стили для активной кнопки */
 .apply-button-all.active {
-    background-color: #4CAF50;  /* Зеленый или другой активный цвет */
+    background-color: #2654A2;  /* Зеленый или другой активный цвет */
     cursor: pointer;
     opacity: 1;
 }
 
 /* Стили для кнопки при наведении */
 .apply-button-all:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 /* Стили для чекбокса выбора всех товаров */
