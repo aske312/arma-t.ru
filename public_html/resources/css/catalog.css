@@ -162,12 +162,18 @@ pre { /* DEBUG */
 /* Каждый фильтр в отдельности */
 .filter-item {
     background-color: #f5f7fa;
-    padding: 5px;
+    padding: 10px;
     color: #333;
-    font-size: 12px;
+    font-size: 14px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-item:hover {
+    background-color: #e9eff5;  /* Легкое изменение фона при наведении */
 }
 
 /* Метки фильтров сверху */
