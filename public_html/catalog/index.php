@@ -179,14 +179,16 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     Диаметр DN <span id="filterDN-counter"></span>
                                 </button>
                                 <div id="filterDN" class="dropdown-content">
-                                    <?php foreach ($values as $value): ?>
-                                        <label class="dropdown-item">
-                                            <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
-                                                   onchange="updateCounter('filterDN')"
-                                                   <?= (isset($_GET['EL_DN_DIAMETER_MM']) && in_array($value, (array)$_GET['EL_DN_DIAMETER_MM'])) ? 'checked' : ''; ?>>
-                                            <?= $value ?> мм
-                                        </label>
-                                    <?php endforeach; ?>
+                                    <div>
+                                        <?php foreach ($values as $value): ?>
+                                            <label class="dropdown-item">
+                                                <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
+                                                       onchange="updateCounter('filterDN')"
+                                                       <?= (isset($_GET['EL_DN_DIAMETER_MM']) && in_array($value, (array)$_GET['EL_DN_DIAMETER_MM'])) ? 'checked' : ''; ?>>
+                                                <?= $value ?> мм
+                                            </label>
+                                        <?php endforeach; ?>
+                                    </div>
                                 <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
                                 </div>
                             </div>
