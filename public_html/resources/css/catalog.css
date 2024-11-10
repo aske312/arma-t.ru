@@ -147,6 +147,10 @@ pre { /* DEBUG */
     padding-bottom: 10px;
     text-align: left;
     padding-left: 15px;
+    background: none;
+    border: none;
+    display: inline-flex;
+    align-items: center;
 }
 
 #filters-container {
