@@ -155,7 +155,7 @@ pre { /* DEBUG */
 
 #filters-container {
     display: none; /* Скрываем фильтры по умолчанию */
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease;*/
 }
 
 #filters-arrow {
@@ -164,7 +164,7 @@ pre { /* DEBUG */
 }
 
 #filters-container.open {
-    display: block;
+    /* display: block;*/
 }
 
 #filters-arrow.up {
