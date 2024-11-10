@@ -232,8 +232,8 @@ pre { /* DEBUG */
     border-radius: 8px;
     padding: 10px;
     margin-top: 5px;
-    width: 100%;
-    max-height: 320px;         /* Ограничение по высоте выпадающего списка */
+    width: auto;
+    max-height: 300px;         /* Ограничение по высоте выпадающего списка */
     overflow-y: auto;          /* Прокрутка по вертикали */
 }
 
