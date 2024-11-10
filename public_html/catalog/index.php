@@ -170,7 +170,40 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <?php foreach ($filterValues as $propertyCode => $values): ?>
                 <?php if (empty($values)) continue; ?> <!-- Если значений нет, пропускаем этот фильтр -->
                 <div class="filter">
+
+                    <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
+                        <div class="filter-item">
+                            <label class="filter-label">Диаметр DN:</label>
+                            <div class="filter-content">
+                                <?php foreach ($values as $value): ?>
+                                    <label>
+                                        <input type="checkbox" name="<?= $propertyCode ?>[]" value="<?= $value ?>"
+                                            onchange="applyFilter()"
+                                            <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'checked' : ''; ?>>
+                                        <?= $value ?> мм
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
+                        <!-- Фильтр для давления PN -->
+                        <div class="filter-item">
+                            <label class="filter-label">Давление PN:</label>
+                            <div class="filter-content">
+                                <?php foreach ($values as $value): ?>
+                                    <label>
+                                        <input type="checkbox" name="<?= $propertyCode ?>[]" value="<?= $value ?>"
+                                            onchange="applyFilter()"
+                                            <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'checked' : ''; ?>>
+                                        <?= $value ?> кгс/см²
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <!-- Фильтр для диаметра -->
+                    <!--
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Диаметр DN:</label>
@@ -263,6 +296,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                         </div>
                     <?php endif; ?>
+                    -->
+
                 </div>
             <?php endforeach; ?>
         </div>
@@ -419,43 +454,29 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // *** FILTERS *** //
     function applyFilter() {
         let filters = [];
-        let filterValues = {};
-
         const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
 
         allFilterProperties.forEach(function(propertyCode) {
-            var element = document.getElementById(propertyCode);
-            if (!element) {
-                filterValues[propertyCode] = 'all';
-                filters.push(propertyCode + '=all');
-                return;
-            }
+            const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]:checked`);
+            let values = Array.from(checkboxes).map(cb => cb.value);
 
-            var filterValue = element.value;
-            if (!filterValue) {
-                filterValue = 'all';
-            }
-            filterValues[propertyCode] = filterValue;
-
-            if (filterValue !== 'all') {
-                filters.push(propertyCode + '=' + filterValue);
+            if (values.length > 0) {
+                filters.push(propertyCode + '=' + encodeURIComponent(values.join(',')));
             } else {
                 filters.push(propertyCode + '=all');
             }
         });
 
-        var searchElement = document.getElementById('search');
-        var searchQuery = searchElement ? searchElement.value.trim() : '';
-        if (searchQuery) {
-            // Кодируем строку поиска с помощью encodeURIComponent, чтобы корректно передавать русские символы
-            filters.push('search=' + encodeURIComponent(searchQuery));
-        } else {
-            filters.push('search=');
-        }
+//        let searchElement = document.getElementById('search');
+//        let searchQuery = searchElement ? searchElement.value.trim() : '';
+//        if (searchQuery) {
+//            filters.push('search=' + encodeURIComponent(searchQuery));
+//        } else {
+//            filters.push('search=');
+//        }
 
         let urlParams = new URLSearchParams(window.location.search);
 
-        // Добавляем текущий SECTION_ID
         <?php if (isset($_GET['SECTION_ID'])): ?>
             urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
         <?php endif; ?>
@@ -465,7 +486,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             urlParams.set(key, value);
         });
 
-        // Перезагружаем страницу с новыми параметрами
         window.location.search = urlParams.toString();
     }
 
