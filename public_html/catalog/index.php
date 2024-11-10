@@ -173,21 +173,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
-                            <label for="<?= $propertyCode ?>" class="filter-label">Диаметр DN:</label>
-                            <div class="filter-content">
-                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>[]" multiple size="5">
+                            <label class="filter-label">Диаметр DN:</label>
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">Выберите значения</button>
+                                <div id="filterDN" class="dropdown-content">
                                     <?php foreach ($values as $value): ?>
-                                        <option value="<?= $value ?>" <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'selected' : ''; ?>>
+                                        <label>
+                                            <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
+                                                <?= (isset($_GET['EL_DN_DIAMETER_MM']) && in_array($value, (array)$_GET['EL_DN_DIAMETER_MM'])) ? 'checked' : ''; ?>>
                                             <?= $value ?> мм
-                                        </option>
+                                        </label>
                                     <?php endforeach; ?>
-                                </select>
-                                <span class="unit">мм</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="filter-button">
-                            <button type="button" onclick="applyFilter()">Показать</button>
-                        </div>
+                        <button onclick="applyFilter()">Показать</button>
 
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
                         <!-- Фильтр для давления PN -->
