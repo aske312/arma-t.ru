@@ -203,7 +203,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <?php endforeach; ?>
                                 </div>
                                 <button class="apply-button" id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter('<?= $propertyCode ?>')" style="display: none;">Показать</button>
-                                <button id="applyFiltersButton" style="display: none;" onclick="applyFilter()">Показать</button>
                             </div>
                         </div>
                     </div>
@@ -400,7 +399,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // Функция для того, чтобы показывать или скрывать кнопку "Показать" на уровне всех фильтров
     function toggleShowApplyButton() {
         const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-        const applyButton = document.querySelector('#applyFiltersButton'); // Допустим, у вас есть кнопка на уровне всех фильтров
+        const applyButton = document.querySelector(`.apply-button`); // Допустим, у вас есть кнопка на уровне всех фильтров
 
         const selectedCount = Array.from(allCheckboxes).filter(checkbox => checkbox.checked).length;
         applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
