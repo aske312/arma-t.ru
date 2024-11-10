@@ -228,19 +228,13 @@ pre { /* DEBUG */
 }
 
 .dropdown-content {
-    display: flex;
-    flex-direction: column;
+    display: none;
     position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 10px;
-    max-height: 250px;
-    overflow-y: auto;
-    width: 200px;
-    z-index: 10;
+    z-index: 1;
 }
 
 .dropdown-options {
@@ -250,6 +244,28 @@ pre { /* DEBUG */
 
 .dropdown-item {
     margin-bottom: 5px;
+}
+
+.show {
+    display: block;
+}
+
+.dropdown-items {
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+#applyFilterButton {
+    width: 100%;
+    padding: 8px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-align: center;
 }
 
 #applyButton {

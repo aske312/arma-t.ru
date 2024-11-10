@@ -176,10 +176,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <label class="filter-label">Диаметр DN:</label>
                             <div class="dropdown">
                                 <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">
-                                    Диаметр DN <span id="filterDN-counter"></span>
+                                    Диаметр DN <span id="filterDN-counter">0</span>
                                 </button>
-                                <div>
-                                    <div id="filterDN" class="dropdown-content">
+                                <div id="filterDN" class="dropdown-content">
+                                    <div class="dropdown-items">
                                         <?php foreach ($values as $value): ?>
                                             <label class="dropdown-item">
                                                 <input type="checkbox" name="EL_DN_DIAMETER_MM[]" value="<?= $value ?>"
@@ -189,7 +189,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                             </label>
                                         <?php endforeach; ?>
                                     </div>
-                                <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
+                                    <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
                                 </div>
                             </div>
                         </div>
@@ -454,20 +454,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         // Отображаем кнопку "Показать" только если выбраны элементы
         const applyFilterButton = document.getElementById('applyFilterButton');
         applyFilterButton.style.display = selectedCount > 0 ? 'block' : 'none';
-    }
-
-    // Функция для отображения кнопки "Показать" при выборе фильтров
-    function updateSelection() {
-        const checkboxes = document.querySelectorAll('#filterDN input[type="checkbox"]');
-        const applyButton = document.getElementById('applyButton');
-        const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-
-        if (selectedCount > 0) {
-            applyButton.style.display = 'block';
-            applyButton.textContent = `Показать: ${selectedCount}`;
-        } else {
-            applyButton.style.display = 'none';
-        }
     }
 
     window.onclick = function(event) {
