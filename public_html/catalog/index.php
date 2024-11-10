@@ -380,7 +380,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
         const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
         const counter = document.getElementById(`${dropdownId}-counter`);
-        const applyFilterButton = document.getElementById('applyFilterButton-' + dropdownId);
         const applyButton = document.querySelector(`#${dropdownId} .apply-button`);
         const clearFilter = document.querySelector(`#${dropdownId} .clear-filter`);
 
@@ -388,11 +387,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         counter.innerText = selectedCount > 0 ? selectedCount : '';
 
         // Показываем/скрываем кнопку "Показать"
-        if (applyFilterButton) {
-            applyFilterButton.style.display = selectedCount > 0 ? 'inline' : 'none';
-        }
-
-        // Показываем/скрываем крестик для очистки
         if (applyButton) {
             applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
