@@ -233,6 +233,8 @@ pre { /* DEBUG */
     padding: 10px;
     margin-top: 5px;
     width: 100%;
+    max-height: 320px;         /* Ограничение по высоте выпадающего списка */
+    overflow-y: auto;          /* Прокрутка по вертикали */
 }
 
 .show {
@@ -243,8 +245,8 @@ pre { /* DEBUG */
     display: flex;
     flex-direction: column;
     gap: 5px;
-    max-height: 320px;        /* Ограничиваем высоту списка, показываем 10 элементов */
-    overflow-y: auto;         /* Добавляем прокрутку по вертикали */
+    max-height: 300px;         /* Ограничиваем высоту списка, показываем 10 элементов */
+    overflow-y: auto;          /* Добавляем прокрутку по вертикали, если элементов больше */
 }
 
 .dropdown-item {
