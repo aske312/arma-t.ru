@@ -165,6 +165,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Заголовок для фильтров -->
         <h2 class="filter-title" onclick="toggleFilters()">Фильтры <span id="filters-arrow">▼</span></h2>
 
+        <!-- Заголовок для фильтров -->
+        <!-- Заголовок для фильтров (кнопка) -->
+        <button class="filter-title" onclick="toggleFilters()">
+            Фильтры <span id="filters-arrow">▼</span>
+        </button>
+
         <!-- Фильтры -->
         <div class="catalog-filters" id="filters-container" style="display: none;">
             <?php
