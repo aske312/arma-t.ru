@@ -162,8 +162,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     <div class="catalog-content">
 
-        <!-- Заголовок для фильтров -->
-        <h2 class="filter-title">Фильтры</h2>
+        <!-- Заголовок для фильтров (кнопка) -->
+        <button class="filter-title" onclick="toggleFilters()">
+            Фильтры  <span id="filters-arrow">▼</span>
+        </button>
 
         <!-- Фильтры -->
         <div class="catalog-filters">
@@ -417,6 +419,23 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // *** SEARCH *** //
 
     // *** FILTERS *** //
+
+    function toggleFilters() {
+        const arrow = document.getElementById('filters-arrow');
+        const filtersContainer = document.querySelector(`.catalog-filters`);
+
+        // Переключаем состояние отображения фильтров
+        if (filtersContainer.style.display === 'none' || filtersContainer.style.display === '') {
+            filtersContainer.style.display = 'flex';
+            arrow.classList.remove('down');
+            arrow.classList.add('up');
+        } else {
+            filtersContainer.style.display = 'none';
+            arrow.classList.remove('up');
+            arrow.classList.add('down');
+        }
+    }
+
     function applyFilter() {
         let filters = [];
         let filterValues = {};
