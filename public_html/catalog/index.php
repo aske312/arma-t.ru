@@ -362,15 +362,15 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     function toggleFilters() {
 //        const filtersContainer = document.getElementById('filters-container');
         const arrow = document.getElementById('filters-arrow');
-        const filContainer = document.querySelector(`.catalog-filters`);
+        const filtersContainer = document.querySelector(`.catalog-filters`);
 
         // Переключаем состояние отображения фильтров
-        if (filContainer.style.display === 'none' || filContainer.style.display === '') {
-            filContainer.style.display = 'flex';
+        if (filtersContainer.style.display === 'none' || filtersContainer.style.display === '') {
+            filtersContainer.style.display = 'flex';
             arrow.classList.remove('down');
             arrow.classList.add('up');
         } else {
-            filContainer.style.display = 'none';
+            filtersContainer.style.display = 'none';
             arrow.classList.remove('up');
             arrow.classList.add('down');
         }
