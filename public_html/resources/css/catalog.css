@@ -219,7 +219,7 @@ pre { /* DEBUG */
     cursor: pointer;
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 14px;
     color: #000;
 }
 
@@ -258,7 +258,7 @@ pre { /* DEBUG */
 }
 
 .dropdown-items {
-    max-height: 200px;
+    max-height: auto;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
