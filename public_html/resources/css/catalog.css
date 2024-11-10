@@ -271,12 +271,13 @@ pre { /* DEBUG */
 }
 
 .dropdown-items {
-/*    max-height: auto;
-    overflow-y: auto; */
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s;
 }
 
 .dropdown-item {
