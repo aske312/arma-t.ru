@@ -253,7 +253,7 @@ pre { /* DEBUG */
 }
 
 .dropdown-options {
-    max-height: 200px;
+    max-height: auto;
     overflow-y: auto;
 }
 
