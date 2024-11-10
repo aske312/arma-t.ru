@@ -357,39 +357,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     // *** FILTERS *** //
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Ограничение элементов в списке до 10
-        const dropdownItems = document.querySelectorAll('.dropdown-items');
-        dropdownItems.forEach(function (dropdown) {
-            const items = dropdown.querySelectorAll('.dropdown-item');
-            if (items.length > 10) {
-                // Скрыть все элементы после 10-го
-                for (let i = 10; i < items.length; i++) {
-                    items[i].style.display = 'none';
-                }
-            }
-        });
-
-        // Функция для раскрытия/сжатия выпадающего списка
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            const arrow = document.getElementById(id + '-arrow');
-            const filterItem = document.querySelector(`#filter${id} .filter-item`);
-
-            // Переключение видимости списка
-            dropdown.classList.toggle('show');
-            // Поворот стрелки
-            arrow.classList.toggle('up');
-
-            // Если фильтр открыт, добавляем класс .active
-            if (dropdown.classList.contains('show')) {
-                filterItem.classList.add('active');
-            } else {
-                filterItem.classList.remove('active');
-            }
-        }
-    });
-
     // Функция для открытия/закрытия выпадающего списка
     function toggleDropdown(id) {
         const dropdownContent = document.getElementById(id);
