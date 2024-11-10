@@ -157,24 +157,17 @@ pre { /* DEBUG */
 /* Общая стилизация для каждого фильтра */
 .filter {
     width: auto;
-    flex: 1 1 200px;  /* Сделаем фильтры более гибкими, чтобы они занимали больше места */
 }
 
 /* Каждый фильтр в отдельности */
 .filter-item {
     background-color: #f5f7fa;
-    padding: 10px;
+    padding: 5px;
     color: #333;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.filter-item:hover {
-    background-color: #e9eff5;  /* Легкое изменение фона при наведении */
 }
 
 /* Метки фильтров сверху */
@@ -201,11 +194,6 @@ pre { /* DEBUG */
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #fff;
-    transition: border-color 0.3s;
-}
-
-.filter-content select:focus {
-    border-color: #007bff;
 }
 
 /* Единицы измерения (мм, кгс/см²) */
@@ -218,10 +206,6 @@ pre { /* DEBUG */
 @media (max-width: 768px) {
     .catalog-filters {
         flex-direction: column;
-    }
-
-    .filter-item {
-        width: 100%;
     }
 }
 
@@ -238,15 +222,6 @@ pre { /* DEBUG */
     border: none;
     font-size: 14px;
     color: #000;
-    padding: 8px;
-    text-align: left;
-    width: 100%;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.dropdown-toggle:hover {
-    background-color: #f0f4f8;
 }
 
 .counter {
@@ -268,20 +243,14 @@ pre { /* DEBUG */
     display: none;
     position: absolute;
     background-color: #fff;
-    min-width: 200px;
-    max-height: 300px;  /* Ограничиваем высоту списка */
-    overflow-y: auto;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 10px;
-    border-radius: 5px;
     z-index: 1;
-    transition: opacity 0.3s ease;
-    opacity: 0;
 }
 
 .show {
     display: block;
-    opacity: 1;
 }
 
 .dropdown-options {
@@ -290,9 +259,11 @@ pre { /* DEBUG */
 }
 
 .dropdown-items {
+    max-height: auto;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    margin-bottom: 10px;
 }
 
 .dropdown-item {
@@ -302,18 +273,11 @@ pre { /* DEBUG */
 .apply-button {
     width: 100%;
     padding: 8px;
-    background-color: #007bff;
+    background-color: #000;
     color: #fff;
     border: none;
     cursor: pointer;
     text-align: center;
-    margin-top: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.apply-button:hover {
-    background-color: #0056b3;
 }
 
 /* Стиль для крестика при наведении */
@@ -322,15 +286,9 @@ pre { /* DEBUG */
     margin-left: 5px;
     color: red;
     cursor: pointer;
-    font-size: 16px;
-    transition: color 0.3s;
 }
 
-.clear-filter:hover {
-    color: #d90000;
-}
-
-.clear-filter.hidden {
+.clear-filter {
     display: none;
 }
 
