@@ -211,6 +211,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <button class="clear-filters-button" onclick="clearFilters()" style="display: none;">Очистить фильтры</button>
             <button class="apply-button-all" onclick="applyFilters()" disabled>Применить фильтры</button>
         </div>
+<button class="clear-filters-button" onclick="clearFilters()" style="display: none;">Очистить фильтры</button>
 
         <!-- Анимация загрузки -->
         <div id="loader" class="loader" style="display: none;">Загрузка...</div>
