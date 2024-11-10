@@ -135,10 +135,8 @@ pre { /* DEBUG */
     padding-left: 10px;
 }
 
-/* Стили для кнопки "Фильтры" */
+/* Стили для фильтров */
 .filter-title {
-    cursor: pointer;
-    user-select: none;
     font-size: 24px;
     font-weight: bold;
     color: #333;
@@ -147,34 +145,7 @@ pre { /* DEBUG */
     padding-bottom: 10px;
     text-align: left;
     padding-left: 15px;
-    background: none;
-    border: none;
-    display: inline-flex;
-    align-items: center;
 }
-
-#filters-container {
-    /* display: none; /* Скрываем фильтры по умолчанию */
-    /* transition: all 0.3s ease;*/
-}
-
-#filters-arrow {
-    margin-left: 10px;
-    transition: transform 0.3s ease;
-}
-
-#filters-container.open {
-    /* display: block;*/
-}
-
-#filters-arrow.up {
-    transform: rotate(180deg); /* Стрелочка вверх */
-}
-
-#filters-arrow.down {
-    transform: rotate(0deg); /* Стрелочка вниз */
-}
-
 .catalog-filters {
     display: flex;
     flex-wrap: wrap;
