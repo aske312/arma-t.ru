@@ -399,16 +399,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // Функция для того, чтобы показывать или скрывать кнопку "Показать" на уровне всех фильтров
     function toggleShowApplyButton() {
         const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
-        allFilters.forEach(filter => {
-            const checkboxes = filter.querySelectorAll('input[type="checkbox"]');  // все чекбоксы внутри фильтра
-            const applyButton = filter.querySelector('.apply-button');  // кнопка "Показать" внутри фильтра
+        const applyButtonForAllFilters = document.querySelector('.apply-button-all'); // кнопка для всех фильтров
 
-            const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-            // Показываем или скрываем кнопку для текущего фильтра
-            if (applyButton) {
-                applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
-            }
+        const selectedCount = Array.from(allFilters).some(filter => {
+            const checkboxes = filter.querySelectorAll('input[type="checkbox"]');
+            return Array.from(checkboxes).some(checkbox => checkbox.checked);
         });
+
+        // Показываем или скрываем кнопку для всех фильтров
+        if (applyButtonForAllFilters) {
+            applyButtonForAllFilters.style.display = selectedCount ? 'inline' : 'none';
+        }
     }
 
     // Функция для обновления счетчика и отображения кнопки "Показать"
@@ -433,21 +434,23 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         }
     }
 
-    // Функция для применения фильтра
+    // Функция для применения всех фильтров
     function applyFilter(propertyCode) {
         let filters = [];
         let filterValues = {};
 
-        const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]`);
-        const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
 
-        if (selectedValues.length > 0) {
-            filterValues[propertyCode] = selectedValues;
-            filters.push(propertyCode + '=' + encodeURIComponent(selectedValues.join(',')));
-        } else {
-            filterValues[propertyCode] = 'all';
-            filters.push(propertyCode + '=all');
-        }
+        // Проходим по каждому фильтру
+        allFilters.forEach(filter => {
+            const propertyCode = filter.querySelector('input[type="checkbox"]').name.replace('[]', '');
+            const checkboxes = filter.querySelectorAll(`input[name="${propertyCode}[]"]`);
+            const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+            // Если значения выбраны, добавляем их в фильтры, иначе передаем 'all'
+            filterValues[propertyCode] = selectedValues.length > 0 ? selectedValues : ['all'];
+            filters.push(propertyCode + '=' + encodeURIComponent(filterValues[propertyCode].join(',')));
+        });
 
         // Перезагружаем страницу с новыми параметрами
         const urlParams = new URLSearchParams(window.location.search);
@@ -463,7 +466,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
         checkboxes.forEach(checkbox => checkbox.checked = false);
         updateCounter(dropdownId); // Обновляем отображение кнопки и счетчика
-        toggleShowApplyButton(); // Проверяем, нужно ли показывать кнопку "Показать"
     }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
