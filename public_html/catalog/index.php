@@ -195,13 +195,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <?php foreach ($filterValues[$propertyCode] as $value): ?>
                                         <label class="dropdown-item">
                                             <input type="checkbox" name="<?= $propertyCode ?>[]" value="<?= $value ?>"
-                                                   onchange="updateCounter('filter<?= $propertyCode ?>')"
+                                                   onchange="updateCounter('filter<?= $propertyCode ?>'); toggleApplyButton('filter<?= $propertyCode ?>')"
                                                    <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'checked' : ''; ?>>
                                             <?= $value ?> <?= $filter['suffix'] ?>
                                         </label>
                                     <?php endforeach; ?>
                                 </div>
-                                <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
+                                <button id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter()" style="display: none;">Показать</button>
+                                <span class="clear-filter" onclick="clearFilter('filter<?= $propertyCode ?>')" style="display: none;">✖</span>
                             </div>
                         </div>
                     </div>
@@ -376,18 +377,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     }
 
+    // Функция для обновления счетчика и показа кнопки "Показать"
     function updateCounter(dropdownId) {
         const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
         const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
         const counter = document.getElementById(`${dropdownId}-counter`);
-        const applyFilterButton = document.getElementById('applyFilterButton');
+        const applyFilterButton = document.getElementById('applyFilterButton-' + dropdownId);
 
-        // Отображаем счетчик только если выбран хотя бы один элемент
+        // Обновляем счетчик
         counter.innerText = selectedCount > 0 ? selectedCount : '';
+
+        // Показываем/скрываем кнопку "Показать"
         applyFilterButton.style.display = selectedCount > 0 ? 'block' : 'none';
 
-        // Показываем крестик для очистки, если выбраны элементы
-        const clearFilter = document.querySelector('.clear-filter');
+        // Показываем/скрываем крестик для очистки
+        const clearFilter = document.querySelector(`#${dropdownId} .clear-filter`);
         if (selectedCount > 0) {
             clearFilter.style.display = 'inline';
         } else {
@@ -395,17 +399,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         }
     }
 
-//    window.onclick = function(event) {
-//        if (!event.target.matches('.dropdown-toggle')) {
-//            var dropdowns = document.getElementsByClassName("dropdown-content");
-//            for (var i = 0; i < dropdowns.length; i++) {
-//                var openDropdown = dropdowns[i];
-//                if (openDropdown.classList.contains('show')) {
-//                    openDropdown.classList.remove('show');
-//                }
-//            }
-//        }
-//    }
+    // Функция для показа/скрытия кнопки "Показать"
+    function toggleApplyButton(dropdownId) {
+        updateCounter(dropdownId); // Обновляем счетчик и отображение кнопки
+    }
 
     // Пример использования функции applyFilter из исходного кода
     function applyFilter() {
@@ -440,9 +437,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     function clearFilter(dropdownId) {
         const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
         checkboxes.forEach(checkbox => checkbox.checked = false);
-        updateCounter(dropdownId);
+        updateCounter(dropdownId); // Обновляем отображение кнопки и счетчика
     }
-
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;
 
