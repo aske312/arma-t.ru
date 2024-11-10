@@ -202,7 +202,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         </label>
                                     <?php endforeach; ?>
                                 </div>
-                                <button class="apply-button" id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter('<?= $propertyCode ?>')" style="display: none;">Показать</button>
+                                <!-- <button class="apply-button" id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter('<?= $propertyCode ?>')" style="display: none;">Показать</button> -->
                             </div>
                         </div>
                     </div>
