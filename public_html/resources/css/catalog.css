@@ -269,8 +269,7 @@ pre { /* DEBUG */
     margin-bottom: 5px;
 }
 
-/*
-#applyFilterButton {
+.applyFilterButton {
     width: 100%;
     padding: 8px;
     background-color: #000;
@@ -278,7 +277,7 @@ pre { /* DEBUG */
     border: none;
     cursor: pointer;
     text-align: center;
-} */
+}
 
 /* Стиль для крестика при наведении */
 .dropdown-toggle:hover .clear-filter {
