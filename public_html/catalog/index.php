@@ -188,7 +188,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <span id="filter<?= $propertyCode ?>-counter" class="counter"></span>
                                 <span id="filter<?= $propertyCode ?>-arrow" class="arrow">▼</span>
                             </button>
-                            <span class="clear-filter" onclick="clearFilter('filter<?= $propertyCode ?>')" style="display: none;">✖</span>
+
                             <div id="filter<?= $propertyCode ?>" class="dropdown-content">
                                 <div class="dropdown-items">
                                     <?php foreach ($filterValues[$propertyCode] as $value): ?>
@@ -201,6 +201,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <?php endforeach; ?>
                                 </div>
                                 <button id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter('<?= $propertyCode ?>')" style="display: none;">Показать</button>
+                                <span class="clear-filter" onclick="clearFilter('filter<?= $propertyCode ?>')" style="display: none;">✖</span>
                             </div>
                         </div>
                     </div>
