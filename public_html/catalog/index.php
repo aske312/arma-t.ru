@@ -205,6 +205,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <!-- Фильтр для диаметра -->
                     <!--
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
+
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Диаметр DN:</label>
                             <div class="filter-content">
@@ -219,8 +220,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <span class="unit">мм</span>
                             </div>
                         </div>
+
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
-                        <!-- Фильтр для давления -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Давление PN:</label>
                             <div class="filter-content">
@@ -236,7 +237,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                         </div>
                     <?php elseif ($propertyCode == 'EL_CONNTYPE'): ?>
-                        <!-- Фильтр для типа соединения -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Тип присоединения:</label>
                             <div class="filter-content">
@@ -251,7 +251,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                         </div>
                     <?php elseif ($propertyCode == 'EL_DRIVETYPE'): ?>
-                        <!-- Фильтр для типа привода -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Тип привода:</label>
                             <div class="filter-content">
@@ -266,7 +265,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                         </div>
                     <?php elseif ($propertyCode == 'EL_BODY_MATERIAL'): ?>
-                        <!-- Фильтр для материала корпуса -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Материал корпуса:</label>
                             <div class="filter-content">
@@ -281,7 +279,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             </div>
                         </div>
                     <?php elseif ($propertyCode == 'EL_FIGTABLE'): ?>
-                        <!-- Фильтр для таблиц фигур -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Таблица фигур:</label>
                             <div class="filter-content">
