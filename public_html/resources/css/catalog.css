@@ -146,6 +146,27 @@ pre { /* DEBUG */
     text-align: left;
     padding-left: 15px;
 }
+
+#filters-container {
+    transition: all 0.3s ease;
+}
+
+#filters-arrow {
+    transition: transform 0.3s ease;
+}
+
+#filters-container.open {
+    display: block;
+}
+
+#filters-arrow.up {
+    transform: rotate(180deg); /* Поворот стрелочки вверх */
+}
+
+#filters-arrow.down {
+    transform: rotate(0deg); /* Стрелочка вниз */
+}
+
 .catalog-filters {
     display: flex;
     flex-wrap: wrap;

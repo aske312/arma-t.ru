@@ -163,10 +163,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     <div class="catalog-content">
 
         <!-- Заголовок для фильтров -->
-        <h2 class="filter-title">Фильтры</h2>
+        <h2 class="filter-title" onclick="toggleFilters()">Фильтры <span id="filters-arrow">▼</span></h2>
 
         <!-- Фильтры -->
-        <div class="catalog-filters">
+        <div class="catalog-filters" id="filters-container" style="display: none;">
             <?php
             $filters = [
                 'EL_CONNTYPE' => ['label' => 'Тип присоединения', 'suffix' => ''],
@@ -356,6 +356,32 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     });
 
     // *** FILTERS *** //
+
+    function toggleFilters() {
+        const filtersContainer = document.getElementById('filters-container');
+        const arrow = document.getElementById('filters-arrow');
+
+        // Переключаем состояние отображения фильтров
+        if (filtersContainer.style.display === 'none' || filtersContainer.style.display === '') {
+            filtersContainer.style.display = 'block';
+            arrow.classList.remove('down');
+            arrow.classList.add('up');
+        } else {
+            filtersContainer.style.display = 'none';
+            arrow.classList.remove('up');
+            arrow.classList.add('down');
+        }
+    }
+
+    // Если вы хотите, чтобы стрелка также поворачивалась плавно, используйте класс 'open' и классы для стрелок.
+    function toggleFilters() {
+        const filtersContainer = document.getElementById('filters-container');
+        const arrow = document.getElementById('filters-arrow');
+
+        filtersContainer.classList.toggle('open');
+        arrow.classList.toggle('up');
+        arrow.classList.toggle('down');
+    }
 
     // Функция для открытия/закрытия выпадающего списка
     function toggleDropdown(id) {
