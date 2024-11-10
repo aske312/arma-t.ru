@@ -195,7 +195,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <?php foreach ($filterValues[$propertyCode] as $value): ?>
                                         <label class="dropdown-item">
                                             <input type="checkbox" name="<?= $propertyCode ?>[]" value="<?= $value ?>"
-                                                   onchange="updateCounter('filter<?= $propertyCode ?>'); toggleApplyButton('filter<?= $propertyCode ?>')"
+                                                   onchange="updateCounter('filter<?= $propertyCode ?>')"
                                                    <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'checked' : ''; ?>>
                                             <?= $value ?> <?= $filter['suffix'] ?>
                                         </label>
@@ -377,25 +377,25 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     }
 
-    // Функция для обновления счетчика и показа кнопки "Показать"
+    // Функция для обновления счетчика и отображения кнопки "Показать"
     function updateCounter(dropdownId) {
         const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
         const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
         const counter = document.getElementById(`${dropdownId}-counter`);
         const applyFilterButton = document.getElementById('applyFilterButton-' + dropdownId);
+        const clearFilter = document.querySelector(`#${dropdownId} .clear-filter`);
 
         // Обновляем счетчик
         counter.innerText = selectedCount > 0 ? selectedCount : '';
 
         // Показываем/скрываем кнопку "Показать"
-        applyFilterButton.style.display = selectedCount > 0 ? 'block' : 'none';
+        if (applyFilterButton) {
+            applyFilterButton.style.display = selectedCount > 0 ? 'block' : 'none';
+        }
 
         // Показываем/скрываем крестик для очистки
-        const clearFilter = document.querySelector(`#${dropdownId} .clear-filter`);
-        if (selectedCount > 0) {
-            clearFilter.style.display = 'inline';
-        } else {
-            clearFilter.style.display = 'none';
+        if (clearFilter) {
+            clearFilter.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
     }
 
@@ -439,6 +439,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         checkboxes.forEach(checkbox => checkbox.checked = false);
         updateCounter(dropdownId); // Обновляем отображение кнопки и счетчика
     }
+
     // *** ЛОГИКА КОРЗИНЫ *** //
     const EXPIRY_DAYS = 3;
 
