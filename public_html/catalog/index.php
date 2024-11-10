@@ -168,7 +168,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <!-- Фильтры -->
         <div class="catalog-filters">
             <?php
-            // Массив с фильтруемыми параметрами и их метками и дополнительными суффиксами
             $filters = [
                 'EL_DN_DIAMETER_MM' => ['label' => 'Диаметр DN', 'suffix' => 'мм'],
                 'EL_PN_PRESSURE_KGF_CM2' => ['label' => 'Давление PN', 'suffix' => 'кгс/см²'],
@@ -179,7 +178,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             ];
 
             foreach ($filters as $propertyCode => $filter):
-                // Если для данного фильтра нет значений, пропускаем его
                 if (empty($filterValues[$propertyCode])) continue;
             ?>
                 <div class="filter">
@@ -202,7 +200,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         </label>
                                     <?php endforeach; ?>
                                 </div>
-                                <button id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter()" style="display: none;">Показать</button>
+                                <button id="applyFilterButton-<?= $propertyCode ?>" onclick="applyFilter('<?= $propertyCode ?>')" style="display: none;">Показать</button>
                             </div>
                         </div>
                     </div>
