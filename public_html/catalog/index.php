@@ -480,17 +480,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         }
     }
 
-    window.onclick = function(event) {
-        if (!event.target.matches('.dropdown-toggle')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    }
+//    window.onclick = function(event) {
+//        if (!event.target.matches('.dropdown-toggle')) {
+//            var dropdowns = document.getElementsByClassName("dropdown-content");
+//            for (var i = 0; i < dropdowns.length; i++) {
+//                var openDropdown = dropdowns[i];
+//                if (openDropdown.classList.contains('show')) {
+//                    openDropdown.classList.remove('show');
+//                }
+//            }
+//        }
+//    }
 
     // Пример использования функции applyFilter из исходного кода
     function applyFilter() {
