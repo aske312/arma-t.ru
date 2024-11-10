@@ -208,6 +208,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     </div>
                 </div>
             <?php endforeach; ?>
+            <button class="apply-button-all" onclick="applyFilters()" disabled>Применить фильтры</button>
         </div>
 
         <!-- Анимация загрузки -->
@@ -412,6 +413,56 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         }
     }
 
+    // Функция для обновления состояния кнопки "Применить фильтры"
+    function updateApplyButtonState() {
+        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
+        const applyButton = document.querySelector('.apply-button-all');  // кнопка для всех фильтров
+
+        // Проверяем, есть ли хотя бы один выбранный фильтр
+        const selectedCount = Array.from(allFilters).some(filter => {
+            const checkboxes = filter.querySelectorAll('input[type="checkbox"]');
+            return Array.from(checkboxes).some(checkbox => checkbox.checked);
+        });
+
+        // Если фильтр выбран, делаем кнопку активной
+        if (applyButton) {
+            if (selectedCount) {
+                applyButton.classList.add('active');  // Добавляем активный класс
+                applyButton.disabled = false;  // Разрешаем клик
+            } else {
+                applyButton.classList.remove('active');  // Убираем активный класс
+                applyButton.disabled = true;  // Блокируем клик
+            }
+        }
+    }
+
+    // Функция для применения всех фильтров
+    function applyFilters() {
+        let filters = [];
+        let filterValues = {};
+
+        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
+
+        // Проходим по каждому фильтру
+        allFilters.forEach(filter => {
+            const propertyCode = filter.querySelector('input[type="checkbox"]').name.replace('[]', '');
+            const checkboxes = filter.querySelectorAll(`input[name="${propertyCode}[]"]`);
+            const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+            // Если значения выбраны, добавляем их в фильтры, иначе передаем 'all'
+            filterValues[propertyCode] = selectedValues.length > 0 ? selectedValues : ['all'];
+            filters.push(propertyCode + '=' + encodeURIComponent(filterValues[propertyCode].join(',')));
+        });
+
+        // Перезагружаем страницу с новыми параметрами
+        const urlParams = new URLSearchParams(window.location.search);
+        filters.forEach(function (filter) {
+            const [key, value] = filter.split('=');
+            urlParams.set(key, value);
+        });
+        window.location.search = urlParams.toString();
+    }
+
     // Функция для обновления счетчика и отображения кнопки "Показать"
     function updateCounter(dropdownId) {
         const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
@@ -432,7 +483,32 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         if (clearFilter) {
             clearFilter.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
+
+        // Обновляем состояние кнопки "Применить фильтры"
+        updateApplyButtonState();
     }
+
+//    // Функция для обновления счетчика и отображения кнопки "Показать"
+//    function updateCounter(dropdownId) {
+//        const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
+//        const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+//        const counter = document.getElementById(`${dropdownId}-counter`);
+//        const applyButton = document.querySelector(`#${dropdownId} .apply-button`);
+//        const clearFilter = document.querySelector(`#${dropdownId} .clear-filter`);
+//
+//        // Обновляем счетчик
+//        counter.innerText = selectedCount > 0 ? selectedCount : '';
+//
+//        // Показываем/скрываем кнопку "Показать"
+//        if (applyButton) {
+//            applyButton.style.display = selectedCount > 0 ? 'inline' : 'none';
+//        }
+//
+//        // Показываем/скрываем крестик для очистки
+//        if (clearFilter) {
+//            clearFilter.style.display = selectedCount > 0 ? 'inline' : 'none';
+//        }
+//    }
 
     // Функция для применения всех фильтров
     function applyFilter(propertyCode) {
