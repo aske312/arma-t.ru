@@ -11,7 +11,13 @@ $elementFilter = [
 
 foreach ($filterProperties as $propertyCode) {
     if (!empty($_POST[$propertyCode]) && $_POST[$propertyCode] !== 'all') {
-        $elementFilter['PROPERTY_' . $propertyCode] = $_POST[$propertyCode];
+        // Если фильтр передан как массив значений, применяем фильтрацию по массиву
+        if (is_array($_POST[$propertyCode])) {
+            $elementFilter['PROPERTY_' . $propertyCode] = $_POST[$propertyCode];
+        } else {
+            // Если передано одно значение, применяем его напрямую
+            $elementFilter['PROPERTY_' . $propertyCode] = [$_POST[$propertyCode]];
+        }
     }
 }
 

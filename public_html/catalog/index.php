@@ -167,6 +167,15 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         <!-- Фильтры -->
         <div class="catalog-filters">
+            <?php foreach ($values as $value): ?>
+                <label>
+                    <input type="checkbox" name="<?= $propertyCode ?>[]" value="<?= $value ?>"
+                           <?= (isset($_GET[$propertyCode]) && in_array($value, explode(',', $_GET[$propertyCode]))) ? 'checked' : ''; ?>
+                           onchange="applyFilter()">
+                    <?= $value ?>
+                </label>
+            <?php endforeach; ?>
+
             <?php foreach ($filterValues as $propertyCode => $values): ?>
                 <?php if (empty($values)) continue; ?> <!-- Если значений нет, пропускаем этот фильтр -->
                 <div class="filter">
@@ -414,48 +423,35 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     });
 
-    // *** SEARCH *** //
-
     // *** FILTERS *** //
     function applyFilter() {
         let filters = [];
-        let filterValues = {};
-
         const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
 
         allFilterProperties.forEach(function(propertyCode) {
-            var element = document.getElementById(propertyCode);
-            if (!element) {
-                filterValues[propertyCode] = 'all';
-                filters.push(propertyCode + '=all');
-                return;
-            }
+            let selectedValues = [];
+            const checkboxes = document.querySelectorAll(`input[name="${propertyCode}[]"]:checked`);
 
-            var filterValue = element.value;
-            if (!filterValue) {
-                filterValue = 'all';
-            }
-            filterValues[propertyCode] = filterValue;
+            checkboxes.forEach(function(checkbox) {
+                selectedValues.push(checkbox.value);
+            });
 
-            if (filterValue !== 'all') {
-                filters.push(propertyCode + '=' + filterValue);
+            if (selectedValues.length > 0) {
+                filters.push(propertyCode + '=' + selectedValues.join(','));
             } else {
                 filters.push(propertyCode + '=all');
             }
         });
 
-        var searchElement = document.getElementById('search');
-        var searchQuery = searchElement ? searchElement.value.trim() : '';
-        if (searchQuery) {
-            // Кодируем строку поиска с помощью encodeURIComponent, чтобы корректно передавать русские символы
-            filters.push('search=' + encodeURIComponent(searchQuery));
-        } else {
-            filters.push('search=');
-        }
+//        var searchElement = document.getElementById('search');
+//        var searchQuery = searchElement ? searchElement.value.trim() : '';
+//        if (searchQuery) {
+//            filters.push('search=' + encodeURIComponent(searchQuery));
+//        } else {
+//            filters.push('search=');
+//        }
 
         let urlParams = new URLSearchParams(window.location.search);
-
-        // Добавляем текущий SECTION_ID
         <?php if (isset($_GET['SECTION_ID'])): ?>
             urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
         <?php endif; ?>
@@ -465,7 +461,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             urlParams.set(key, value);
         });
 
-        // Перезагружаем страницу с новыми параметрами
         window.location.search = urlParams.toString();
     }
 
