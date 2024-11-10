@@ -137,6 +137,8 @@ pre { /* DEBUG */
 
 /* Стили для фильтров */
 .filter-title {
+    cursor: pointer;
+    user-select: none;
     font-size: 24px;
     font-weight: bold;
     color: #333;
