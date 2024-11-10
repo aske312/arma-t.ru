@@ -146,7 +146,6 @@ pre { /* DEBUG */
     text-align: left;
     padding-left: 15px;
 }
-
 .catalog-filters {
     display: flex;
     flex-wrap: wrap;
@@ -170,70 +169,28 @@ pre { /* DEBUG */
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s ease;
 }
 
 .filter-item:hover {
     background-color: #e9eff5;  /* Легкое изменение фона при наведении */
 }
 
-/* Метки фильтров сверху */
-.filter-label {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-/* Содержимое фильтра (выпадающий список и единицы измерения) */
-.filter-content {
-    width: auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Стилизация для выпадающего списка */
-/*.filter-content select {
-    width: 110px;
-    padding: 8px;
-    font-size: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    transition: border-color 0.3s;
-}*/
-
-/* .filter-content select:focus {
-    border-color: #007bff;
-} */
-
-/* Единицы измерения (мм, кгс/см²) */
-.unit {
-    font-size: 12px;
-    color: #666;
-}
-
-/* Для маленьких экранов, делаем фильтры вертикальными */
-@media (max-width: 768px) {
-    .catalog-filters {
-        flex-direction: column;
-    }
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
+/* Стилизация для кнопки выпадающего списка */
 .dropdown-toggle {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     cursor: pointer;
     background: none;
     border: none;
     font-size: 14px;
     color: #000;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+    color: #007bff; /* Изменение цвета на синий при наведении */
 }
 
 .counter {
@@ -250,47 +207,113 @@ pre { /* DEBUG */
     transform: rotate(180deg);
 }
 
+/* Стили для кнопки очистки фильтра */
+.clear-filter {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.clear-filter:hover {
+    color: #ff4c4c;  /* Изменение цвета на красный при наведении */
+}
+
 /* Основной стиль выпадающего списка */
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #fff;
-    min-width: auto;
-    width: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
 }
 
 .show {
     display: block;
 }
 
-.dropdown-options {
-    max-height: auto;
-    overflow-y: auto;
-}
-
 .dropdown-items {
-    max-height: auto;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    gap: 5px;
 }
 
 .dropdown-item {
-    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f8ff;  /* Легкое изменение фона при наведении на элемент */
 }
 
 .apply-button {
     width: 100%;
-    padding: 8px;
-    background-color: #000;
+    padding: 10px;
+    background-color: #007bff;
     color: #fff;
     border: none;
     cursor: pointer;
     text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: none;
+    transition: background-color 0.3s ease;
+}
+
+.apply-button:hover {
+    background-color: #0056b3;  /* Изменение цвета на темно-синий при наведении */
+}
+
+/* Стилизация для чекбоксов */
+.dropdown-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Для маленьких экранов, делаем фильтры вертикальными */
+@media (max-width: 768px) {
+    .catalog-filters {
+        flex-direction: column;
+    }
+
+    .dropdown-content {
+        width: 100%; /* Для маленьких экранов делаем выпадающий список на всю ширину */
+    }
+}
+
+/* Появление стрелки при раскрытии фильтра */
+.dropdown.open .arrow {
+    transform: rotate(180deg);
+}
+
+/* Стиль для контейнера фильтров с прокруткой */
+.dropdown-options {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Класс для скрытия элементов */
+.hidden {
+    display: none;
+}
+
+/* Стиль для фильтра с активным состоянием */
+.filter.active .dropdown-toggle {
+    font-weight: bold;
+    color: #007bff;
 }
 
 /* Стиль для крестика при наведении */
