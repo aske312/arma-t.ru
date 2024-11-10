@@ -176,7 +176,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <label class="filter-label">Диаметр DN:</label>
                             <div class="dropdown">
                                 <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">
-                                    Диаметр DN <span id="filterDN-counter">0</span>
+                                    Диаметр DN <span id="filterDN-counter"></span>
                                 </button>
                                 <div id="filterDN" class="dropdown-content">
                                     <?php foreach ($values as $value): ?>
@@ -189,8 +189,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <?php endforeach; ?>
                                 </div>
                             </div>
-                        </div>
                         <button id="applyFilterButton" onclick="applyFilter()" style="display: none;">Показать</button>
+                        </div>
                     <?php endif; ?>
 
                     <!-- Фильтр для диаметра -->
