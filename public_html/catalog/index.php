@@ -399,10 +399,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // Функция для того, чтобы показывать или скрывать кнопку "Показать" для каждого фильтра
     function toggleShowApplyButton() {
         // Перебираем все фильтры
-        const allFilters = document.querySelectorAll('.filter');  // все контейнеры фильтров
+        const allFilters = document.querySelectorAll(`.filter`);  // все контейнеры фильтров
         allFilters.forEach(filter => {
-            const checkboxes = filter.querySelectorAll('input[type="checkbox"]');  // все чекбоксы внутри фильтра
-            const applyButton = filter.querySelector('.apply-button');  // кнопка "Показать" внутри фильтра
+            const checkboxes = filter.querySelectorAll(`input[type="checkbox"]`);  // все чекбоксы внутри фильтра
+            const applyButton = filter.querySelector(`.apply-button`);  // кнопка "Показать" внутри фильтра
 
             const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
             // Показываем или скрываем кнопку для текущего фильтра
