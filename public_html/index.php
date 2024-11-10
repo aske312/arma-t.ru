@@ -363,7 +363,7 @@ while ($section = $sections->Fetch()) {
         xhr.send(formData);  // Отправляем данные формы
     });
 
-    let slideIndex = -1; // Изначальный индекс слайда
+    let slideIndex = 0; // Изначальный индекс слайда
     let slides = document.getElementsByClassName('slide'); // Получаем все слайды
     let dots = document.getElementsByClassName('dot'); // Получаем все точки
 
