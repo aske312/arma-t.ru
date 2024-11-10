@@ -154,7 +154,7 @@ pre { /* DEBUG */
 }
 
 #filters-container {
-    display: none; /* Скрываем фильтры по умолчанию */
+    /* display: none; /* Скрываем фильтры по умолчанию */
     /* transition: all 0.3s ease;*/
 }
 
