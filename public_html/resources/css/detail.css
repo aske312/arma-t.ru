@@ -1,13 +1,13 @@
 .section-title {
     background: url('/resources/img/block/pattern.png') no-repeat center;
-    background-size: cover;
+    background-size: cover; /* Заполнение всей доступной области без растягивания */
     color: #fff;
     padding: 20px;
     text-align: left;
     margin-bottom: 20px;
-    width: 1300px;
-    margin: 0 auto;
-    height: 100%;
+    width: 1180px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+    height: 100%; /* Высота контейнера */
 }
 
 .section-title h2 {
