@@ -363,22 +363,27 @@ while ($section = $sections->Fetch()) {
         xhr.send(formData);  // Отправляем данные формы
     });
 
-    let slideIndex = 0; // Изначальный индекс слайда
-    let slides = document.getElementsByClassName('slide'); // Получаем все слайды
-    let dots = document.getElementsByClassName('dot'); // Получаем все точки
+    let slideIndex = 1;
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
 
     function showSlides() {
+        // Скрываем все слайды
         for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = 'none';
         }
+        // Убираем класс 'active' у всех точек
         for (let i = 0; i < dots.length; i++) {
             dots[i].className = dots[i].className.replace(' active', '');
         }
 
+        // Переход к следующему слайду
         slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1; }
+        if (slideIndex > slides.length) { slideIndex = 1; } // Переход на первый слайд, если достигнут конец
 
+        // Показываем текущий слайд
         slides[slideIndex - 1].style.display = 'block';
+        // Подсвечиваем текущую точку
         dots[slideIndex - 1].className += ' active';
     }
 
@@ -390,6 +395,7 @@ while ($section = $sections->Fetch()) {
         clearInterval(slideInterval);
     }
 
+    // Функция для перехода к определенному слайду при клике на точку
     function currentSlide(n) {
         stopAutoSlide();
         slideIndex = n;
