@@ -389,7 +389,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         // Показываем/скрываем кнопку "Показать"
         if (applyFilterButton) {
-            applyFilterButton.style.display = selectedCount > 0 ? 'block' : 'none';
+            applyFilterButton.style.display = selectedCount > 0 ? 'inline' : 'none';
         }
 
         // Показываем/скрываем крестик для очистки
