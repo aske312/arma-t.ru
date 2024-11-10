@@ -173,16 +173,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
-                            <label class="filter-label">Диаметр DN:</label>
+                            <label for="<?= $propertyCode ?>" class="filter-label">Диаметр DN:</label>
                             <div class="filter-content">
-                                <?php foreach ($values as $value): ?>
-                                    <label>
-                                        <input type="checkbox" name="<?= $propertyCode ?>[]" value="<?= $value ?>"
-                                            onchange="applyFilter()"
-                                            <?= (isset($_GET[$propertyCode]) && in_array($value, (array)$_GET[$propertyCode])) ? 'checked' : ''; ?>>
-                                        <?= $value ?> мм
-                                    </label>
-                                <?php endforeach; ?>
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($values as $value): ?>
+                                        <option value="<?= $value ?>" <?= (isset($_GET[$propertyCode]) && $_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?> мм
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="unit">мм</span>
                             </div>
                         </div>
                     <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
