@@ -214,19 +214,30 @@ pre { /* DEBUG */
 }
 
 .dropdown-toggle {
-/*
-    padding: 10px;
+    display: inline-flex;
+    align-items: center;
     cursor: pointer;
-    border: 1px solid #ddd;
-    background-color: #f8f8f8;
-*/
-    display: block;
+    background: none;
+    border: none;
     font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
+    color: #000;
 }
 
+.counter {
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.arrow {
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+
+.arrow.up {
+    transform: rotate(180deg);
+}
+
+/* Основной стиль выпадающего списка */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -237,17 +248,13 @@ pre { /* DEBUG */
     z-index: 1;
 }
 
+.show {
+    display: block;
+}
+
 .dropdown-options {
     max-height: 200px;
     overflow-y: auto;
-}
-
-.dropdown-item {
-    margin-bottom: 5px;
-}
-
-.show {
-    display: block;
 }
 
 .dropdown-items {
@@ -258,6 +265,10 @@ pre { /* DEBUG */
     margin-bottom: 10px;
 }
 
+.dropdown-item {
+    margin-bottom: 5px;
+}
+
 #applyFilterButton {
     width: 100%;
     padding: 8px;
@@ -266,6 +277,18 @@ pre { /* DEBUG */
     border: none;
     cursor: pointer;
     text-align: center;
+}
+
+/* Стиль для крестика при наведении */
+.dropdown-toggle:hover .clear-filter {
+    display: inline;
+    margin-left: 5px;
+    color: red;
+    cursor: pointer;
+}
+
+.clear-filter {
+    display: none;
 }
 
 #applyButton {

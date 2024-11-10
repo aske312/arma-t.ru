@@ -173,10 +173,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <div class="filter">
                     <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
                         <div class="filter-item">
-                            <!-- <label class="filter-label">Диаметр DN:</label> -->
+                            <label class="filter-label">Диаметр DN:</label>
                             <div class="dropdown">
                                 <button class="dropdown-toggle" onclick="toggleDropdown('filterDN')">
-                                    Диаметр DN <span id="filterDN-counter"></span>
+                                    Диаметр DN
+                                    <span id="filterDN-counter" class="counter"></span>
+                                    <span id="filterDN-arrow" class="arrow">▼</span>
                                 </button>
                                 <div id="filterDN" class="dropdown-content">
                                     <div class="dropdown-items">
@@ -443,17 +445,39 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     // Функция для открытия/закрытия выпадающего списка
     function toggleDropdown(id) {
-        document.getElementById(id).classList.toggle('show');
+        const dropdownContent = document.getElementById(id);
+        const arrow = document.getElementById(id + '-arrow');
+
+        dropdownContent.classList.toggle('show');
+        arrow.classList.toggle('up');
+
+        // Закрытие списка при клике вне элемента
+        document.addEventListener('click', function handleClickOutside(event) {
+            if (!dropdownContent.contains(event.target) && !event.target.matches('.dropdown-toggle')) {
+                dropdownContent.classList.remove('show');
+                arrow.classList.remove('up');
+                document.removeEventListener('click', handleClickOutside);
+            }
+        });
     }
 
     function updateCounter(dropdownId) {
         const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
         const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-        document.getElementById(`${dropdownId}-counter`).innerText = selectedCount;
-
-        // Отображаем кнопку "Показать" только если выбраны элементы
+        const counter = document.getElementById(`${dropdownId}-counter`);
         const applyFilterButton = document.getElementById('applyFilterButton');
+
+        // Отображаем счетчик только если выбран хотя бы один элемент
+        counter.innerText = selectedCount > 0 ? selectedCount : '';
         applyFilterButton.style.display = selectedCount > 0 ? 'block' : 'none';
+
+        // Показываем крестик для очистки, если выбраны элементы
+        const clearFilter = document.querySelector('.clear-filter');
+        if (selectedCount > 0) {
+            clearFilter.style.display = 'inline';
+        } else {
+            clearFilter.style.display = 'none';
+        }
     }
 
     window.onclick = function(event) {
@@ -495,6 +519,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             urlParams.set(key, value);
         });
         window.location.search = urlParams.toString();
+    }
+
+    // Очистка фильтра
+    function clearFilter(dropdownId) {
+        const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateCounter(dropdownId);
     }
 
     // *** ЛОГИКА КОРЗИНЫ *** //
