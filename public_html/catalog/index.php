@@ -300,7 +300,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <!-- <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>"> -->
 
                                     <?php
-                                    if ($arProps['EL_IMAGES']['VALUE'];) {
+                                    if ($arProps['EL_IMAGES'];) {
                                         $imgPath = CFile::GetPath($arProps['EL_IMAGES']['VALUE'];);
                                     } elseif ($arFields['PREVIEW_PICTURE']) {
                                         $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
