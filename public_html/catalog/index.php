@@ -44,11 +44,11 @@ $searchQuery = isset($_GET['search']) ? urldecode(trim($_GET['search'])) : '';
 
 // Фильтры
 $filterValues = [
-    'EL_CONNTYPE' => [],
-    'EL_DRIVETYPE' => [],
+    'EL_CONNECTION_TYPE' => [],
+    'EL_DRIVE_TYPE' => [],
     'EL_DN_DIAMETER_MM' => [],
     'EL_PN_PRESSURE_KGF_CM2' => [],
-    'EL_FIGTABLE' => [],
+    'EL_FIGURE_TABLE' => [],
     'EL_BODY_MATERIAL' => []
 ];
 
@@ -70,7 +70,7 @@ if ($searchQuery) {
 }
 
 // Применение фильтров из GET-параметров
-$filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
+$filterProperties = ['EL_CONNECTION_TYPE', 'EL_DRIVE_TYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGURE_TABLE'];
 foreach ($filterProperties as $propertyCode) {
     if (isset($_GET[$propertyCode]) && $_GET[$propertyCode] !== 'all') {
         $elementFilter['PROPERTY_' . $propertyCode] = $_GET[$propertyCode];
@@ -314,7 +314,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                                     <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                                     <div class="catalog-item-info">
-                                        <h3 class="catalog-item-name"><?= !empty($arFields['PREVIEW_TEXT']) ? $arProps['EL_SHORT_NAME']['VALUE'] : 'Нет анонса'; ?></h3>
+                                        <h3 class="catalog-item-name"><?= !empty($arProps['EL_SHORT_NAME']['VALUE']) ? $arFields['PREVIEW_TEXT'] : 'Нет анонса'; ?></h3>
                                         <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
                                         <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
                                         <p><div class="catalog-item-price">
@@ -331,7 +331,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <div class="catalog-item-controls">
                                         <button class="catalog-item-add-to-cart"
                                                 data-id="<?= $arFields['ID']; ?>"
-                                                data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
+                                                data-name="<?=  $arProps['EL_SHORT_NAME']['VALUE']; ?>"
                                                 data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
                                                 data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">В корзину</button>
                                     </div>
@@ -392,7 +392,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         urlParams.set('SECTION_ID', sectionId);
 
         // Передаем все фильтры
-        const filterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
+        const filterProperties = ['EL_CONNECTION_TYPE', 'EL_DRIVE_TYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGURE_TABLE'];
 
         filterProperties.forEach(function (property) {
             var filterValue = document.getElementById(property) ? document.getElementById(property).value : 'all';
@@ -441,7 +441,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         let filters = [];
         let filterValues = {};
 
-        const allFilterProperties = ['EL_CONNTYPE', 'EL_DRIVETYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGTABLE'];
+        const allFilterProperties = ['EL_CONNECTION_TYPE', 'EL_DRIVE_TYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGURE_TABLE'];
 
         allFilterProperties.forEach(function(propertyCode) {
             var element = document.getElementById(propertyCode);
