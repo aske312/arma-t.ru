@@ -305,8 +305,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         $imgPath = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
                                     } elseif ($arFields['PREVIEW_PICTURE']) {
                                         $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
-//                                    } elseif ($arFields['PICTURE']) {
-//                                        $imgPath = CFile::GetPath($arFields['PICTURE']);
+                                    } elseif ($arFields['PICTURE']) {
+                                        $imgPath = CFile::GetPath($arFields['PICTURE']);
                                     } elseif ($arSection['PICTURE']) {
                                         $imgPath = CFile::GetPath($arSection['PICTURE']);
                                     } else {
