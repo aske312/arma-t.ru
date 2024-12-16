@@ -39,6 +39,7 @@ if (CModule::IncludeModule("iblock")) {
                 if ($prop['CODE'] === 'EL_IMAGES') {
                     continue;
                 } elseif ($prop['CODE'] === 'EL_SHORT_NAME') {
+                    $productShortName = $prop['VALUE'];
                     continue;
                 }
 
