@@ -300,16 +300,16 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <!-- <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>"> -->
 
                                     <?php
-                                    if ($arProps['EL_IMAGES']) {
-                                        $imgPath = CFile::GetPath($arProps['EL_IMAGES']);
-                                    } elseif ($arFields['PREVIEW_PICTURE']) {
+                                    //if ($arProps['EL_IMAGES']) {
+                                        //$imgPath = CFile::GetPath($arProps['EL_IMAGES']);
+                                    //} elseif ($arFields['PREVIEW_PICTURE']) {
                                         $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
-                                    } elseif ($arSection['PICTURE']) {
+                                    // elseif ($arSection['PICTURE']) {
                                         // Один вызов CFile::GetPath для картинки раздела
-                                        $imgPath = CFile::GetPath($arSection['PICTURE']);
-                                    } else {
+                                        //$imgPath = CFile::GetPath($arSection['PICTURE']);
+                                    //} else {
                                         $imgPath = "/resources/img/no_image.png";
-                                    }
+                                    //}
                                     ?>
 
                                     <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
