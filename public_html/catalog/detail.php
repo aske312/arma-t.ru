@@ -38,7 +38,10 @@ if (CModule::IncludeModule("iblock")) {
                 // Пропускаем элемент EL_IMAGES
                 if ($prop['CODE'] === 'EL_IMAGES') {
                     continue;
+                } elseif ($prop['CODE'] === 'EL_SHORT_NAME') {
+                    continue;
                 }
+
 
                 if ($prop['CODE'] === 'EL_ARTICLE') {
                     $productArticul = $prop['VALUE'];
