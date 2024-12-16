@@ -12,7 +12,7 @@ if (CModule::IncludeModule("iblock")) {
         $productName = $ar_res['NAME'];
         $productShortName = $ar_res['EL_SHORT_NAME'];
         $productDescription = $ar_res['DETAIL_TEXT'];
-        $productImage = CFile::GetPath($ar_res['PREVIEW_PICTURE']); // Изображение анонса товара
+        $productImage = CFile::GetPath($ar_res['EL_IMAGES']); // Изображение анонса товара
         $productPrice = ''; // Цена
         $productArticul = ''; // Артикул
         $productAvailability = ''; // Срок изготовления
