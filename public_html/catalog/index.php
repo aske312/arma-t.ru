@@ -300,8 +300,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <!-- <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>"> -->
 
                                     <?php
-                                    if ($arFields['EL_IMAGES']) {
-                                        $imgPath = CFile::GetPath($arFields['EL_IMAGES']);
+                                    if ($arProps['EL_IMAGES']) {
+                                        $imgPath = CFile::GetPath($arProps['EL_IMAGES']);
                                     } elseif ($arFields['PREVIEW_PICTURE']) {
                                         $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
                                     } elseif ($arSection['PICTURE']) {
@@ -314,7 +314,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                                     <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                                     <div class="catalog-item-info">
-                                        <h3 class="catalog-item-name"><?= !empty($arProps['EL_SHORT_NAME']['VALUE']) ? $arFields['PREVIEW_TEXT'] : 'Нет анонса'; ?></h3>
+                                        <h3 class="catalog-item-name"><?= arProps['EL_SHORT_NAME']['VALUE']; ?></h3>
                                         <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
                                         <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
                                         <p><div class="catalog-item-price">
