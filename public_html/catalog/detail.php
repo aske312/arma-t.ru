@@ -40,7 +40,7 @@ if (CModule::IncludeModule("iblock")) {
                     continue;
                 }
 
-                if ($prop['CODE'] === 'EL_ARTICLE_CODE') {
+                if ($prop['CODE'] === 'EL_ARTICLE') {
                     $productArticul = $prop['VALUE'];
                 } elseif ($prop['CODE'] === 'EL_PRODUCTION_TIME') {
                     $productAvailability = $prop['VALUE'];
