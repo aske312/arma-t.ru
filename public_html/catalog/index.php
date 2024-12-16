@@ -204,7 +204,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <span class="unit">кгс/см²</span>
                             </div>
                         </div>
-                    <?php elseif ($propertyCode == 'EL_CONNTYPE'): ?>
+                    <?php elseif ($propertyCode == 'EL_CONNECTION_TYPE'): ?>
                         <!-- Фильтр для типа соединения -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Тип присоединения:</label>
@@ -219,7 +219,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 </select>
                             </div>
                         </div>
-                    <?php elseif ($propertyCode == 'EL_DRIVETYPE'): ?>
+                    <?php elseif ($propertyCode == 'EL_DRIVE_TYPE'): ?>
                         <!-- Фильтр для типа привода -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Тип привода:</label>
@@ -249,7 +249,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 </select>
                             </div>
                         </div>
-                    <?php elseif ($propertyCode == 'EL_FIGTABLE'): ?>
+                    <?php elseif ($propertyCode == 'EL_FIGURE_TABLE'): ?>
                         <!-- Фильтр для таблиц фигур -->
                         <div class="filter-item">
                             <label for="<?= $propertyCode ?>" class="filter-label">Таблица фигур:</label>
@@ -300,8 +300,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <!-- <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>"> -->
 
                                     <?php
-                                    if ($arFields['PICTURE']) {
-                                        $imgPath = CFile::GetPath($arFields['PICTURE']);
+                                    if ($arFields['EL_IMAGES']) {
+                                        $imgPath = CFile::GetPath($arFields['EL_IMAGES']);
                                     } elseif ($arFields['PREVIEW_PICTURE']) {
                                         $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
                                     } elseif ($arSection['PICTURE']) {
@@ -314,8 +314,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                                     <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                                     <div class="catalog-item-info">
-                                        <h3 class="catalog-item-name"><?= !empty($arFields['PREVIEW_TEXT']) ? $arFields['PREVIEW_TEXT'] : 'Нет анонса'; ?></h3>
-                                        <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
+                                        <h3 class="catalog-item-name"><?= !empty($arFields['PREVIEW_TEXT']) ? $arProps['EL_SHORT_NAME']['VALUE'] : 'Нет анонса'; ?></h3>
+                                        <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
                                         <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
                                         <p><div class="catalog-item-price">
                                             <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
@@ -332,19 +332,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         <button class="catalog-item-add-to-cart"
                                                 data-id="<?= $arFields['ID']; ?>"
                                                 data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
-                                                data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>"
-                                                data-article="<?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?>">В корзину</button>
+                                                data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
+                                                data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">В корзину</button>
                                     </div>
                                 </div>
 
                                 <!-- Краткое описание элемента -->
                                 <div class="catalog-item-properties">
                                     <table>
-                                        <?php if (!empty($arProps['EL_CONNTYPE']['VALUE'])): ?>
-                                            <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
+                                        <?php if (!empty($arProps['EL_CONNECTION_TYPE']['VALUE'])): ?>
+                                            <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
                                         <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_DRIVETYPE']['VALUE'])): ?>
-                                            <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
+                                        <?php if (!empty($arProps['EL_DRIVE_TYPE']['VALUE'])): ?>
+                                            <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
                                         <?php endif; ?>
                                         <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
                                             <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
