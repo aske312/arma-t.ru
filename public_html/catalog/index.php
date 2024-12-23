@@ -387,6 +387,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     }
 
+    // Перенаправление на раздел с учетом фильтров
     function redirectToSection(sectionId) {
         let urlParams = new URLSearchParams(window.location.search);
 
@@ -394,40 +395,46 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         urlParams.set('SECTION_ID', sectionId);
 
         // Передаем все фильтры
-        const filterProperties = ['EL_CONNECTION_TYPE', 'EL_DRIVE_TYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGURE_TABLE'];
+        const filterProperties = [
+            'EL_CONNECTION_TYPE',
+            'EL_DRIVE_TYPE',
+            'EL_DN_DIAMETER_MM',
+            'EL_PN_PRESSURE_KGF_CM2',
+            'EL_BODY_MATERIAL',
+            'EL_FIGURE_TABLE'
+        ];
 
-        filterProperties.forEach(function (property) {
-            var filterValue = document.getElementById(property) ? document.getElementById(property).value : 'all';
+        filterProperties.forEach(property => {
+            let filterValue = document.getElementById(property)
+                ? document.getElementById(property).value
+                : 'all';
             urlParams.set(property, filterValue);
         });
 
         window.location.href = '/catalog/index.php?' + urlParams.toString();
     }
 
+    // Обработка кликов на элемент каталога
     document.querySelectorAll('.catalog-item').forEach(item => {
         item.addEventListener('click', (event) => {
-            if (!event.target.closest('.add-to-cart-button')) { // Предотвращаем переход на детальную с кнопки "в корзину"
+            if (!event.target.closest('.add-to-cart-button')) { // Исключаем кнопку "в корзину"
                 window.location.href = `/catalog/detail.php?id=${item.getAttribute('data-id')}`;
             }
         });
     });
 
+    // Обработка кликов на кнопки "В корзину"
     document.querySelectorAll('.add-to-cart-button').forEach(button => {
         button.addEventListener('click', (event) => {
             event.stopPropagation(); // Останавливаем всплытие
-            // Логика добавления в корзину
         });
     });
 
-    // *** SEARCH *** //
-
-    // *** FILTERS *** //
-
+    // Переключение отображения фильтров
     function toggleFilters() {
         const arrow = document.getElementById('filters-arrow');
-        const filtersContainer = document.querySelector(`.catalog-filters`);
+        const filtersContainer = document.querySelector('.catalog-filters');
 
-        // Переключаем состояние отображения фильтров
         if (filtersContainer.style.display === 'none' || filtersContainer.style.display === '') {
             filtersContainer.style.display = 'flex';
             arrow.classList.remove('down');
@@ -439,41 +446,30 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         }
     }
 
+    // Применение фильтров
     function applyFilter() {
         let filters = [];
         let filterValues = {};
 
-        const allFilterProperties = ['EL_CONNECTION_TYPE', 'EL_DRIVE_TYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGURE_TABLE'];
+        const allFilterProperties = [
+            'EL_CONNECTION_TYPE',
+            'EL_DRIVE_TYPE',
+            'EL_DN_DIAMETER_MM',
+            'EL_PN_PRESSURE_KGF_CM2',
+            'EL_BODY_MATERIAL',
+            'EL_FIGURE_TABLE'
+        ];
 
-        allFilterProperties.forEach(function(propertyCode) {
-            var element = document.getElementById(propertyCode);
-            if (!element) {
-                filterValues[propertyCode] = 'all';
-                filters.push(propertyCode + '=all');
-                return;
-            }
-
-            var filterValue = element.value;
-            if (!filterValue) {
-                filterValue = 'all';
-            }
+        allFilterProperties.forEach(propertyCode => {
+            let element = document.getElementById(propertyCode);
+            let filterValue = element ? element.value : 'all';
             filterValues[propertyCode] = filterValue;
-
-            if (filterValue !== 'all') {
-                filters.push(propertyCode + '=' + filterValue);
-            } else {
-                filters.push(propertyCode + '=all');
-            }
+            filters.push(propertyCode + '=' + (filterValue || 'all'));
         });
 
-        var searchElement = document.getElementById('search');
-        var searchQuery = searchElement ? searchElement.value.trim() : '';
-        if (searchQuery) {
-            // Кодируем строку поиска с помощью encodeURIComponent, чтобы корректно передавать русские символы
-            filters.push('search=' + encodeURIComponent(searchQuery));
-        } else {
-            filters.push('search=');
-        }
+        let searchElement = document.getElementById('search');
+        let searchQuery = searchElement ? searchElement.value.trim() : '';
+        filters.push('search=' + encodeURIComponent(searchQuery || ''));
 
         let urlParams = new URLSearchParams(window.location.search);
 
@@ -482,35 +478,31 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
         <?php endif; ?>
 
-        filters.forEach(function (filter) {
+        filters.forEach(filter => {
             let [key, value] = filter.split('=');
             urlParams.set(key, value);
         });
 
-        // Перезагружаем страницу с новыми параметрами
         window.location.search = urlParams.toString();
     }
 
-    // *** ЛОГИКА КОРЗИНЫ *** //
+    // Логика работы корзины
     const EXPIRY_DAYS = 3;
 
-    // Функция для сохранения товаров в localStorage
     function setCartItemsToStorage(cartItems) {
-        const now = new Date().getTime();
+        const now = Date.now();
         const data = {
             cartItems: cartItems,
-            expiry: now + (3 * 24 * 60 * 60 * 1000)  // 3 дня в миллисекундах
+            expiry: now + EXPIRY_DAYS * 24 * 60 * 60 * 1000
         };
         localStorage.setItem('cartItems', JSON.stringify(data));
     }
 
-    // Функция для получения товаров из localStorage
     function getCartItemsFromStorage() {
         const data = JSON.parse(localStorage.getItem('cartItems'));
         return data ? data.cartItems : [];
     }
 
-    // Функция добавления товара в корзину
     function addToCart(productId, productName, productPrice, productArticle) {
         let cartItems = getCartItemsFromStorage();
         let found = false;
@@ -527,7 +519,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 id: productId,
                 name: productName,
                 price: productPrice,
-                article: productArticle,  // Добавляем артикул
+                article: productArticle,
                 quantity: 1
             });
         }
@@ -536,14 +528,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         updateCartCounter();
     }
 
-    // Функция обновления счетчика товаров в корзине
     function updateCartCounter() {
         const cartItems = getCartItemsFromStorage();
         const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-        document.getElementById('cart-count').textContent = itemCount;  // Обновляем отображение счетчика
+        document.getElementById('cart-count').textContent = itemCount;
     }
 
-    document.querySelector('.catalog-add-all').addEventListener('click', function() {
+    // Добавление всех выбранных товаров в корзину
+    document.querySelector('.catalog-add-all').addEventListener('click', function () {
         const selectedItems = document.querySelectorAll('.catalog-item-checkbox:checked');
         let cartItems = getCartItemsFromStorage();
 
@@ -571,63 +563,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         updateCartCounter();
     });
 
-    // Обработчики для кнопок "В корзину"
-    document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
-        button.addEventListener('click', event => {
-            event.stopPropagation(); // Останавливаем распространение события
-            event.preventDefault(); // Останавливаем переход по ссылке
-
-            // Получаем данные из атрибутов кнопки
-            const productId = button.getAttribute('data-id');
-            const productName = button.getAttribute('data-name');
-            const productPrice = button.getAttribute('data-price');
-            const productArticle = button.getAttribute('data-article'); // Артикул товара
-
-            // Вызываем функцию добавления товара в корзину
-            addToCart(productId, productName, productPrice, productArticle);
-        });
-    });
-
-    // Функция добавления товара в корзину
-    function addToCart(productId, productName, productPrice, productArticle) {
-        let cartItems = getCartItemsFromStorage();  // Получаем текущие товары в корзине
-        let found = false;
-
-        // Проверяем, есть ли товар в корзине
-        cartItems.forEach(item => {
-            if (item.id === productId) {
-                item.quantity += 1; // Если товар уже есть, увеличиваем количество
-                found = true;
-            }
-        });
-
-        if (!found) {
-            // Если товара нет в корзине, добавляем его
-            cartItems.push({
-                id: productId,
-                name: productName,
-                price: productPrice,
-                article: productArticle,  // Добавляем артикул
-                quantity: 1
-            });
-        }
-
-        setCartItemsToStorage(cartItems);  // Сохраняем корзину в localStorage
-        updateCartCounter();  // Обновляем счетчик товаров в корзине
-    }
-
-    // Находим все ссылки на детальные страницы и добавляем обработку кликов только для них
-    document.querySelectorAll('.catalog-item-link').forEach(function(link) {
-        link.addEventListener('click', function(event) {
-            // Если клик не на кнопке "В корзину", переходим по ссылке
+    // Обработчики для детальных ссылок
+    document.querySelectorAll('.catalog-item-link').forEach(link => {
+        link.addEventListener('click', event => {
             const buttonClicked = event.target.closest('.catalog-item-add-to-cart');
             if (!buttonClicked) {
-                return; // Если это не кнопка "В корзину", переходить по ссылке
+                return;
             }
         });
     });
 
-    // Инициализация при загрузке страницы
+    // Инициализация
     document.addEventListener('DOMContentLoaded', updateCartCounter);
 </script>
 
