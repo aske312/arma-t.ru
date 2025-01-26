@@ -377,8 +377,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-<script>
 
+<script>
     // Функция для выбора всех товаров
     function toggleSelectAll(checkbox) {
         const checkboxes = document.querySelectorAll('.catalog-item-checkbox');
@@ -577,6 +577,4 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     document.addEventListener('DOMContentLoaded', updateCartCounter);
 </script>
 
-<?php
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
-?>
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>

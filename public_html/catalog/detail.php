@@ -1,5 +1,4 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/detail.css"); // css
 
@@ -42,7 +41,6 @@ if (CModule::IncludeModule("iblock")) {
                     $productShortName = $prop['VALUE'];
                     continue;
                 }
-
 
                 if ($prop['CODE'] === 'EL_ARTICLE') {
                     $productArticul = $prop['VALUE'];
