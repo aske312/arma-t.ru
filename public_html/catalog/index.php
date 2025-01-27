@@ -295,7 +295,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
 
                             <!-- Ссылка на детальную страницу -->
-                            <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
+                            <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
                                 <div class="catalog-item-header">
                                     <!-- <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>"> -->
 
@@ -418,7 +418,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     document.querySelectorAll('.catalog-item').forEach(item => {
         item.addEventListener('click', (event) => {
             if (!event.target.closest('.add-to-cart-button')) { // Исключаем кнопку "в корзину"
-                window.location.href = `/catalog/detail.php?id=${item.getAttribute('data-id')}`;
+                window.location.href = `/catalog/detail.php?ID=${item.getAttribute('data-id')}`;
             }
         });
     });

@@ -3,7 +3,7 @@ use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/detail.css"); // css
 
 if (CModule::IncludeModule("iblock")) {
-    $productId = intval($_GET['id']);
+    $productId = intval($_GET['ID']);
     $res = CIBlockElement::GetByID($productId);
 
     if ($ar_res = $res->GetNext()) {
