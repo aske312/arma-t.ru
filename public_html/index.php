@@ -133,7 +133,7 @@ while ($section = $sections->Fetch()) {
 			</div>
 			<div class="item-text">
 				 Выставим счет <br>
-				 в течении 2-3 часов
+				 в течение 2-3 часов
 			</div>
 		</div>
 		<div class="block-item">
