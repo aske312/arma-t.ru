@@ -249,7 +249,7 @@ if ($element = $res->Fetch()) {
                             <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
                             <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
                             <span class="cart-item-total">
-                              ${itemTotal ? itemTotal + ' руб.' : 'Через оформление'}
+                              ${!isNaN(itemTotal) && itemTotal !== null ? itemTotal + ' руб.' : 'Через оформление'}
                             </span>
                             <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
                         </div>
