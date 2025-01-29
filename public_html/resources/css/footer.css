@@ -33,14 +33,14 @@
 		height: 450px;
 	}
 	.cont-info h2 {
-		margin-bottom: 80px;
+		margin-bottom: 5px;
 	}
 	.cont-details {
 		display: flex;
 		flex-direction: column;
 		margin-top: 5px;
 		text-align: left;
-		margin-bottom: 20px;
+		margin-bottom: 5px;
 	}
 	.cont-details p {
 		font-size: 18px;
