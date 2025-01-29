@@ -347,7 +347,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         const clearFilter = document.querySelector(`#${dropdownId} .clear-filter`);
         counter.innerText = selectedCount > 0 ? selectedCount : '';
         clearFilter.style.display = selectedCount > 0 ? 'inline' : 'none';
-        updateApplyButtonState();
+        updateApplyButtonState(); // Обновляем состояние кнопки "Применить фильтры"
     }
 
     // Функция для очистки фильтра
@@ -361,10 +361,15 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     function updateApplyButtonState() {
         const allFilters = document.querySelectorAll('.filter');
         const applyButton = document.querySelector('.apply-button-all');
+        const clearFiltersButton = document.querySelector('.clear-filters-button');
+
+        // Проверяем, есть ли хотя бы один выбранный фильтр
         const selectedCount = Array.from(allFilters).some(filter => {
             const checkboxes = filter.querySelectorAll('input[type="checkbox"]');
             return Array.from(checkboxes).some(checkbox => checkbox.checked);
         });
+
+        // Если фильтр выбран, делаем кнопку активной
         if (applyButton) {
             if (selectedCount) {
                 applyButton.classList.add('active');
@@ -374,6 +379,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 applyButton.disabled = true;
             }
         }
+
+        // Показываем или скрываем кнопку "Очистить фильтры"
+        if (clearFiltersButton) {
+            clearFiltersButton.style.display = selectedCount ? 'inline-block' : 'none';
+        }
     }
 
     // Функция для применения всех фильтров
@@ -381,13 +391,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         let filters = [];
         let filterValues = {};
         const allFilters = document.querySelectorAll('.filter');
+
+        // Проходим по каждому фильтру
         allFilters.forEach(filter => {
             const propertyCode = filter.querySelector('input[type="checkbox"]').name.replace('[]', '');
             const checkboxes = filter.querySelectorAll(`input[name="${propertyCode}[]"]`);
             const selectedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+            // Если значения выбраны, добавляем их в фильтры, иначе передаем 'all'
             filterValues[propertyCode] = selectedValues.length > 0 ? selectedValues : ['all'];
             filters.push(propertyCode + '=' + encodeURIComponent(filterValues[propertyCode].join(',')));
         });
+
+        // Перезагружаем страницу с новыми параметрами
         const urlParams = new URLSearchParams(window.location.search);
         filters.forEach(function (filter) {
             const [key, value] = filter.split('=');
@@ -403,6 +419,12 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         filterKeys.forEach(key => urlParams.delete(key));
         window.location.search = urlParams.toString();
     }
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function () {
+        updateApplyButtonState(); // Обновляем состояние кнопки "Применить фильтры"
+        toggleClearButton(); // Обновляем состояние кнопки "Очистить фильтры"
+    });
 </script>
 
 <?php
