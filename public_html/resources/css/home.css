@@ -225,14 +225,14 @@
 		box-shadow: 0 0 25px #191970;
 	}
 	.category img {
-		justify-content: left;
+		justify-content: center;
 		height: auto;
 		max-width: 175px; /* Ширина изображения */
 		margin-right: 20px; /* Отступ между изображением и текстом */
 	}
 	.category-text {
 		color: black;
-		text-align: left;
+		text-align: center;
 		flex: 0; /* Занимаем всё доступное пространство */
 		font-size: 24px; /* Размер текста */
 	}
