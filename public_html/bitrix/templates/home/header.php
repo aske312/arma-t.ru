@@ -387,10 +387,10 @@ if ($element = $res->Fetch()) {
                     const newWidth = e.clientX - cartModalContent.getBoundingClientRect().left;
                     const newHeight = e.clientY - cartModalContent.getBoundingClientRect().top;
 
-                    if (newWidth > 300 && newWidth < 800) {
+                    if (newWidth > 300 && newWidth < 1600) {
                         cartModalContent.style.width = `${newWidth}px`;
                     }
-                    if (newHeight > 200 && newHeight < 600) {
+                    if (newHeight > 200 && newHeight < 1200) {
                         cartModalContent.style.height = `${newHeight}px`;
                     }
                 }
