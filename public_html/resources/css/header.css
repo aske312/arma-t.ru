@@ -349,13 +349,13 @@ header {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     position: relative;
 }
 
 .cart-item-image {
     height: auto;
-    width: 100px;
+    width: 170px;
     padding: 10px;
     object-fit: relative;
     margin-right: 15px;
