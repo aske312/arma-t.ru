@@ -227,6 +227,7 @@
 	.category img {
 		text-align: center;
 		justify-content: center;
+		margin: 10px;
 		height: auto;
 		max-width: 175px; /* Ширина изображения */
 		margin-right: 20px; /* Отступ между изображением и текстом */
@@ -234,6 +235,7 @@
 	.category-text {
 		color: black;
 		text-align: left;
+		margin: 10px;
 		flex: 0; /* Занимаем всё доступное пространство */
 		font-size: 24px; /* Размер текста */
 	}

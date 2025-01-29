@@ -116,21 +116,6 @@ while ($section = $sections->Fetch()) {
 	</div>
 </div>
 
-<!-- <div class="section section2" id="Company">
-    <div class="container">
-        <div class="content">
-            <div class="text">
-                <?php if ($companyInfo): ?>
-                    <img src="<?= $companyInfo['IMG'] ?>" alt="Компания">
-                    <div><?= $companyInfo['TEXT'] ?></div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- -->
-
 <div class="section section3" id="Delivery">
 	<div class="block">
 		<div class="block-item">
@@ -163,21 +148,6 @@ while ($section = $sections->Fetch()) {
 		</div>
 	</div>
 </div>
-
-<!-- <div class="section section3" id="Delivery">
-    <div class="block">
-        <?php foreach ($deliveryItems as $item): ?>
-        <div class="block-item">
-            <div class="block-image">
-                <img alt="<?= $item['TEXT'] ?>" src="<?= $item['IMG'] ?>">
-            </div>
-            <div class="item-text"><?= $item['TEXT'] ?></div>
-        </div>
-        <?php endforeach; ?>
-    </div>
-</div> -->
-
-<!-- -->
 
 <div class="section section4-title" id="catalog">
     <div class="category-title">
@@ -332,15 +302,6 @@ while ($section = $sections->Fetch()) {
 
     document.getElementById('contactForm').addEventListener('submit', function (e) {
         e.preventDefault();  // Предотвращаем перезагрузку страницы
-
-        // Получаем ответ капчи
-        //var recaptchaResponse = grecaptcha.getResponse();
-
-        // Проверяем, прошел ли пользователь капчу
-//        if (recaptchaResponse.length === 0) {
-//            alert("Пожалуйста, подтвердите, что вы не робот.");
-//            return; // Если капча не пройдена, не отправляем форму
-//        }
 
         // Собираем данные формы
         var formData = new FormData(this);
