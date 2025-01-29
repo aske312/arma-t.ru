@@ -38,20 +38,6 @@
     $queryParams = array_merge(['SECTION_ID' => $sectionId], $_GET);
     $queryString = http_build_query($queryParams, '', '&');
 
-//     // Выводим отфильтрованный каталог
-//     $APPLICATION->IncludeComponent(
-//         "bitrix:catalog.section",
-//         "",
-//         [
-//             "FILTER_NAME" => "sectionFilter",
-//             "IBLOCK_ID" => 1,
-//             "SECTION_ID" => $sectionId,
-//             "INCLUDE_SUBSECTIONS" => "Y",
-//             "FILTER_VALUES" => $filters,
-//         ],
-//         false
-//     );
-
     // Получаем список всех активных секций для бокового меню
     $sectionsFilter = [
         'IBLOCK_ID' => 1,
