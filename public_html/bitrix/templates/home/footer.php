@@ -57,6 +57,18 @@
                 frameborder="0">
             </iframe>
         </div>
+
+        <!--
+
+         <div class="map">
+            <svg width="475" height="475" xmlns="http://www.w3.org/2000/svg">
+                <rect width="475" height="475" fill="#cfe2f3" />
+                <circle cx="200" cy="200" r="10" fill="red" />
+                <text x="210" y="205" font-size="12" fill="black">Улица Маршала Жукова, 36</text>
+            </svg>
+        </div>
+
+         -->
     </div>
 </div>
 
