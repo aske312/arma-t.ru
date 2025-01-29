@@ -78,7 +78,7 @@ if ($element = $res->Fetch()) {
                 <?php if ($phone): ?>
                     <p><a href="tel:<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
                 <?php else: ?>
-                    <p><a href="tel:+70000000000" class="phone-link">+7 (000) 000-00-00</a></p>
+                    <p><a href="tel:+79939140103" class="phone-link">+7(993) 914-01-03</a></p>
                 <?php endif; ?>
 
                 <!-- <button onclick="window.location.href='/#Cash'">Оставить заявку</button> -->
