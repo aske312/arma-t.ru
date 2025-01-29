@@ -339,7 +339,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-height: 500px;
+    max-height: 680px;
     overflow-y: auto;
 }
 
