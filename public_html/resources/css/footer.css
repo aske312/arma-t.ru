@@ -38,7 +38,7 @@
 	.cont-details {
 		display: flex;
 		flex-direction: column;
-		margin-top: 50px;
+		margin-top: 5px;
 		text-align: left;
 		margin-bottom: 20px;
 	}
