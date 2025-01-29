@@ -392,8 +392,8 @@ header {
 }
 
 .cart-item-image {
-    width: 70px;
-    height: 100px;
+    height: 75px;
+    width: 100px;
     padding: 10px;
     object-fit: relative;
     margin-right: 15px; /* Картинка слева с отступом справа */
