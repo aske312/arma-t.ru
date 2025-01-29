@@ -85,7 +85,7 @@ if (CModule::IncludeModule("iblock")) {
                 <p>Цена: <?php echo htmlspecialchars($productPrice); ?></p>
             </div>
             <button class="add-to-cart" data-id="<?php echo $productId; ?>"
-                    data-name="<?php echo htmlspecialchars($productName); ?>"
+                    data-name="<?php echo htmlspecialchars($productShortName); ?>"
                     data-price="<?php echo htmlspecialchars($productPrice); ?>"
                     data-articul="<?php echo htmlspecialchars($productArticul); ?>"
                     onclick="addToCart(this)">
