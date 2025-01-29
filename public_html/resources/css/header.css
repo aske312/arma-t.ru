@@ -395,7 +395,7 @@ header {
     width: 100px;
     height: 100px;
     padding: 10px;
-    object-fit: cover;
+    object-fit: relative;
     margin-right: 15px; /* Картинка слева с отступом справа */
 }
 
