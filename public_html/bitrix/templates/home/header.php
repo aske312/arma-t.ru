@@ -322,11 +322,11 @@ if ($element = $res->Fetch()) {
             window.location.href = '/checkout/';
         });
 
-        document.getElementById('cart-button').addEventListener('click', function() {
-            const cartModal = document.getElementById('cart-modal');
-            cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
-            loadCartData();
-        });
+//        document.getElementById('cart-button').addEventListener('click', function() {
+//            const cartModal = document.getElementById('cart-modal');
+//            cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+//            loadCartData();
+//        });
 
         document.getElementById('close-cart-modal').addEventListener('click', function() {
             document.getElementById('cart-modal').style.display = 'none';
