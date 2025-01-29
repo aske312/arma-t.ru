@@ -225,8 +225,8 @@
 		box-shadow: 0 0 25px #191970;
 	}
 	.category img {
-		text-align: left;
-		justify-content: center;
+		/* text-align: left; */
+		justify-content: left;
 		height: auto;
 		max-width: 175px; /* Ширина изображения */
 		margin-right: 20px; /* Отступ между изображением и текстом */
