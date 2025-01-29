@@ -315,14 +315,17 @@ header {
 
 .cart-modal-content {
     position: relative;
-    max-width: 600px;
+    max-width: 800px;
+    min-width: 300px;
+    min-height: 200px;
+    max-height: 600px;
     margin: 50px auto;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 1001;
-    resize: both;
+    resize: both; /* Разрешить изменение размеров */
     overflow: auto;
 }
 
@@ -349,6 +352,7 @@ header {
     gap: 15px;
     max-height: 400px;
     overflow-y: auto;
+    padding-right: 10px; /* Для скролла */
 }
 
 .cart-item-image {
