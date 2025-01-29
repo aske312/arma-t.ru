@@ -51,7 +51,7 @@
         <!-- Блок с картой -->
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
         <div class="map">
-            <div id="map" style="width: 600px; height: 400px;"></div>
+            <div id="map" style="width: 475px; height: 475px;"></div>
             <script>
                 ymaps.ready(init);
                 function init() {
@@ -69,16 +69,6 @@
                 }
             </script>
         </div>
-<!--
-        <div class="map">
-            <iframe
-                src="https://yandex.ru/map-widget/v1/?um=constructor%3A5a2d5d5e7c8c2603e2d8a2b9e5c9d7e78b0b0c824e3f1c5e44f21b61a3e1e5a5&source=constructor&point=55.681717,37.269466"
-                width="475"
-                height="475"
-                frameborder="0">
-            </iframe>
-        </div>
--->
     </div>
 </div>
 
