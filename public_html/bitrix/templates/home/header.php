@@ -123,9 +123,10 @@ if ($element = $res->Fetch()) {
                         <span class="close-btn" id="close-cart-modal">&times;</span>
                         <h2>Корзина</h2>
                         <div id="cart-items" class="cart-items-container"></div>
-                        <div id="cart-total"></div>
-                        <button id="clear-cart" class="button">Очистить корзину</button>
-                        <button id="checkout" class="button">Оформить заказ</button>
+                        <div class="cart-modal-footer">
+                            <button id="clear-cart" class="button">Очистить корзину</button>
+                            <button id="checkout" class="button">Оформить заказ</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -387,10 +388,10 @@ if ($element = $res->Fetch()) {
                     const newWidth = e.clientX - cartModalContent.getBoundingClientRect().left;
                     const newHeight = e.clientY - cartModalContent.getBoundingClientRect().top;
 
-                    if (newWidth > 300 && newWidth < 1600) {
+                    if (newWidth > 300 && newWidth < 800) {
                         cartModalContent.style.width = `${newWidth}px`;
                     }
-                    if (newHeight > 200 && newHeight < 1200) {
+                    if (newHeight > 200 && newHeight < 600) {
                         cartModalContent.style.height = `${newHeight}px`;
                     }
                 }
@@ -439,6 +440,5 @@ if ($element = $res->Fetch()) {
             cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
             loadCartData();
             setupCartModalResize();
-            setupCartModalDrag();
         });
     </script>
