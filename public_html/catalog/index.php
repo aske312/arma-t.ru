@@ -333,7 +333,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <div class="catalog-item-controls">
                                         <button class="catalog-item-add-to-cart"
                                                 data-id="<?= $arFields['ID']; ?>"
-                                                data-name="<?=  $arProps['PREVIEW_TEXT']; ?>"
+                                                data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
                                                 data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
                                                 data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">В корзину</button>
                                     </div>
