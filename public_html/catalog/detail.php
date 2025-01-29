@@ -59,8 +59,8 @@ if (CModule::IncludeModule("iblock")) {
 ?>
 
 <div class="section-title">
-    <h2><?php echo htmlspecialchars($productShortName); ?></h2>
-    <p>Подробное описание</p>
+    <h2>Подробное описание</h2>
+    <p><?php echo htmlspecialchars($productShortName); ?></p>
 
     <!-- Хлебные крошки -->
     <div class="breadcrumbs">

@@ -371,4 +371,80 @@ if ($element = $res->Fetch()) {
 
             xhr.send(formData);  // Отправляем данные формы
         });
+
+        // Функция для изменения размеров окна корзины
+        function setupCartModalResize() {
+            const cartModalContent = document.querySelector('.cart-modal-content');
+            const resizeHandle = document.createElement('div');
+            resizeHandle.className = 'resize-handle';
+            cartModalContent.appendChild(resizeHandle);
+
+            let isResizing = false;
+
+            resizeHandle.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                isResizing = true;
+                document.addEventListener('mousemove', resizeModal);
+                document.addEventListener('mouseup', stopResize);
+            });
+
+            function resizeModal(e) {
+                if (isResizing) {
+                    const newWidth = e.clientX - cartModalContent.getBoundingClientRect().left;
+                    const newHeight = e.clientY - cartModalContent.getBoundingClientRect().top;
+
+                    if (newWidth > 300 && newWidth < 800) {
+                        cartModalContent.style.width = `${newWidth}px`;
+                    }
+                    if (newHeight > 200 && newHeight < 600) {
+                        cartModalContent.style.height = `${newHeight}px`;
+                    }
+                }
+            }
+
+            function stopResize() {
+                isResizing = false;
+                document.removeEventListener('mousemove', resizeModal);
+                document.removeEventListener('mouseup', stopResize);
+            }
+        }
+
+        // Функция для перетаскивания окна корзины
+        function setupCartModalDrag() {
+            const cartModalContent = document.querySelector('.cart-modal-content');
+            const cartHeader = cartModalContent.querySelector('h2');
+
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            cartHeader.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - cartModalContent.getBoundingClientRect().left;
+                offsetY = e.clientY - cartModalContent.getBoundingClientRect().top;
+                document.addEventListener('mousemove', dragModal);
+                document.addEventListener('mouseup', stopDrag);
+            });
+
+            function dragModal(e) {
+                if (isDragging) {
+                    cartModalContent.style.left = `${e.clientX - offsetX}px`;
+                    cartModalContent.style.top = `${e.clientY - offsetY}px`;
+                }
+            }
+
+            function stopDrag() {
+                isDragging = false;
+                document.removeEventListener('mousemove', dragModal);
+                document.removeEventListener('mouseup', stopDrag);
+            }
+        }
+
+        // Инициализация функций при открытии корзины
+        document.getElementById('cart-button').addEventListener('click', function() {
+            const cartModal = document.getElementById('cart-modal');
+            cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+            loadCartData();
+            setupCartModalResize();
+            setupCartModalDrag();
+        });
     </script>

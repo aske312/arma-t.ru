@@ -14,7 +14,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         <div class="product-checkout" id="product-checkout">
             <!-- Здесь будет вывод корзины -->
         </div>
-        <div class="total" id="total-amount"><strong> Итоговая сумма: 0₽ </strong></div>
+        <div class="total" id="total-amount"><strong> Итоговая сумма: 0 ₽ </strong></div>
     </div>
 
     <div class="button-group">
@@ -176,7 +176,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         if (totalAmount === 0) {
             document.getElementById('total-amount').innerText = `Итоговая сумма: под заказ`;
         } else {
-            document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount.toFixed(2)}₽`;
+            document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount.toFixed(2)} ₽`;
         }
     }
 

@@ -469,6 +469,32 @@ header {
     background-color: #0056b3;
 }
 
+/********** Новые стили для изменения размеров и перетаскивания **********/
+.cart-modal-content {
+    resize: both; /* Разрешить изменение размеров */
+    overflow: auto; /* Добавляем скролл при необходимости */
+    min-width: 300px; /* Минимальная ширина */
+    min-height: 200px; /* Минимальная высота */
+    max-width: 800px; /* Максимальная ширина */
+    max-height: 600px; /* Максимальная высота */
+}
+
+.resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background-color: #2654A2;
+    cursor: se-resize;
+    border-radius: 2px;
+}
+
+.cart-modal-content h2 {
+    cursor: move;
+    user-select: none; /* Запрещаем выделение текста при перетаскивании */
+}
+
 /* ********** Мобильная версия ********** */
 @media (max-width: 768px) {
     .header-content {
