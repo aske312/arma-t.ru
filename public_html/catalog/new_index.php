@@ -256,17 +256,19 @@
                         <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
 
                             <!-- Ссылка на детальную страницу -->
-                            <a href="detail.php?id=<?= $arFields['ID']; ?>" class="catalog-item-link">
+                            <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
                                 <div class="catalog-item-header">
                                     <!-- <input type="checkbox" class="catalog-item-checkbox" id="item-<?= $arFields['ID']; ?>"> -->
 
                                     <?php
-                                    if ($arFields['PICTURE']) {
-                                        $imgPath = CFile::GetPath($arFields['PICTURE']);
+                                    // Проверяем изображение элемента
+                                    if (!empty($arProps['EL_IMAGES']['VALUE'])) {
+                                        $imgPath = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
                                     } elseif ($arFields['PREVIEW_PICTURE']) {
                                         $imgPath = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+                                    } elseif ($arFields['PICTURE']) {
+                                        $imgPath = CFile::GetPath($arFields['PICTURE']);
                                     } elseif ($arSection['PICTURE']) {
-                                        // Один вызов CFile::GetPath для картинки раздела
                                         $imgPath = CFile::GetPath($arSection['PICTURE']);
                                     } else {
                                         $imgPath = "/resources/img/no_image.png";
@@ -275,8 +277,8 @@
 
                                     <img src="<?= $imgPath; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                                     <div class="catalog-item-info">
-                                        <h3 class="catalog-item-name"><?= !empty($arFields['PREVIEW_TEXT']) ? $arFields['PREVIEW_TEXT'] : 'Нет анонса'; ?></h3>
-                                        <p>Артикул: <?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?></p>
+                                        <h3 class="catalog-item-name"><?= $arFields['PREVIEW_TEXT']; ?></h3>
+                                        <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
                                         <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
                                         <p><div class="catalog-item-price">
                                             <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
@@ -293,8 +295,8 @@
                                         <button class="catalog-item-add-to-cart"
                                                 data-id="<?= $arFields['ID']; ?>"
                                                 data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
-                                                data-price="<?= $arProps['EL_PRICE']['VALUE']; ?>"
-                                                data-article="<?= $arProps['EL_ARTICLE_CODE']['VALUE']; ?>">В корзину</button>
+                                                data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
+                                                data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">В корзину</button>
                                     </div>
                                 </div>
 
