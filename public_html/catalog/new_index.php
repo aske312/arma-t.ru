@@ -273,11 +273,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <!-- Краткое описание элемента -->
                                 <div class="catalog-item-properties">
                                     <table>
-                                        <?php if (!empty($arProps['EL_CONNTYPE']['VALUE'])): ?>
-                                            <th>Тип присоединения: <?= $arProps['EL_CONNTYPE']['VALUE']; ?></th>
+                                        <?php if (!empty($arProps['EL_CONNECTION_TYPE']['VALUE'])): ?>
+                                            <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
                                         <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_DRIVETYPE']['VALUE'])): ?>
-                                            <th>Тип привода: <?= $arProps['EL_DRIVETYPE']['VALUE']; ?></th>
+                                        <?php if (!empty($arProps['EL_DRIVE_TYPE']['VALUE'])): ?>
+                                            <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
                                         <?php endif; ?>
                                         <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
                                             <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
