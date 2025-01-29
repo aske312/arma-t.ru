@@ -117,6 +117,7 @@ if (CModule::IncludeModule("iblock")) {
     function addToCart(button) {
         // Получаем данные о товаре из атрибутов кнопки
         const productId = button.getAttribute('data-id');
+        const productImage = button.getAttribute('data-image');
         const productName = button.getAttribute('data-name');
         const productPrice = button.getAttribute('data-price');
         const productArticul = button.getAttribute('data-articul');
@@ -134,6 +135,7 @@ if (CModule::IncludeModule("iblock")) {
             // Если товара нет, добавляем его в корзину
             cartItems.cartItems.push({
                 id: productId,
+                image: productImage,
                 name: productName,
                 price: productPrice,
                 article: productArticul,
