@@ -352,8 +352,8 @@ header {
 }
 
 .cart-item-image {
-    width: auto; /* Увеличиваем размер изображения */
-    height: 120px;
+    width: 120px; /* Увеличиваем размер изображения */
+    height: auto;
     object-fit: cover;
     border-radius: 8px;
     margin-right: 15px;
