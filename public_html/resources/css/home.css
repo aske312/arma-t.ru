@@ -200,44 +200,48 @@
 	}
 
 /********! Нужна каллибровка !************/
-	.category-table {
-		justify-content: center;
-		display: flex;
-		flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
-		max-width: 1600px;
-		padding: 10px;
-	}
-	.category-block {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: calc(100% - 800px); /* Рассчитываем ширину для двух столбцов */
-		margin: 10px;
-		padding: 5px;
-		cursor: pointer;
-		width: 450px;
-		height: 160px;
-		background: white; /* #162139; */
-		border-radius: 5px;
-	}
-	.category-block:hover {
-		border-radius: 5px;
-		box-shadow: 0 0 25px #191970;
-	}
-	.category img {
-	    align-items: center;
-		justify-content: center;
-		height: auto;
-		margin: 10px;
-		max-width: 175px; /* Ширина изображения */
-		margin-right: 20px; /* Отступ между изображением и текстом */
-	}
-	.category-text {
-		color: black;
-		/* text-align: center; */
-		flex: 0; /* Занимаем всё доступное пространство */
-		font-size: 24px; /* Размер текста */
-	}
+
+    .category-table {
+        justify-content: center;
+        display: flex;
+        flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
+        max-width: 1600px;
+        padding: 10px;
+    }
+
+    .category-block {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 450px; /* Ширина блока фиксированная */
+        margin: 10px;
+        padding: 5px;
+        cursor: pointer;
+        height: 160px;
+        background: white; /* Цвет фона блока */
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Добавление тени для эффекта */
+    }
+
+    .category-block:hover {
+        box-shadow: 0 0 25px #191970; /* Эффект при наведении */
+    }
+
+    .category img {
+        max-width: 175px; /* Максимальная ширина изображения */
+        margin-right: 20px; /* Отступ между изображением и текстом */
+    }
+
+    .category-text {
+        color: black;
+        text-align: center; /* По центру текста */
+        font-size: 24px; /* Размер текста */
+        flex: 1; /* Занимаем всё доступное пространство */
+        display: flex;
+        align-items: center; /* Выравнивание по вертикали */
+        justify-content: center; /* Выравнивание по горизонтали */
+        text-align: center; /* Центрируем текст внутри блока */
+    }
 
 /********* Форма обратной связи *********/
     .section5 {
