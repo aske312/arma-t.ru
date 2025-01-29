@@ -21,7 +21,7 @@ $res = CIBlockElement::GetList(
     [],
     [
         "IBLOCK_ID" => 3,  // ID инфоблока
-        "SECTION_ID" => 4, // Раздел
+        //"SECTION_ID" => 3, // Раздел
         "ID" => 22371,      // ID элемента
         "ACTIVE" => "Y"     // Только активные элементы
     ],
