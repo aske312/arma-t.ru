@@ -350,7 +350,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-height: 400px;
+    max-height: auto;
     overflow-y: auto;
     padding-right: 10px; /* Для скролла */
 }
