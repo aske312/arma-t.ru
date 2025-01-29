@@ -49,6 +49,17 @@
         </div>
 
         <!-- Блок с картой -->
+
+        <div class="map">
+            <svg width="475" height="475" xmlns="http://www.w3.org/2000/svg">
+                <rect width="475" height="475" fill="#cfe2f3" />
+                <circle cx="200" cy="200" r="10" fill="red" />
+                <text x="210" y="205" font-size="12" fill="black">Улица Маршала Жукова, 36</text>
+            </svg>
+        </div>
+
+        <!--
+
         <div class="map">
             <iframe
                 src="https://yandex.ru/map-widget/v1/?um=constructor%3A5a2d5d5e7c8c2603e2d8a2b9e5c9d7e78b0b0c824e3f1c5e44f21b61a3e1e5a5&source=constructor&point=55.681717,37.269466"
@@ -58,17 +69,8 @@
             </iframe>
         </div>
 
-        <!--
-
-         <div class="map">
-            <svg width="475" height="475" xmlns="http://www.w3.org/2000/svg">
-                <rect width="475" height="475" fill="#cfe2f3" />
-                <circle cx="200" cy="200" r="10" fill="red" />
-                <text x="210" y="205" font-size="12" fill="black">Улица Маршала Жукова, 36</text>
-            </svg>
-        </div>
-
          -->
+
     </div>
 </div>
 
