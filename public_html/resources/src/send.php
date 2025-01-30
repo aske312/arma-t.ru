@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $body .= "--$boundary--";
 
-    $to = "admin@arma-t.ru";  // Укажите ваш email
+    $to = "info@arma-t.ru";  // Укажите ваш email
     $emailSubject = "Application from $subject";
 
     // Отправляем письмо
