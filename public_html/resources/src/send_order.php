@@ -5,13 +5,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = htmlspecialchars($_POST['phone']);
     $email = htmlspecialchars($_POST['email']);
     $address = htmlspecialchars($_POST['address']);
+    $company = htmlspecialchars($_POST['company']);
+    $inn = htmlspecialchars($_POST['inn']);
     $cartData = json_decode($_POST['cartData'], true);
+
+    // Проверяем, что данные корзины были переданы и декодированы
+    if (json_last_error() !== JSON_ERROR_NONE || !isset($cartData['cartItems'])) {
+        echo "Ошибка: данные корзины неверны или отсутствуют.";
+        exit;
+    }
 
     // Формируем текст письма
     $message = "Новый заказ:\n\n";
     $message .= "Имя: $name\n";
     $message .= "Телефон: $phone\n";
     $message .= "Email: $email\n";
+    $message .= "Компания: $company\n";
+    $message .= "ИНН: $inn\n";
     $message .= "Адрес доставки: $address\n\n";
     $message .= "Товары:\n";
 
