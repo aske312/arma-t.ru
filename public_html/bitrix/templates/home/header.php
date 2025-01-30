@@ -320,7 +320,7 @@ if ($element = $res->Fetch()) {
         updateCartCount();
 
         document.getElementById('checkout').addEventListener('click', function() {
-            window.location.href = '/catalog/checkout.php';
+            window.location.href = '/checkout';
         });
 
         document.getElementById('close-cart-modal').addEventListener('click', function() {
