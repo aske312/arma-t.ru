@@ -43,6 +43,15 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                     <label for="address">Адрес:</label>
                     <textarea id="address" name="address" required></textarea>
                     <input type="hidden" id="cartData" name="cartData">
+
+                    <!-- Checkbox для согласия на рассылку -->
+                    <div class="newsletter-checkbox">
+                        <label for="newsletter">
+                            <input type="checkbox" id="newsletter" name="newsletter" required>
+                            Согласен на рассылку
+                        </label>
+                    </div>
+
                     <button type="submit">Оформить заказ</button>
                 </form>
             </div>

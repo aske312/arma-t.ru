@@ -239,6 +239,10 @@ while ($section = $sections->Fetch()) {
             <!-- <div class="g-recaptcha" data-sitekey="6LcQqHYqAAAAAEs5PRrpZzwzKvKexhGs9BQaHfUH"></div> -->
 
             <div class="form-actions">
+                <label for="newsletter" class="newsletter-label">
+                    <input type="checkbox" id="newsletter" name="newsletter" required>
+                    Согласен на рассылку
+                </label>
                 <button type="submit" id="submitButton">Отправить</button>
             </div>
         </form>

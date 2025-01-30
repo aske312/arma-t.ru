@@ -269,3 +269,17 @@
     resize: vertical;
     min-height: 100px;
 }
+
+.newsletter-checkbox {
+    margin-bottom: 15px; /* Отступ перед кнопкой */
+}
+
+.newsletter-checkbox label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.newsletter-checkbox input[type="checkbox"] {
+    margin-right: 8px; /* Отступ между checkbox и текстом */
+}
