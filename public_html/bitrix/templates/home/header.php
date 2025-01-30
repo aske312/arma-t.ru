@@ -100,7 +100,7 @@ if ($element = $res->Fetch()) {
                                 <div class="form-actions-header">
                                     <button type="submit" id="submitButton">Отправить</button>
                                     <label for="newsletter" class="newsletter-label-header">
-                                        <input type="checkbox" id="newsletter" name="newsletter" required>
+                                        <input type="checkbox" id="newsletter-header" name="newsletter" required>
                                         Согласен на рассылку
                                     </label>
                                 </div>
@@ -108,6 +108,7 @@ if ($element = $res->Fetch()) {
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="cart-wrapper">
