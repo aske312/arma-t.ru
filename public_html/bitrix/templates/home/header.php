@@ -96,7 +96,7 @@ if ($element = $res->Fetch()) {
                                 <input type="text" id="subject" name="subject" placeholder="Название компании" required>
                                 <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
                                 <div class="form-actions-header">
-                                    <label for="newsletter" class="newsletter-label">
+                                    <label for="newsletter" class="newsletter-label-header">
                                         <input type="checkbox" id="newsletter" name="newsletter" required>
                                         Согласен на рассылку
                                     </label>

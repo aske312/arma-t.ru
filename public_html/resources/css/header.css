@@ -554,13 +554,13 @@ header {
     justify-content: space-between;
 } */
 
-.newsletter-label {
+.newsletter-label-header {
     color: black;
     display: flex;
     align-items: center;
     margin-right: 10px; /* Отступ между checkbox и кнопкой */
 }
 
-.newsletter-label input[type="checkbox"] {
+.newsletter-label-header input[type="checkbox"] {
     margin-right: 5px; /* Отступ между checkbox и текстом */
 }
