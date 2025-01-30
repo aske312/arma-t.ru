@@ -292,17 +292,6 @@
 
 .form-actions {
     display: flex;
-    align-items: center; /* Выравниваем элементы по вертикали */
-    gap: 10px; /* Отступ между кнопкой и чекбоксом */
-    margin-top: 15px; /* Отступ сверху, чтобы отделить от полей формы */
-}
-
-.button-container {
-    flex: 0 0 auto; /* Кнопка не растягивается */
-}
-
-.checkbox-container {
-    flex: 0 0 auto; /* Чекбокс не растягивается */
 }
 
 .newsletter-label {
