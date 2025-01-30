@@ -44,30 +44,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 </div>
 
 <script>
-    document.getElementById('order-form').addEventListener('submit', function (e) {
-        e.preventDefault(); // Предотвращаем перезагрузку страницы
-
-        // Получаем данные корзины из localStorage и добавляем в форму
-        const cartItems = localStorage.getItem('cartItems');
-        document.getElementById('cartData').value = cartItems;
-
-        var formData = new FormData(this);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/resources/src/send_order.php', true);
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                alert('Заказ успешно оформлен!');
-                localStorage.removeItem('cartItems'); // Очищаем корзину
-                window.location.href = '/';
-            } else {
-                alert('Произошла ошибка при оформлении заказа.');
-            }
-        };
-
-        xhr.send(formData);
-    });
-
     // Загрузка корзины при открытии страницы
     function loadCart() {
         const cartData = JSON.parse(localStorage.getItem('cartItems')) || { cartItems: [] };
@@ -117,67 +93,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         loadCart();
     }
 
-    // Функция для получения изображения товара
-    function getItemImage(item) {
-        if (item.image) {
-            return item.image; // если картинка есть, то возвращаем её
-        }
-
-        // Если нет картинки в данных товара, пытаемся получить из инфоблока
-        let infoblockImage = getInfoblockImage(item.sku);
-        if (infoblockImage) {
-            return infoblockImage; // возвращаем картинку из инфоблока
-        }
-
-        // Если изображения нет в товаре или инфоблоке, ставим заглушку
-        return '/resources/img/production/0.png'; // путь к заглушке
-    }
-
-    // Имитация функции для получения изображения из инфоблока
-    function getInfoblockImage(sku) {
-        // Например, запрос из инфоблока по SKU или ID (можно заменить на настоящий запрос к API Битрикса)
-        let imageURL = null;
-
-        // Здесь можно сделать запрос к Битриксу, например, с помощью AJAX или API
-        // Пример:
-        // imageURL = getImageFromInfoblock(sku); // Получаем картинку из инфоблока
-
-        return imageURL; // или null, если не нашли изображение
-    }
-
-    // Обновление общей суммы товаров в корзине
-    function updateTotal(cartItems) {
-        let totalAmount = cartItems.reduce((total, item) => {
-            let price = parseFloat(item.price) || 0; // Преобразуем цену в число
-            return total + (price * item.quantity); // Умножаем цену на количество
-        }, 0);
-
-        // Если цена товара 0 или не определена, показываем "Цена под заказ"
-        if (totalAmount === 0) {
-            document.getElementById('total-amount').innerText = `Итоговая сумма: под заказ`;
-        } else {
-            document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount.toFixed(2)} ₽`;
-        }
-    }
-
-    function adjustQuantity(event) {
-        const index = event.target.getAttribute('data-index');
-        let cartData = JSON.parse(localStorage.getItem('cartItems'));
-
-        if (event.target.classList.contains('plus')) {
-            cartData.cartItems[index].quantity++;
-        } else if (event.target.classList.contains('minus') && cartData.cartItems[index].quantity > 0) {
-            cartData.cartItems[index].quantity--;
-        }
-
-        if (cartData.cartItems[index].quantity <= 0) {
-            removeItem({ target: document.querySelector(`.remove-button[data-index="${index}"]`) });
-        } else {
-            localStorage.setItem('cartItems', JSON.stringify(cartData));
-            loadCart();
-        }
-    }
-
     // Удаление товара
     function removeItem(event) {
         const index = event.target.getAttribute('data-index');
@@ -186,31 +101,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         localStorage.setItem('cartItems', JSON.stringify(cartData));
         loadCart();
     }
-
-    function updateTotal(cartItems) {
-        let totalAmount = cartItems.reduce((total, item) => {
-            let price = parseFloat(item.price) || 0;
-            return total + (price * item.quantity);
-        }, 0);
-        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount}₽`;
-    }
-
-    // Открытие формы оформления заказа
-    document.getElementById('order-btn').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'flex';
-    });
-
-    // Закрытие формы
-    document.getElementById('close-modal').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'none';
-    });
-
-    // Закрытие формы при отправке
-    document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Заказ оформлен!');
-        document.querySelector('.modal').style.display = 'none';
-    });
 
     // Открытие модального окна
     document.getElementById('order-btn').addEventListener('click', () => {
@@ -223,7 +113,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         document.getElementById('order-form-container').style.display = 'none';
     });
 
-    // Загружаем корзину при загрузке страницы
+    // Загрузка корзины при загрузке страницы
     window.onload = loadCart;
 </script>
 
