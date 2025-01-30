@@ -95,12 +95,10 @@ if ($element = $res->Fetch()) {
                                 <input type="email" id="email" name="email" placeholder="e-mail" required>
                                 <input type="text" id="subject" name="subject" placeholder="Название компании" required>
                                 <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
-
-                                <!-- Блок для кнопки и чекбокса -->
                                 <div class="form-actions-header">
-                                    <button type="submit" id="submitButton">Отправить</button>
+                                    <button type="submit" id="contactForm-header">Отправить</button>
                                     <label for="newsletter" class="newsletter-label-header">
-                                        <input type="checkbox" id="newsletter-header" name="newsletter" required>
+                                        <input type="checkbox" id="newsletter" name="newsletter" required>
                                         Согласен на рассылку
                                     </label>
                                 </div>
@@ -108,7 +106,6 @@ if ($element = $res->Fetch()) {
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="cart-wrapper">

@@ -219,15 +219,14 @@ header {
 }
 
 .contact-form-header button {
-    padding: 8px 15px;
+    padding: 10px 20px;
     background-color: #2654A2;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    width: 175px;
-    margin-left: 10px;
+    width: auto; /* Убираем фиксированную ширину */
 }
 
 .contact-form-header button:hover {
@@ -547,22 +546,22 @@ header {
     text-decoration: none;
 }
 
-/* Блок для кнопки и чекбокса */
+/* Стили для формы в шапке */
 .form-actions-header {
-    display: flex; /* Используем flex для выравнивания */
+    display: flex;
+    align-items: center; /* Выравниваем элементы по вертикали */
     justify-content: space-between; /* Кнопка слева, чекбокс справа */
-    align-items: center; /* Выравниваем по вертикали */
-    margin-top: 5px; /* Отступ сверху */
+    margin-top: 15px; /* Отступ сверху */
 }
 
-/* Стили для чекбокса */
 .newsletter-label-header {
-    display: flex; /* Используем flex для выравнивания */
-    align-items: center; /* Выравниваем по вертикали */
+    display: flex;
+    align-items: center; /* Выравниваем чекбокс и текст по вертикали */
     font-size: 14px;
-    color: white;
+    color: black; /* Цвет текста */
+    margin-left: 10px; /* Отступ между кнопкой и чекбоксом */
 }
 
 .newsletter-label-header input[type="checkbox"] {
-    margin-right: 2px; /* Отступ между checkbox и текстом */
+    margin-right: 5px; /* Отступ между checkbox и текстом */
 }
