@@ -300,8 +300,8 @@
 }
 
 .newsletter-label {
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    align-items: right;
     font-size: 14px; /* Размер текста */
     color: white; /* Цвет текста для лучшей видимости */
 }
