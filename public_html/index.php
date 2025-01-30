@@ -314,16 +314,45 @@ while ($section = $sections->Fetch()) {
 
         xhr.onload = function () {
             if (xhr.status === 200) {
+                // Очищаем форму
                 document.getElementById('contactForm').reset();
                 document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
+
+                // Закрываем форму
+                closeForm();
+
+                // Показываем сообщение об успешной отправке
                 alert('Ваше сообщение было успешно отправлено!');
+
+                // Блокируем повторную отправку на 3 минуты
+                setTimeout(() => {
+                    submitButton.disabled = false; // Разблокируем кнопку через 3 минуты
+                }, 180000); // 180000 мс = 3 минуты
             } else {
                 alert('Произошла ошибка при отправке сообщения.');
+                submitButton.disabled = false; // Разблокируем кнопку в случае ошибки
             }
+        };
+
+        xhr.onerror = function () {
+            alert('Произошла ошибка при отправке сообщения.');
+            submitButton.disabled = false; // Разблокируем кнопку в случае ошибки
         };
 
         xhr.send(formData);  // Отправляем данные формы
     });
+
+    // Проверка времени последней отправки
+    const lastSubmissionTime = localStorage.getItem('lastSubmissionTime');
+    if (lastSubmissionTime && Date.now() - lastSubmissionTime < 180000) {
+        submitButton.disabled = true; // Блокируем кнопку, если прошло меньше 3 минут
+        setTimeout(() => {
+            submitButton.disabled = false; // Разблокируем кнопку через оставшееся время
+        }, 180000 - (Date.now() - lastSubmissionTime));
+    }
+
+    // Сохранение времени отправки
+    localStorage.setItem('lastSubmissionTime', Date.now());
 
     let slideIndex = 1;
     let slides = document.getElementsByClassName("slide");
