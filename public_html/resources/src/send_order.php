@@ -1,11 +1,11 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars($_POST['name']);
-    $email = htmlspecialchars($_POST['email']);
-    $phone = htmlspecialchars($_POST['phone']);
-    $company = htmlspecialchars($_POST['company']);
-    $inn = htmlspecialchars($_POST['inn']);
-    $address = htmlspecialchars($_POST['address']);
+    $name = htmlspecialchars_decode($_POST['name']);
+    $email = htmlspecialchars_decode($_POST['email']);
+    $phone = htmlspecialchars_decode($_POST['phone']);
+    $company = htmlspecialchars_decode($_POST['company']);
+    $inn = htmlspecialchars_decode($_POST['inn']);
+    $address = htmlspecialchars_decode($_POST['address']);
     $cartData = json_decode($_POST['cartData'], true);
 
     $boundary = md5(time());
