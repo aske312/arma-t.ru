@@ -521,94 +521,87 @@
 		text-align: left;
     }
 
-/******* ADAPTATION *******/
+/******* ADAPTATION
 
 @media (max-width: 768px) {
-    /***** Общие стили для всех секций *****/
     .section {
-        padding: 10px; /* Уменьшаем отступы */
-        font-size: 16px; /* Уменьшаем размер шрифта */
+        padding: 10px;
+        font-size: 16px;
     }
 
-    /***** Слайдер *****/
     .slider-container {
-        height: 300px; /* Уменьшаем высоту слайдера */
+        height: 300px;
     }
     .slide-text {
-        font-size: 20px; /* Уменьшаем текст внутри слайдов */
-        top: 20px; /* Сдвигаем текст выше */
+        font-size: 20px;
+        top: 20px;
     }
     .dots {
-        bottom: 10px; /* Сдвигаем точки навигации выше */
+        bottom: 10px;
     }
 
-    /***** Секция с текстом и изображением *****/
     .section2 .content {
-        flex-direction: column; /* Меняем направление на вертикальное */
-        text-align: center; /* Центрируем текст */
+        flex-direction: column;
+        text-align: center;
     }
     .section2 .image {
-        margin-bottom: 20px; /* Добавляем отступ между изображением и текстом */
+        margin-bottom: 20px;
     }
     .section2 .text {
-        margin-left: 0; /* Убираем отрицательный отступ */
+        margin-left: 0;
     }
 
-    /***** Информационный блок *****/
     .section3 .block {
-        flex-direction: column; /* Меняем направление на вертикальное */
-        height: auto; /* Автоматическая высота */
+        flex-direction: column;
+        height: auto;
     }
     .section3 .block-item {
-        margin: 20px 0; /* Уменьшаем отступы между блоками */
+        margin: 20px 0;
     }
 
-    /***** Каталог *****/
     .category-table {
-        flex-direction: column; /* Меняем направление на вертикальное */
+        flex-direction: column;
     }
     .category-block {
-        width: 100%; /* Блоки занимают всю ширину */
-        margin: 10px 0; /* Уменьшаем отступы */
+        width: 100%;
+        margin: 10px 0;
     }
     .category img {
-        max-width: 100px; /* Уменьшаем размер изображений */
+        max-width: 100px;
     }
 
-    /***** Форма обратной связи *****/
     .contact-form {
-        width: 100%; /* Форма занимает всю ширину */
-        transform: none; /* Убираем сдвиг */
-        padding: 10px; /* Уменьшаем отступы */
+        width: 100%;
+        transform: none;
+        padding: 10px;
     }
     .contact-form input,
     .contact-form textarea {
-        width: 100%; /* Поля формы занимают всю ширину */
+        width: 100%;
     }
 
-    /***** Блок доставки *****/
     .d-content {
-        flex-direction: column; /* Меняем направление на вертикальное */
+        flex-direction: column;
     }
     .d-text {
-        flex-direction: column; /* Меняем направление на вертикальное */
-        text-align: center; /* Центрируем текст */
+        flex-direction: column;
+        text-align: center;
     }
     .d-icons {
-        flex-wrap: wrap; /* Разрешаем перенос иконок на новую строку */
-        gap: 20px; /* Уменьшаем расстояние между иконками */
+        flex-wrap: wrap;
+        gap: 20px;
     }
     .d-icon {
-        width: 80px; /* Уменьшаем размер иконок */
+        width: 80px;
         height: 80px;
     }
 
-    /***** Блок оплаты *****/
     .p-content {
-        flex-direction: column; /* Меняем направление на вертикальное */
+        flex-direction: column;
     }
     .p-text {
-        flex-direction: column; /* Меняем направление на вертикальное */
-        text-align: center; /* Центрируем текст */
+        flex-direction: column;
+        text-align: center;
     }
 }
+*******/
