@@ -471,6 +471,56 @@
     object-fit: cover;
 }
 
+/** Блок контакты **/
+    .section7 {
+        background-color: #DCDCDC;
+    }
+    .section7-title {
+        background-color: #DCDCDC;
+    }
+	.pay-title {
+		display: flex;
+		width: 1050px;
+		text-align: left;
+		color: black;
+	}
+    .p-container {
+        max-width: 1045px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    .p-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+    }
+    .p-text {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: black;
+        font-size: 24px;
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 1400px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .p-image {
+        flex-shrink: 0;
+    }
+    .p-image img {
+        max-width: 100%;
+        height: auto;
+    }
+    .p-text-content p {
+		font-size: 24px;
+		line-height: 1.6;
+		text-align: left;
+    }
+
 /******* ADAPTATION *******/
 
 @media (max-width: 768px) {
