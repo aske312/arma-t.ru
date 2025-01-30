@@ -10,39 +10,42 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         <p>Товары в корзине</p>
     </div>
 
-    <div id="cart-items">
-        <div class="product-checkout" id="product-checkout">
-            <!-- Здесь будет вывод корзины -->
+    <div id="checkout-block">
+
+        <div id="cart-items">
+            <div class="product-checkout" id="product-checkout">
+                <!-- Здесь будет вывод корзины -->
+            </div>
+            <div class="total" id="total-amount"><strong> Итоговая сумма: 0 ₽ </strong></div>
         </div>
-        <div class="total" id="total-amount"><strong> Итоговая сумма: 0 ₽ </strong></div>
-    </div>
 
-    <div class="button-group">
-        <button onclick="history.back()" class="back-button">Назад</button>
-        <button id="order-btn" class="order-button">Оформить заказ</button>
-    </div>
+        <div class="button-group">
+            <button onclick="history.back()" class="back-button">Назад</button>
+            <button id="order-btn" class="order-button">Оформить заказ</button>
+        </div>
 
-    <div id="order-form-container" class="modal">
-        <div class="modal-content">
-            <span class="close-button" id="close-modal">&times;</span>
-            <form class="order-form" id="order-form">
-                <h2>Ваши данные</h2>
-                <!-- Поля для ввода данных -->
-                <label for="name">Имя:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="phone">Телефон:</label>
-                <input type="text" id="phone" name="phone" required>
-                <label for="company">Компания:</label>
-                <input type="text" id="company" name="company" required>
-                <label for="inn">ИНН:</label>
-                <input type="text" id="inn" name="inn" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="address">Адрес:</label>
-                <textarea id="address" name="address" required></textarea>
-                <input type="hidden" id="cartData" name="cartData">
-                <button type="submit">Оформить заказ</button>
-            </form>
+        <div id="order-form-container" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="close-modal">&times;</span>
+                <form class="order-form" id="order-form">
+                    <h2>Ваши данные</h2>
+                    <!-- Поля для ввода данных -->
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="phone">Телефон:</label>
+                    <input type="text" id="phone" name="phone" required>
+                    <label for="company">Компания:</label>
+                    <input type="text" id="company" name="company" required>
+                    <label for="inn">ИНН:</label>
+                    <input type="text" id="inn" name="inn" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="address">Адрес:</label>
+                    <textarea id="address" name="address" required></textarea>
+                    <input type="hidden" id="cartData" name="cartData">
+                    <button type="submit">Оформить заказ</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

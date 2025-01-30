@@ -24,6 +24,16 @@
     font-size: 24px;
 }
 
+.checkout-block {
+    max-width: 1180px;
+    margin: 0 auto;
+    color: #333;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 /* Контейнер товаров */
 #cart-items {
     margin: 20px auto;
