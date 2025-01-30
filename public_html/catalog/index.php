@@ -336,7 +336,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                                 data-image="<?= $arFields['PREVIEW_PICTURE']; ?>"
                                                 data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
                                                 data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
-                                                data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">В корзину</button>
+                                                data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
+                                            В корзину
+                                        </button>
                                     </div>
                                 </div>
 
@@ -431,14 +433,18 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             event.stopPropagation(); // Останавливаем всплытие события
             event.preventDefault(); // Предотвращаем стандартное поведение (если кнопка внутри <a>)
 
-            // Логика добавления в корзину
+            // Получаем данные о товаре из атрибутов кнопки
             const productId = button.getAttribute('data-id');
             const productImage = button.getAttribute('data-image');
             const productName = button.getAttribute('data-name');
             const productPrice = button.getAttribute('data-price');
             const productArticle = button.getAttribute('data-article');
 
-            addToCart(productId, productName, productPrice, productArticle);
+            // Добавляем товар в корзину
+            addToCart(productId, productImage, productName, productPrice, productArticle);
+
+            // Уведомление пользователя
+            alert('Товар добавлен в корзину');
         });
     });
 
@@ -522,6 +528,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         return data ? data.cartItems : [];
     }
 
+    // Функция добавления товара в корзину
     function addToCart(productId, productImage, productName, productPrice, productArticle) {
         let cartItems = getCartItemsFromStorage();
         let found = false;
@@ -548,6 +555,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         updateCartCounter();
     }
 
+    // Функция обновления счетчика товаров в корзине
     function updateCartCounter() {
         const cartItems = getCartItemsFromStorage();
         const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
