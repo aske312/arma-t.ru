@@ -314,8 +314,9 @@
     vertical-align: middle; /* Выравниваем по вертикали */
 }
 
-.checkbox-newsletter input[type="checkbox"] {
+.newsletter-label input[type="checkbox"] {
     vertical-align: middle; /* Выравниваем по вертикали */
+    display: inline-block;
 }
 
 /* Стили для кнопки */
