@@ -547,20 +547,22 @@ header {
     text-decoration: none;
 }
 
-/*
+/* Блок для кнопки и чекбокса */
 .form-actions-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-} */
+    display: flex; /* Используем flex для выравнивания */
+    justify-content: space-between; /* Кнопка слева, чекбокс справа */
+    align-items: center; /* Выравниваем по вертикали */
+    margin-top: 5px; /* Отступ сверху */
+}
 
+/* Стили для чекбокса */
 .newsletter-label-header {
-    color: black;
-    /* display: flex; */
-    align-items: center;
-    /* margin-right: 10px; */
+    display: flex; /* Используем flex для выравнивания */
+    align-items: center; /* Выравниваем по вертикали */
+    font-size: 14px;
+    color: white;
 }
 
 .newsletter-label-header input[type="checkbox"] {
-    display: relative;
+    margin-right: 2px; /* Отступ между checkbox и текстом */
 }
