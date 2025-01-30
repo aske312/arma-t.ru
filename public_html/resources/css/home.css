@@ -291,12 +291,23 @@
 }
 
 .form-actions {
+    display: flex; /* Используем flex для выравнивания */
+    align-items: center; /* Выравниваем элементы по вертикали */
+    gap: 10px; /* Отступ между кнопкой и чекбоксом */
     margin-top: 15px; /* Отступ сверху, чтобы отделить от полей формы */
 }
 
+.button-container {
+    flex: 0 0 auto; /* Кнопка не растягивается */
+}
+
+.checkbox-container {
+    flex: 0 0 auto; /* Чекбокс не растягивается */
+}
+
 .newsletter-label {
-    display: inline-block; /* Размещаем label как inline-block */
-    margin-left: 10px; /* Отступ между кнопкой и чекбоксом */
+    display: flex;
+    align-items: center;
     font-size: 14px; /* Размер текста */
     color: white; /* Цвет текста для лучшей видимости */
 }
@@ -314,7 +325,6 @@
     font-size: 16px;
     cursor: pointer;
     width: auto; /* Убираем фиксированную ширину */
-    display: inline-block; /* Размещаем кнопку как inline-block */
 }
 
 .contact-form button:hover {
