@@ -302,25 +302,22 @@
 
 /* Блок для кнопки и чекбокса */
 .form-actions {
+    display: flex; /* Используем flex для выравнивания */
+    justify-content: space-between; /* Кнопка слева, чекбокс справа */
+    align-items: center; /* Выравниваем по вертикали */
     margin-top: 15px; /* Отступ сверху */
-    text-align: left; /* Выравниваем элементы по левому краю */
-}
-
-.form-actions label{
-    display: inline-block;
 }
 
 /* Стили для чекбокса */
 .newsletter-label {
-    display: inline-block; /* Лейбл как inline-block */
+    display: flex; /* Используем flex для выравнивания */
+    align-items: center; /* Выравниваем по вертикали */
     font-size: 14px;
     color: white;
-    vertical-align: middle; /* Выравниваем по вертикали */
 }
 
 .newsletter-label input[type="checkbox"] {
-    vertical-align: middle; /* Выравниваем по вертикали */
-    display: inline-block;
+    margin-right: 5px; /* Отступ между checkbox и текстом */
 }
 
 /* Стили для кнопки */
@@ -332,7 +329,6 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    display: inline-block; /* Кнопка как inline-block */
 }
 
 .contact-form button:hover {
