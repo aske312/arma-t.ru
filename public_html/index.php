@@ -320,7 +320,7 @@ while ($section = $sections->Fetch()) {
                     alert(response.message);
                     setTimeout(() => {
                         submitButton.disabled = false;
-                    }, 180000); // 180000 мс = 3 минуты
+                    }, 1800); // 180000 мс = 3 минуты
                 } else {
                     alert(response.message);
                     submitButton.disabled = false;
@@ -342,22 +342,6 @@ while ($section = $sections->Fetch()) {
 
         xhr.send(formData);
     });
-
-    if (xhr.status === 429) {
-        const response = JSON.parse(xhr.responseText);
-        const remainingTime = parseInt(response.message.match(/\d+/)[0]); // Извлекаем оставшееся время
-        alert(`Пожалуйста, подождите ${remainingTime} секунд перед повторной отправкой.`);
-
-        // Запускаем таймер
-        let timer = remainingTime;
-        const timerInterval = setInterval(() => {
-            timer--;
-            if (timer <= 0) {
-                clearInterval(timerInterval);
-                alert('Теперь вы можете отправить форму снова.');
-            }
-        }, 1000);
-    }
 
     let slideIndex = 1;
     let slides = document.getElementsByClassName("slide");

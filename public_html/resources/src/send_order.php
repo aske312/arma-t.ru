@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Получаем данные из формы
+    // Получаем данные из формы и обрабатываем их
     $name = htmlspecialchars($_POST['name']);
     $phone = htmlspecialchars($_POST['phone']);
     $email = htmlspecialchars($_POST['email']);
@@ -24,10 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $message .= "\nИтоговая сумма: {$totalSum} ₽";
 
+    // Устанавливаем заголовки для отправки письма с кодировкой UTF-8
+    $headers = "From: no-reply@arma-t.ru\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";  // Указываем кодировку UTF-8
+    $headers .= "Content-Transfer-Encoding: 8bit\r\n";  // Указываем кодировку для передачи текста
+    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+
     // Отправка письма
     $to = "info@arma-t.ru"; // Замените на ваш email
-    $subject = "Новый заказ с сайта";
-    $headers = "From: no-reply@arma-t.ru";
+    $subject = "=?UTF-8?B?" . base64_encode("Новый заказ с сайта") . "?=";  // Кодируем тему письма в UTF-8
 
     if (mail($to, $subject, $message, $headers)) {
         echo "Заказ успешно оформлен!";
