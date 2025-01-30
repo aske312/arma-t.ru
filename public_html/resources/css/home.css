@@ -291,7 +291,7 @@
 }
 
 .form-actions {
-    display: flex;
+    display: inline-block;
 }
 
 .newsletter-label {
