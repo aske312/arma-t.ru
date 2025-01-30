@@ -290,14 +290,16 @@
     color: #999;
 }
 
+ /*
 .form-actions {
     display: flex;
-    align-items: center; /* Выравниваем элементы по вертикали */
-    justify-content: flex-start; /* Выравниваем элементы по левому краю */
-    gap: 10px; /* Отступ между кнопкой и чекбоксом */
-    margin-top: 15px; /* Отступ сверху, чтобы отделить от полей формы */
-    /* width: auto; /* Занимает всю ширину контейнера */
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 15px;
+    width: auto;
 }
+*/
 
 /*
 .newsletter-label {
