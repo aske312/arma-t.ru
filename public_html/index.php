@@ -235,9 +235,7 @@ while ($section = $sections->Fetch()) {
             <input type="text" id="subject" name="subject" placeholder="Название компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
-            <!-- Добавляем капчу сюда -->
-            <!-- <div class="g-recaptcha" data-sitekey="6LcQqHYqAAAAAEs5PRrpZzwzKvKexhGs9BQaHfUH"></div> -->
-
+            <!-- Блок для кнопки и чекбокса -->
             <div class="form-actions">
                 <button type="submit" id="submitButton">Отправить</button>
                 <label for="newsletter" class="newsletter-label">

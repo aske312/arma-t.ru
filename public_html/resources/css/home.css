@@ -297,24 +297,26 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    width: 175px;
-    margin-left: 10px;
+    width: auto; /* Убираем фиксированную ширину */
 }
+
 .contact-form button:hover {
     background-color: #0056b3;
 }
-/* Блок для кнопок отправки и выбора файла */
+
 .form-actions {
     display: flex;
-    align-items: right;
-    justify-content: right;  /* Выровнять элементы по левому краю */
-    gap: 10px;  /* Добавляем небольшой отступ между элементами */
+    align-items: center; /* Выравниваем элементы по вертикали */
+    justify-content: flex-start; /* Выравниваем элементы по левому краю */
+    gap: 10px; /* Отступ между кнопкой и чекбоксом */
+    margin-top: 15px; /* Отступ сверху, чтобы отделить от полей формы */
 }
 
 .newsletter-label {
     display: flex;
     align-items: center;
     font-size: 14px; /* Размер текста */
+    color: white; /* Цвет текста для лучшей видимости */
 }
 
 .newsletter-label input[type="checkbox"] {
