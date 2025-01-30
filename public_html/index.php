@@ -302,7 +302,7 @@ while ($section = $sections->Fetch()) {
     }
 
     // Обработчик отправки формы
-    document.getElementById('contactForm-header').addEventListener('submit', function (e) {
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
         e.preventDefault();  // Предотвращаем перезагрузку страницы
 
         // Блокируем кнопку отправки
