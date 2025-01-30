@@ -246,6 +246,7 @@ if ($element = $res->Fetch()) {
                                     ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
                                 </p>
                             </div>
+                        </a>
                             <div class="cart-item-actions">
                                 <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
                                 <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
@@ -255,7 +256,6 @@ if ($element = $res->Fetch()) {
                                 </span>
                                 <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
                             </div>
-                        </a>
                     </div>
                 `;
 
