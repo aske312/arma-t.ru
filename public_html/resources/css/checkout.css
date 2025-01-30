@@ -3,58 +3,98 @@
     font-family: Arial, sans-serif;
     color: #333;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
+/* Стили для заголовка */
 .section-title {
-    background: #2654A2;
-    color: white;
+    background: url('/resources/img/block/pattern.png') no-repeat center;
+    background-size: cover; /* Заполнение всей доступной области без растягивания */
+    color: #fff;
     padding: 20px;
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
+    width: 1180px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+    height: 100%; /* Высота контейнера */
+}
+
+.section-title h2 {
+    margin: 0;
+    font-size: 24px;
 }
 
 .checkout-block {
-    max-width: 800px;
+    max-width: 1180px;
     margin: 0 auto;
+    color: #333;
     background-color: white;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Контейнер товаров */
 #cart-items {
-    margin-bottom: 20px;
+    margin: 20px auto;
+    max-width: 1300px;
+    padding: 20px;
+    /* background-color: #fff; */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.product-checkout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Карточка товара */
 .cart-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #ddd;
+    background-color: #fff;
     border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
+    position: relative; /* Для размещения кнопки удаления */
 }
 
+/* Стили для изображения товара */
 .product-image {
     width: 100px;
     height: 100px;
     background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
     overflow: hidden;
-    margin-right: 15px;
 }
 
 .product-image img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: cover;
 }
 
+.placeholder {
+    color: #aaa;
+    text-align: center;
+    font-size: 14px;
+    line-height: 100px;
+}
+
+/* Заглушка изображения */
+.placeholder {
+    background-color: #e0e0e0;
+}
+
+/* Стили для информации о товаре */
 .product-info {
     flex-grow: 1;
+    padding-left: 20px;
 }
 
 .product-info span {
@@ -64,14 +104,44 @@
 
 .price {
     font-weight: bold;
-    color: #2654A2;
+}
+
+/* Стили для отображения основной цены товара */
+.total {
+    color: white;
 }
 
 .total-item-price {
     font-weight: bold;
+    margin-top: 10px;
     color: #333;
 }
 
+/* Стили для текста "Цена под заказ" */
+.price-soldout {
+    color: #d9534f; /* Красный для "Цена под заказ" */
+}
+
+/* Кнопка удаления товара (иконка крестик) */
+.remove-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    color: #333; /* Черный цвет */
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    padding: 0;
+}
+
+/* Подсветка фона для крестика при наведении */
+.remove-button:hover {
+    background-color: #d9534f; /* Подсветка фона красным при наведении */
+    color: white; /* Белый цвет текста на красном фоне */
+}
+
+/* Стили для кнопок "Минус" и "Плюс" */
 .quantity-control {
     display: flex;
     align-items: center;
@@ -81,101 +151,102 @@
 .quantity-btn {
     width: 30px;
     height: 30px;
-    background-color: #2654A2;
-    color: white;
+    background-color: transparent;
+    color: #333; /* Черный цвет */
     border: none;
-    border-radius: 50%;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
+    text-align: center;
 }
 
 .quantity-btn:hover {
-    background-color: #1c3d6e;
+    background-color: transparent; /* Нет фона при наведении */
 }
 
-.quantity-input {
-    width: 50px;
-    text-align: center;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.quantity-btn.minus {
+    font-weight: bold;
 }
 
-.remove-button {
-    background: none;
-    border: none;
-    color: #ff4d4d;
-    font-size: 20px;
-    cursor: pointer;
+.quantity-btn.plus {
+    font-weight: bold;
 }
 
-.remove-button:hover {
-    color: #cc0000;
-}
-
-.total {
-    text-align: right;
-    font-size: 18px;
-    margin-top: 20px;
-}
-
+/* Кнопки "Назад" и "Оформить" */
 .button-group {
     text-align: center;
     margin-top: 20px;
 }
 
-.back-button, .order-button {
+.back-button,
+.order-button {
     background-color: #2654A2;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
+    font-size: 1em;
     margin: 0 10px;
+    border-radius: 5px;
 }
 
-.back-button:hover, .order-button:hover {
-    background-color: #1c3d6e;
+.back-button:hover,
+.order-button:hover {
+    background-color: #0056b3;
 }
 
+/* Стили для модального окна */
 .modal {
-    display: none;
+    display: none; /* Скрыто по умолчанию */
     position: fixed;
-    top: 0;
+    z-index: 1;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     width: 400px;
     max-width: 90%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
 .close-button {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 24px;
+    font-size: 30px;
+    color: #aaa;
     cursor: pointer;
 }
 
-.order-form label {
-    display: block;
-    margin-top: 10px;
+.close-button:hover {
+    color: #333;
 }
 
-.order-form input, .order-form textarea {
-    width: 100%;
+.order-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-form label {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.order-form input,
+.order-form textarea {
     padding: 10px;
     margin-top: 5px;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
@@ -186,11 +257,15 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1em;
     border-radius: 5px;
-    margin-top: 20px;
 }
 
 .order-form button:hover {
-    background-color: #1c3d6e;
+    background-color: #0056b3;
+}
+
+.order-form textarea {
+    resize: vertical;
+    min-height: 100px;
 }
