@@ -291,7 +291,7 @@
 }
 
 .form-actions {
-
+    display: flex;
     align-items: center; /* Выравниваем элементы по вертикали */
     gap: 10px; /* Отступ между кнопкой и чекбоксом */
     margin-top: 15px; /* Отступ сверху, чтобы отделить от полей формы */
@@ -306,7 +306,6 @@
 }
 
 .newsletter-label {
-
     align-items: center;
     font-size: 14px; /* Размер текста */
     color: white; /* Цвет текста для лучшей видимости */
