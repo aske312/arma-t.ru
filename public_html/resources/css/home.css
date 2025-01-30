@@ -305,19 +305,19 @@
     display: flex; /* Используем flex для выравнивания */
     justify-content: space-between; /* Кнопка слева, чекбокс справа */
     align-items: center; /* Выравниваем по вертикали */
-    margin-top: 15px; /* Отступ сверху */
+    margin-top: 5px; /* Отступ сверху */
 }
 
 /* Стили для чекбокса */
 .newsletter-label {
     display: flex; /* Используем flex для выравнивания */
-    /* align-items: center; /* Выравниваем по вертикали */
+    align-items: center; /* Выравниваем по вертикали */
     font-size: 14px;
     color: white;
 }
 
 .newsletter-label input[type="checkbox"] {
-    margin-right: 5px; /* Отступ между checkbox и текстом */
+    margin-right: 2px; /* Отступ между checkbox и текстом */
 }
 
 /* Стили для кнопки */
@@ -332,29 +332,6 @@
 }
 
 .contact-form button:hover {
-    background-color: #0056b3;
-}
-
-/* Стили для кнопки выбора файла */
-.file-label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #2654A2;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    color: white;
-}
-
-.file-label img {
-    width: 20px;
-    height: 20px;
-}
-
-.file-label:hover {
     background-color: #0056b3;
 }
 
