@@ -317,6 +317,7 @@
 }
 
 .newsletter-label input[type="checkbox"] {
+    transform: translateX(-30%);
     margin-right: 2px; /* Отступ между checkbox и текстом */
 }
 
