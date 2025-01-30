@@ -291,17 +291,22 @@
 }
 
 .form-actions {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
 }
 
 .newsletter-label {
+    display: flex;
     align-items: center;
-    font-size: 14px; /* Размер текста */
-    color: white; /* Цвет текста для лучшей видимости */
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
 }
 
 .newsletter-label input[type="checkbox"] {
-    margin-right: 5px; /* Отступ между checkbox и текстом */
+    margin-right: 5px;
 }
 
 .contact-form button {
@@ -354,35 +359,6 @@
 
 #submitButton:hover {
     background-color: #0056b3;
-}
-
-/* Контейнер для списка файлов */
-#fileList {
-    margin-top: 10px;
-    color: white;
-}
-
-.file-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.file-item span {
-    margin-right: 10px;
-}
-
-.delete-file {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.delete-file:hover {
-    background-color: #c0392b;
 }
 
 /** Блок доставки  **/
