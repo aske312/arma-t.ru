@@ -547,11 +547,12 @@ header {
     text-decoration: none;
 }
 
+/*
 .form-actions-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
+} */
 
 .newsletter-label {
     display: flex;
