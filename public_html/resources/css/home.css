@@ -311,7 +311,7 @@
 /* Стили для чекбокса */
 .newsletter-label {
     display: flex; /* Используем flex для выравнивания */
-    align-items: center; /* Выравниваем по вертикали */
+    /* align-items: center; /* Выравниваем по вертикали */
     font-size: 14px;
     color: white;
 }
