@@ -312,7 +312,7 @@
 }
 
 .newsletter-label {
-    display: flex;
+    /* display: flex;
     /* align-items: center; */
     /* margin-right: 10px;*/ /* Отступ между checkbox и кнопкой */
 }
