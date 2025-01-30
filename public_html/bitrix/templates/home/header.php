@@ -377,22 +377,6 @@ if ($element = $res->Fetch()) {
             xhr.send(formData);
         });
 
-        if (xhr.status === 429) {
-            const response = JSON.parse(xhr.responseText);
-            const remainingTime = parseInt(response.message.match(/\d+/)[0]); // Извлекаем оставшееся время
-            alert(`Пожалуйста, подождите ${remainingTime} секунд перед повторной отправкой.`);
-
-            // Запускаем таймер
-            let timer = remainingTime;
-            const timerInterval = setInterval(() => {
-                timer--;
-                if (timer <= 0) {
-                    clearInterval(timerInterval);
-                    alert('Теперь вы можете отправить форму снова.');
-                }
-            }, 1000);
-        }
-
         // Функция для изменения размеров окна корзины
         function setupCartModalResize() {
             const cartModalContent = document.querySelector('.cart-modal-content');
