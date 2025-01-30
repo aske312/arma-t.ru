@@ -556,7 +556,7 @@ header {
 
 .newsletter-label-header {
     color: black;
-    /* display: flex; */
+    display: flex;
     align-items: center;
     margin-right: 10px;
 }
