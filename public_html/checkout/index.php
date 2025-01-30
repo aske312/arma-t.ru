@@ -113,8 +113,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                         <div class="product-info">
                             <span><strong>${item.name}</strong></span>
                             <span>Артикул: <strong>${item.article}</strong></span>
-                            <span class="price">Цена за единицу: <strong>${priceText}</strong></span>
-                            <span class="total-item-price">В сумме: <strong>${totalItemPrice}</strong></span>
+                            <span class="price">Цена за единицу: <strong>
+                                ${!isNaN(priceText) && priceText !== null && priceText > 0 ? priceText + ' руб.' : ''}
+                            </strong></span>
+                            <span class="total-item-price">В сумме: <strong>
+                                ${!isNaN(totalItemPrice) && totalItemPrice !== null && totalItemPrice > 0 ? totalItemPrice + ' руб.' : ''}
+                            </strong></span>
                             <div class="quantity-control">
                                 <button class="quantity-btn minus" data-index="${index}">-</button>
                                 <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />

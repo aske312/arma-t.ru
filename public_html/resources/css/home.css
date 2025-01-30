@@ -1,643 +1,564 @@
 /***** Страница index.php ***/
 /********* Сектора *********/
-	.section {
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		color: white;
-		font-size: 24px;
-		text-align: center;
-		height: 100%;
-	}
+.section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    height: 100%;
+}
 
 /********* Стили для слайдера *********/
-    /* Основной контейнер слайдера */
-    .section1 {
-        background-color: #162139;
+/* Основной контейнер слайдера */
+.section1 {
+    background-color: #162139;
 
-    }
-    /* Обертка слайдера */
-    .slider-wrapper {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-    /* Контейнер слайдера */
-    .slider-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        max-width: 2400px;
-        height: 650px;
-        position: relative;
-        overflow: hidden;
-    }
-    /* Слайдер */
-    .slider {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-    /* Контейнер слайдов */
-    .slides {
-        display: flex;
-        width: 100%;
-        height: 100%;
-    }
-    /* Каждый отдельный слайд */
-    .slide {
-        position: relative;
-        min-width: 100%;
-        height: 100%;
-    }
-    /* Затемненная область для текста */
-    .slide::before {
-        content: '';
-        position: absolute;
-        /* top: 50%; */
-        left: 50%; /* Центрируем по горизонтали */
-        transform: translate(-50%, -50%); /* Сдвигаем на половину ширины и высоты для точного центрирования */
-        width: 55%; /* Ширина затемненной области */
-        height: 65%; /* Высота затемненной области */
-        background: rgba(0, 0, 0, 0.2); /* Цвет затемнения */
-        z-index: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    /* Изображение слайда */
-    .slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-    /* Текст внутри слайда */
-    .slide-text {
-        position: absolute;
-        top: 40px; /* Отступ от верха */
-        left: 50%;
-        transform: translateX(-50%);
-        color: white;
-        font-size: 40px;
-        z-index: 2; /* Текст поверх затемнения */
-        text-align: center;
-    }
-    /* Точки для навигации */
-    .dots {
-        text-align: center;
-        position: absolute;
-        width: 100%;
-        bottom: 20px;
-        z-index: 2;
-    }
-    .dot {
-        z-index: 2;
-        height: 10px;
-        width: 10px;
-        margin: 0 5px;
-        background-color: #bbb;
-        display: inline-block;
-        border-radius: 50%;
-        transition: background-color 0.6s ease;
-    }
-    .active, .dot:hover {
-        background-color: #717171;
-    }
+}
+/* Обертка слайдера */
+.slider-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+/* Контейнер слайдера */
+.slider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 2400px;
+    height: 650px;
+    position: relative;
+    overflow: hidden;
+}
+/* Слайдер */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+/* Контейнер слайдов */
+.slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+/* Каждый отдельный слайд */
+.slide {
+    position: relative;
+    min-width: 100%;
+    height: 100%;
+}
+/* Затемненная область для текста */
+.slide::before {
+    content: '';
+    position: absolute;
+    /* top: 50%; */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translate(-50%, -50%); /* Сдвигаем на половину ширины и высоты для точного центрирования */
+    width: 55%; /* Ширина затемненной области */
+    height: 65%; /* Высота затемненной области */
+    background: rgba(0, 0, 0, 0.2); /* Цвет затемнения */
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Изображение слайда */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* Текст внутри слайда */
+.slide-text {
+    position: absolute;
+    top: 40px; /* Отступ от верха */
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 40px;
+    z-index: 2; /* Текст поверх затемнения */
+    text-align: center;
+}
+/* Точки для навигации */
+.dots {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    z-index: 2;
+}
+.dot {
+    z-index: 2;
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    display: inline-block;
+    border-radius: 50%;
+    transition: background-color 0.6s ease;
+}
+.active, .dot:hover {
+    background-color: #717171;
+}
+
 /********* Текст вторым блоком *********/
-	.section2 {
-	    background-color: #DCDCDC;
-		/* background-color: white; /* #DCDCDC; */
-	}
-	.container {
-		display: flex;
-		justify-content: center;
-	}
-	.content {
-		display: flex;
-		align-items: center;
-		margin-top: 10px;
-		max-width: 1000px; /* Максимальная ширина контента */
-	}
-	.image {
-		flex: 1;
-		text-align: right;
-	}
-	.image img {
-		max-width: 100%;
-		height: auto;
-		display: block;
-	}
-	.text {
-		flex: 1;
-		margin-left: -90%;
-	}
-	.text p {
-		font-size: 24px;
-		line-height: 1.6;
-		color: black;
-		text-align: left;
-	}
+.section2 {
+    background-color: #DCDCDC;
+    /* background-color: white; /* #DCDCDC; */
+}
+.container {
+    display: flex;
+    justify-content: center;
+}
+.content {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    max-width: 1000px; /* Максимальная ширина контента */
+}
+.image {
+    flex: 1;
+    text-align: right;
+}
+.image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.text {
+    flex: 1;
+    margin-left: -90%;
+}
+.text p {
+    font-size: 24px;
+    line-height: 1.6;
+    color: black;
+    text-align: left;
+}
 
 /********* Информационный блок *********/
-	.section3 {
-		width: 100%;
-		height: 100%;
-		background-color: #162139;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	.block {
-		max-width: 1600px;
-		height: 350px;
-		display: flex;
-		margin-bottom: 50px;
-	}
-	.block-item {
-        justify-content: center;
-		align-items: center;
-		margin: 85px;
-	}
-	.block-item img {
-		display: block;
-	}
-	.block-image {
-	    display: flex;
-        justify-content: center;
-		align-items: center;
-	}
-	.item-text {
-		color: white;
-		margin-top: 15px;
-		font-size: 24px;
-		line-height: 1.6;
-	}
+
+.section3 {
+    width: 100%;
+    height: 100%;
+    background-color: #162139;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.block {
+    max-width: 1600px;
+    height: 350px;
+    display: flex;
+    margin-bottom: 50px;
+}
+.block-item {
+    justify-content: center;
+    align-items: center;
+    margin: 85px;
+}
+.block-item img {
+    display: block;
+}
+.block-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item-text {
+    color: white;
+    margin-top: 15px;
+    font-size: 24px;
+    line-height: 1.6;
+}
 
 /********* Блок Каталог *********/
-	.section4 {
-		/* background-color: #DCDCDC; */ /* #1E3564; */
-	}
-	.category {
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		background-color: #DCDCDC; /* #1E3564; */
-	}
 
-/********! Нужна каллибровка !************/
-	.section4-title {
-		background-color: #DCDCDC; /* #1E3564; */
-	}
-	.category-title {
-		display: flex;
-		width: 1050px;
-		text-align: left;
-		color: black;
-	}
+.section4 {
+    /* background-color: #DCDCDC; */ /* #1E3564; */
+}
+.category {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #DCDCDC; /* #1E3564; */
+}
 
 /********! Нужна каллибровка !************/
 
-    .category-table {
-        justify-content: center;
-        display: flex;
-        flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
-        max-width: 1600px;
-        padding: 10px;
-    }
+.section4-title {
+    background-color: #DCDCDC; /* #1E3564; */
+}
+.category-title {
+    display: flex;
+    width: 1050px;
+    text-align: left;
+    color: black;
+}
 
-    .category-block {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 450px; /* Ширина блока фиксированная */
-        margin: 10px;
-        padding: 15px;
-        cursor: pointer;
-        height: 160px;
-        background: white; /* Цвет фона блока */
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Добавление тени для эффекта */
-    }
+/********! Нужна каллибровка !************/
 
-    .category-block:hover {
-        box-shadow: 0 0 25px #191970; /* Эффект при наведении */
-    }
+.category-table {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
+    max-width: 1600px;
+    padding: 10px;
+}
 
-    .category img {
-        align-items: center;
-        justify-content: center;
-        max-width: 175px; /* Максимальная ширина изображения */
-        margin-right: 20px; /* Отступ между изображением и текстом */
-    }
+.category-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 450px; /* Ширина блока фиксированная */
+    margin: 10px;
+    padding: 15px;
+    cursor: pointer;
+    height: 160px;
+    background: white; /* Цвет фона блока */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Добавление тени для эффекта */
+}
 
-    .category-text {
-        color: black;
-        text-align: center; /* По центру текста */
-        font-size: 24px; /* Размер текста */
-        flex: 1; /* Занимаем всё доступное пространство */
-        display: flex;
-        align-items: center; /* Выравнивание по вертикали */
-        justify-content: center; /* Выравнивание по горизонтали */
-        text-align: center; /* Центрируем текст внутри блока */
-    }
+.category-block:hover {
+    box-shadow: 0 0 25px #191970; /* Эффект при наведении */
+}
+
+.category img {
+    align-items: center;
+    justify-content: center;
+    max-width: 175px; /* Максимальная ширина изображения */
+    margin-right: 20px; /* Отступ между изображением и текстом */
+}
+
+.category-text {
+    color: black;
+    text-align: center; /* По центру текста */
+    font-size: 24px; /* Размер текста */
+    flex: 1; /* Занимаем всё доступное пространство */
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    justify-content: center; /* Выравнивание по горизонтали */
+    text-align: center; /* Центрируем текст внутри блока */
+}
 
 /********* Форма обратной связи *********/
-    .section5 {
-        background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)),
-            url('/resources/img/head_title/steel-slide_4.jpg') no-repeat center;
-        background-size: cover;
+
+.section5 {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)),
+        url('/resources/img/head_title/steel-slide_4.jpg') no-repeat center;
+    background-size: cover;
+}
+.form-container {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.contact-form {
+    border-radius: 10px;
+    padding: 20px;
+    width: 450px;
+    transform: translateX(-60%);
+    display: flex;
+    flex-direction: column;
+}
+.contact-form h2 {
+    color: white;
+    text-align: left;
+    margin-bottom: 15px;
+}
+.contact-form input,
+.contact-form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 450px;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #999;
+}
+.contact-form button {
+    padding: 8px 15px;
+    background-color: #2654A2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 175px;
+    margin-left: 10px;
+}
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+/* Блок для кнопок отправки и выбора файла */
+.form-actions {
+    display: flex;
+    align-items: right;
+    justify-content: right;  /* Выровнять элементы по левому краю */
+    gap: 10px;  /* Добавляем небольшой отступ между элементами */
+}
+
+/* Стили для кнопки выбора файла */
+.file-label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2654A2;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+}
+
+.file-label img {
+    width: 20px;
+    height: 20px;
+}
+
+.file-label:hover {
+    background-color: #0056b3;
+}
+
+/* Кнопка отправки формы */
+#submitButton {
+    background-color: #2654A2;
+    color: #fff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submitButton:hover {
+    background-color: #0056b3;
+}
+
+/* Контейнер для списка файлов */
+#fileList {
+    margin-top: 10px;
+    color: white;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.file-item span {
+    margin-right: 10px;
+}
+
+.delete-file {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.delete-file:hover {
+    background-color: #c0392b;
+}
+
+/** Блок доставки  **/
+
+.section6 {
+    /* padding: 20px; */
+}
+.delivery-title {
+    display: flex;
+    width: 1050px;
+    text-align: left;
+    color: white;
+}
+.d-container {
+    max-width: 1045px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.d-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+.d-text {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 24px;
+    color: #fff;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.d-image {
+    flex-shrink: 0;
+}
+.d-image img {
+    max-width: 100%;
+    height: auto;
+}
+.d-text-content p {
+    font-size: 24px;
+    line-height: 1.6;
+    text-align: left;
+}
+
+/* Стиль для .d-title-list */
+.d-title-list p {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+}
+
+/* Стиль для .d-list */
+.d-list {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+    max-width: 100%;
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+}
+
+/* Стиль для иконок-кружков */
+.d-icons {
+    display: flex;
+    gap: 150px;
+}
+
+.d-icon {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.d-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/******* ADAPTATION *******/
+
+@media (max-width: 768px) {
+    /***** Общие стили для всех секций *****/
+    .section {
+        padding: 10px; /* Уменьшаем отступы */
+        font-size: 16px; /* Уменьшаем размер шрифта */
     }
-    .form-container {
-        width: 100%;
-        height: 500px;
-        display: flex;
-        justify-content: center;
-        padding: 20px;
+
+    /***** Слайдер *****/
+    .slider-container {
+        height: 300px; /* Уменьшаем высоту слайдера */
     }
+    .slide-text {
+        font-size: 20px; /* Уменьшаем текст внутри слайдов */
+        top: 20px; /* Сдвигаем текст выше */
+    }
+    .dots {
+        bottom: 10px; /* Сдвигаем точки навигации выше */
+    }
+
+    /***** Секция с текстом и изображением *****/
+    .section2 .content {
+        flex-direction: column; /* Меняем направление на вертикальное */
+        text-align: center; /* Центрируем текст */
+    }
+    .section2 .image {
+        margin-bottom: 20px; /* Добавляем отступ между изображением и текстом */
+    }
+    .section2 .text {
+        margin-left: 0; /* Убираем отрицательный отступ */
+    }
+
+    /***** Информационный блок *****/
+    .section3 .block {
+        flex-direction: column; /* Меняем направление на вертикальное */
+        height: auto; /* Автоматическая высота */
+    }
+    .section3 .block-item {
+        margin: 20px 0; /* Уменьшаем отступы между блоками */
+    }
+
+    /***** Каталог *****/
+    .category-table {
+        flex-direction: column; /* Меняем направление на вертикальное */
+    }
+    .category-block {
+        width: 100%; /* Блоки занимают всю ширину */
+        margin: 10px 0; /* Уменьшаем отступы */
+    }
+    .category img {
+        max-width: 100px; /* Уменьшаем размер изображений */
+    }
+
+    /***** Форма обратной связи *****/
     .contact-form {
-        border-radius: 10px;
-        padding: 20px;
-        width: 450px;
-        transform: translateX(-60%);
-        display: flex;
-        flex-direction: column;
-    }
-    .contact-form h2 {
-        color: white;
-        text-align: left;
-        margin-bottom: 15px;
+        width: 100%; /* Форма занимает всю ширину */
+        transform: none; /* Убираем сдвиг */
+        padding: 10px; /* Уменьшаем отступы */
     }
     .contact-form input,
     .contact-form textarea {
-        margin-bottom: 15px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-        width: 450px;
-    }
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder {
-        color: #999;
-    }
-    .contact-form button {
-        padding: 8px 15px;
-        background-color: #2654A2;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        width: 175px;
-        margin-left: 10px;
-    }
-    .contact-form button:hover {
-        background-color: #0056b3;
-    }
-    /* Блок для кнопок отправки и выбора файла */
-    .form-actions {
-        display: flex;
-        align-items: right;
-        justify-content: right;  /* Выровнять элементы по левому краю */
-        gap: 10px;  /* Добавляем небольшой отступ между элементами */
+        width: 100%; /* Поля формы занимают всю ширину */
     }
 
-    /* Стили для кнопки выбора файла */
-    .file-label {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #2654A2;
-        padding: 8px 15px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        color: white;
-    }
-
-    .file-label img {
-        width: 20px;
-        height: 20px;
-    }
-
-    .file-label:hover {
-        background-color: #0056b3;
-    }
-
-    /* Кнопка отправки формы */
-    #submitButton {
-        background-color: #2654A2;
-        color: #fff;
-        padding: 8px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    #submitButton:hover {
-        background-color: #0056b3;
-    }
-
-    /* Контейнер для списка файлов */
-    #fileList {
-        margin-top: 10px;
-        color: white;
-    }
-
-    .file-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-
-    .file-item span {
-        margin-right: 10px;
-    }
-
-    .delete-file {
-        background-color: #e74c3c;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 5px 10px;
-        cursor: pointer;
-    }
-
-    .delete-file:hover {
-        background-color: #c0392b;
-    }
-
-/** Блок доставки  **/
-    .section6 {
-        /* padding: 20px; */
-    }
-	.delivery-title {
-		display: flex;
-		width: 1050px;
-		text-align: left;
-		color: white;
-	}
-    .d-container {
-        max-width: 1045px;
-        margin: 0 auto;
-        padding: 10px;
-    }
+    /***** Блок доставки *****/
     .d-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        text-align: center;
+        flex-direction: column; /* Меняем направление на вертикальное */
     }
     .d-text {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        font-size: 24px;
-        color: #fff;
-        padding: 20px;
-        margin: 0 auto;
-        max-width: 1400px;
-        width: 100%;
-        box-sizing: border-box;
+        flex-direction: column; /* Меняем направление на вертикальное */
+        text-align: center; /* Центрируем текст */
     }
-    .d-image {
-        flex-shrink: 0;
-    }
-    .d-image img {
-        max-width: 100%;
-        height: auto;
-    }
-    .d-text-content p {
-		font-size: 24px;
-		line-height: 1.6;
-		text-align: left;
-    }
-
-    /* Стиль для .d-title-list */
-    .d-title-list p {
-        font-weight: bold;
-        font-size: 18px;
-        margin: 0;
-        text-align: left;
-        width: 100%;
-    }
-
-    /* Стиль для .d-list */
-    .d-list {
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 100px;
-        max-width: 100%;
-        width: 100%;
-        text-align: left;
-        font-size: 18px;
-    }
-
-    /* Стиль для иконок-кружков */
     .d-icons {
-        display: flex;
-        gap: 150px;
+        flex-wrap: wrap; /* Разрешаем перенос иконок на новую строку */
+        gap: 20px; /* Уменьшаем расстояние между иконками */
     }
-
     .d-icon {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f0f0f0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 80px; /* Уменьшаем размер иконок */
+        height: 80px;
     }
 
-    .d-icon img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-/* Для адаптивности */
-@media (max-width: 768px) {
-    .d-content {
-        flex-direction: column;
-    }
-
-    .d-text {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .d-list {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .d-icons {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .d-icon {
-        width: 50px;
-        height: 50px;
-    }
-
-    .d-text-content p, .d-title-list p {
-        font-size: 16px;
-    }
-
-    .d-image img {
-        max-width: 100px;
-    }
-}
-/** Блок контакты **/
-    .section7 {
-        background-color: #DCDCDC;
-    }
-    .section7-title {
-        background-color: #DCDCDC;
-    }
-	.pay-title {
-		display: flex;
-		width: 1050px;
-		text-align: left;
-		color: black;
-	}
-    .p-container {
-        max-width: 1045px;
-        margin: 0 auto;
-        padding: 10px;
-    }
+    /***** Блок оплаты *****/
     .p-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        text-align: center;
+        flex-direction: column; /* Меняем направление на вертикальное */
     }
     .p-text {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        color: black;
-        font-size: 24px;
-        padding: 20px;
-        margin: 0 auto;
-        max-width: 1400px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    .p-image {
-        flex-shrink: 0;
-    }
-    .p-image img {
-        max-width: 100%;
-        height: auto;
-    }
-    .p-text-content p {
-		font-size: 24px;
-		line-height: 1.6;
-		text-align: left;
-    }
-
-/* Для адаптивности */
-@media (max-width: 768px) {
-    .p-content {
-        flex-direction: column;
-    }
-
-    .p-list {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .p-list .p-image img {
-        max-width: 60px;
-    }
-
-    .p-text p, .p-title-list p, .p-list li {
-        font-size: 16px;
-    }
-}
-
-/************ Mobile *************/
-/* Адаптация для планшетов и мобильных */
-@media (max-width: 1024px) {
-    .section, .slider-container {
-        font-size: 18px; /* Уменьшаем размер текста */
-    }
-    .slide-text {
-        font-size: 24px; /* Уменьшаем текст внутри слайдов */
-    }
-    .slider-container {
-        height: 400px; /* Уменьшаем высоту слайдера для компактности */
-    }
-    .block {
-        flex-direction: column;
-        height: auto;
-        margin: 20px;
-    }
-    .block-item {
-        margin: 20px;
-    }
-    .category-block {
-        width: 100%; /* На мобильных весь блок занимает 100% */
-        height: auto;
-        margin: 10px;
-    }
-    .contact-form {
-        width: 100%;
-        padding: 10px;
-    }
-}
-
-/* Адаптация для мобильных устройств */
-@media (max-width: 768px) {
-    .section, .slider-container, .block {
-        padding: 10px;
-    }
-    .slide-text {
-        font-size: 20px;
-    }
-    .category-table {
-        flex-direction: column;
-    }
-    .d-content, .p-content, .block, .contact-form, .d-list, .p-list {
-        width: 100%;
-        padding: 10px;
-    }
-    .category-block, .d-icon, .p-image img {
-        width: 100%;
-        max-width: 100px; /* Ограничиваем размер для иконок */
-        height: auto;
-    }
-    .text {
-        margin-left: 0; /* На мобильных убираем отступы */
-        font-size: 16px;
-    }
-}
-
-/************ Big-Size *************/
-@media (min-width: 1440px) {
-    .slider-container {
-        height: 800px; /* Увеличиваем высоту для широких экранов */
-    }
-    .section {
-        font-size: 28px;
-    }
-    .block {
-        max-width: 1800px;
-    }
-    .d-list, .p-list {
-        gap: 120px; /* Увеличиваем расстояние между элементами */
+        flex-direction: column; /* Меняем направление на вертикальное */
+        text-align: center; /* Центрируем текст */
     }
 }
