@@ -237,23 +237,25 @@ if ($element = $res->Fetch()) {
 
                 const cartItemHTML = `
                     <div class="cart-item-card">
-                        <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
-                        <div class="cart-item-details">
-                            <p class="cart-item-name">${item.name}</p>
-                            <p class="cart-item-article">Артикул: ${item.article}</p>
-                            <p class="cart-item-price">
-                                ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
-                            </p>
-                        </div>
-                        <div class="cart-item-actions">
-                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
-                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
-                            <span class="cart-item-total">
-                                ${!isNaN(itemTotal) && itemTotal !== null && itemTotal > 0 ? itemTotal + ' руб.' : ''}
-                            </span>
-                            <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
-                        </div>
+                        <a href="/catalog/detail.php?ID={item.id}" class="cart-item-link">
+                            <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <p class="cart-item-name">${item.name}</p>
+                                <p class="cart-item-article">Артикул: ${item.article}</p>
+                                <p class="cart-item-price">
+                                    ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
+                                </p>
+                            </div>
+                            <div class="cart-item-actions">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
+                                <span class="cart-item-total">
+                                    ${!isNaN(itemTotal) && itemTotal !== null && itemTotal > 0 ? itemTotal + ' руб.' : ''}
+                                </span>
+                                <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
+                            </div>
+                        </a>
                     </div>
                 `;
 

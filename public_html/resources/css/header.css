@@ -534,3 +534,15 @@ header {
     background-color: white;
     z-index: 1000;
 }
+
+.cart-item-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    flex-grow: 1;
+}
+
+.cart-item-link:hover {
+    text-decoration: none;
+}
