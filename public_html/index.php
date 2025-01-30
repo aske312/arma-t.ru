@@ -239,7 +239,7 @@ while ($section = $sections->Fetch()) {
             <div class="form-actions">
                 <button type="submit" id="submitButton">Отправить</button>
                 <label for="newsletter" class="newsletter-label">
-                    Согласен на рассылку
+                    Согласен
                     <input type="checkbox" id="newsletter" name="newsletter" required>
                 </label>
             </div>
