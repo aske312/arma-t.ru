@@ -563,4 +563,5 @@ header {
 
 .newsletter-label-header input[type="checkbox"] {
     /* margin-right: 5px; */
+    margin: 0;
 }
