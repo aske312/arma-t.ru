@@ -1,5 +1,8 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Логируем полученные данные
+    error_log("Полученные данные: " . print_r($_POST, true));
+
     // Получаем данные из формы и обрабатываем их
     $name = htmlspecialchars($_POST['name']);
     $phone = htmlspecialchars($_POST['phone']);
@@ -11,9 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Проверяем, что данные корзины были переданы и декодированы
     if (json_last_error() !== JSON_ERROR_NONE || !isset($cartData['cartItems'])) {
+        error_log("Ошибка декодирования JSON: " . json_last_error_msg());
         echo "Ошибка: данные корзины неверны или отсутствуют.";
         exit;
     }
+
+    // Логируем данные корзины
+    error_log("Данные корзины: " . print_r($cartData, true));
 
     // Формируем текст письма
     $message = "Новый заказ:\n\n";
