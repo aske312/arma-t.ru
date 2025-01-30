@@ -345,28 +345,36 @@ if ($element = $res->Fetch()) {
             document.getElementById('Form').classList.remove('active');
         });
 
-        // Обработчик отправки формы
         document.getElementById('contactForm-header').addEventListener('submit', function (e) {
             e.preventDefault();  // Предотвращаем перезагрузку страницы
 
-            // Собираем данные формы
-            var formData = new FormData(this);
+            const submitButton = this.querySelector('button[type="submit"]');
+            submitButton.disabled = true; // Блокируем кнопку
 
-            // Создаем и отправляем запрос
-            var xhr = new XMLHttpRequest();
+            const formData = new FormData(this);
+
+            const xhr = new XMLHttpRequest();
             xhr.open('POST', '/resources/src/send.php', true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    document.getElementById('contactForm').reset();
-                    document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
+                    document.getElementById('contactForm-header').reset();
                     alert('Ваше сообщение было успешно отправлено!');
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                    }, 180000); // 180000 мс = 3 минуты
                 } else {
                     alert('Произошла ошибка при отправке сообщения.');
+                    submitButton.disabled = false;
                 }
             };
 
-            xhr.send(formData);  // Отправляем данные формы
+            xhr.onerror = function () {
+                alert('Произошла ошибка при отправке сообщения.');
+                submitButton.disabled = false;
+            };
+
+            xhr.send(formData);
         });
 
         // Функция для изменения размеров окна корзины
