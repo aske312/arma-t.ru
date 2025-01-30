@@ -235,10 +235,12 @@ while ($section = $sections->Fetch()) {
             <input type="text" id="subject" name="subject" placeholder="Название компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
+            <!-- Блок для кнопки и чекбокса -->
             <div class="form-actions">
                 <button type="submit" id="submitButton">Отправить</button>
-                <label class="newsletter-label" for="newsletter">
-                    <input type="checkbox" id="newsletter" name="newsletter"> Согласен на рассылку
+                <label for="newsletter" class="newsletter-label">
+                    <input type="checkbox" id="newsletter" name="newsletter" required>
+                    Согласен на рассылку
                 </label>
             </div>
         </form>

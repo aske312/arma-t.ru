@@ -263,64 +263,72 @@
     justify-content: center;
     padding: 20px;
 }
+
+/* Стили для формы */
 .contact-form {
-    border-radius: 10px;
+    max-width: 450px; /* Ширина формы */
+    margin: 0 auto; /* Центрируем форму */
     padding: 20px;
-    width: 450px;
-    transform: translateX(-60%);
-    display: flex;
-    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.1); /* Легкий фон для формы */
+    border-radius: 10px;
 }
 
 .contact-form h2 {
     color: white;
-    text-align: left;
-    margin-bottom: 15px;
+    text-align: center;
+    margin-bottom: 20px;
 }
+
 .contact-form input,
 .contact-form textarea {
-    margin-bottom: 15px;
+    width: 100%;
     padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    width: 450px;
+    box-sizing: border-box; /* Учитываем padding в ширине */
 }
+
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
     color: #999;
 }
 
-.form-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap; /* Чтобы чекбокс не уезжал при нехватке места */
-    margin-top: 10px;
-    width: 100%;
+.contact-form textarea {
+    resize: vertical; /* Разрешаем изменение высоты textarea */
 }
 
+/* Блок для кнопки и чекбокса */
+.form-actions {
+    margin-top: 15px; /* Отступ сверху */
+    text-align: left; /* Выравниваем элементы по левому краю */
+}
+
+/* Стили для чекбокса */
 .newsletter-label {
-    display: flex;
-    align-items: center;
+    display: inline-block; /* Лейбл как inline-block */
+    margin-left: 10px; /* Отступ между кнопкой и чекбоксом */
     font-size: 14px;
     color: white;
-    cursor: pointer;
+    vertical-align: middle; /* Выравниваем по вертикали */
 }
 
 .newsletter-label input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: 5px; /* Отступ между checkbox и текстом */
+    vertical-align: middle; /* Выравниваем по вертикали */
 }
 
+/* Стили для кнопки */
 .contact-form button {
-    padding: 8px 15px;
+    padding: 10px 20px;
     background-color: #2654A2;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    width: auto; /* Убираем фиксированную ширину */
+    display: inline-block; /* Кнопка как inline-block */
 }
 
 .contact-form button:hover {
