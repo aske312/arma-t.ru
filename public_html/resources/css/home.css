@@ -306,6 +306,10 @@
     text-align: left; /* Выравниваем элементы по левому краю */
 }
 
+.form-actions label{
+    display: inline-block;
+}
+
 /* Стили для чекбокса */
 .newsletter-label {
     display: inline-block; /* Лейбл как inline-block */
