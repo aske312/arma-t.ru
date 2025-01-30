@@ -555,7 +555,7 @@ header {
 }
 
 .newsletter-label-header {
-    display: flex;
+    /*  display: flex; */
     align-items: center; /* Выравниваем чекбокс и текст по вертикали */
     font-size: 14px;
     color: black; /* Цвет текста */
