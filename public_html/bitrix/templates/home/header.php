@@ -99,7 +99,7 @@ if ($element = $res->Fetch()) {
                                     <button type="submit" id="contactForm-header">Отправить</button>
                                     <label for="newsletter" class="newsletter-label-header">
                                         <input type="checkbox" id="newsletter" name="newsletter" required>
-                                        Согласен на рассылку
+                                        Согласие на рассылку
                                     </label>
                                 </div>
                             </form>

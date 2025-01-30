@@ -48,7 +48,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                     <div class="newsletter-checkbox">
                         <label for="newsletter">
                             <input type="checkbox" id="newsletter" name="newsletter" required>
-                            Согласен на рассылку
+                            Согласие на рассылку
                         </label>
                     </div>
 
