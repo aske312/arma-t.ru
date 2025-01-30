@@ -308,7 +308,7 @@
 
 /* Стили для чекбокса */
 .newsletter-label {
-    display: flex; /* Лейбл как inline-block */
+    display: inline-block; /* Лейбл как inline-block */
     margin-left: 10px; /* Отступ между кнопкой и чекбоксом */
     font-size: 14px;
     color: white;
