@@ -1,10 +1,10 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Получаем данные из формы
-    $name = htmlspecialchars_decode($_POST['name']);
-    $phone = htmlspecialchars_decode($_POST['phone']);
-    $email = htmlspecialchars_decode($_POST['email']);
-    $address = htmlspecialchars_decode($_POST['address']);
+    $name = htmlspecialchars($_POST['name']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $email = htmlspecialchars($_POST['email']);
+    $address = htmlspecialchars($_POST['address']);
     $cartData = json_decode($_POST['cartData'], true);
 
     // Формируем текст письма

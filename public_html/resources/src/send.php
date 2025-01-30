@@ -1,9 +1,9 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars_decode($_POST['name']);
-    $email = htmlspecialchars_decode($_POST['email']);
-    $subject = htmlspecialchars_decode($_POST['subject']);
-    $message = htmlspecialchars_decode($_POST['message']);
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $subject = htmlspecialchars($_POST['subject']);
+    $message = htmlspecialchars($_POST['message']);
 
     // Заголовки для отправки письма с кодировкой UTF-8
     $boundary = md5(time());
