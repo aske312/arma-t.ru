@@ -525,8 +525,8 @@ header {
     align-items: center;
     /*
     margin-top: 20px;
-    padding-top: 15px;
     */
+    padding-top: 15px;
     border-top: 2px solid #e0e0e0;
     position: sticky; /* Фиксируем кнопки внизу */
     bottom: 0;
