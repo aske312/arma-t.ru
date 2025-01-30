@@ -293,8 +293,10 @@
 .form-actions {
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Чтобы чекбокс не уезжал при нехватке места */
     margin-top: 10px;
+    width: 100%;
 }
 
 .newsletter-label {
