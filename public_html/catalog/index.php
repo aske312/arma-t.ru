@@ -333,6 +333,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <div class="catalog-item-controls">
                                         <button class="catalog-item-add-to-cart"
                                                 data-id="<?= $arFields['ID']; ?>"
+                                                data-image="<?= $arFields['PREVIEW_PICTURE']; ?>"
                                                 data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
                                                 data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
                                                 data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">В корзину</button>
@@ -417,9 +418,26 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // Обработка кликов на элемент каталога
     document.querySelectorAll('.catalog-item').forEach(item => {
         item.addEventListener('click', (event) => {
-            if (!event.target.closest('.add-to-cart-button')) { // Исключаем кнопку "в корзину"
+            // Если клик произошел не на кнопке "В корзину", переходим на детальную страницу
+            if (!event.target.closest('.catalog-item-add-to-cart')) {
                 window.location.href = `/catalog/detail.php?ID=${item.getAttribute('data-id')}`;
             }
+        });
+    });
+
+    // Обработка кликов на кнопки "В корзину"
+    document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.stopPropagation(); // Останавливаем всплытие события
+            event.preventDefault(); // Предотвращаем стандартное поведение (если кнопка внутри <a>)
+
+            // Логика добавления в корзину
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productPrice = button.getAttribute('data-price');
+            const productArticle = button.getAttribute('data-article');
+
+            addToCart(productId, productName, productPrice, productArticle);
         });
     });
 
@@ -503,7 +521,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         return data ? data.cartItems : [];
     }
 
-    function addToCart(productId, productName, productPrice, productArticle) {
+    function addToCart(productId, productImage, productName, productPrice, productArticle) {
         let cartItems = getCartItemsFromStorage();
         let found = false;
 
@@ -517,6 +535,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         if (!found) {
             cartItems.push({
                 id: productId,
+                image: productImage,
                 name: productName,
                 price: productPrice,
                 article: productArticle,
@@ -541,6 +560,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         selectedItems.forEach(item => {
             const productId = item.dataset.id;
+            const productImage = item.dataset.image;
             const productName = item.dataset.name;
             const productPrice = item.dataset.price;
             const productArticle = item.dataset.article;
@@ -551,6 +571,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             } else {
                 cartItems.push({
                     id: productId,
+                    image: productImage,
                     name: productName,
                     price: productPrice,
                     article: productArticle,
