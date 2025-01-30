@@ -54,38 +54,25 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
     document.getElementById('order-form').addEventListener('submit', function (e) {
         e.preventDefault(); // Предотвращаем перезагрузку страницы
 
-        // Получаем данные корзины из localStorage
+        // Получаем данные корзины из localStorage и добавляем в форму
         const cartItems = localStorage.getItem('cartItems');
-        if (!cartItems) {
-            alert('Корзина пуста. Добавьте товары перед оформлением заказа.');
-            return;
-        }
-
-        // Добавляем данные корзины в скрытое поле формы
         document.getElementById('cartData').value = cartItems;
 
-        // Собираем данные формы
-        const formData = new FormData(this);
-
-        // Отправляем данные на сервер
-        const xhr = new XMLHttpRequest();
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
         xhr.open('POST', '/resources/src/send_order.php', true);
 
         xhr.onload = function () {
             if (xhr.status === 200) {
                 alert('Заказ успешно оформлен!');
                 localStorage.removeItem('cartItems'); // Очищаем корзину
-                window.location.href = '/'; // Перенаправляем на главную страницу
+                window.location.href = '/';
             } else {
                 alert('Произошла ошибка при оформлении заказа.');
             }
         };
 
-        xhr.onerror = function () {
-            alert('Произошла ошибка при отправке заказа.');
-        };
-
-        xhr.send(formData); // Отправляем данные формы
+        xhr.send(formData);
     });
 
     function loadCart() {
