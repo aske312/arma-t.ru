@@ -293,7 +293,7 @@
 .form-actions {
     display: flex;
     align-items: center; /* Выравниваем элементы по вертикали */
-    justify-content: flex-start; /* Выравниваем элементы по левому краю */
+    /* justify-content: flex-start; /* Выравниваем элементы по левому краю */
     /* gap: 10px; /* Отступ между кнопкой и чекбоксом */
     margin-top: 15px; /* Отступ сверху, чтобы отделить от полей формы */
     width: auto; /* Занимает всю ширину контейнера */
@@ -301,7 +301,7 @@
 
 .newsletter-label {
     /* display: flex; */
-    align-items: right;
+    /* align-items: right; */
     font-size: 14px; /* Размер текста */
     color: white; /* Цвет текста для лучшей видимости */
 }
