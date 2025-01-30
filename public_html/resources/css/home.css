@@ -257,7 +257,7 @@
     background-size: cover;
 }
 .form-container {
-    width: 250px;
+    width: auto;
     height: 500px;
     display: flex;
     justify-content: center;
