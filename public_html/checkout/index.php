@@ -11,13 +11,11 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
     </div>
 
     <div class="checkout-block">
-
         <div id="cart-items">
-            <div class="product-checkout" id="product-checkout">
-                <!-- Здесь будет вывод корзины -->
-            </div>
-            <div class="total" id="total-amount"><strong> Итоговая сумма: 0 ₽ </strong></div>
+            <!-- Список товаров будет здесь -->
         </div>
+
+        <div class="total" id="total-amount"><strong>Итоговая сумма: 0 ₽</strong></div>
 
         <div class="button-group">
             <button onclick="history.back()" class="back-button">Назад</button>
@@ -27,23 +25,18 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         <div id="order-form-container" class="modal">
             <div class="modal-content">
                 <span class="close-button" id="close-modal">&times;</span>
-                <form class="order-form" id="order-form">
+                <form class="order-form" id="order-form" action="/resources/src/send_order.php" method="POST">
                     <h2>Ваши данные</h2>
-                    <!-- Поля для ввода данных -->
                     <label for="name">Имя:</label>
                     <input type="text" id="name" name="name" required>
                     <label for="phone">Телефон:</label>
                     <input type="text" id="phone" name="phone" required>
-                    <label for="company">Компания:</label>
-                    <input type="text" id="company" name="company" required>
-                    <label for="inn">ИНН:</label>
-                    <input type="text" id="inn" name="inn" required>
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
-                    <label for="address">Адрес:</label>
+                    <label for="address">Адрес доставки:</label>
                     <textarea id="address" name="address" required></textarea>
                     <input type="hidden" id="cartData" name="cartData">
-                    <button type="submit">Оформить заказ</button>
+                    <button type="submit">Отправить заказ</button>
                 </form>
             </div>
         </div>
@@ -75,69 +68,53 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         xhr.send(formData);
     });
 
+    // Загрузка корзины при открытии страницы
     function loadCart() {
-        let cartDataString = localStorage.getItem('cartItems');
-        if (cartDataString) {
-            let cartData = JSON.parse(cartDataString);
+        const cartData = JSON.parse(localStorage.getItem('cartItems')) || { cartItems: [] };
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '';
 
-            if (cartData && Array.isArray(cartData.cartItems)) {
-                let cartItemsContainer = document.getElementById('product-checkout');
-                cartItemsContainer.innerHTML = '';
+        let totalSum = 0;
 
-                cartData.cartItems.forEach((item, index) => {
-                    let itemDiv = document.createElement('div');
-                    itemDiv.classList.add('cart-item');
+        cartData.cartItems.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            totalSum += itemTotal;
 
-                    let imageHTML = item.image ?
-                        `<div class="product-image"><img src="${item.image}" alt="${item.name}"></div>` :
-                        `<div class="product-image"><img src="/resources/img/production/0.png" alt="Нет изображения"></div>`;
-
-                    let priceText = item.price == 0 || !item.price ? "под заказ" : `${item.price} ₽`;
-                    let totalItemPrice = item.price == 0 || !item.price ? "под заказ" : `${(item.price * item.quantity).toFixed(2)} ₽`;
-
-                    itemDiv.innerHTML = `
-                        ${imageHTML}
+            const cartItemHTML = `
+                <div class="cart-item">
+                    <a href="/product-detail/${item.id}" class="cart-item-link">
+                        <div class="product-image">
+                            <img src="${item.image || '/resources/img/production/0.png'}" alt="${item.name}">
+                        </div>
                         <div class="product-info">
                             <span><strong>${item.name}</strong></span>
                             <span>Артикул: <strong>${item.article}</strong></span>
-                            <span class="price">Цена за единицу: <strong>${priceText}</strong></span>
-                            <span class="total-item-price">В сумме: <strong>${totalItemPrice}</strong></span>
-                            <div class="quantity-control">
-                                <button class="quantity-btn minus" data-index="${index}">-</button>
-                                <input type="number" value="${item.quantity}" min="0" class="quantity-input" data-index="${index}" />
-                                <button class="quantity-btn plus" data-index="${index}">+</button>
-                            </div>
-                            <button class="remove-button" data-index="${index}">&times;</button>
+                            <span class="price">Цена за единицу: <strong>${item.price} ₽</strong></span>
+                            <span class="total-item-price">В сумме: <strong>${itemTotal} ₽</strong></span>
                         </div>
-                    `;
-                    cartItemsContainer.appendChild(itemDiv);
-                });
+                    </a>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-index="${index}">-</button>
+                        <input type="number" value="${item.quantity}" min="1" class="quantity-input" data-index="${index}">
+                        <button class="quantity-btn plus" data-index="${index}">+</button>
+                    </div>
+                    <button class="remove-button" data-index="${index}">&times;</button>
+                </div>
+            `;
 
-                document.querySelectorAll('.quantity-input').forEach(input => {
-                    input.addEventListener('change', updateQuantity);
-                });
-                document.querySelectorAll('.quantity-btn').forEach(button => {
-                    button.addEventListener('click', adjustQuantity);
-                });
-                document.querySelectorAll('.remove-button').forEach(button => {
-                    button.addEventListener('click', removeItem);
-                });
-                updateTotal(cartData.cartItems);
-            }
-        }
+            cartItemsContainer.innerHTML += cartItemHTML;
+        });
+
+        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalSum} ₽`;
     }
 
+    // Обновление количества товара
     function updateQuantity(event) {
         const index = event.target.getAttribute('data-index');
-        let cartData = JSON.parse(localStorage.getItem('cartItems'));
+        const cartData = JSON.parse(localStorage.getItem('cartItems'));
         cartData.cartItems[index].quantity = parseInt(event.target.value) || 1;
-
-        if (cartData.cartItems[index].quantity <= 0) {
-            removeItem({ target: document.querySelector(`.remove-button[data-index="${index}"]`) });
-        } else {
-            localStorage.setItem('cartItems', JSON.stringify(cartData));
-            loadCart();
-        }
+        localStorage.setItem('cartItems', JSON.stringify(cartData));
+        loadCart();
     }
 
     // Функция для получения изображения товара
@@ -201,18 +178,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         }
     }
 
-    // Удаление товара из корзины
+    // Удаление товара
     function removeItem(event) {
         const index = event.target.getAttribute('data-index');
-        let cartData = JSON.parse(localStorage.getItem('cartItems'));
-
-        // Удаляем товар из массива
+        const cartData = JSON.parse(localStorage.getItem('cartItems'));
         cartData.cartItems.splice(index, 1);
-
-        // Сохраняем изменённые данные обратно в localStorage
         localStorage.setItem('cartItems', JSON.stringify(cartData));
-
-        // Перезагружаем корзину
         loadCart();
     }
 
@@ -239,6 +210,17 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         e.preventDefault();
         alert('Заказ оформлен!');
         document.querySelector('.modal').style.display = 'none';
+    });
+
+    // Открытие модального окна
+    document.getElementById('order-btn').addEventListener('click', () => {
+        document.getElementById('order-form-container').style.display = 'flex';
+        document.getElementById('cartData').value = localStorage.getItem('cartItems');
+    });
+
+    // Закрытие модального окна
+    document.getElementById('close-modal').addEventListener('click', () => {
+        document.getElementById('order-form-container').style.display = 'none';
     });
 
     // Загружаем корзину при загрузке страницы
