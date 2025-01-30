@@ -241,7 +241,7 @@ while ($section = $sections->Fetch()) {
                 <label for="newsletter" class="newsletter-label">
                     Согласен на рассылку
 
-                </label> <input type="checkbox" id="newsletter" name="newsletter" required>
+                </label> <input type="checkbox" class="checkbox-newsletter" id="newsletter" name="newsletter" required>
             </div>
         </form>
     </div>
