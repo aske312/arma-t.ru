@@ -269,6 +269,7 @@
     max-width: 450px; /* Ширина формы */
     margin: 0 auto; /* Центрируем форму */
     padding: 20px;
+    transform: translateX(-60%);
     background-color: rgba(255, 255, 255, 0.1); /* Легкий фон для формы */
     border-radius: 10px;
 }
@@ -307,7 +308,7 @@
 
 /* Стили для чекбокса */
 .newsletter-label {
-    display: inline-block; /* Лейбл как inline-block */
+    display: flex; /* Лейбл как inline-block */
     margin-left: 10px; /* Отступ между кнопкой и чекбоксом */
     font-size: 14px;
     color: white;
