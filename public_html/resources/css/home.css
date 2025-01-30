@@ -310,14 +310,13 @@
 
 /* Стили для чекбокса */
 .newsletter-label {
-    display: flex; /* Используем flex для выравнивания */
+    /* display: flex; /* Используем flex для выравнивания */
     align-items: center; /* Выравниваем по вертикали */
     font-size: 14px;
     color: white;
 }
 
 .newsletter-label input[type="checkbox"] {
-    transform: translateX(-30%);
     margin-right: 2px; /* Отступ между checkbox и текстом */
 }
 
