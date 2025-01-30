@@ -304,25 +304,33 @@ while ($section = $sections->Fetch()) {
     document.getElementById('contactForm').addEventListener('submit', function (e) {
         e.preventDefault();  // Предотвращаем перезагрузку страницы
 
-        // Собираем данные формы
-        var formData = new FormData(this);
-        //formData.append('g-recaptcha-response', recaptchaResponse); // Добавляем ответ капчи в форму
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true; // Блокируем кнопку
 
-        // Создаем и отправляем запрос
-        var xhr = new XMLHttpRequest();
+        const formData = new FormData(this);
+
+        const xhr = new XMLHttpRequest();
         xhr.open('POST', '/resources/src/send.php', true);
 
         xhr.onload = function () {
             if (xhr.status === 200) {
                 document.getElementById('contactForm').reset();
-                document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
                 alert('Ваше сообщение было успешно отправлено!');
+                setTimeout(() => {
+                    submitButton.disabled = false;
+                }, 180000); // 180000 мс = 3 минуты
             } else {
                 alert('Произошла ошибка при отправке сообщения.');
+                submitButton.disabled = false;
             }
         };
 
-        xhr.send(formData);  // Отправляем данные формы
+        xhr.onerror = function () {
+            alert('Произошла ошибка при отправке сообщения.');
+            submitButton.disabled = false;
+        };
+
+        xhr.send(formData);
     });
 
     let slideIndex = 1;

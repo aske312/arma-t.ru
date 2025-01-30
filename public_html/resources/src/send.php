@@ -1,23 +1,30 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Получаем данные из формы и обрабатываем их
     $name = htmlspecialchars($_POST['name']);
     $email = htmlspecialchars($_POST['email']);
     $subject = htmlspecialchars($_POST['subject']);
     $message = htmlspecialchars($_POST['message']);
 
-    // Заголовки для отправки письма с кодировкой UTF-8
+    // Устанавливаем заголовки для отправки письма с кодировкой UTF-8
     $boundary = md5(time());
     $headers = "From: $email\r\n";
     $headers .= "Reply-To: $email\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
+    $headers .= "Content-Transfer-Encoding: 8bit\r\n";  // Указываем кодировку для заголовков
+    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+    $headers .= "Charset=UTF-8\r\n";  // Указываем кодировку UTF-8
 
     // Тело письма с разделителем для вложений
     $body = "--$boundary\r\n";
-    $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $body .= "Content-Type: text/html; charset=UTF-8\r\n";  // Указываем кодировку UTF-8 для текста
     $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
     $body .= "
     <html>
+    <head>
+        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
+    </head>
     <body>
         <h2>Заявка с формы обратной связи</h2>
         <p><strong>Имя:</strong> $name</p>
@@ -47,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body .= "--$boundary--";
 
     $to = "info@arma-t.ru";  // Укажите ваш email
-    $emailSubject = "Application from $subject";
+    $emailSubject = "=?UTF-8?B?" . base64_encode("Заявка с формы обратной связи: $subject") . "?=";  // Кодируем тему письма в UTF-8
 
     // Отправляем письмо
     if (mail($to, $emailSubject, $body, $headers)) {
