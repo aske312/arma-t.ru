@@ -295,7 +295,7 @@ header {
 .cart-modal {
     display: none;
     position: fixed;
-    color: black;
+    color: white;
     top: 0;
     left: 0;
     width: 100%;
