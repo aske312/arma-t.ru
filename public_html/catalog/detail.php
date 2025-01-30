@@ -67,9 +67,9 @@ if (CModule::IncludeModule("iblock")) {
         <a href="<?php echo htmlspecialchars('/'); ?>">Главная</a> -
         <a href="<?php echo htmlspecialchars('/catalog/'); ?>">Каталог</a> -
         <a href="<?php echo htmlspecialchars('/catalog/index.php' . '?SECTION_ID=' . $sectionId); ?>">
-            <?php echo htmlspecialchars($sectionName); ?>
+            <?php echo htmlspecialchars_decode($sectionName); ?>
         </a> -
-        <?php echo htmlspecialchars($productShortName); ?>
+        <?php echo htmlspecialchars_decode($productShortName); ?>
     </div>
 </div>
 
@@ -86,9 +86,9 @@ if (CModule::IncludeModule("iblock")) {
             </div>
             <button class="add-to-cart" data-id="<?php echo $productId; ?>"
                     data-image="<?php echo htmlspecialchars($productImage); ?>"
-                    data-name="<?php echo htmlspecialchars($productShortName); ?>"
-                    data-price="<?php echo htmlspecialchars($productPrice); ?>"
-                    data-articul="<?php echo htmlspecialchars($productArticul); ?>"
+                    data-name="<?php echo htmlspecialchars_decode($productShortName); ?>"
+                    data-price="<?php echo htmlspecialchars_decode($productPrice); ?>"
+                    data-articul="<?php echo htmlspecialchars_decode($productArticul); ?>"
                     onclick="addToCart(this)">
                 В корзину
             </button>
