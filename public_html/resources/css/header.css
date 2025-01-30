@@ -558,7 +558,7 @@ header {
     color: black;
     display: flex;
     align-items: center;
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 .newsletter-label-header input[type="checkbox"] {
