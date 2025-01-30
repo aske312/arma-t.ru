@@ -433,6 +433,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
             // Логика добавления в корзину
             const productId = button.getAttribute('data-id');
+            const productImage = button.getAttribute('data-image');
             const productName = button.getAttribute('data-name');
             const productPrice = button.getAttribute('data-price');
             const productArticle = button.getAttribute('data-article');
