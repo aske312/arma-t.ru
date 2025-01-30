@@ -302,7 +302,7 @@
 
 /* Блок для кнопки и чекбокса */
 .form-actions {
-    /* display: flex; /* Используем flex для выравнивания */
+    display: inline-block; /* Используем flex для выравнивания */
     justify-content: space-between; /* Кнопка слева, чекбокс справа */
     align-items: center; /* Выравниваем по вертикали */
     margin-top: 5px; /* Отступ сверху */
