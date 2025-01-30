@@ -256,24 +256,20 @@
         url('/resources/img/head_title/steel-slide_4.jpg') no-repeat center;
     background-size: cover;
 }
-
-.contact-form {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 500px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 .form-container {
+    width: auto;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.contact-form {
+    border-radius: 10px;
+    padding: 20px;
+    width: 450px;
+    transform: translateX(-60%);
     display: flex;
     flex-direction: column;
-    height: auto;
 }
 
 .contact-form h2 {
