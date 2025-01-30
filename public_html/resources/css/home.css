@@ -309,14 +309,12 @@
 /* Стили для чекбокса */
 .newsletter-label {
     display: inline-block; /* Лейбл как inline-block */
-    margin-left: 1px; /* Отступ между кнопкой и чекбоксом */
     font-size: 14px;
     color: white;
     vertical-align: middle; /* Выравниваем по вертикали */
 }
 
 .newsletter-label input[type="checkbox"] {
-    margin-right: 5px; /* Отступ между checkbox и текстом */
     vertical-align: middle; /* Выравниваем по вертикали */
 }
 
