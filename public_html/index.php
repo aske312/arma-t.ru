@@ -319,7 +319,7 @@ while ($section = $sections->Fetch()) {
         xhr.onload = function () {
             if (xhr.status === 200) {
                 // Очищаем форму
-                document.getElementById('contactForm-header').reset();
+                document.getElementById('contactForm').reset();
                 document.getElementById('fileList').innerHTML = '';  // Очищаем список прикрепленных файлов
 
                 // Закрываем форму
