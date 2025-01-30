@@ -100,8 +100,8 @@ if ($element = $res->Fetch()) {
                                         <input type="checkbox" id="newsletter" name="newsletter" required>
                                         Согласен на рассылку
                                     </label>
-                                    <button type="submit" id="contactForm-header">Отправить</button>
                                 </div>
+                                <button type="submit" id="contactForm-header">Отправить</button>
                             </form>
                         </div>
                     </div>
