@@ -52,32 +52,24 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 
 <script>
     document.getElementById('order-form').addEventListener('submit', function (e) {
-        e.preventDefault();  // Предотвращаем перезагрузку страницы
+        e.preventDefault(); // Предотвращаем перезагрузку страницы
 
-        const submitButton = this.querySelector('button[type="submit"]');
-        submitButton.disabled = true; // Блокируем кнопку
+        // Получаем данные корзины из localStorage и добавляем в форму
+        const cartItems = localStorage.getItem('cartItems');
+        document.getElementById('cartData').value = cartItems;
 
-        const formData = new FormData(this);
-
-        const xhr = new XMLHttpRequest();
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
         xhr.open('POST', '/resources/src/send_order.php', true);
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                document.getElementById('order-form').reset();
-                alert('Ваше сообщение было успешно отправлено!');
-                setTimeout(() => {
-                    submitButton.disabled = false;
-                }, 1800); // 180000 мс = 3 минуты
+                alert('Заказ успешно оформлен!');
+                localStorage.removeItem('cartItems'); // Очищаем корзину
+                window.location.href = '/';
             } else {
-                alert('Произошла ошибка при отправке сообщения.');
-                submitButton.disabled = false;
+                alert('Произошла ошибка при оформлении заказа.');
             }
-        };
-
-        xhr.onerror = function () {
-            alert('Произошла ошибка при отправке сообщения.');
-            submitButton.disabled = false;
         };
 
         xhr.send(formData);
