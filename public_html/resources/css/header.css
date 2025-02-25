@@ -568,9 +568,8 @@ header {
     margin-right: 5px; /* Отступ между checkbox и текстом */
 }
 
-/********** Медиазапросы для адаптации шапки **********/
+/********** Медиазапросы для адаптации шапки *********
 @media (max-width: 768px) {
-    /* Скрываем навигационное меню на маленьких экранах */
     #mainNav {
         display: none;
         flex-direction: column;
@@ -582,63 +581,54 @@ header {
         padding: 10px 0;
     }
 
-    /* Показываем кнопку меню на маленьких экранах */
     .menu-toggle {
         display: block;
     }
 
-    /* Стили для открытого меню */
     #mainNav.menu-open {
         display: flex;
     }
 
-    /* Адаптация поисковой строки */
     .nav-search-form {
         width: 100%;
         margin-top: 10px;
     }
 
-    /* Адаптация контактной информации */
     .contact-container {
         flex-direction: column;
         align-items: flex-start;
         margin-top: 10px;
     }
 
-    /* Адаптация корзины */
     .cart-wrapper {
         margin-top: 10px;
     }
 }
 
 @media (min-width: 769px) {
-    /* Показываем навигационное меню на широкоформатных экранах */
     #mainNav {
         display: flex;
         flex-direction: row;
         align-items: center;
     }
 
-    /* Скрываем кнопку меню на широкоформатных экранах */
     .menu-toggle {
         display: none;
     }
 
-    /* Адаптация поисковой строки */
     .nav-search-form {
         width: auto;
         margin-top: 0;
     }
 
-    /* Адаптация контактной информации */
     .contact-container {
         flex-direction: row;
         align-items: center;
         margin-top: 0;
     }
 
-    /* Адаптация корзины */
     .cart-wrapper {
         margin-top: 0;
     }
 }
+*/
