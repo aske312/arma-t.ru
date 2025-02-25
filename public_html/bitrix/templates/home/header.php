@@ -15,6 +15,15 @@ session_start(); // Запуск сессии
 $cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 
+// MOBILE VERSION
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
+
+if ($isMobile) {
+    include 'header-mobile.php';
+    return;
+}
+
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
 $res = CIBlockElement::GetList(
@@ -60,10 +69,8 @@ if ($element = $res->Fetch()) {
                 <a href="/"><img src="/resources/img/logo/resource_1.png" alt="ARMA-T.RU"></a>
             </div>
 
-            <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
-
             <div class="nav-search">
-                <!-- <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button> -->
+                <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
                 <nav id="mainNav">
                     <a href="/">О компании</a>
                     <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
