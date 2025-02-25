@@ -59,8 +59,11 @@ if ($element = $res->Fetch()) {
             <div class="logo">
                 <a href="/"><img src="/resources/img/logo/resource_1.png" alt="ARMA-T.RU"></a>
             </div>
+
+            <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
+
             <div class="nav-search">
-                <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
+                <!-- <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button> -->
                 <nav id="mainNav">
                     <a href="/">О компании</a>
                     <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
