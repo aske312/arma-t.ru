@@ -49,6 +49,8 @@ if ($element = $res->Fetch()) {
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/resources/css/header_mobile.css" media="(max-width: 768px)">
+    <link rel="stylesheet" href="/resources/css/header-desktop.css" media="(min-width: 769px)">
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
@@ -139,7 +141,10 @@ if ($element = $res->Fetch()) {
 
     <script>
         function toggleMenu() {
-            document.getElementById('mainNav').classList.toggle('menu-open');
+            const nav = document.getElementById('mainNav');
+            const header = document.getElementById('siteHeader');
+            nav.classList.toggle('menu-open');
+            header.classList.toggle('menu-expanded');
         }
 
         window.addEventListener('scroll', function() {
