@@ -8,7 +8,7 @@ Loader::includeModule('iblock');
 
 // Подключение стилей и скриптов
 Asset::getInstance()->addCss("/resources/css/header_mobile.css");
-Asset::getInstance()->addCss("/resources/css/footer.css");
+// Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
@@ -53,7 +53,7 @@ if ($element = $res->Fetch()) {
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
-    <header>
+    <header id="siteHeader" class="header">
         <div class="header-content">
 
             <div class="logo">
