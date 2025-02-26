@@ -168,17 +168,22 @@ while ($section = $sections->Fetch()) {
     });
 
     document.addEventListener("DOMContentLoaded", function () {
-        let slideIndex = 1;
+        let slideIndex = 0;
         const slides = document.querySelectorAll(".slide-m");
         const dots = document.querySelectorAll(".dot-m");
-        const totalSlides = slides.length;
-        let slideInterval;
+        const slidesContainer = document.querySelector(".slides-m");
+
+        if (!slides.length || !dots.length || !slidesContainer) {
+            console.error("Ошибка: элементы слайдера не найдены!");
+            return;
+        }
 
         function showSlide(index) {
-            if (index >= totalSlides) slideIndex = 1;
-            if (index < 0) slideIndex = totalSlides - 1;
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
 
-            document.querySelector(".slides").style.transform = `translateX(-${slideIndex * 100}%)`;
+            const offset = -slideIndex * 100;
+            slidesContainer.style.transform = `translateX(${offset}%)`;
 
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === slideIndex);
@@ -190,14 +195,15 @@ while ($section = $sections->Fetch()) {
             showSlide(slideIndex);
         }
 
-        window.currentSlide = function(index) { // Делаем доступной глобально
+        // Глобальная доступность функции
+        window.currentSlide = function (index) {
             slideIndex = index;
             showSlide(slideIndex);
             resetInterval();
         };
 
         dots.forEach((dot, i) => {
-            dot.addEventListener("click", function () {
+            dot.addEventListener("click", () => {
                 currentSlide(i);
             });
         });
