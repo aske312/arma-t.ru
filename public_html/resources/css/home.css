@@ -326,22 +326,6 @@
     font-weight: bold;
 }
 
-/* 📱 Адаптив для мобилок */
-@media (max-width: 768px) {
-    .swiper-container-m {
-        max-width: 100%;
-    }
-
-    .block-item-m {
-        flex: 0 0 28%; /* Уменьшаем карточки */
-        padding: 10px;
-    }
-
-    .block-item-m.active {
-        flex: 0 0 44%; /* Центральный элемент больше */
-    }
-}
-
 /********* Блок Каталог *********/
 
 .section4 {
