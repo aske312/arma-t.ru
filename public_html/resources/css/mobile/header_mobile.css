@@ -6,6 +6,10 @@
     font-weight: normal;
 }
 
+h1, h2, p, div, input, button {
+    font-family: Montserrat-Regular;
+}
+
 /********** Основные настройки **********/
 body {
     margin: 0;
