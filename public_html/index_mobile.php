@@ -104,11 +104,6 @@ while ($section = $sections->Fetch()) {
         <?php endforeach; ?>
     </div>
 
-    <!-- Навигация -->
-    <button class="prev-m" onclick="prevSlide()">❮</button>
-    <button class="next-m" onclick="nextSlide()">❯</button>
-
-    <!-- Точки навигации -->
     <div class="dots-m">
         <?php foreach ($sliderItems as $index => $slide): ?>
         <span class="dot-m" onclick="currentSlide(<?= $index ?>)"></span>
@@ -183,37 +178,21 @@ while ($section = $sections->Fetch()) {
             if (index >= slides.length) slideIndex = 0;
             if (index < 0) slideIndex = slides.length - 1;
 
-            const offset = -slideIndex * 100;
-            slidesContainer.style.transform = `translateX(${offset}%)`;
+            slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
 
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === slideIndex);
             });
         }
 
-        function nextSlide() {
+        window.nextSlide = function () {
             slideIndex++;
             showSlide(slideIndex);
-        }
-
-        function prevSlide() {
-            slideIndex--;
-            showSlide(slideIndex);
-        }
+        };
 
         window.currentSlide = function (index) {
             slideIndex = index;
             showSlide(slideIndex);
-            resetInterval();
-        };
-
-        window.prevSlide = function () {
-            prevSlide();
-            resetInterval();
-        };
-
-        window.nextSlide = function () {
-            nextSlide();
             resetInterval();
         };
 

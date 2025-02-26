@@ -170,22 +170,6 @@
     background: #555;
 }
 
-/* Кнопки навигации */
-.prev-m, .next-m {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.prev-m { left: 10px; }
-.next-m { right: 10px; }
-
 /********* Текст вторым блоком *********/
 .section2 {
     background-color: #DCDCDC;
