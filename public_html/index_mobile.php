@@ -94,25 +94,25 @@ while ($section = $sections->Fetch()) {
 <!-- /Yandex.Metrika counter -->
 
 <!-- -->
-<div class="section-m section1-m">
-    <div class="slider-wrapper-m">
-        <div class="slider-container-m">
-            <div class="slider-m">
-                <div class="slides-m">
-                    <?php foreach ($sliderItems as $slide): ?>
-                    <div class="slide-m">
-                        <img alt="Slide" src="<?= $slide['IMG'] ?>">
-                        <div class="slide-text-m"><?= $slide['TEXT'] ?></div>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="dots-m">
-                    <?php foreach ($sliderItems as $index => $slide): ?>
-                    <span class="dot-m" onclick="currentSlide(<?= $index ?>)"></span>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+<div class="slider-m">
+    <div class="slides-m">
+        <?php foreach ($sliderItems as $slide): ?>
+        <div class="slide-m">
+            <img alt="Slide" src="<?= $slide['IMG'] ?>">
+            <div class="slide-text-m"><?= $slide['TEXT'] ?></div>
         </div>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- Навигация -->
+    <button class="prev-m" onclick="prevSlide()">❮</button>
+    <button class="next-m" onclick="nextSlide()">❯</button>
+
+    <!-- Точки навигации -->
+    <div class="dots-m">
+        <?php foreach ($sliderItems as $index => $slide): ?>
+        <span class="dot-m" onclick="currentSlide(<?= $index ?>)"></span>
+        <?php endforeach; ?>
     </div>
 </div>
 
@@ -172,6 +172,7 @@ while ($section = $sections->Fetch()) {
         const slides = document.querySelectorAll(".slide-m");
         const dots = document.querySelectorAll(".dot-m");
         const slidesContainer = document.querySelector(".slides-m");
+        let slideInterval;
 
         if (!slides.length || !dots.length || !slidesContainer) {
             console.error("Ошибка: элементы слайдера не найдены!");
@@ -195,10 +196,24 @@ while ($section = $sections->Fetch()) {
             showSlide(slideIndex);
         }
 
-        // Глобальная доступность функции
+        function prevSlide() {
+            slideIndex--;
+            showSlide(slideIndex);
+        }
+
         window.currentSlide = function (index) {
             slideIndex = index;
             showSlide(slideIndex);
+            resetInterval();
+        };
+
+        window.prevSlide = function () {
+            prevSlide();
+            resetInterval();
+        };
+
+        window.nextSlide = function () {
+            nextSlide();
             resetInterval();
         };
 
