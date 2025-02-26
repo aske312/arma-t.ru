@@ -9,6 +9,8 @@ Loader::includeModule('iblock');
 // Подключение стилей и скриптов
 Asset::getInstance()->addCss("/resources/css/header.css");
 Asset::getInstance()->addCss("/resources/css/footer.css");
+Asset::getInstance()->addCss("/resources/css/mobile/header_mobile.css");
+Asset::getInstance()->addCss("/resources/css/mobile/footer_mobile.css");
 
 // MOBILE VERSION
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
