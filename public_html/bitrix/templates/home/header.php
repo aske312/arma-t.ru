@@ -8,10 +8,10 @@ Loader::includeModule('iblock');
 
 // MOBILE VERSION
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
-$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
+$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|Opera Mini|IEMobile/i', $userAgent);
 
 if ($isMobile) {
-    include 'header_mobile.php';
+    include 'bitrix/templates/home/header_mobile.php';
     return;
 }
 
@@ -151,11 +151,16 @@ if ($element = $res->Fetch()) {
 
     <script>
         function toggleMenu() {
-            const nav = document.getElementById('mainNav');
-            const header = document.getElementById('siteHeader');
-            nav.classList.toggle('menu-open');
-            header.classList.toggle('menu-expanded');
+            const nav = document.getElementById('mobileMenu');
+            nav.classList.toggle('open');
         }
+
+//         function toggleMenu() {
+//             const nav = document.getElementById('mainNav');
+//             const header = document.getElementById('siteHeader');
+//             nav.classList.toggle('menu-open');
+//             header.classList.toggle('menu-expanded');
+//         }
 
         window.addEventListener('scroll', function() {
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
