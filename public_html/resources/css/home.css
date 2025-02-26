@@ -215,6 +215,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: url('/resources/img/block/pattern.png') no-repeat center;
+    background-size: cover; /* Фон на всю область */
 }
 
 /* Картинка */
@@ -240,8 +242,6 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 900px; /* Ограничиваем ширину для удобочитаемости */
-    background: url('/resources/img/block/pattern.png') no-repeat center;
-    background-size: cover; /* Фон на всю область */
     color: #fff; /* Светлый текст */
 }
 
