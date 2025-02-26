@@ -55,8 +55,8 @@ if ($element = $res->Fetch()) {
 
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
-    <header class="header">
-        <div id="siteHeader" class="header-content">
+    <header id="siteHeader" class="header">
+        <div class="header-content">
 
             <div class="logo">
                 <a href="/"><img src="/resources/img/logo/resource_1.png" alt="ARMA-T.RU"></a>
@@ -105,12 +105,19 @@ if ($element = $res->Fetch()) {
         </div>
     </header>
 
-    <script type="text/javascript">
-        function toggleMenu() {
-            const nav = document.getElementById('mobileMenu');
-            const header = document.getElementById('siteHeader');
-            nav.classList.toggle('open');
-        }
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuButton = document.querySelector('.menu-toggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('open');
+                });
+            } else {
+                console.error("Элементы меню не найдены!");
+            }
+        });
 
         window.addEventListener('scroll', function() {
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
