@@ -429,6 +429,7 @@
 
 /* Основной блок каталога */
 .section4-m {
+    top: 10px;
     width: 100%;
     display: flex;
     justify-content: center;
