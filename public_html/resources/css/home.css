@@ -232,16 +232,24 @@
 /* Текстовый блок */
 .text-m {
     flex: 1;
+    margin-left: -90%;
+
     font-size: 20px;
     line-height: 1.1;
     text-align: justify; /* Выравниваем по ширине */
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 900px; /* Ограничиваем ширину для удобочитаемости */
-    padding: 10px;
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Фон на всю область */
     color: #fff; /* Светлый текст */
+}
+
+.text p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: black;
+    text-align: left;
 }
 
 /********* Информационный блок *********/
