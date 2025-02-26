@@ -48,8 +48,6 @@ if ($element = $res->Fetch()) {
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/resources/css/mobile/header_mobile.css" media="(max-width: 768px)">
-    <link rel="stylesheet" href="/resources/css/header.css" media="(min-width: 769px)">
 </head>
 
 <body>
