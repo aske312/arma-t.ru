@@ -11,7 +11,7 @@ $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|Opera Mini|IEMobile/i', $userAgent);
 
 if ($isMobile) {
-    include '/bitrix/templates/home/header_mobile.php';
+    include 'bitrix/templates/home/header_mobile.php';
     return;
 }
 
