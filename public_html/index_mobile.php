@@ -170,7 +170,13 @@ while ($section = $sections->Fetch()) {
     document.addEventListener("DOMContentLoaded", function () {
         let slideIndex = 0;
         const slides = document.querySelectorAll(".slide-m");
-        const dots = document.querySelectorAll(".dot-m");
+        const dots = document.querySelectorAll(".dot");
+        const slidesContainer = document.querySelector(".slides-m");
+
+        if (!slides.length || !dots.length || !slidesContainer) {
+            console.error("Слайдер не найден или некорректные селекторы.");
+            return;
+        }
 
         function showSlide(index) {
             if (index >= slides.length) {
@@ -182,7 +188,7 @@ while ($section = $sections->Fetch()) {
             }
 
             const offset = -slideIndex * 100;
-            document.querySelector(".slides").style.transform = `translateX(${offset}%)`;
+            slidesContainer.style.transform = `translateX(${offset}%)`;
 
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === slideIndex);
@@ -193,9 +199,9 @@ while ($section = $sections->Fetch()) {
             showSlide(slideIndex + 1);
         }
 
-        function currentSlide(index) {
+        window.currentSlide = function (index) {
             showSlide(index);
-        }
+        };
 
         dots.forEach((dot, i) => {
             dot.addEventListener("click", () => currentSlide(i));
@@ -205,6 +211,7 @@ while ($section = $sections->Fetch()) {
 
         showSlide(slideIndex);
     });
+
 </script>
 
 <?php
