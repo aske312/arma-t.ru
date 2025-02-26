@@ -230,20 +230,6 @@
     gap: 20px;
 }
 
-/* Картинка */
-.image-m {
-    flex: 0 0 40%; /* 🔥 Фиксированная ширина 40% */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.image-m img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 🔥 Заполняет блок, без искажений */
-}
-
 /* Текст */
 .text-m {
     flex: 1;
@@ -255,6 +241,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: url('/resources/img/block/pattern.png') no-repeat center;
 }
 
 /********* Информационный блок *********/

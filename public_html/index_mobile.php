@@ -118,10 +118,7 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
-<div class="section-2-m ">
-    <div class="image-m">
-        <img alt="Image" src="/resources/img/block/312asd.png">
-    </div>
+<div class="section-2-m">
     <div class="text-m">
         <p>АРМА-Т - специализируется на продаже запорной арматуры. Мы предлагаем широкий ассортимент продукции.
         У нас вы найдете все необходимое для обеспечения надежной работы трубопроводных систем.
