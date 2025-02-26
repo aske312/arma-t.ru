@@ -271,7 +271,7 @@
 /** мобильная версия **/
 .section3-m {
     width: 100%;
-    display: flex;
+
     justify-content: center;
     align-items: center;
     padding: 10px;
@@ -293,6 +293,8 @@
 }
 
 .block-item-m {
+    weight: 250px;
+    height: 135px;
     flex: 0 0 20%; /* Делаем карточки немного уже */
     text-align: center;
     padding: 5px;
@@ -308,7 +310,7 @@
 
 /* Центральная карточка */
 .block-item-m.active {
-    flex: 0 0 40%;
+    flex: 0 0 70%;
     opacity: 1;
     transform: scale(1);
 }
