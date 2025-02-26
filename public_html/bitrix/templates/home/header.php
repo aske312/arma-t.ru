@@ -70,7 +70,7 @@ if ($element = $res->Fetch()) {
             </div>
 
             <div class="nav-search">
-                <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
+                <!-- <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button> -->
                 <nav id="mainNav">
                     <a href="/">О компании</a>
                     <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
@@ -151,11 +151,6 @@ if ($element = $res->Fetch()) {
     </header>
 
     <script>
-        function toggleMenu() {
-            const nav = document.getElementById('mobileMenu');
-            nav.classList.toggle('open');
-        }
-
         window.addEventListener('scroll', function() {
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
