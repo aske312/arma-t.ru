@@ -248,8 +248,8 @@
     flex: 1;
     font-size: 18px;
     line-height: 1.5;
-    text-align: left;
-    word-wrap: break-word; /* 🔥 Перенос слов */
+    /*text-align: left;*/
+    word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%; /* 🔥 Запрещаем выход за границы */
 }
