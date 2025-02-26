@@ -210,7 +210,6 @@
 }
 
 /** мобильная версия **/
-
 .section-2-m {
     width: 100%;
     display: flex;
@@ -219,28 +218,32 @@
     padding: 20px;
 }
 
+/* Контейнер */
 .container-m {
-    max-width: 500px;
+    max-width: 1200px;
     width: 100%;
 }
 
+/* Контент: картинка + текст */
 .content-m {
     display: flex;
-    align-items: center;
+    align-items: stretch; /* 🔥 Равная высота для картинки и текста */
     justify-content: space-between;
     gap: 20px;
 }
 
 /* Картинка */
 .image-m {
-    flex-shrink: 0; /* Не даём картинке уменьшаться */
-    max-width: 40%; /* Задаем фиксированную ширину */
+    flex: 0 0 40%; /* 🔥 Фиксированная ширина 40% */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .image-m img {
     width: 100%;
-    height: auto;
-    object-fit: contain; /* Полностью вписываем изображение */
+    height: 100%;
+    object-fit: cover; /* 🔥 Заполняет блок, без искажений */
 }
 
 /* Текст */
@@ -248,10 +251,35 @@
     flex: 1;
     font-size: 18px;
     line-height: 1.5;
-    /*text-align: left;*/
-    word-wrap: break-word;
+    text-align: left;
+    word-wrap: break-word; /* 🔥 Гарантирует перенос */
     overflow-wrap: break-word;
-    max-width: 100%; /* 🔥 Запрещаем выход за границы */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 📱 Адаптив для телефонов */
+@media (max-width: 768px) {
+    .content-m {
+        flex-direction: column; /* 🔥 Картинка сверху, текст снизу */
+        text-align: center;
+    }
+
+    .image-m {
+        flex: 0 0 auto; /* Сбрасываем фиксированную ширину */
+        max-width: 100%;
+    }
+
+    .image-m img {
+        max-width: 80%;
+        height: auto;
+    }
+
+    .text-m {
+        font-size: 16px;
+        padding: 0 10px;
+    }
 }
 
 /********* Информационный блок *********/
