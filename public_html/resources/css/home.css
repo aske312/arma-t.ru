@@ -215,7 +215,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px; /* Делаем отступы */
+    padding: 10px 5px; /* Делаем отступы */
 }
 
 /* Текстовый блок */
@@ -233,16 +233,6 @@
     color: #fff; /* Светлый текст */
     border-radius: 10px; /* Закругляем углы */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Добавляем мягкую тень */
-}
-
-/* 📱 Адаптив для телефонов */
-@media (max-width: 768px) {
-    .text-m {
-        font-size: 18px;
-        padding: 0px;
-        text-align: left; /* На мобилке оставляем слева */
-        max-width: 100%; /* Полная ширина */
-    }
 }
 
 /********* Информационный блок *********/
