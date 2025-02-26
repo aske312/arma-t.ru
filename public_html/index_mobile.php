@@ -129,36 +129,38 @@ while ($section = $sections->Fetch()) {
 <!-- -->
 
 <div class="section3-m" id="Delivery">
-	<div class="block-m">
-		<div class="block-item-m">
-			<div class="block-image-m">
-                <img alt="Image 1" src="/resources/img/block/res1.png">
-			</div>
-			<div class="item-text-m">
-				 Наши специалисты помогут <br>
-				 с выбором продукции
-			</div>
-		</div>
-		<div class="block-item-m">
-			<div class="block-image-m">
-                <img alt="Image 2" src="/resources/img/block/res2.png">
-			</div>
-			<div class="item-text-m">
-				 Выставим счет <br>
-				 в течение 2-3 часов
-			</div>
-		</div>
-		<div class="block-item-m">
-			<div class="block-image-m">
-                <img alt="Image 3" src="/resources/img/block/res3.png">
-			</div>
-			<div class="item-text-m">
-				 Осуществим доставку <br>
-				 транспортной компанией <br>
-				 по вашему выбору
-			</div>
-		</div>
-	</div>
+    <div class="swiper-container-m">
+        <div class="block-m">
+            <div class="block-item-m">
+                <div class="block-image-m">
+                    <img alt="Image 1" src="/resources/img/block/res1.png">
+                </div>
+                <div class="item-text-m">
+                     Наши специалисты помогут <br>
+                     с выбором продукции
+                </div>
+            </div>
+            <div class="block-item-m">
+                <div class="block-image-m">
+                    <img alt="Image 2" src="/resources/img/block/res2.png">
+                </div>
+                <div class="item-text-m">
+                     Выставим счет <br>
+                     в течение 2-3 часов
+                </div>
+            </div>
+            <div class="block-item-m">
+                <div class="block-image-m">
+                    <img alt="Image 3" src="/resources/img/block/res3.png">
+                </div>
+                <div class="item-text-m">
+                     Осуществим доставку <br>
+                     транспортной компанией <br>
+                     по вашему выбору
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- -->
@@ -221,6 +223,46 @@ while ($section = $sections->Fetch()) {
         var url = "/catalog/index.php?SECTION_ID=" + sectionId;
         window.location.href = url;
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.querySelector(".block-m");
+        let startX = 0;
+        let currentTranslate = 0;
+        let index = 0;
+        const totalSlides = document.querySelectorAll(".block-item-m").length;
+
+        function setPosition() {
+            slider.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function nextSlide() {
+            if (index < totalSlides - 1) {
+                index++;
+                setPosition();
+            }
+        }
+
+        function prevSlide() {
+            if (index > 0) {
+                index--;
+                setPosition();
+            }
+        }
+
+        slider.addEventListener("touchstart", (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        slider.addEventListener("touchmove", (e) => {
+            let moveX = e.touches[0].clientX - startX;
+            if (moveX > 50) prevSlide();
+            if (moveX < -50) nextSlide();
+        });
+
+        // Автосвайп каждые 5 сек
+        setInterval(nextSlide, 5000);
+    });
+
 </script>
 
 <?php

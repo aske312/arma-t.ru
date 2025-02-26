@@ -268,6 +268,52 @@
     line-height: 1.6;
 }
 
+/** мобильная версия **/
+.section3-m {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden; /* Убираем скролл */
+}
+
+/* Контейнер для свайпера */
+.swiper-container-m {
+    width: 100%;
+    max-width: 1000px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Весь блок */
+.block-m {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    width: 300%;
+}
+
+/* Каждый элемент */
+.block-item-m {
+    flex: 0 0 33.33%; /* Равномерно делим на 3 блока */
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Картинка */
+.block-image-m img {
+    max-width: 80px;
+    height: auto;
+}
+
+/* Текст */
+.item-text-m {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
 /********* Блок Каталог *********/
 
 .section4 {
