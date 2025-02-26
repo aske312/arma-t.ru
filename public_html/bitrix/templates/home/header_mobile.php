@@ -8,7 +8,7 @@ Loader::includeModule('iblock');
 
 // Подключение стилей и скриптов
 Asset::getInstance()->addCss("/resources/css/mobile/header_mobile.css");
-// Asset::getInstance()->addCss("/resources/css/footer.css");
+Asset::getInstance()->addCss("/resources/mobile/footer_mobile.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
@@ -85,7 +85,7 @@ if ($element = $res->Fetch()) {
                 <div class="mobile-search">
                     <input type="text" class="search-input" placeholder="Поиск...">
                     <button class="search-btn"> </button>
-    
+
                     <div id="cart-modal" class="cart-modal">
                         <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
                         <div class="cart-modal-content">
@@ -133,7 +133,7 @@ if ($element = $res->Fetch()) {
                     </div>
                 </div>
             </div>
-            
+
         </nav>
         -->
 
