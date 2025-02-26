@@ -136,7 +136,7 @@ if ($element = $res->Fetch()) {
         });
 
         window.addEventListener('scroll', function() {
-            document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 10);
+            document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
 
         document.addEventListener("DOMContentLoaded", function () {
