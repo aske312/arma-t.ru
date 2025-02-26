@@ -104,9 +104,10 @@ while ($section = $sections->Fetch()) {
         <?php endforeach; ?>
     </div>
 
-    <!-- Кнопки навигации -->
+    <!-- Кнопки навигации
     <button class="prev-m" onclick="prevSlide()">❮</button>
     <button class="next-m" onclick="nextSlide()">❯</button>
+    -->
 
     <!-- Точки навигации -->
     <div class="dots-m">

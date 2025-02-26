@@ -157,7 +157,7 @@
     box-sizing: border-box;
 }
 
-/* Точки навигации
+/* Точки навигации */
 .dots-m {
     position: absolute;
     bottom: 10px;
@@ -179,9 +179,9 @@
 
 .dot-m.active {
     background: #555;
-} */
+}
 
-/* Кнопки навигации */
+/* Кнопки навигации
 .prev-m, .next-m {
     position: absolute;
     top: 50%;
@@ -197,6 +197,7 @@
 
 .prev-m { left: 10px; }
 .next-m { right: 10px; }
+*/
 
 /********* Текст вторым блоком *********/
 .section2 {
