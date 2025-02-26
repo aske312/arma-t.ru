@@ -178,8 +178,7 @@ while ($section = $sections->Fetch()) {
             if (index >= totalSlides) slideIndex = 0;
             if (index < 0) slideIndex = totalSlides - 1;
 
-            const offset = -slideIndex * 100 + "%";
-            document.querySelector(".slides-m").style.transform = "translateX(" + offset + ")";
+            document.querySelector(".slides").style.transform = `translateX(-${slideIndex * 100}%)`;
 
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === slideIndex);
@@ -191,15 +190,15 @@ while ($section = $sections->Fetch()) {
             showSlide(slideIndex);
         }
 
-        function currentSlide(index) {
+        window.currentSlide = function(index) { // Делаем доступной глобально
             slideIndex = index;
             showSlide(slideIndex);
-        }
+            resetInterval();
+        };
 
         dots.forEach((dot, i) => {
             dot.addEventListener("click", function () {
                 currentSlide(i);
-                resetInterval();
             });
         });
 
@@ -215,7 +214,6 @@ while ($section = $sections->Fetch()) {
         showSlide(slideIndex);
         startAutoSlide();
     });
-
 </script>
 
 <?php
