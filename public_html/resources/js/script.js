@@ -1,11 +1,3 @@
-function toggleMenu() {
-    const nav = document.getElementById('mobileMenu');
-    nav.classList.toggle('open');
-}
-
-window.addEventListener('scroll', function() {
-    document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
-});
 
 function getCartItems() {
     const storedData = JSON.parse(localStorage.getItem('cartItems'));
