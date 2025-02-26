@@ -68,26 +68,60 @@ if ($element = $res->Fetch()) {
                 <?php else: ?>
                     <p><a href="tel:+70000000000" class="phone-link">+7(000) 000-00-00</a></p>
                 <?php endif; ?>
-                <button class="request-btn">Оставить заявку</button>
+                <div class="form-header-containers">
+                    <button onclick="openForm()">Оставить заявку</button>
+
+                    <!-- Модальное окно с формой -->
+                    <div class="form-container-header" id="Form">
+                        <div class="contact-form-header">
+                            <span class="close-form-header" onclick="closeForm()">&times;</span>
+                            <form id="contactForm-header" method="post" enctype="multipart/form-data">
+                                <h2>Оставить заявку</h2>
+                                <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
+                                <input type="email" id="email" name="email" placeholder="e-mail" required>
+                                <input type="text" id="subject" name="subject" placeholder="Название компании" required>
+                                <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
+                                <div class="form-actions-header">
+                                    <button type="submit" id="contactForm-header">Отправить</button>
+                                    <label for="newsletter" class="newsletter-label-header">
+                                        <input type="checkbox" id="newsletter" name="newsletter" required>
+                                        Согласие на рассылку
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <nav id="mobileMenu">
                 <ul class="menu-list">
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Каталог</a></li>
-                    <li><a href="#">О компании</a></li>
-                    <li><a href="#">Контакты</a></li>
+                    <a href="/">О компании</a>
+                    <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
+                    <a href="/#contact">Контакты</a>
+                    <a href="/#delivery">Доставка</a>
+                    <a href="/#pay">Оплата</a>
                 </ul>
+
                 <form class="nav-search-form" method="GET" action="index.php">
                     <input type="text" id="search" class="full-width-search" placeholder="Поиск...">
                     <div id="suggestions"></div>
                 </form>
 
-                <div class="mobile-search">
-                    <input type="text" class="search-input" placeholder="Поиск...">
-                    <button class="search-btn"> </button>
-
+                <div class="cart-wrapper">
+                    <div class="cart-icon">
+                        <button id="cart-button" class="cart-btn">
+                            <div class="cart-icon-wrapper">
+                                <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
+                                <?php if ($cartItemCount > 0): ?>
+                                    <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
+                                <?php else: ?>
+                                    <span id="cart-count" class="cart-count" style="display: none;"></span>
+                                <?php endif; ?>
+                            </div>
+                        </button>
+                    </div>
                     <div id="cart-modal" class="cart-modal">
                         <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
                         <div class="cart-modal-content">
@@ -101,6 +135,7 @@ if ($element = $res->Fetch()) {
                         </div>
                     </div>
                 </div>
+
             </nav>
         </div>
     </header>

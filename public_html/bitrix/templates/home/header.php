@@ -93,7 +93,6 @@ if ($element = $res->Fetch()) {
                     <p><a href="tel:+70000000000" class="phone-link">+7(000) 000-00-00</a></p>
                 <?php endif; ?>
 
-                <!-- <button onclick="window.location.href='/#Cash'">Оставить заявку</button> -->
                 <div class="form-header-containers">
                     <button onclick="openForm()">Оставить заявку</button>
 
@@ -118,6 +117,7 @@ if ($element = $res->Fetch()) {
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="cart-wrapper">
@@ -146,6 +146,7 @@ if ($element = $res->Fetch()) {
                     </div>
                 </div>
             </div>
+
         </div>
     </header>
 
