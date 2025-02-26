@@ -409,4 +409,6 @@ while ($section = $sections->Fetch()) {
     slideInterval = setInterval(showSlides, 5000); // Переход каждые 5 секунд
 </script>
 
-<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer_mobile.php'); ?>
+<?php
+// require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');
+?>
