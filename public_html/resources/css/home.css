@@ -285,7 +285,7 @@
 }
 
 .block-m {
-    /* display: flex; */
+    display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.4s ease-in-out;
