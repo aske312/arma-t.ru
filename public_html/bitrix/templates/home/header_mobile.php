@@ -96,6 +96,7 @@ if ($element = $res->Fetch()) {
 
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <nav id="mobileMenu">
+                <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
                 <ul class="menu-list-m">
                     <a href="/">О компании</a>
                     <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
@@ -103,6 +104,7 @@ if ($element = $res->Fetch()) {
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
 
+                    <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
                     <?php if (isset($cartItemCount) && $cartItemCount > 0): ?>
                         <a href="/checkout">Корзина <span class="cart-count-m"><?= (int) $cartItemCount ?></span></a>
                     <?php endif; ?>
@@ -133,6 +135,28 @@ if ($element = $res->Fetch()) {
 
         window.addEventListener('scroll', function() {
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let cartData = localStorage.getItem("cartItems");
+            let cartCount = 0;
+
+            if (cartData) {
+                let parsedCart = JSON.parse(cartData);
+                if (parsedCart.cartItems && Array.isArray(parsedCart.cartItems)) {
+                    cartCount = parsedCart.cartItems.reduce((sum, item) => sum + item.quantity, 0);
+                }
+            }
+
+            document.getElementById("cartItemCount").value = cartCount;
+
+            // Отобразить ссылку на корзину, если есть товары
+            if (cartCount > 0) {
+                let cartLink = document.createElement("a");
+                cartLink.href = "/checkout";
+                cartLink.innerHTML = `Корзина <span class="cart-count">${cartCount}</span>`;
+                document.querySelector(".menu-list-m").appendChild(cartLink);
+            }
         });
 
         function getCartItems() {
