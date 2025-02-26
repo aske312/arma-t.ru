@@ -104,12 +104,12 @@ if ($element = $res->Fetch()) {
                     <a href="/#pay">Оплата</a>
                 </ul>
 
-                <form class="nav-search-form-mobile" method="GET" action="index.php">
-                    <input type="text" id="search" class="full-width-search" placeholder="Поиск...">
+                <form class="nav-search-form-m" method="GET" action="index.php">
+                    <input type="text" id="search" class="full-width-search-m" placeholder="Поиск...">
                     <div id="suggestions"></div>
                 </form>
 
-                <div class="cart-wrapper">
+                <div class="cart-wrapper-m">
                     <div class="cart-icon">
                         <button id="cart-button" class="cart-btn">
                             <div class="cart-icon-wrapper">
