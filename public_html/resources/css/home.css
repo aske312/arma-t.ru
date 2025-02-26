@@ -429,7 +429,7 @@
 
 /* Основной блок каталога */
 .section4-m {
-    top: 10px;
+
     width: 100%;
     display: flex;
     justify-content: center;
@@ -439,8 +439,9 @@
 
 /* Сетка категорий */
 .category-table-m {
+    top: 10px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 3 колонки по умолчанию */
+    grid-template-columns: repeat(4, 1fr); /* 3 колонки по умолчанию */
     max-width: 1200px;
     width: 100%;
 }
