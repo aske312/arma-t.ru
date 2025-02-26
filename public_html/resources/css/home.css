@@ -293,8 +293,8 @@
 }
 
 .block-item-m {
-    weight: 250px;
-    height: 135px;
+    weight: 135px;
+    height: 250px;
     flex: 0 0 20%; /* Делаем карточки немного уже */
     text-align: center;
     padding: 5px;
