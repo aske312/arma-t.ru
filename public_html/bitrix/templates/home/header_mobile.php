@@ -108,6 +108,7 @@ if ($element = $res->Fetch()) {
     <script type="text/javascript">
         function toggleMenu() {
             const nav = document.getElementById('mobileMenu');
+            const header = document.getElementById('siteHeader');
             nav.classList.toggle('open');
         }
 
