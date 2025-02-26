@@ -95,6 +95,8 @@ while ($section = $sections->Fetch()) {
 <noscript><div><img src="https://mc.yandex.ru/watch/99863521" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+
+<!-- -->
 <div class="section section1">
     <div class="slider-wrapper">
         <div class="slider-container">
@@ -117,8 +119,7 @@ while ($section = $sections->Fetch()) {
     </div>
 </div>
 
-<!-- -->
-
+<!--
 <div class="section section2" id="Company">
 	<div class="container">
 		<div class="content">
@@ -133,7 +134,9 @@ while ($section = $sections->Fetch()) {
 		</div>
 	</div>
 </div>
+-->
 
+<!--
 <div class="section section3" id="Delivery">
 	<div class="block">
 		<div class="block-item">
@@ -166,7 +169,9 @@ while ($section = $sections->Fetch()) {
 		</div>
 	</div>
 </div>
+-->
 
+<!--
 <div class="section section4-title" id="catalog">
     <div class="category-title">
         <h2>Каталог</h2>
@@ -194,10 +199,9 @@ while ($section = $sections->Fetch()) {
         </div>
     </div>
 </div>
+-->
 
-
-<!-- -->
-
+<!--
 <div class="section section6-title" id="delivery-title">
     <div class="delivery-title">
         <h2>Доставка</h2>
@@ -241,8 +245,9 @@ while ($section = $sections->Fetch()) {
         </div>
     </div>
 </div>
+-->
 
-<!-- -->
+<!--
 
 <div class="section section5" id="Cash">
     <div class="form-container" id="Form">
@@ -253,7 +258,6 @@ while ($section = $sections->Fetch()) {
             <input type="text" id="subject" name="subject" placeholder="Название компании" required>
             <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
 
-            <!-- Блок для кнопки и чекбокса -->
             <div class="form-actions">
                 <button type="submit" id="submitButton">Отправить</button>
                 <label for="newsletter" class="newsletter-label">
@@ -265,7 +269,9 @@ while ($section = $sections->Fetch()) {
     </div>
 </div>
 
-<!-- -->
+-->
+
+<!--
 
 <div class="section section7-title" id="pay-title">
     <div class="pay-title">
@@ -291,9 +297,8 @@ while ($section = $sections->Fetch()) {
 	</div>
 </div>
 
-<!-- -->
+-->
 
-<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
 
 <script>
     function toggleMenu() {
@@ -404,4 +409,4 @@ while ($section = $sections->Fetch()) {
     slideInterval = setInterval(showSlides, 5000); // Переход каждые 5 секунд
 </script>
 
-<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
+<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer_mobile.php'); ?>

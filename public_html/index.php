@@ -10,13 +10,13 @@ use Bitrix\Iblock;
 Loader::includeModule('iblock');
 
 // MOBILE VERSION
-// $userAgent = $_SERVER['HTTP_USER_AGENT'];
-// $isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
-//
-// if ($isMobile) {
-//     include 'index_mobile.php';
-//     return;
-// }
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
+
+if ($isMobile) {
+    include 'index_mobile.php';
+    return;
+}
 
 Asset::getInstance()->addCss("/resources/css/home.css"); // CSS
 Asset::getInstance()->addJs("/resources/js/script.js"); // JS
