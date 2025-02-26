@@ -39,6 +39,10 @@ header {
     max-height: 75px;
 }
 
+.logo-m img {
+    max-height: 55px;
+}
+
 .nav-search {
     display: flex;
     flex-direction: column;

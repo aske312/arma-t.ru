@@ -55,7 +55,7 @@ if ($element = $res->Fetch()) {
     <header id="siteHeader" class="header">
         <div class="header-content">
 
-            <div class="logo">
+            <div class="logo-m">
                 <a href="/"><img src="/resources/img/logo/resource_1.png" alt="ARMA-T.RU"></a>
             </div>
 

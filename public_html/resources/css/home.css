@@ -215,7 +215,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 5px; /* Делаем отступы */
 }
 
 /* Текстовый блок */
@@ -227,7 +226,7 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 900px; /* Ограничиваем ширину для удобочитаемости */
-    padding: 20px;
+    padding: 10px;
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Фон на всю область */
     color: #fff; /* Светлый текст */
