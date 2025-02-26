@@ -128,6 +128,41 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
+<div class="section3-m" id="Delivery">
+	<div class="block-m">
+		<div class="block-item-m">
+			<div class="block-image-m">
+                <img alt="Image 1" src="/resources/img/block/res1.png">
+			</div>
+			<div class="item-text-m">
+				 Наши специалисты помогут <br>
+				 с выбором продукции
+			</div>
+		</div>
+		<div class="block-item-m">
+			<div class="block-image-m">
+                <img alt="Image 2" src="/resources/img/block/res2.png">
+			</div>
+			<div class="item-text-m">
+				 Выставим счет <br>
+				 в течение 2-3 часов
+			</div>
+		</div>
+		<div class="block-item-m">
+			<div class="block-image-m">
+                <img alt="Image 3" src="/resources/img/block/res3.png">
+			</div>
+			<div class="item-text-m">
+				 Осуществим доставку <br>
+				 транспортной компанией <br>
+				 по вашему выбору
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- -->
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let slideIndex = 0;
