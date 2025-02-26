@@ -83,7 +83,7 @@ header {
 
 #mobileMenu {
     position: absolute;
-    top: 0;
+    top: 0px;
     left: 0;
     width: 100%;
     background-color: #1f2a3e;
@@ -92,10 +92,6 @@ header {
     flex-direction: column;
     align-items: center;
     z-index: 1000;
-    /*
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-in-out;
-    */
 }
 
 #mobileMenu.open {
@@ -104,7 +100,6 @@ header {
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    transform: translateY(0);
 }
 
 .menu-list {

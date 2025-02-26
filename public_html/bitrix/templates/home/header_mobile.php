@@ -120,17 +120,8 @@ if ($element = $res->Fetch()) {
             const mobileMenu = document.getElementById('mobileMenu');
 
             if (menuButton && mobileMenu) {
-                // Открытие/закрытие меню при клике на кнопку
-                menuButton.addEventListener('click', function(event) {
-                    event.stopPropagation(); // Остановка всплытия, чтобы клик на кнопку не закрывал меню
+                menuButton.addEventListener('click', function() {
                     mobileMenu.classList.toggle('open');
-                });
-
-                // Закрытие меню при клике вне него
-                document.addEventListener('click', function(event) {
-                    if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) {
-                        mobileMenu.classList.remove('open');
-                    }
                 });
             } else {
                 console.error("Элементы меню не найдены!");
