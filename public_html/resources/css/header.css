@@ -83,7 +83,7 @@ header {
 
 #mobileMenu {
     position: absolute;
-    top: 60px;
+    top: 0px;
     left: 0;
     width: 100%;
     background-color: #1f2a3e;
@@ -95,7 +95,7 @@ header {
 }
 
 #mobileMenu.open {
-    top: 0px;
+    top: 100px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
