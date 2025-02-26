@@ -217,6 +217,20 @@
     align-items: center;
 }
 
+/* Картинка */
+.image-m {
+    flex: 0 0 40%; /* 🔥 Фиксированная ширина 40% */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-m img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 🔥 Заполняет блок, без искажений */
+}
+
 /* Текстовый блок */
 .text-m {
     flex: 1;
