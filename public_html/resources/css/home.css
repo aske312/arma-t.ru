@@ -212,36 +212,37 @@
 /** мобильная версия **/
 .section-2-m {
     width: 100%;
+    display: flex;
     justify-content: center;
     align-items: center;
+    padding: 40px 20px; /* Делаем отступы */
 }
 
-/* Контейнер */
-.container-m {
-    max-width: 1200px;
-    width: 100%;
-}
-
-/* Контент: картинка + текст */
-.content-m {
-    display: flex;
-    align-items: stretch; /* 🔥 Равная высота для картинки и текста */
-    justify-content: space-between;
-    gap: 20px;
-}
-
-/* Текст */
+/* Текстовый блок */
 .text-m {
     flex: 1;
-    font-size: 18px;
-    line-height: 1.5;
-    text-align: left;
-    word-wrap: break-word; /* 🔥 Гарантирует перенос */
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: justify; /* Выравниваем по ширине */
+    word-wrap: break-word;
     overflow-wrap: break-word;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-width: 900px; /* Ограничиваем ширину для удобочитаемости */
+    padding: 20px;
     background: url('/resources/img/block/pattern.png') no-repeat center;
+    background-size: cover; /* Фон на всю область */
+    color: #fff; /* Светлый текст */
+    border-radius: 10px; /* Закругляем углы */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Добавляем мягкую тень */
+}
+
+/* 📱 Адаптив для телефонов */
+@media (max-width: 768px) {
+    .text-m {
+        font-size: 18px;
+        padding: 15px;
+        text-align: left; /* На мобилке оставляем слева */
+        max-width: 100%; /* Полная ширина */
+    }
 }
 
 /********* Информационный блок *********/
