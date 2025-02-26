@@ -94,7 +94,7 @@ while ($section = $sections->Fetch()) {
 <!-- /Yandex.Metrika counter -->
 
 <!-- -->
-<div class="section-m section1">
+<div class="section-m section1-m">
     <div class="slider-wrapper-m">
         <div class="slider-container-m">
             <div class="slider-m">
