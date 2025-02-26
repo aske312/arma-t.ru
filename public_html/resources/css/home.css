@@ -429,20 +429,18 @@
 
 /* Основной блок каталога */
 .section4-m {
-
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 /* Сетка категорий */
 .category-table-m {
     top: 10px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 3 колонки по умолчанию */
-    max-width: 1200px;
+    grid-template-columns: repeat(2, 1fr); /* 3 колонки по умолчанию */
+    max-width: 800px;
     width: 100%;
 }
 
@@ -465,8 +463,8 @@
 
 /* Текст внутри карточек */
 .category-text-m {
-    margin-top: 10px;
-    font-size: 16px;
+    margin-top: 5px;
+    font-size: 14px;
     font-weight: bold;
 }
 
