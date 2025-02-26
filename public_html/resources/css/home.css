@@ -417,10 +417,11 @@
 /** Мобильная версия **/
 .section4-title-m {
     text-align: center;
-    background-color: #DCDCDC; /* #1E3564; */
+
 }
 
 .category-title-m h2 {
+    color: black;
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
