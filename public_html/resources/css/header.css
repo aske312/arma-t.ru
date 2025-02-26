@@ -47,59 +47,6 @@ header {
     padding: 0px;
 }
 
-
-.menu-toggle {
-    display: block;
-    font-size: 28px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-#mobileMenu {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background-color: #1f2a3e;
-    padding: 15px;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1000;
-}
-
-#mobileMenu.open {
-    display: flex;
-}
-
-.menu-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    text-align: center;
-}
-
-.menu-list li {
-    margin: 10px 0;
-}
-
-.menu-list a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.mobile-search {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-/*
 #mainNav a {
     color: white;
     margin-left: 20px;
@@ -111,7 +58,7 @@ header {
 #mainNav a:hover {
     color: #0056b3;
     text-decoration: none;
-}*/
+}
 
 .header.fixed {
     position: fixed;
