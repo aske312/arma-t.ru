@@ -421,7 +421,7 @@
 }
 
 .category-title-m h2 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
     margin: 0 auto;
@@ -440,8 +440,7 @@
 /* Сетка категорий */
 .category-table-m {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки по умолчанию */
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr); /* 3 колонки по умолчанию */
     max-width: 1200px;
     width: 100%;
 }
