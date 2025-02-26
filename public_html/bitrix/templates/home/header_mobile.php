@@ -102,11 +102,8 @@ if ($element = $res->Fetch()) {
                     <a href="/#contact">Контакты</a>
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
-                    <a href="/checkout">Корзина (<?php if ($cartItemCount > 0): ?>
-                                <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
-                            <?php else: ?>
-                                <span id="cart-count" class="cart-count" style="display: none;"></span>
-                            <?php endif; ?>)</a>
+                    <a href="/checkout">Корзина <?php if ($cartItemCount > 0: ?>
+                        <?= $cartItemCount ?><?php else: ?> 0 <?php endif; ?>)</a>
                 </ul>
 
                 <form class="nav-search-form-m" method="GET" action="index.php">
