@@ -450,8 +450,6 @@
 .category-block-m {
     weight: 100px;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 5px;
     cursor: pointer;
