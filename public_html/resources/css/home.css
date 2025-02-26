@@ -417,7 +417,6 @@
 /** Мобильная версия **/
 .section4-title-m {
     text-align: center;
-
 }
 
 .category-title-m h2 {
@@ -451,7 +450,6 @@
     weight: 100px;
     height: auto;
     text-align: center;
-    padding: 5px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
