@@ -167,51 +167,48 @@ while ($section = $sections->Fetch()) {
         xhr.send(formData);
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        let slideIndex = 1;
-        const slides = document.querySelectorAll(".slide-m");
-        const dots = document.querySelectorAll(".dot");
-        const slidesContainer = document.querySelector(".slides-m");
+    let slideIndex = 1;
+    const slides = document.querySelectorAll(".slide-m");
+    const dots = document.querySelectorAll(".dot");
+    const slidesContainer = document.querySelector(".slides-m");
 
-        if (!slides.length || !dots.length || !slidesContainer) {
-            console.error("Слайдер не найден или некорректные селекторы.");
-            return;
+    if (!slides.length || !dots.length || !slidesContainer) {
+        console.error("Слайдер не найден или некорректные селекторы.");
+        return;
+    }
+
+    function showSlide(index) {
+        if (index >= slides.length) {
+            slideIndex = 0;
+        } else if (index < 0) {
+            slideIndex = slides.length - 1;
+        } else {
+            slideIndex = index;
         }
 
-        function showSlide(index) {
-            if (index >= slides.length) {
-                slideIndex = 0;
-            } else if (index < 0) {
-                slideIndex = slides.length - 1;
-            } else {
-                slideIndex = index;
-            }
-
-            const offset = -slideIndex * 100;
-            slidesContainer.style.transform = `translateX(${offset}%)`;
-
-            dots.forEach((dot, i) => {
-                dot.classList.toggle("active", i === slideIndex);
-            });
-        }
-
-        function nextSlide() {
-            showSlide(slideIndex + 1);
-        }
-
-        window.currentSlide = function (index) {
-            showSlide(index);
-        };
+        const offset = -slideIndex * 100;
+        slidesContainer.style.transform = `translateX(${offset}%)`;
 
         dots.forEach((dot, i) => {
-            dot.addEventListener("click", () => currentSlide(i));
+            dot.classList.toggle("active", i === slideIndex);
         });
+    }
 
-        setInterval(nextSlide, 5000); // Автопереключение каждые 5 секунд
+    function nextSlide() {
+        showSlide(slideIndex + 1);
+    }
 
-        showSlide(slideIndex);
+    window.currentSlide = function (index) {
+        showSlide(index);
+    };
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => currentSlide(i));
     });
 
+    setInterval(nextSlide, 5000); // Автопереключение каждые 5 секунд
+
+    showSlide(slideIndex);
 </script>
 
 <?php
