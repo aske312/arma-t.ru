@@ -437,7 +437,7 @@
 
 .category-table-m {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); /* 🔥 Динамическое количество колонок */
+    grid-template-columns: repeat(2, 1fr); /* 3 колонки по умолчанию */
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
