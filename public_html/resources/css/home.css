@@ -411,6 +411,68 @@
     text-align: center; /* Центрируем текст внутри блока */
 }
 
+/** Мобильная версия **/
+/* Центрируем заголовок */
+.section4-title-m {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.category-title-m h2 {
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
+
+/* Основной блок каталога */
+.section4-m {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Сетка категорий */
+.category-table-m {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки по умолчанию */
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Карточки категорий */
+.category-block-m {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.category-block-m img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Текст внутри карточек */
+.category-text-m {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Эффект при наведении */
+.category-block-m:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
 /********* Форма обратной связи *********/
 
 .section5 {
