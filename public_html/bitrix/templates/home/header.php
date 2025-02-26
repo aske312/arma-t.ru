@@ -151,18 +151,6 @@ if ($element = $res->Fetch()) {
     </header>
 
     <script>
-        function toggleMenu() {
-            const nav = document.getElementById('mobileMenu');
-            nav.classList.toggle('open');
-        }
-
-//         function toggleMenu() {
-//             const nav = document.getElementById('mainNav');
-//             const header = document.getElementById('siteHeader');
-//             nav.classList.toggle('menu-open');
-//             header.classList.toggle('menu-expanded');
-//         }
-
         window.addEventListener('scroll', function() {
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });

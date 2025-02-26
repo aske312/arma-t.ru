@@ -9,7 +9,7 @@ use Bitrix\Iblock;
 
 Loader::includeModule('iblock');
 
-Asset::getInstance()->addCss("/resources/css/home_mobile.css"); // CSS
+Asset::getInstance()->addCss("/resources/css/home.css"); // CSS
 Asset::getInstance()->addJs("/resources/js/script.js"); // JS
 
 // Получение данных для слайдера (ID = 1)

@@ -8,8 +8,7 @@ Loader::includeModule('iblock');
 
 // Подключение стилей и скриптов
 Asset::getInstance()->addCss("/resources/css/header.css");
-//Asset::getInstance()->addCss("/resources/css/mobile/header_mobile.css");
-Asset::getInstance()->addCss("/resources/css/mobile/footer_mobile.css");
+Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
@@ -121,8 +120,17 @@ if ($element = $res->Fetch()) {
             const mobileMenu = document.getElementById('mobileMenu');
 
             if (menuButton && mobileMenu) {
-                menuButton.addEventListener('click', function() {
+                // Открытие/закрытие меню при клике на кнопку
+                menuButton.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Остановка всплытия, чтобы клик на кнопку не закрывал меню
                     mobileMenu.classList.toggle('open');
+                });
+
+                // Закрытие меню при клике вне него
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) {
+                        mobileMenu.classList.remove('open');
+                    }
                 });
             } else {
                 console.error("Элементы меню не найдены!");
