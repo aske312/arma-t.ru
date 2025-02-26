@@ -168,47 +168,44 @@ while ($section = $sections->Fetch()) {
     });
 
     let slideIndex = 1;
-    const slides = document.querySelectorAll(".slide-m");
-    const dots = document.querySelectorAll(".dot");
-    const slidesContainer = document.querySelector(".slides-m");
+    let slides = document.getElementsByClassName("slide-m");
+    let dots = document.getElementsByClassName("dot");
 
-    if (!slides.length || !dots.length || !slidesContainer) {
-        console.error("Слайдер не найден или некорректные селекторы.");
-        return;
-    }
-
-    function showSlide(index) {
-        if (index >= slides.length) {
-            slideIndex = 0;
-        } else if (index < 0) {
-            slideIndex = slides.length - 1;
-        } else {
-            slideIndex = index;
+    function showSlides() {
+        // Скрываем все слайды
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+        }
+        // Убираем класс 'active' у всех точек
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(' active', '');
         }
 
-        const offset = -slideIndex * 100;
-        slidesContainer.style.transform = `translateX(${offset}%)`;
+        // Переход к следующему слайду
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1; } // Переход на первый слайд, если достигнут конец
 
-        dots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === slideIndex);
-        });
+        // Показываем текущий слайд
+        slides[slideIndex - 1].style.display = 'block';
+        // Подсвечиваем текущую точку
+        dots[slideIndex - 1].className += ' active';
     }
 
-    function nextSlide() {
-        showSlide(slideIndex + 1);
+    // Функция для перехода к определенному слайду при клике на точку
+    function currentSlide(n) {
+        slideIndex = n;
+        showSlides();
+        resetAutoSlide(); // Сброс интервала при переходе вручную
     }
 
-    window.currentSlide = function (index) {
-        showSlide(index);
-    };
+    // Функция для сброса и установки нового таймера
+    function resetAutoSlide() {
+        clearInterval(slideInterval); // Останавливаем предыдущий интервал
+        slideInterval = setInterval(showSlides, 5000); // Устанавливаем новый интервал для автоматического переключения слайдов
+    }
 
-    dots.forEach((dot, i) => {
-        dot.addEventListener("click", () => currentSlide(i));
-    });
-
-    setInterval(nextSlide, 5000); // Автопереключение каждые 5 секунд
-
-    showSlide(slideIndex);
+    // Автоматическое переключение слайдов
+    slideInterval = setInterval(showSlides, 5000); // Переход каждые 5 секунд
 </script>
 
 <?php
