@@ -176,7 +176,7 @@ while ($section = $sections->Fetch()) {
     </div>
 </div>
 
-<!--
+<!-- -->
 
 <div class="section4-title-m" id="catalog">
     <div class="category-title-m">
@@ -206,7 +206,7 @@ while ($section = $sections->Fetch()) {
     </div>
 </div>
 
- -->
+<!-- -->
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
