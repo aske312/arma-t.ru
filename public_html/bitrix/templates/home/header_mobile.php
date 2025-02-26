@@ -103,7 +103,7 @@ if ($element = $res->Fetch()) {
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
 
-                    <?php if (isset($cartItemCount) && is_numeric($cartItemCount) && $cartItemCount > 0): ?>
+                    <?php if (isset($cartItemCount) && $cartItemCount > 0): ?>
                         <a href="/checkout">Корзина <span class="cart-count-m"><?= (int) $cartItemCount ?></span></a>
                     <?php endif; ?>
                 </ul>
@@ -113,34 +113,6 @@ if ($element = $res->Fetch()) {
                     <div id="suggestions"></div>
                 </form>
             </nav>
-
-            <!--
-            <div class="cart-wrapper-m">
-                <div class="cart-icon">
-                    <button id="cart-button" class="cart-btn">
-                        <div class="cart-icon-wrapper">
-                            <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                            <?php if ($cartItemCount > 0): ?>
-                                <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
-                            <?php else: ?>
-                                <span id="cart-count" class="cart-count" style="display: none;"></span>
-                            <?php endif; ?>
-                        </div>
-                    </button>
-                </div>
-                <div id="cart-modal" class="cart-modal">
-                    <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
-                    <div class="cart-modal-content">
-                        <span class="close-btn" id="close-cart-modal">&times;</span>
-                        <h2>Корзина</h2>
-                        <div id="cart-items" class="cart-items-container"></div>
-                        <div class="cart-modal-footer">
-                            <button id="clear-cart" class="button">Очистить корзину</button>
-                            <button id="checkout" class="button">Оформить заказ</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
 
         </div>
     </header>
