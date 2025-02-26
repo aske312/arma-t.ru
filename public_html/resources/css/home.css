@@ -436,7 +436,6 @@
 }
 
 .category-table-m {
-    top: 50px;
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 3 колонки по умолчанию */
     max-width: 800px;
@@ -478,7 +477,7 @@
 .category-block-m:hover {
     border-radius: 10px;
     transform: translateY(-5px);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
 }
 
 /********* Форма обратной связи *********/
