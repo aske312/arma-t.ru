@@ -8,7 +8,7 @@ Loader::includeModule('iblock');
 
 // Подключение стилей и скриптов
 Asset::getInstance()->addCss("/resources/css/header.css");
-Asset::getInstance()->addCss("/resources/css/footer.css");
+//Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
