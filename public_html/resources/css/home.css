@@ -415,9 +415,9 @@
 }
 
 /** Мобильная версия **/
-/* Центрируем заголовок */
 .section4-title-m {
     text-align: center;
+    background-color: #DCDCDC; /* #1E3564; */
 }
 
 .category-title-m h2 {
