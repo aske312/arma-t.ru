@@ -108,35 +108,35 @@ if ($element = $res->Fetch()) {
                     <input type="text" id="search" class="full-width-search-m" placeholder="Поиск...">
                     <div id="suggestions"></div>
                 </form>
+            </nav>
 
-                <div class="cart-wrapper-m">
-                    <div class="cart-icon">
-                        <button id="cart-button" class="cart-btn">
-                            <div class="cart-icon-wrapper">
-                                <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                                <?php if ($cartItemCount > 0): ?>
-                                    <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
-                                <?php else: ?>
-                                    <span id="cart-count" class="cart-count" style="display: none;"></span>
-                                <?php endif; ?>
-                            </div>
-                        </button>
-                    </div>
-                    <div id="cart-modal" class="cart-modal">
-                        <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
-                        <div class="cart-modal-content">
-                            <span class="close-btn" id="close-cart-modal">&times;</span>
-                            <h2>Корзина</h2>
-                            <div id="cart-items" class="cart-items-container"></div>
-                            <div class="cart-modal-footer">
-                                <button id="clear-cart" class="button">Очистить корзину</button>
-                                <button id="checkout" class="button">Оформить заказ</button>
-                            </div>
+            <div class="cart-wrapper-m">
+                <div class="cart-icon">
+                    <button id="cart-button" class="cart-btn">
+                        <div class="cart-icon-wrapper">
+                            <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
+                            <?php if ($cartItemCount > 0): ?>
+                                <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
+                            <?php else: ?>
+                                <span id="cart-count" class="cart-count" style="display: none;"></span>
+                            <?php endif; ?>
+                        </div>
+                    </button>
+                </div>
+                <div id="cart-modal" class="cart-modal">
+                    <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
+                    <div class="cart-modal-content">
+                        <span class="close-btn" id="close-cart-modal">&times;</span>
+                        <h2>Корзина</h2>
+                        <div id="cart-items" class="cart-items-container"></div>
+                        <div class="cart-modal-footer">
+                            <button id="clear-cart" class="button">Очистить корзину</button>
+                            <button id="checkout" class="button">Оформить заказ</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-            </nav>
         </div>
     </header>
 
