@@ -119,7 +119,6 @@ while ($section = $sections->Fetch()) {
 </div>
 
 <script>
-
     function redirectToSection(sectionId) {
         // Строим URL для страницы каталога, передавая параметр SECTION_ID
         var url = "/catalog/index.php?SECTION_ID=" + sectionId;
