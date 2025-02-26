@@ -134,25 +134,39 @@ if ($element = $res->Fetch()) {
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-            let cartData = localStorage.getItem("cartItems");
-            let cartCount = 0;
+            function updateCartCount() {
+                let cartData = localStorage.getItem("cartItems");
+                let cartCount = 0;
 
-            if (cartData) {
-                let parsedCart = JSON.parse(cartData);
-                if (parsedCart.cartItems && Array.isArray(parsedCart.cartItems)) {
-                    cartCount = parsedCart.cartItems.reduce((sum, item) => sum + item.quantity, 0);
+                if (cartData) {
+                    let parsedCart = JSON.parse(cartData);
+                    if (parsedCart.cartItems && Array.isArray(parsedCart.cartItems)) {
+                        cartCount = parsedCart.cartItems.reduce((sum, item) => sum + item.quantity, 0);
+                    }
+                }
+
+                let cartLink = document.getElementById("cart-link");
+                if (!cartLink && cartCount > 0) {
+                    // Создаем ссылку на корзину, если она еще не существует
+                    cartLink = document.createElement("a");
+                    cartLink.href = "/checkout";
+                    cartLink.id = "cart-link";
+                    document.querySelector(".menu-list-m").appendChild(cartLink);
+                }
+
+                if (cartLink) {
+                    if (cartCount > 0) {
+                        cartLink.innerHTML = `Корзина <span class="cart-count">${cartCount}</span>`;
+                        cartLink.style.display = "inline-block";
+                    } else {
+                        cartLink.style.display = "none"; // Скрываем, если корзина пуста
+                    }
                 }
             }
 
-            document.getElementById("cartItemCount").value = cartCount;
-
-            // Отобразить ссылку на корзину, если есть товары
-            if (cartCount > 0) {
-                let cartLink = document.createElement("a");
-                cartLink.href = "/checkout";
-                cartLink.innerHTML = `Корзина <span class="cart-count">${cartCount}</span>`;
-                document.querySelector(".menu-list-m").appendChild(cartLink);
-            }
+            // Обновляем корзину каждые 1 секунду
+            updateCartCount(); // Первый запуск при загрузке
+            setInterval(updateCartCount, 1000);
         });
 
         function getCartItems() {
