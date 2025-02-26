@@ -156,7 +156,7 @@ if ($element = $res->Fetch()) {
 
                 if (cartLink) {
                     if (cartCount > 0) {
-                        cartLink.innerHTML = `Корзина <span class="cart-count">${cartCount}</span>`;
+                        cartLink.innerHTML = `Корзина <span class="cart-count-m">${cartCount}</span>`;
                         cartLink.style.display = "inline-block";
                     } else {
                         cartLink.style.display = "none"; // Скрываем, если корзина пуста
