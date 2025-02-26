@@ -113,7 +113,7 @@
 .slider-m {
     position: relative;
     max-width: 100%;
-    height: 400px; /* Увеличенный размер слайдера */
+    height: 450px; /* Увеличенный размер слайдера */
     overflow: hidden;
 }
 
@@ -134,38 +134,42 @@
 }
 
 .slide-m img {
-    width: 100%;
-    height: 100%;  /* Растягиваем изображение */
-    object-fit: relative;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Оставляет изображение в пределах блока без обрезки */
 }
 
 .slide-text-m {
     position: absolute;
-    top: 20px; /* Текст сверху */
+    top: 0; /* Текст сверху */
     left: 0;
     width: 100%;
-    height: 50%; /* Задаем высоту текстового блока */
+    height: 20%; /* Высота текстового блока */
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.4); /* Затемнение */
+    background: rgba(0, 0, 0, 0.6);
     color: white;
-    font-size: 24px; /* Увеличенный размер текста */
+    font-size: 24px;
     font-weight: bold;
     text-align: center;
     padding: 10px;
     box-sizing: border-box;
 }
 
+/* Точки навигации */
 .dots-m {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    margin-top: 10px;
 }
 
 .dot-m {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     margin: 0 5px;
     background: #bbb;
     border-radius: 50%;
@@ -176,6 +180,23 @@
 .dot-m.active {
     background: #555;
 }
+
+/* Кнопки навигации */
+.prev-m, .next-m {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 10;
+}
+
+.prev-m { left: 10px; }
+.next-m { right: 10px; }
 
 /********* Текст вторым блоком *********/
 .section2 {

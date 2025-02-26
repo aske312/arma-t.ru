@@ -104,6 +104,11 @@ while ($section = $sections->Fetch()) {
         <?php endforeach; ?>
     </div>
 
+    <!-- Кнопки навигации -->
+    <button class="prev-m" onclick="prevSlide()">❮</button>
+    <button class="next-m" onclick="nextSlide()">❯</button>
+
+    <!-- Точки навигации -->
     <div class="dots-m">
         <?php foreach ($sliderItems as $index => $slide): ?>
         <span class="dot-m" data-index="<?= $index ?>"></span>
@@ -131,14 +136,26 @@ while ($section = $sections->Fetch()) {
             dots[slideIndex].classList.add("active");
         }
 
-        function nextSlide() {
+        window.nextSlide = function () {
             showSlide(slideIndex + 1);
-        }
+            resetInterval();
+        };
+
+        window.prevSlide = function () {
+            showSlide(slideIndex - 1);
+            resetInterval();
+        };
 
         window.currentSlide = function (index) {
             showSlide(index);
             resetInterval();
         };
+
+        dots.forEach(dot => {
+            dot.addEventListener("click", function () {
+                currentSlide(parseInt(this.dataset.index));
+            });
+        });
 
         function startAutoSlide() {
             slideInterval = setInterval(nextSlide, 5000);
@@ -148,12 +165,6 @@ while ($section = $sections->Fetch()) {
             clearInterval(slideInterval);
             startAutoSlide();
         }
-
-        dots.forEach(dot => {
-            dot.addEventListener("click", function () {
-                currentSlide(parseInt(this.dataset.index));
-            });
-        });
 
         showSlide(slideIndex);
         startAutoSlide();
