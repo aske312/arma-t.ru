@@ -168,7 +168,7 @@ while ($section = $sections->Fetch()) {
     });
 
     document.addEventListener("DOMContentLoaded", function () {
-        let slideIndex = 0;
+        let slideIndex = 1;
         const slides = document.querySelectorAll(".slide-m");
         const dots = document.querySelectorAll(".dot");
         const slidesContainer = document.querySelector(".slides-m");
