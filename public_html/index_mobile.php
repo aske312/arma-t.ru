@@ -118,7 +118,7 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
-<div>
+<div class="section-2-m ">
     <div class="image-m">
         <img alt="Image" src="/resources/img/block/312asd.png">
     </div>
