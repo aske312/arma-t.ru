@@ -219,16 +219,14 @@
 
 /* Картинка */
 .image-m {
-    flex: 0 0 40%; /* 🔥 Фиксированная ширина 40% */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex: 1;
+    text-align: right;
 }
 
 .image-m img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 🔥 Заполняет блок, без искажений */
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* Текстовый блок */
