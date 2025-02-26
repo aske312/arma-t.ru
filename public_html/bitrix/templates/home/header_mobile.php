@@ -96,7 +96,7 @@ if ($element = $res->Fetch()) {
 
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <nav id="mobileMenu">
-                <ul class="menu-list">
+                <ul class="menu-list-m">
                     <a href="/">О компании</a>
                     <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
                     <a href="/#contact">Контакты</a>
@@ -104,7 +104,7 @@ if ($element = $res->Fetch()) {
                     <a href="/#pay">Оплата</a>
                 </ul>
 
-                <form class="nav-search-form" method="GET" action="index.php">
+                <form class="nav-search-form-mobile" method="GET" action="index.php">
                     <input type="text" id="search" class="full-width-search" placeholder="Поиск...">
                     <div id="suggestions"></div>
                 </form>
