@@ -104,7 +104,7 @@ if ($element = $res->Fetch()) {
                     <a href="/#pay">Оплата</a>
 
                     <?php if (!empty($cartItemCount) && $cartItemCount > 0): ?>
-                        <a href="/checkout">Корзина <span class="cart-count"><?= $cartItemCount ?></span></a>
+                        <a href="/checkout">Корзина <span class="cart-count-m"><?= $cartItemCount ?></span></a>
                     <?php endif; ?>
                 </ul>
 
