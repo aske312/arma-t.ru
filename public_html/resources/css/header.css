@@ -97,14 +97,11 @@ header {
 }
 
 #mobileMenu.open {
-
     top: 105px;
     display: flex;
-    /*
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    */
     transform: translateY(0);
 }
 
