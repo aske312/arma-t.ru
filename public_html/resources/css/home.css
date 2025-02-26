@@ -239,7 +239,7 @@
 @media (max-width: 768px) {
     .text-m {
         font-size: 18px;
-        padding: 15px;
+        padding: 0px;
         text-align: left; /* На мобилке оставляем слева */
         max-width: 100%; /* Полная ширина */
     }
