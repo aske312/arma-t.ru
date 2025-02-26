@@ -221,17 +221,15 @@
 .text-m {
     flex: 1;
     font-size: 20px;
-    line-height: 1.6;
+    line-height: 1.1;
     text-align: justify; /* Выравниваем по ширине */
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 900px; /* Ограничиваем ширину для удобочитаемости */
-    padding: 10px;
+    padding: 100px;
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Фон на всю область */
     color: #fff; /* Светлый текст */
-    border-radius: 10px; /* Закругляем углы */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Добавляем мягкую тень */
 }
 
 /********* Информационный блок *********/
