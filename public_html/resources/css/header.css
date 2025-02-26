@@ -106,19 +106,29 @@ header {
     text-align: center;
 }
 
-.menu-list-m {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    text-align: left;
-}
-
 .menu-list li {
     margin: 10px 0;
 }
 
 .menu-list a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.menu-list-m {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
+}
+
+.menu-list-m li {
+    margin: 10px 0;
+}
+
+.menu-list-m a {
     color: white;
     text-decoration: none;
     font-size: 18px;
