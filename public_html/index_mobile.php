@@ -118,9 +118,6 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
-<div class="section-2-m">
-    <p>АРМА-Т - специал сервис!</p>
-</div>
 
 <!-- -->
 
