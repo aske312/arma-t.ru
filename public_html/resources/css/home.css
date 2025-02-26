@@ -254,31 +254,6 @@
     max-width: 100%; /* 🔥 Запрещаем выход за границы */
 }
 
-/* 📱 Адаптив: для телефонов (< 768px) */
-@media (max-width: 768px) {
-    .content-m {
-        flex-direction: column; /* Переставляем блоки */
-        text-align: center; /* Центрируем текст */
-    }
-
-    .image-m {
-        max-width: 100%; /* Картинка во всю ширину */
-    }
-
-    .image-m img {
-        max-width: 80%; /* Уменьшаем изображение */
-        height: auto;
-    }
-
-    .text-m {
-        font-size: 16px;
-        text-align: center;
-        padding: 0 10px; /* Добавляем отступы */
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
-}
-
 /********* Информационный блок *********/
 
 .section3 {
