@@ -148,9 +148,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.6); /* Затемнение */
+    background: rgba(0, 0, 0, 0.4); /* Затемнение */
     color: white;
-    font-size: 28px; /* Увеличенный размер текста */
+    font-size: 24px; /* Увеличенный размер текста */
     font-weight: bold;
     text-align: center;
     padding: 10px;
