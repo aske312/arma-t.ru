@@ -445,7 +445,8 @@
 
 /* Карточки категорий */
 .category-block-m {
-    background: white;
+    weight: 150px;
+    height: 150px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
