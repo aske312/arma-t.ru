@@ -55,8 +55,8 @@ if ($element = $res->Fetch()) {
 
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
-    <header id="siteHeader" class="header">
-        <div class="header-content">
+    <header class="header">
+        <div id="siteHeader" class="header-content">
 
             <div class="logo">
                 <a href="/"><img src="/resources/img/logo/resource_1.png" alt="ARMA-T.RU"></a>
