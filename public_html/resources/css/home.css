@@ -157,30 +157,6 @@
     box-sizing: border-box;
 }
 
-/* Точки навигации
-.dots-m {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-}
-
-.dot-m {
-    width: 12px;
-    height: 12px;
-    margin: 0 5px;
-    background: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.dot-m.active {
-    background: #555;
-}*/
-
 /* Кнопки навигации */
 .prev-m, .next-m {
     position: absolute;
@@ -231,6 +207,61 @@
     line-height: 1.6;
     color: black;
     text-align: left;
+}
+
+/** мобильная версия **/
+
+.section-2-m {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container-m {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.content-m {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Картинка */
+.image-m img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* Картинка полностью видима */
+}
+
+/* Текст */
+.text-m {
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* 📱 Адаптив: для телефонов (< 768px) */
+@media (max-width: 768px) {
+    .content-m {
+        flex-direction: column; /* Переставляем блоки */
+        text-align: center; /* Центрируем текст */
+    }
+
+    .image-m img {
+        max-width: 80%; /* Уменьшаем картинку */
+        height: auto;
+    }
+
+    .text-m {
+        font-size: 16px;
+        text-align: center;
+    }
 }
 
 /********* Информационный блок *********/
