@@ -436,7 +436,7 @@
 }
 
 .category-table-m {
-    top: 20px;
+    top: 50px;
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 3 колонки по умолчанию */
     max-width: 800px;
