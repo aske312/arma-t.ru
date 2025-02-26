@@ -104,7 +104,6 @@ while ($section = $sections->Fetch()) {
         <?php endforeach; ?>
     </div>
 
-    <!-- Точки навигации -->
     <div class="dots-m">
         <?php foreach ($sliderItems as $index => $slide): ?>
         <span class="dot-m" data-index="<?= $index ?>"></span>
