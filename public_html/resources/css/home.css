@@ -433,6 +433,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #DCDCDC; /* #1E3564; */
 }
 
 .category-table-m {
@@ -442,6 +443,7 @@
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
+    background-color: #DCDCDC; /* #1E3564; */
 }
 
 /* Карточки категорий */
@@ -453,6 +455,7 @@
     text-align: center;
     padding: 5px;
     cursor: pointer;
+    background: white;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
