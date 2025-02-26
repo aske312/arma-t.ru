@@ -234,7 +234,7 @@
     flex: 1;
     margin-left: -80%;
     padding: 10px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.1;
     text-align: justify; /* Выравниваем по ширине */
     word-wrap: break-word;
@@ -246,7 +246,6 @@
 }
 
 .text-m p {
-    color: black;
     text-align: left;
 }
 
