@@ -107,9 +107,7 @@ if ($element = $res->Fetch()) {
     <script>
         function toggleMenu() {
             const nav = document.getElementById('mobileMenu');
-            const header = document.getElementById('siteHeader');
-            nav.classList.toggle('menu-open');
-            header.classList.toggle('menu-expanded');
+            nav.classList.toggle('open');
         }
 
         window.addEventListener('scroll', function() {
