@@ -143,6 +143,8 @@ while ($section = $sections->Fetch()) {
 	</div>
 </div>
 
+<!-- -->
+
 <div class="section section3" id="Delivery">
 	<div class="block">
 		<div class="block-item">
@@ -176,6 +178,8 @@ while ($section = $sections->Fetch()) {
 	</div>
 </div>
 
+<!-- -->
+
 <div class="section section4-title" id="catalog">
     <div class="category-title">
         <h2>Каталог</h2>
@@ -203,7 +207,6 @@ while ($section = $sections->Fetch()) {
         </div>
     </div>
 </div>
-
 
 <!-- -->
 
