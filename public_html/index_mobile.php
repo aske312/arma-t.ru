@@ -94,120 +94,78 @@ while ($section = $sections->Fetch()) {
 <!-- /Yandex.Metrika counter -->
 
 <!-- -->
-<div class="section-m">
-    <div class="slider-wrapper-m">
-        <div class="slider-container-m">
-            <div class="slider-m">
-                <div class="slides-m">
-                    <?php foreach ($sliderItems as $slide): ?>
-                    <div class="slide-m">
-                        <img alt="Slide" src="<?= $slide['IMG'] ?>">
-                        <div class="slide-text-m"><?= $slide['TEXT'] ?></div>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="dots-m">
-                    <?php foreach ($sliderItems as $index => $slide): ?>
-                    <span class="dot-m" onclick="currentSlide(<?= $index ?>)"></span>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+<div class="slider-m">
+    <div class="slides-m">
+        <?php foreach ($sliderItems as $index => $slide): ?>
+        <div class="slide-m" data-index="<?= $index ?>">
+            <img alt="Slide" src="<?= $slide['IMG'] ?>">
+            <div class="slide-text-m"><?= $slide['TEXT'] ?></div>
         </div>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- Точки навигации -->
+    <div class="dots-m">
+        <?php foreach ($sliderItems as $index => $slide): ?>
+        <span class="dot-m" data-index="<?= $index ?>"></span>
+        <?php endforeach; ?>
     </div>
 </div>
 
 <script>
-    function redirectToSection(sectionId) {
-        // Строим URL для страницы каталога, передавая параметр SECTION_ID
-        var url = "/catalog/index.php?SECTION_ID=" + sectionId;
+    document.addEventListener("DOMContentLoaded", function () {
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".slide-m");
+        const dots = document.querySelectorAll(".dot-m");
+        const slidesContainer = document.querySelector(".slides-m");
+        let slideInterval;
 
-        // Перенаправляем пользователя на соответствующую страницу
-        window.location.href = url;
-    }
+        if (!slides.length || !dots.length || !slidesContainer) {
+            console.error("Ошибка: слайдер не найден!");
+            return;
+        }
 
-    document.getElementById('contactForm').addEventListener('submit', function (e) {
-        e.preventDefault();  // Предотвращаем перезагрузку страницы
+        function showSlide(index) {
+            slideIndex = (index + slides.length) % slides.length;
+            slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[slideIndex].classList.add("active");
+        }
 
-        const submitButton = this.querySelector('button[type="submit"]');
-        submitButton.disabled = true; // Блокируем кнопку
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+        }
 
-        const formData = new FormData(this);
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/resources/src/send.php', true);
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                if (response.status === 'success') {
-                    document.getElementById('contactForm').reset();
-                    alert(response.message);
-                    setTimeout(() => {
-                        submitButton.disabled = false;
-                    }, 1800); // 180000 мс = 3 минуты
-                } else {
-                    alert(response.message);
-                    submitButton.disabled = false;
-                }
-            } else if (xhr.status === 429) {
-                const response = JSON.parse(xhr.responseText);
-                alert(response.message); // Показываем сообщение о времени ожидания
-                submitButton.disabled = false;
-            } else {
-                alert('Произошла ошибка при отправке сообщения.');
-                submitButton.disabled = false;
-            }
+        window.currentSlide = function (index) {
+            showSlide(index);
+            resetInterval();
         };
 
-        xhr.onerror = function () {
-            alert('Произошла ошибка при отправке сообщения.');
-            submitButton.disabled = false;
-        };
+        function startAutoSlide() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
 
-        xhr.send(formData);
+        function resetInterval() {
+            clearInterval(slideInterval);
+            startAutoSlide();
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener("click", function () {
+                currentSlide(parseInt(this.dataset.index));
+            });
+        });
+
+        showSlide(slideIndex);
+        startAutoSlide();
     });
 
-    let slideIndex = 1;
-    let slides = document.getElementsByClassName("slide-m");
-    let dots = document.getElementsByClassName("dot-m");
-
-    function showSlides() {
-        // Скрываем все слайды
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = 'none';
-        }
-        // Убираем класс 'active' у всех точек
-        for (let i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(' active', '');
-        }
-
-        // Переход к следующему слайду
-        slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1; } // Переход на первый слайд, если достигнут конец
-
-        // Показываем текущий слайд
-        slides[slideIndex - 1].style.display = 'block';
-        // Подсвечиваем текущую точку
-        dots[slideIndex - 1].className += ' active';
+    function redirectToSection(sectionId) {
+        var url = "/catalog/index.php?SECTION_ID=" + sectionId;
+        window.location.href = url;
     }
-
-    // Функция для перехода к определенному слайду при клике на точку
-    function currentSlide(n) {
-        slideIndex = n;
-        showSlides();
-        resetAutoSlide(); // Сброс интервала при переходе вручную
-    }
-
-    // Функция для сброса и установки нового таймера
-    function resetAutoSlide() {
-        clearInterval(slideInterval); // Останавливаем предыдущий интервал
-        slideInterval = setInterval(showSlides, 5000); // Устанавливаем новый интервал для автоматического переключения слайдов
-    }
-
-    // Автоматическое переключение слайдов
-    slideInterval = setInterval(showSlides, 5000); // Переход каждые 5 секунд
 </script>
 
 <?php
-// require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');
+require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');
 ?>
