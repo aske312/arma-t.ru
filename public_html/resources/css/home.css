@@ -232,9 +232,9 @@
 /* Текстовый блок */
 .text-m {
     flex: 1;
-    margin-left: -90%;
-
-    font-size: 20px;
+    margin-left: -80%;
+    padding: 10px;
+    font-size: 14px;
     line-height: 1.1;
     text-align: justify; /* Выравниваем по ширине */
     word-wrap: break-word;
@@ -246,8 +246,6 @@
 }
 
 .text p {
-    font-size: 14px;
-    line-height: 1.6;
     color: black;
     text-align: left;
 }
