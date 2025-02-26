@@ -12,15 +12,6 @@ Loader::includeModule('iblock');
 Asset::getInstance()->addCss("/resources/css/home_mobile.css"); // CSS
 Asset::getInstance()->addJs("/resources/js/script.js"); // JS
 
-// MOBILE VERSION
-$userAgent = $_SERVER['HTTP_USER_AGENT'];
-$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
-
-if ($isMobile) {
-    include 'header-mobile.php';
-    return;
-}
-
 // Получение данных для слайдера (ID = 1)
 $sliderItems = [];
 $res = CIBlockElement::GetList(

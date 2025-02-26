@@ -6,6 +6,15 @@ use Bitrix\Main\Page\Asset;
 
 Loader::includeModule('iblock');
 
+// MOBILE VERSION
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
+
+if ($isMobile) {
+    include 'header_mobile.php';
+    return;
+}
+
 // Подключение стилей и скриптов
 Asset::getInstance()->addCss("/resources/css/header.css");
 Asset::getInstance()->addCss("/resources/css/footer.css");
@@ -14,15 +23,6 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 session_start(); // Запуск сессии
 $cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
-
-// MOBILE VERSION
-$userAgent = $_SERVER['HTTP_USER_AGENT'];
-$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
-
-if ($isMobile) {
-    include 'header-mobile.php';
-    return;
-}
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";

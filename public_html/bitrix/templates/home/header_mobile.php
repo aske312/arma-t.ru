@@ -81,9 +81,23 @@ if ($element = $res->Fetch()) {
                     <input type="text" id="search" class="full-width-search" placeholder="Поиск...">
                     <div id="suggestions"></div>
                 </form>
+
                 <div class="mobile-search">
                     <input type="text" class="search-input" placeholder="Поиск...">
-                    <button class="search-btn"></button>
+                    <button class="search-btn"> </button>
+    
+                    <div id="cart-modal" class="cart-modal">
+                        <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
+                        <div class="cart-modal-content">
+                            <span class="close-btn" id="close-cart-modal">&times;</span>
+                            <h2>Корзина</h2>
+                            <div id="cart-items" class="cart-items-container"></div>
+                            <div class="cart-modal-footer">
+                                <button id="clear-cart" class="button">Очистить корзину</button>
+                                <button id="checkout" class="button">Оформить заказ</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -119,6 +133,7 @@ if ($element = $res->Fetch()) {
                     </div>
                 </div>
             </div>
+            
         </nav>
         -->
 
