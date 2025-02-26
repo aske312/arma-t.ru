@@ -140,7 +140,7 @@ while ($section = $sections->Fetch()) {
                      с выбором продукции
                 </div>
             </div>
-            <div class="block-item-m">
+            <div class="block-item-m active"> <!-- Начальный центрированный элемент -->
                 <div class="block-image-m">
                     <img alt="Image 2" src="/resources/img/block/res2.png">
                 </div>
@@ -219,49 +219,61 @@ while ($section = $sections->Fetch()) {
         startAutoSlide();
     });
 
-    function redirectToSection(sectionId) {
-        var url = "/catalog/index.php?SECTION_ID=" + sectionId;
-        window.location.href = url;
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
         const slider = document.querySelector(".block-m");
+        const slides = document.querySelectorAll(".block-item-m");
+        let index = 1; // Начинаем с центрального блока
         let startX = 0;
-        let currentTranslate = 0;
-        let index = 0;
-        const totalSlides = document.querySelectorAll(".block-item-m").length;
+        let moveX = 0;
+        let isSwiping = false;
 
-        function setPosition() {
-            slider.style.transform = `translateX(-${index * 100}%)`;
+        function updateSlider() {
+            slides.forEach((slide, i) => {
+                slide.classList.remove("active");
+                if (i === index) slide.classList.add("active");
+            });
+            const offset = -(index * 33.3) + 33.3; // Центрируем текущий элемент
+            slider.style.transform = `translateX(${offset}%)`;
         }
 
         function nextSlide() {
-            if (index < totalSlides - 1) {
+            if (index < slides.length - 1) {
                 index++;
-                setPosition();
+                updateSlider();
             }
         }
 
         function prevSlide() {
             if (index > 0) {
                 index--;
-                setPosition();
+                updateSlider();
             }
         }
 
         slider.addEventListener("touchstart", (e) => {
             startX = e.touches[0].clientX;
+            isSwiping = true;
         });
 
         slider.addEventListener("touchmove", (e) => {
-            let moveX = e.touches[0].clientX - startX;
-            if (moveX > 50) prevSlide();
-            if (moveX < -50) nextSlide();
+            if (!isSwiping) return;
+            moveX = e.touches[0].clientX - startX;
         });
 
-        // Автосвайп каждые 5 сек
-        setInterval(nextSlide, 5000);
+        slider.addEventListener("touchend", () => {
+            if (moveX > 50) prevSlide();
+            if (moveX < -50) nextSlide();
+            isSwiping = false;
+            moveX = 0;
+        });
+
+        updateSlider();
     });
+
+    function redirectToSection(sectionId) {
+        var url = "/catalog/index.php?SECTION_ID=" + sectionId;
+        window.location.href = url;
+    }
 
 </script>
 

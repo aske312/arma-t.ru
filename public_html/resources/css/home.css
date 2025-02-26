@@ -278,27 +278,39 @@
     overflow: hidden; /* Убираем скролл */
 }
 
-/* Контейнер для свайпера */
 .swiper-container-m {
     width: 100%;
-    max-width: 1000px;
+    max-width: 800px;
     overflow: hidden;
     position: relative;
 }
 
-/* Весь блок */
 .block-m {
     display: flex;
-    transition: transform 0.3s ease-in-out;
-    width: 300%;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s ease-in-out;
 }
 
-/* Каждый элемент */
 .block-item-m {
-    flex: 0 0 33.33%; /* Равномерно делим на 3 блока */
+    flex: 0 0 30%; /* Делаем карточки немного уже */
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     box-sizing: border-box;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    opacity: 0.6; /* Затухание боковых карточек */
+    margin: 0 5px;
+    transform: scale(0.9);
+}
+
+/* Центральная карточка */
+.block-item-m.active {
+    flex: 0 0 40%;
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* Картинка */
@@ -312,6 +324,22 @@
     margin-top: 10px;
     font-size: 16px;
     font-weight: bold;
+}
+
+/* 📱 Адаптив для мобилок */
+@media (max-width: 768px) {
+    .swiper-container-m {
+        max-width: 100%;
+    }
+
+    .block-item-m {
+        flex: 0 0 28%; /* Уменьшаем карточки */
+        padding: 10px;
+    }
+
+    .block-item-m.active {
+        flex: 0 0 44%; /* Центральный элемент больше */
+    }
 }
 
 /********* Блок Каталог *********/
