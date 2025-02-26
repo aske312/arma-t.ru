@@ -7,7 +7,7 @@ use Bitrix\Main\Page\Asset;
 Loader::includeModule('iblock');
 
 // Подключение стилей и скриптов
-Asset::getInstance()->addCss("/resources/css/header_mobile.css");
+Asset::getInstance()->addCss("/resources/css/mobile/header_mobile.css");
 // Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
@@ -70,7 +70,25 @@ if ($element = $res->Fetch()) {
             </div>
 
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <nav id="mobileMenu">
+                <ul class="menu-list">
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Каталог</a></li>
+                    <li><a href="#">О компании</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                <form class="nav-search-form" method="GET" action="index.php">
+                    <input type="text" id="search" class="full-width-search" placeholder="Поиск...">
+                    <div id="suggestions"></div>
+                </form>
+                <div class="mobile-search">
+                    <input type="text" class="search-input" placeholder="Поиск...">
+                    <button class="search-btn"></button>
+                </div>
+            </nav>
         </div>
+
+        <!--
         <nav id="mobileMenu">
             <ul class="menu-list">
                 <li><a href="#">Главная</a></li>
@@ -81,7 +99,7 @@ if ($element = $res->Fetch()) {
 
             <form class="nav-search-form" method="GET" action="index.php">
                 <input type="text" id="search" class="full-width-search" placeholder="Поиск...">
-                <div id="suggestions"></div> <!-- Здесь будут отображаться предложения -->
+                <div id="suggestions"></div>
             </form>
 
             <div class="mobile-search">
@@ -102,6 +120,8 @@ if ($element = $res->Fetch()) {
                 </div>
             </div>
         </nav>
+        -->
+
     </header>
 
     <script>
