@@ -108,13 +108,12 @@ while ($section = $sections->Fetch()) {
     <button class="prev-m" onclick="prevSlide()">❮</button>
     <button class="next-m" onclick="nextSlide()">❯</button>
 
-
     <!-- Точки навигации -->
-    <!-- <div class="dots-m"> -->
-        <!-- <?php foreach ($sliderItems as $index => $slide): ?> -->
-        <!-- <span class="dot-m" data-index="<?= $index ?>"></span> -->
-        <!-- <?php endforeach; ?> -->
-    <!-- </div> -->
+    <div class="dots-m">
+        <?php foreach ($sliderItems as $index => $slide): ?>
+        <span class="dot-m" data-index="<?= $index ?>"></span>
+        <?php endforeach; ?>
+    </div>
 </div>
 
 <script>
