@@ -246,24 +246,6 @@
     text-align: left;
 }
 
-/* 📱 Адаптив: для телефонов (< 768px) */
-@media (max-width: 768px) {
-    .content-m {
-        flex-direction: column; /* Переставляем блоки */
-        text-align: center; /* Центрируем текст */
-    }
-
-    .image-m img {
-        max-width: 80%; /* Уменьшаем картинку */
-        height: auto;
-    }
-
-    .text-m {
-        font-size: 16px;
-        text-align: center;
-    }
-}
-
 /********* Информационный блок *********/
 
 .section3 {
