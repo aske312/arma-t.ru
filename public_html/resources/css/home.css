@@ -135,8 +135,8 @@
 
 .slide-m img {
     width: 100%;
-    /*height: 100%;  Растягиваем изображение */
-    object-fit: cover;
+    height: 100%;  /* Растягиваем изображение */
+    object-fit: relative;
 }
 
 .slide-text-m {
