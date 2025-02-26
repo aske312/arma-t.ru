@@ -103,11 +103,7 @@ if ($element = $res->Fetch()) {
                     <a href="/#contact">Контакты</a>
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
-
                     <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
-                    <?php if (isset($cartItemCount) && $cartItemCount > 0): ?>
-                        <a href="/checkout">Корзина <span class="cart-count-m"><?= (int) $cartItemCount ?></span></a>
-                    <?php endif; ?>
                 </ul>
 
                 <form class="nav-search-form-m" method="GET" action="index.php">
