@@ -41,6 +41,8 @@ if ($element = $res->Fetch()) {
 <!--
 <!DOCTYPE html>
 <html lang="ru">
+-->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,8 +55,6 @@ if ($element = $res->Fetch()) {
     <link rel="stylesheet" href="/resources/css/mobile/header_mobile.css" media="(max-width: 768px)">
     <link rel="stylesheet" href="/resources/css/header.css" media="(min-width: 769px)">
 </head>
--->
-
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
     <header id="siteHeader" class="header">
