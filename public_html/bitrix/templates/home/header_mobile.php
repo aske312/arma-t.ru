@@ -44,12 +44,13 @@ if ($element = $res->Fetch()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Описание страницы для SEO">
-    <meta name="keywords" content="Ключевые слова для SEO">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <!-- Динамическое подключение стилей в зависимости от ширины экрана -->
+    <link rel="stylesheet" href="/resources/css/mobile/header_mobile.css" media="(max-width: 768px)">
+    <link rel="stylesheet" href="/resources/css/header.css" media="(min-width: 769px)">
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>

@@ -6,12 +6,6 @@ use Bitrix\Main\Page\Asset;
 
 Loader::includeModule('iblock');
 
-// Подключение стилей и скриптов
-Asset::getInstance()->addCss("/resources/css/header.css");
-Asset::getInstance()->addCss("/resources/css/footer.css");
-Asset::getInstance()->addCss("/resources/css/mobile/header_mobile.css");
-Asset::getInstance()->addCss("/resources/css/mobile/footer_mobile.css");
-
 // MOBILE VERSION
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
@@ -20,6 +14,10 @@ if ($isMobile) {
     include 'header_mobile.php';
     return;
 }
+
+// Подключение стилей и скриптов
+Asset::getInstance()->addCss("/resources/css/header.css");
+Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
@@ -55,15 +53,13 @@ if ($element = $res->Fetch()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Описание страницы для SEO">
-    <meta name="keywords" content="Ключевые слова для SEO">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
     <?php $APPLICATION->ShowHead(); ?>
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <!--
-    <link rel="stylesheet" href="/resources/css/header_mobile.css" media="(max-width: 768px)">
-    <link rel="stylesheet" href="/resources/css/header-desktop.css" media="(min-width: 769px)">
-    -->
+    <link rel="stylesheet" href="/resources/css/mobile/header_mobile.css" media="(max-width: 768px)">
+    <link rel="stylesheet" href="/resources/css/header.css" media="(min-width: 769px)">
 </head>
 <body>
     <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
