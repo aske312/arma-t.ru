@@ -119,10 +119,8 @@ while ($section = $sections->Fetch()) {
 <!-- -->
 
 <div class="section-2-m">
-            <div class="text-m">
-                <p>АРМА-Т - специал сервис!</p>
-            </div>
-    <div class="container-m">
+    <div class="text-m">
+        <p>АРМА-Т - специал сервис!</p>
     </div>
 </div>
 
