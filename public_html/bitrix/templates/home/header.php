@@ -6,6 +6,10 @@ use Bitrix\Main\Page\Asset;
 
 Loader::includeModule('iblock');
 
+// Подключение стилей и скриптов
+Asset::getInstance()->addCss("/resources/css/header.css");
+Asset::getInstance()->addCss("/resources/css/footer.css");
+
 // MOBILE VERSION
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
@@ -14,10 +18,6 @@ if ($isMobile) {
     include 'header_mobile.php';
     return;
 }
-
-// Подключение стилей и скриптов
-Asset::getInstance()->addCss("/resources/css/header.css");
-Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
