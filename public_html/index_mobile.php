@@ -168,14 +168,14 @@ while ($section = $sections->Fetch()) {
     });
 
     document.addEventListener("DOMContentLoaded", function () {
-        let slideIndex = 0;
+        let slideIndex = 1;
         const slides = document.querySelectorAll(".slide-m");
         const dots = document.querySelectorAll(".dot-m");
         const totalSlides = slides.length;
         let slideInterval;
 
         function showSlide(index) {
-            if (index >= totalSlides) slideIndex = 0;
+            if (index >= totalSlides) slideIndex = 1;
             if (index < 0) slideIndex = totalSlides - 1;
 
             document.querySelector(".slides").style.transform = `translateX(-${slideIndex * 100}%)`;
