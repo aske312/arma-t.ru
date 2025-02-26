@@ -151,6 +151,11 @@ if ($element = $res->Fetch()) {
     </header>
 
     <script>
+        function toggleMenu() {
+            const nav = document.getElementById('mobileMenu');
+            nav.classList.toggle('open');
+        }
+
         window.addEventListener('scroll', function() {
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
