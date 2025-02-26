@@ -259,29 +259,6 @@
     justify-content: center;
 }
 
-/* 📱 Адаптив для телефонов */
-@media (max-width: 768px) {
-    .content-m {
-        flex-direction: column; /* 🔥 Картинка сверху, текст снизу */
-        text-align: center;
-    }
-
-    .image-m {
-        flex: 0 0 auto; /* Сбрасываем фиксированную ширину */
-        max-width: 100%;
-    }
-
-    .image-m img {
-        max-width: 80%;
-        height: auto;
-    }
-
-    .text-m {
-        font-size: 16px;
-        padding: 0 10px;
-    }
-}
-
 /********* Информационный блок *********/
 
 .section3 {
