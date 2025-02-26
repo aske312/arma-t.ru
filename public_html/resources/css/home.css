@@ -144,7 +144,7 @@
     top: 20px; /* Текст сверху */
     left: 0;
     width: 100%;
-    height: 30%; /* Задаем высоту текстового блока */
+    height: 50%; /* Задаем высоту текстового блока */
     display: flex;
     justify-content: center;
     align-items: center;
