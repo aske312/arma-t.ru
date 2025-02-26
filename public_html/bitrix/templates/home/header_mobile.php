@@ -103,8 +103,8 @@ if ($element = $res->Fetch()) {
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
 
-                    <?php if ($cartItemCount > 0): ?>
-                        <a href="/checkout">Корзина <span class="cart-count-m"><?= $cartItemCount ?></span></a>
+                    <?php if (isset($cartItemCount) && is_numeric($cartItemCount) && $cartItemCount > 0): ?>
+                        <a href="/checkout">Корзина <span class="cart-count-m"><?= (int) $cartItemCount ?></span></a>
                     <?php endif; ?>
                 </ul>
 

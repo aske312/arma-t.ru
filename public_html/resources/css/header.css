@@ -95,7 +95,7 @@ header {
 }
 
 #mobileMenu.open {
-    top: 100px;
+    top: 105px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
