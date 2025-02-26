@@ -165,6 +165,36 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
+<div class="section4-title-m" id="catalog">
+    <div class="category-title-m">
+        <h2>Каталог</h2>
+    </div>
+</div>
+
+<div class="section4-m" id="catalog-m">
+    <div class="category-m">
+        <div class="category-table-m">
+            <?php if (!empty($arResult['SECTIONS'])): ?>
+                <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+                    <div class="category-block-m" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                        <?php if ($arSection['PICTURE']): ?>
+                            <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                            <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
+                        <?php else: ?>
+                            <img alt="Нет изображения" src="/resources/img/no_image.png">
+                        <?php endif; ?>
+                        <div class="category-text-m"><?= $arSection['NAME']; ?></div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                Нет доступных категорий
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<!-- -->
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let slideIndex = 0;
