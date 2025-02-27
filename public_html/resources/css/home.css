@@ -638,14 +638,14 @@
     padding: 5px;
 }
 .newsletter-label-m {
-    display: inline;
-    align-items: center;
+    /* display: inline; */
+    /* align-items: center; */
     font-size: 12px;
     cursor: pointer;
     color: white;
 }
 .newsletter-label-m input {
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 /*********** Блок доставки ************/
