@@ -66,7 +66,6 @@
     width: 100%;
     padding: 15px 0;
 }
-
 .developer-credit {
     display: flex;
     justify-content: space-between;
@@ -76,20 +75,9 @@
     color: #777; /* Серый цвет текста */
     font-size: 12px;
 }
-
 .footer-left p {
     margin: 0;
     line-height: 1.4;
-}
-
-.footer-right a {
-    color: #bbb; /* Чуть светлее, чем основной текст */
-    text-decoration: none;
-    font-size: 12px;
-}
-
-.footer-right a:hover {
-    color: #fff;
 }
 
 /** мобильная версия **/
