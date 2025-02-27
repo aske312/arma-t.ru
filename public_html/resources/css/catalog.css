@@ -359,17 +359,17 @@ pre { /* DEBUG */
     padding: 20px;
     text-align: left;
     margin-bottom: 20px;
-    width: 1180px; /* Максимальная ширина контейнера */
+    width: 400px; /* Максимальная ширина контейнера */
     margin: 0 auto; /* Центрирование контейнера */
-    height: 100%; /* Высота контейнера */
+    /* height: 100%; /* Высота контейнера */
 }
 .section-title-m h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 22px;
 }
 .section-title-m p {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: #ddd;
 }
         /* section */
