@@ -5,8 +5,6 @@
     margin: 0;
     padding: 0;
 }
-
-/* Стили для заголовка */
 .section-title {
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Заполнение всей доступной области без растягивания */
@@ -18,12 +16,10 @@
     margin: 0 auto; /* Центрирование контейнера */
     height: 100%; /* Высота контейнера */
 }
-
 .section-title h2 {
     margin: 0;
     font-size: 24px;
 }
-
 .checkout-block {
     max-width: 1180px;
     margin: 0 auto;
@@ -33,8 +29,6 @@
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
-/* Контейнер товаров */
 #cart-items {
     margin: 20px auto;
     max-width: 1300px;
@@ -42,14 +36,11 @@
     /* background-color: #fff; */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
 .product-checkout {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-
-/* Карточка товара */
 .cart-item {
     display: flex;
     align-items: center;
@@ -60,8 +51,6 @@
     border-radius: 5px;
     position: relative; /* Для размещения кнопки удаления */
 }
-
-/* Стили для изображения товара */
 .product-image {
     width: 100px;
     height: 100px;
@@ -72,57 +61,42 @@
     border-radius: 5px;
     overflow: hidden;
 }
-
 .product-image img {
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
 }
-
 .placeholder {
     color: #aaa;
     text-align: center;
     font-size: 14px;
     line-height: 100px;
 }
-
-/* Заглушка изображения */
 .placeholder {
     background-color: #e0e0e0;
 }
-
-/* Стили для информации о товаре */
 .product-info {
     flex-grow: 1;
     padding-left: 20px;
 }
-
 .product-info span {
     display: block;
     margin-bottom: 5px;
 }
-
 .price {
     font-weight: bold;
 }
-
-/* Стили для отображения основной цены товара */
 .total {
     color: white;
 }
-
 .total-item-price {
     font-weight: bold;
     margin-top: 10px;
     color: #333;
 }
-
-/* Стили для текста "Цена под заказ" */
 .price-soldout {
     color: #d9534f; /* Красный для "Цена под заказ" */
 }
-
-/* Кнопка удаления товара (иконка крестик) */
 .remove-button {
     position: absolute;
     top: 5px;
@@ -134,20 +108,15 @@
     font-size: 30px;
     padding: 0;
 }
-
-/* Подсветка фона для крестика при наведении */
 .remove-button:hover {
     background-color: #d9534f; /* Подсветка фона красным при наведении */
     color: white; /* Белый цвет текста на красном фоне */
 }
-
-/* Стили для кнопок "Минус" и "Плюс" */
 .quantity-control {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
 .quantity-btn {
     width: 30px;
     height: 30px;
@@ -158,25 +127,19 @@
     font-size: 20px;
     text-align: center;
 }
-
 .quantity-btn:hover {
     background-color: transparent; /* Нет фона при наведении */
 }
-
 .quantity-btn.minus {
     font-weight: bold;
 }
-
 .quantity-btn.plus {
     font-weight: bold;
 }
-
-/* Кнопки "Назад" и "Оформить" */
 .button-group {
     text-align: center;
     margin-top: 20px;
 }
-
 .back-button,
 .order-button {
     background-color: #2654A2;
@@ -188,13 +151,10 @@
     margin: 0 10px;
     border-radius: 5px;
 }
-
 .back-button:hover,
 .order-button:hover {
     background-color: #0056b3;
 }
-
-/* Стили для модального окна */
 .modal {
     display: none; /* Скрыто по умолчанию */
     position: fixed;
@@ -208,7 +168,6 @@
     justify-content: center;
     align-items: center;
 }
-
 .modal-content {
     background-color: #fff;
     padding: 20px;
@@ -218,7 +177,6 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     position: relative;
 }
-
 .close-button {
     position: absolute;
     top: 10px;
@@ -227,21 +185,17 @@
     color: #aaa;
     cursor: pointer;
 }
-
 .close-button:hover {
     color: #333;
 }
-
 .order-form {
     display: flex;
     flex-direction: column;
 }
-
 .order-form label {
     margin-top: 10px;
     font-size: 14px;
 }
-
 .order-form input,
 .order-form textarea {
     padding: 10px;
@@ -250,7 +204,6 @@
     border: 1px solid #ddd;
     border-radius: 5px;
 }
-
 .order-form button {
     background-color: #2654A2;
     color: white;
@@ -260,26 +213,160 @@
     font-size: 1em;
     border-radius: 5px;
 }
-
 .order-form button:hover {
     background-color: #0056b3;
 }
-
 .order-form textarea {
     resize: vertical;
     min-height: 100px;
 }
-
 .newsletter-checkbox {
     margin-bottom: 15px; /* Отступ перед кнопкой */
 }
-
 .newsletter-checkbox label {
     display: flex;
     align-items: center;
     font-size: 14px;
 }
-
 .newsletter-checkbox input[type="checkbox"] {
     margin-right: 8px; /* Отступ между checkbox и текстом */
+}
+
+/** мобильная версия **/
+.checkout-m {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.section-title-m h2 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+.section-title-m p {
+    font-size: 18px;
+    color: #555;
+}
+.checkout-block-m {
+    margin-top: 20px;
+}
+#cart-items-m {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+}
+.product-checkout-m {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.product-checkout-m img {
+    width: 80px;
+    height: auto;
+    border-radius: 5px;
+}
+.product-checkout-m .product-info-m {
+    flex: 1;
+    text-align: left;
+}
+.total-m {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 10px;
+}
+.button-group-m {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.back-button-m, .order-button-m {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+.back-button-m {
+    background: #6c757d;
+    color: white;
+}
+.back-button-m:hover {
+    background: #5a6268;
+}
+.order-button-m {
+    background: #007bff;
+    color: white;
+}
+.order-button-m:hover {
+    background: #0056b3;
+}
+.modal-m {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content-m {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+.close-button-m {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+.order-form-m input,
+.order-form-m textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.order-form-m textarea {
+    resize: none;
+}
+.newsletter-checkbox-m {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+.order-form-m button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+.order-form-m button:hover {
+    background: #0056b3;
 }
