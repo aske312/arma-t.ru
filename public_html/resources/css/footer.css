@@ -62,24 +62,34 @@
 
 /********! Нужна каллибровка !************/
 .footer-title {
-    background: black;
-    /* background-color: #162139; */
+    background: #222; /* Темно-серый фон */
     width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
+    padding: 15px 0;
 }
+
 .developer-credit {
     display: flex;
-    width: 1200px;
-    display: flex;
-    text-align: left;
-}
-.developer-credit h1 {
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #777; /* Серый цвет текста */
     font-size: 12px;
 }
-.developer-credit p {
-    font-size: 10px;
+
+.footer-left p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.footer-right a {
+    color: #bbb; /* Чуть светлее, чем основной текст */
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.footer-right a:hover {
+    color: #fff;
 }
 
 /** мобильная версия **/
