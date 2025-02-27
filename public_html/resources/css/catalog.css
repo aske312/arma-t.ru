@@ -352,77 +352,19 @@ pre { /* DEBUG */
 
 /** мобильная версия **/
 
-/* Общие стили для мобильной версии каталога */
+.section-title-m {
+    text-align: center;
+    padding: 20px;
+}
 .catalog-container-m {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
+    width: 90%;
+    margin: 0 auto;
 }
-.category-toggle-m {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    text-align: center;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-.category-menu-m {
-    display: none;
-    list-style: none;
-    width: 100%;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 5px;
-    padding: 0;
-}
-.category-menu-m li {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
-}
-.category-menu-m li:last-child {
-    border-bottom: none;
-}
-.category-menu-m li:hover {
-    background-color: #f1f1f1;
-}
-.category-menu-m.active {
-    display: block;
-}
-.catalog-filters-m {
-    width: 100%;
-    background: #f8f8f8;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-.filter-item-m {
-    margin-bottom: 10px;
-}
-.filter-label-m {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-select-m {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
 .catalog-controls-m {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
-
 .section-btn-m,
 .filter-title-m {
     background: #007BFF;
@@ -433,28 +375,23 @@ select-m {
     cursor: pointer;
     border-radius: 5px;
 }
-
 .section-btn-m:hover,
 .filter-title-m:hover {
     background: #0056b3;
 }
-
 .catalog-sections-m,
 .catalog-filters-m {
     display: none;
     margin-top: 10px;
 }
-
 .catalog-sections-m.open,
 .catalog-filters-m.open {
     display: block;
 }
-
 .catalog-menu-m {
     list-style: none;
     padding: 0;
 }
-
 .catalog-menu-m li {
     padding: 10px;
     background: #f8f8f8;
@@ -462,18 +399,33 @@ select-m {
     border-radius: 5px;
     cursor: pointer;
 }
-
 .catalog-menu-m li:hover {
     background: #ddd;
 }
-
 .category-block-m {
     display: flex;
     align-items: center;
 }
-
 .category-block-m img {
     width: 40px;
     height: 40px;
     margin-right: 10px;
+}
+.filter-m {
+    margin-bottom: 10px;
+}
+.filter-item-m {
+    display: flex;
+    align-items: center;
+}
+.filter-label-m {
+    font-weight: bold;
+    margin-right: 10px;
+}
+select {
+    padding: 5px;
+    font-size: 14px;
+}
+.unit-m {
+    margin-left: 5px;
 }
