@@ -209,13 +209,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             </div>
         </div>
 
-        <!-- Список элементов каталога --> <!--
+        <!-- Список элементов каталога -->
         <div class="catalog-items-m">
             <?php
             $itemsFound = false;
             while ($ob = $res->GetNextElement()):
                 $arFields = $ob->GetFields();
                 $arProps = $ob->GetProperties();
+
                 foreach ($arResult['SECTIONS'] as $arSection):
                     if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
                         $itemsFound = true;
@@ -233,46 +234,43 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         }
             ?>
 
-                <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
-                    <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link-m">
-                        <div class="catalog-item-header-m">
-                            <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image-m">
-                            <div class="catalog-item-info-m">
-                                <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
-                                <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
-                                <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
-                                <p>
-                                    <div class="catalog-item-price-m">
-                                        <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
-                                        if ($price == 0 || empty($price)) {
-                                            echo 'По запросу';
-                                        } else {
-                                            echo $price . ' руб.';
-                                        } ?>
-                                    </div>
-                                </p>
-                            </div>
-
-                            <div class="catalog-item-controls-m">
-                                <button class="catalog-item-add-to-cart-m"
-                                        data-id="<?= $arFields['ID']; ?>"
-                                        data-image="<?= $productImage; ?>"
-                                        data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
-                                        data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
-                                        data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
-                                    В корзину
-                                </button>
-                            </div>
-                        </div>
-                    </a>
+            <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
+                <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link-m">
+                    <div class="catalog-item-header-m">
+                        <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image-m">
+                    </div>
+                    <div class="catalog-item-info-m">
+                        <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
+                        <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
+                        <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                        <p>
+                            <span class="catalog-item-price-m">
+                                <?php
+                                $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
+                                echo ($price == 0 || empty($price)) ? 'По запросу' : $price . ' руб.';
+                                ?>
+                            </span>
+                        </p>
+                    </div>
+                </a>
+                <div class="catalog-item-controls-m">
+                    <button class="catalog-item-add-to-cart-m"
+                            data-id="<?= $arFields['ID']; ?>"
+                            data-image="<?= $productImage; ?>"
+                            data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
+                            data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
+                            data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
+                        В корзину
+                    </button>
                 </div>
-                <?php endif; ?>
-                <?php endforeach; ?>
-                <?php endwhile; ?>
-                <?php if (!$itemsFound): ?>
+            </div>
+            <?php endif; ?>
+            <?php endforeach; ?>
+            <?php endwhile; ?>
+            <?php if (!$itemsFound): ?>
                 <p>Ничего не найдено</p>
             <?php endif; ?>
-        </div> -->
+        </div>
 
         <!-- Пагинация --> <!--
         <div class="pagination-m">
