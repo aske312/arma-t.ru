@@ -272,10 +272,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <?php endif; ?>
         </div>
 
-        <!-- Пагинация --> <!--
+        <!-- Пагинация -->
         <div class="pagination-m">
             <?= $arResult['NAV_STRING']; ?>
-        </div> -->
+        </div>
     </div>
 </div>
 
