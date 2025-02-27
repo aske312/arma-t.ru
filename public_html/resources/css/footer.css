@@ -73,11 +73,16 @@
     max-width: 1200px;
     margin: 0 auto;
     color: white;
-    font-size: 12px;
+}
+.footer-left h1 {
+    margin: 0;
+    line-height: 1.4;
+    font-size: 14px;
 }
 .footer-left p {
     margin: 0;
     line-height: 1.4;
+    font-size: 12px;
 }
 
 /** мобильная версия **/
