@@ -115,11 +115,11 @@
 .section-title-m p {
     text-align: left; /* Выравнивание по левому краю */
     font-size: 18px;
-    color: #333;
+    color: white;
 }
 .breadcrumbs-m {
     font-size: 14px;
-    color: #555;
+    color: white;
     margin-top: 10px;
     text-align: left;
 }
@@ -216,6 +216,7 @@
 .product-attributes-m h2 {
     font-size: 18px;
     margin-bottom: 10px;
+    color: black;
 }
 .product-attributes-m table {
     width: 100%;
@@ -231,9 +232,11 @@
 .product-attributes-m td:first-child {
     font-weight: bold;
     color: #333;
+    font-size: 12px;
 }
 .product-attributes-m td:last-child {
     color: #444;
+    font-size: 12px;
 }
 .back-button-m {
     display: block;
