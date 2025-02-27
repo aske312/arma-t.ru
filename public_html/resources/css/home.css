@@ -460,17 +460,22 @@
 
 /* Картинка внутри карточки */
 .category-block-m img {
-    max-width: 100%;
-    height: auto;
-    /* border-radius: 8px; */
+    align-items: center;
+    justify-content: center;
+    max-width: 175px; /* Максимальная ширина изображения */
+    margin-right: 20px; /* Отступ между изображением и текстом */
 }
 
 /* Текст внутри карточки */
 .category-text-m {
-    margin-top: 10px;
-    font-size: 12px;
-    font-weight: bold;
     color: black;
+    text-align: center; /* По центру текста */
+    font-size: 16px; /* Размер текста */
+    flex: 1; /* Занимаем всё доступное пространство */
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    justify-content: center; /* Выравнивание по горизонтали */
+    text-align: center; /* Центрируем текст внутри блока */
 }
 
 /* Эффект при наведении */
