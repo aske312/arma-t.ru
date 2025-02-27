@@ -579,7 +579,6 @@ header {
     align-items: center; /* Выравниваем по вертикали */
     font-size: 12px;
     cursor: pointer;
-    color: white;
     gap: 8px; /* Отступ между чекбоксом и текстом */
 }
 .newsletter-label-header input[type="checkbox"] {
