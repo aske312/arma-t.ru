@@ -75,9 +75,9 @@
 
 <!-- Политика -->
 
-<div class="footer-title">
-    <div class="developer-credit">
-        <div class="footer-left">
+<div class="footer-title-m">
+    <div class="developer-credit-m">
+        <div class="footer-left-m">
             <h1>
                 © 2025 ООО «АРМА-Т»
             </h1>
