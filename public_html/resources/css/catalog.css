@@ -398,14 +398,13 @@ pre { /* DEBUG */
     display: none;
     background: white;
     border: 1px solid #ccc;
-    /* border-radius: 5px; */
     padding: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     position: absolute;
     width: 100%;
     max-width: 350px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-40%);
     z-index: 1000;
 }
 .catalog-filters-m.open {
