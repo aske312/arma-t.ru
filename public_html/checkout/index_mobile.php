@@ -48,7 +48,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 
     function loadCart() {
         let cartDataString = localStorage.getItem('cartItems');
-        let cartItemsContainer = document.getElementById('product-checkout');
+        let cartItemsContainer = document.getElementById('cart-items');
         let checkoutBlock = document.getElementById('checkout-block');
         let emptyCartMessage = document.getElementById('empty-cart-message');
 
@@ -82,7 +82,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                     <img src="${item.image || '/resources/img/production/0.png'}" alt="${item.name}">
                 </div>
                 <div class="product-info-m">
-                    <span><strong>${item.name}</strong></span>
+                    <span class="product-name-m"><strong>${item.name}</strong></span>
                     <p>Артикул: <strong>${item.article}</strong></p>
                     <p>Цена за единицу: <strong>${priceText}</strong></p>
                     <div class="quantity-control-m">
@@ -90,9 +90,13 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                         <input type="number" class="quantity-input-m" data-index="${index}" value="${item.quantity}" min="0">
                         <button class="quantity-btn-m plus" data-index="${index}">+</button>
                     </div>
-                    <p>В сумме: <strong>${(item.price * item.quantity).toFixed(2) || "По запросу"} ₽</strong></p>
+                    <p>В сумме: <strong>${(parseFloat(item.price) * item.quantity).toFixed(2) || "По запросу"} ₽</strong></p>
                 </div>
             `;
+            itemDiv.addEventListener('click', function () {
+                window.location.href = `/catalog/detail.php?id=${item.id}`;
+            });
+
             cartItemsContainer.appendChild(itemDiv);
         });
 
@@ -105,6 +109,15 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         });
 
         updateTotal(cartData.cartItems);
+    }
+
+    function updateTotal(cartItems) {
+        let totalAmount = cartItems.reduce((total, item) => {
+            let price = parseFloat(item.price) || 0;
+            return total + (price * item.quantity);
+        }, 0);
+
+        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount > 0 ? totalAmount.toFixed(2) + " ₽" : "По запросу"}`;
     }
 
     function adjustQuantity(event) {
