@@ -40,7 +40,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         <button id="order-btn" class="order-button-m">Оформить заказ</button>
     </div>
     <div id="order-form-container" class="modal">
-        <div class="modal-content">
+        <div class="modal-content-m">
             <span class="close-button" id="close-modal">&times;</span>
             <form class="order-form" id="order-form">
                 <h2>Ваши данные</h2>
