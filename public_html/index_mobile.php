@@ -242,6 +242,29 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
+<div class="section5-m" id="Cash">
+    <div class="form-container-m" id="Form">
+        <form class="contact-form-m" id="contactForm" method="post" enctype="multipart/form-data">
+            <h2>Оставить заявку</h2>
+            <input type="text" id="name" name="name" placeholder="Ваше Имя" required>
+            <input type="email" id="email" name="email" placeholder="e-mail" required>
+            <input type="text" id="subject" name="subject" placeholder="Название компании" required>
+            <textarea id="message" name="message" rows="5" placeholder="Комментарий"></textarea>
+
+            <!-- Блок для кнопки и чекбокса -->
+            <div class="form-actions-m">
+                <button type="submit" id="submitButton">Отправить</button>
+                <label for="newsletter" class="newsletter-label-m">
+                    <input type="checkbox" id="newsletter" name="newsletter" required>
+                    Согласие на рассылку
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- -->
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let slideIndex = 0;
