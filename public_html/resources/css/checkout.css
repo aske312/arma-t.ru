@@ -243,27 +243,27 @@
     text-align: center;
     font-size: 18px;
     color: #555;
-    /* padding: 20px; */
+    padding: 20px;
     background: #f8f8f8;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
 }
 .checkout-block-m {
-    /* width: 100%; */
     margin: 0 auto;
-    /* padding: 20px; */
+    padding: 20px;
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+/*
 #cart-items {
     background: #f8f8f8;
     padding: 5px;
     border-radius: 8px;
     text-align: left;
-}
+} */
 .product-checkout-m {
     border-bottom: 1px solid #ddd;
     padding: 5px 0;
