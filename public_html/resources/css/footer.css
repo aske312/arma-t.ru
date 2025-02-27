@@ -62,7 +62,7 @@
 
 /********! Нужна каллибровка !************/
 .footer-title {
-    background: #222; /* Темно-серый фон */
+    background: #162139;
     width: 100%;
     padding: 15px 0;
 }
@@ -72,7 +72,7 @@
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    color: #777; /* Серый цвет текста */
+    color: white;
     font-size: 12px;
 }
 .footer-left p {
