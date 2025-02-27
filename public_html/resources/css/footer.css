@@ -123,13 +123,6 @@
     border-radius: 10px;
 }
 .footer-title-m {
-    text-align: center;
-    padding: 10px;
-    background: #181818;
-    color: #bbb;
-    font-size: 14px;
-}
-.footer-title-m {
     background: #162139;
     width: 100%;
     padding: 15px 0;
@@ -138,17 +131,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 400px;
+    max-width: 1200px;
     margin: 0 auto;
     color: white;
 }
 .footer-left-m h1 {
     margin: 0;
     line-height: 1.4;
-    font-size: 11px;
+    font-size: 14px;
 }
 .footer-left-m p {
     margin: 0;
     line-height: 1.4;
-    font-size: 8px;
+    font-size: 12px;
 }
