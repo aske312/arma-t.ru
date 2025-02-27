@@ -296,6 +296,9 @@
     gap: 1px;
     color: #333; /* 🔥 Тёмный текст */
 }
+.product-info-m p {
+    font-size: 10px;
+}
 .quantity-control-m {
     display: flex;
     align-items: center;
