@@ -94,11 +94,19 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                 </div>
             `;
 
+            // Добавляем событие клика на карточку для перехода на детальную страницу
             itemDiv.addEventListener('click', function (event) {
-                // Если клик был на кнопках `+` или `-`, отменяем переход
-                if (!event.target.classList.contains('quantity-btn-m')) {
-                    window.location.href = `/catalog/detail.php?ID=${item.id}`;
+                // Если клик был на `+`, `-`, поле ввода количества или `X`, отменяем переход
+                if (
+                    event.target.classList.contains('quantity-btn-m') ||
+                    event.target.classList.contains('quantity-input-m') ||
+                    event.target.classList.contains('remove-button-m')
+                ) {
+                    event.stopPropagation(); // Останавливаем всплытие события
+                    return;
                 }
+
+                window.location.href = `/catalog/detail.php?ID=${item.id}`;
             });
 
             cartItemsContainer.appendChild(itemDiv);
@@ -108,6 +116,10 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
             button.addEventListener('click', adjustQuantity);
         });
 
+        document.querySelectorAll('.quantity-input-m').forEach(input => {
+            input.addEventListener('change', updateQuantity);
+        });
+
         document.querySelectorAll('.remove-button-m').forEach(button => {
             button.addEventListener('click', removeItem);
         });
@@ -115,13 +127,25 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         updateTotal(cartData.cartItems);
     }
 
-    // Коррекция итоговой суммы с учётом количества товаров
+    function updateQuantity(event) {
+        let index = event.target.getAttribute('data-index');
+        let cartData = JSON.parse(localStorage.getItem('cartItems'));
+        let newQuantity = parseInt(event.target.value);
+
+        if (isNaN(newQuantity) || newQuantity <= 0) {
+            removeItem(event);
+        } else {
+            cartData.cartItems[index].quantity = newQuantity;
+            localStorage.setItem('cartItems', JSON.stringify(cartData));
+            loadCart();
+        }
+    }
+
     function updateTotal(cartItems) {
         let totalAmount = cartItems.reduce((total, item) => {
             let price = parseFloat(item.price) || 0;
             return total + (price * item.quantity);
         }, 0);
-
         document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount > 0 ? totalAmount.toFixed(2) + " ₽" : "По запросу"}`;
     }
 
