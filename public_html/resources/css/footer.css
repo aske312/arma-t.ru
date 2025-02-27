@@ -86,7 +86,7 @@
 /** мобильная версия **/
 
 .footer-m {
-    width: 100%;
+    /* width: 100%; */
     background: #162139;
     color: white;
     display: flex;
