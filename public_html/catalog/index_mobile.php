@@ -392,7 +392,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 <script>
+function toggleCategoryModal() {
+    const modal = document.getElementById("category-modal");
+    modal.style.display = modal.style.display === "block" ? "none" : "block";
+}
 
+function redirectToSection(sectionId) {
+    window.location.href = "?SECTION_ID=" + sectionId;
+}
 </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
