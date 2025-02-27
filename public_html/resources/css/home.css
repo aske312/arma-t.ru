@@ -464,7 +464,7 @@
 .category-block-m img {
     align-items: center;
     justify-content: center;
-    max-width: 175px; /* Максимальная ширина изображения */
+    max-width: 115px; /* Максимальная ширина изображения */
     margin-right: 10px; /* Отступ между изображением и текстом */
 }
 
