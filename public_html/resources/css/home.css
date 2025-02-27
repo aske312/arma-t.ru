@@ -638,7 +638,7 @@
     padding: 5px;
 }
 .newsletter-label-m {
-    /* display: inline; */
+    display: inline;
     /* align-items: center; */
     font-size: 12px;
     cursor: pointer;
