@@ -454,7 +454,7 @@
     margin: 10px;
     padding: 15px;
     cursor: pointer;
-    height: 160px;
+    height: 120px;
     background: white; /* Цвет фона блока */
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Добавление тени для эффекта */
@@ -465,7 +465,7 @@
     align-items: center;
     justify-content: center;
     max-width: 175px; /* Максимальная ширина изображения */
-    margin-right: 20px; /* Отступ между изображением и текстом */
+    margin-right: 10px; /* Отступ между изображением и текстом */
 }
 
 /* Текст внутри карточки */
