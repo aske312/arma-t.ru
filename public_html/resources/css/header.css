@@ -1,4 +1,8 @@
 /********** Основные настройки **********/
+.bitrix-error-box, .bitrix-error {
+    display: none !important;
+}
+
 @font-face {
     font-family: Montserrat-Regular;
     src: url(/resources/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
