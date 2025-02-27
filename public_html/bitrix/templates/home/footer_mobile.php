@@ -1,22 +1,11 @@
-<?php
-if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
+<?php if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die(); ?>
 
-// MOBILE VERSION
-$userAgent = $_SERVER['HTTP_USER_AGENT'];
-$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
-
-if ($isMobile) {
-    include 'footer_mobile.php';
-    return;
-}
-?>
-
-<div class="section footer" id="contact">
-    <div class="conts-wrapper">
+<div class="footer-m" id="contact">
+    <div class="conts-wrapper-m">
         <!-- Контактная информация -->
-        <div class="cont-info">
+        <div class="cont-info-m">
             <h2>Контакты</h2>
-            <div class="cont-details">
+            <div class="cont-details-m">
                 <?php
                 // Получаем элементы инфоблока с контактной информацией (раздел 35)
                 $contactsFilter = [
@@ -61,7 +50,7 @@ if ($isMobile) {
 
         <!-- Блок с картой -->
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-        <div class="map">
+        <div class="map-m">
             <div id="map" style="width: 475px; height: 475px;"></div>
             <script>
                 ymaps.ready(init);
@@ -84,8 +73,8 @@ if ($isMobile) {
 </div>
 
 <!-- Подпись о разработке -->
-<div class="section footer-title">
-    <div class="developer-credit">
+<div class="footer-title-m">
+    <div class="developer-credit-m">
         <!-- <p>Сайт разработан ХХХХХХХХХХ</p> -->
     </div>
 </div>

@@ -400,9 +400,6 @@ while ($section = $sections->Fetch()) {
         var url = "/catalog/index.php?SECTION_ID=" + sectionId;
         window.location.href = url;
     }
-
 </script>
 
-<?php
-// require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');
-?>
+<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php'); ?>
