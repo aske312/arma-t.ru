@@ -398,7 +398,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         let urlParams = new URLSearchParams(window.location.search);
 
-        // Добавляем текущий SECTION_ID
+        // Удаляем параметр пагинации (чтобы начиналась с первой страницы)
+        urlParams.delete('PAGEN_1');
+
+        // Добавляем текущий SECTION_ID, если есть
         <?php if (isset($_GET['SECTION_ID'])): ?>
             urlParams.set('SECTION_ID', '<?= $_GET['SECTION_ID'] ?>');
         <?php endif; ?>
@@ -515,8 +518,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         modal.style.display = modal.style.display === "block" ? "none" : "block";
     }
 
+    // Перенаправление на новую категорию, сбрасывая пагинацию
     function redirectToSection(sectionId) {
-        window.location.href = "?SECTION_ID=" + sectionId;
+        let urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('SECTION_ID', sectionId);
+        urlParams.delete('PAGEN_1'); // Сброс пагинации
+
+        window.location.href = '?' + urlParams.toString();
     }
 
     // Инициализация
