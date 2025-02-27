@@ -285,7 +285,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         </div>
 
         <!-- Список элементов каталога -->
-        <div class="catalog-items">
+        <div class="catalog-items-m">
             <?php
             $itemsFound = false;
 
@@ -312,17 +312,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         }
             ?>
 
-                        <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
+                        <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
                             <!-- Ссылка на детальную страницу -->
-                            <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
-                                <div class="catalog-item-header">
-                                    <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
-                                    <div class="catalog-item-info">
-                                        <h3 class="catalog-item-name"><?= $arFields['PREVIEW_TEXT']; ?></h3>
+                            <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link-m">
+                                <div class="catalog-item-header-m">
+                                    <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image-m">
+                                    <div class="catalog-item-info-m">
+                                        <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
                                         <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
                                         <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
                                         <p>
-                                            <div class="catalog-item-price">
+                                            <div class="catalog-item-price-m">
                                                 <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
                                                 if ($price == 0 || empty($price)) {
                                                     echo 'По запросу';
@@ -333,8 +333,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         </p>
                                     </div>
 
-                                    <div class="catalog-item-controls">
-                                        <button class="catalog-item-add-to-cart"
+                                    <div class="catalog-item-controls-m">
+                                        <button class="catalog-item-add-to-cart-m"
                                                 data-id="<?= $arFields['ID']; ?>"
                                                 data-image="<?= $productImage; ?>"
                                                 data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
@@ -357,7 +357,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         <!-- Пагинация -->
 
-        <div class="pagination">
+        <div class="pagination-m">
             <?= $arResult['NAV_STRING']; ?>
         </div>
     </div>
