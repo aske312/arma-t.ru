@@ -12,18 +12,15 @@
 }
 
 /********* Стили для слайдера *********/
-/* Основной контейнер слайдера */
 .section1 {
     background-color: #162139;
 
 }
-/* Обертка слайдера */
 .slider-wrapper {
     display: flex;
     justify-content: center;
     width: 100%;
 }
-/* Контейнер слайдера */
 .slider-container {
     display: flex;
     justify-content: center;
@@ -34,30 +31,25 @@
     position: relative;
     overflow: hidden;
 }
-/* Слайдер */
 .slider {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
-/* Контейнер слайдов */
 .slides {
     display: flex;
     width: 100%;
     height: 100%;
 }
-/* Каждый отдельный слайд */
 .slide {
     position: relative;
     min-width: 100%;
     height: 100%;
 }
-/* Затемненная область для текста */
 .slide::before {
     content: '';
     position: absolute;
-    /* top: 50%; */
     left: 50%; /* Центрируем по горизонтали */
     transform: translate(-50%, -50%); /* Сдвигаем на половину ширины и высоты для точного центрирования */
     width: 55%; /* Ширина затемненной области */
@@ -68,14 +60,12 @@
     justify-content: center;
     align-items: center;
 }
-/* Изображение слайда */
 .slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
-/* Текст внутри слайда */
 .slide-text {
     position: absolute;
     top: 40px; /* Отступ от верха */
@@ -86,7 +76,6 @@
     z-index: 2; /* Текст поверх затемнения */
     text-align: center;
 }
-/* Точки для навигации */
 .dots {
     text-align: center;
     position: absolute;
@@ -108,22 +97,19 @@
     background-color: #717171;
 }
 
-
-/** стили под мобилку **/
+/** Мобильная версия **/
 .slider-m {
     position: relative;
     max-width: 100%;
     height: 450px; /* Увеличенный размер слайдера */
     overflow: hidden;
 }
-
 .slides-m {
     display: flex;
     transition: transform 0.5s ease-in-out;
     width: 100%;
     height: 100%;
 }
-
 .slide-m {
     min-width: 100%;
     height: 100%;
@@ -132,13 +118,11 @@
     justify-content: center;
     align-items: center;
 }
-
 .slide-m img {
     width: 100%;
     height: 100%; /* Растягиваем изображение */
     object-fit: cover;
 }
-
 .slide-text-m {
     position: absolute;
     top: 20px; /* Текст сверху */
@@ -156,8 +140,6 @@
     padding: 10px;
     box-sizing: border-box;
 }
-
-/* Кнопки навигации */
 .prev-m, .next-m {
     position: absolute;
     top: 50%;
@@ -170,14 +152,12 @@
     font-size: 20px;
     z-index: 10;
 }
-
 .prev-m { left: 10px; }
 .next-m { right: 10px; }
 
 /********* Текст вторым блоком *********/
 .section2 {
     background-color: #DCDCDC;
-    /* background-color: white; /* #DCDCDC; */
 }
 .container {
     display: flex;
@@ -218,20 +198,15 @@
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Фон на всю область */
 }
-
-/* Картинка */
 .image-m {
     flex: 1;
     text-align: right;
 }
-
 .image-m img {
     max-width: 100%;
     height: auto;
     display: block;
 }
-
-/* Текстовый блок */
 .text-m {
     flex: 1;
     margin-left: -80%;
@@ -244,13 +219,11 @@
     max-width: 900px; /* Ограничиваем ширину для удобочитаемости */
     color: #fff; /* Светлый текст */
 }
-
 .text-m p {
     text-align: left;
 }
 
 /********* Информационный блок *********/
-
 .section3 {
     width: 100%;
     height: 100%;
@@ -288,26 +261,21 @@
 /** мобильная версия **/
 .section3-m {
     width: 100%;
-
     justify-content: center;
     align-items: center;
     overflow: hidden; /* Убираем скролл */
 }
-
 .swiper-container-m {
     width: 100%;
-    /* max-width: 800px; */
     overflow: hidden;
     position: relative;
 }
-
 .block-m {
     display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.4s ease-in-out;
 }
-
 .block-item-m {
     min-weight: 135px;
     height: auto;
@@ -323,21 +291,15 @@
     margin: 0 5px;
     transform: scale(0.9);
 }
-
-/* Центральная карточка */
 .block-item-m.active {
     flex: 0 0 70%;
     opacity: 1;
     transform: scale(1);
 }
-
-/* Картинка */
 .block-image-m img {
     max-width: 80px;
     height: auto;
 }
-
-/* Текст */
 .item-text-m {
     margin-top: 10px;
     font-size: 16px;
@@ -345,9 +307,7 @@
 }
 
 /********* Блок Каталог *********/
-
 .section4 {
-    /* background-color: #DCDCDC; */ /* #1E3564; */
 }
 .category {
     width: 100%;
@@ -355,9 +315,6 @@
     justify-content: center;
     background-color: #DCDCDC; /* #1E3564; */
 }
-
-/********! Нужна каллибровка !************/
-
 .section4-title {
     background-color: #DCDCDC; /* #1E3564; */
 }
@@ -367,9 +324,6 @@
     text-align: left;
     color: black;
 }
-
-/********! Нужна каллибровка !************/
-
 .category-table {
     justify-content: center;
     display: flex;
@@ -377,7 +331,6 @@
     max-width: 1600px;
     padding: 10px;
 }
-
 .category-block {
     display: flex;
     align-items: center;
@@ -391,18 +344,15 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Добавление тени для эффекта */
 }
-
 .category-block:hover {
     box-shadow: 0 0 25px #191970; /* Эффект при наведении */
 }
-
 .category img {
     align-items: center;
     justify-content: center;
     max-width: 175px; /* Максимальная ширина изображения */
     margin-right: 20px; /* Отступ между изображением и текстом */
 }
-
 .category-text {
     color: black;
     text-align: center; /* По центру текста */
@@ -418,15 +368,12 @@
 .section4-title-m {
     text-align: center;
 }
-
 .category-title-m h2 {
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
     margin: 0 auto;
 }
-
-/* Основной блок каталога */
 .section4-m {
     width: 100%;
     display: flex;
@@ -434,7 +381,6 @@
     align-items: center;
     background-color: #DCDCDC; /* #1E3564; */
 }
-
 .category-table-m {
     display: grid;
     grid-template-columns: repeat(1, 1fr); /* 3 колонки по умолчанию */
@@ -443,8 +389,6 @@
     margin: 0 auto;
     background-color: #DCDCDC; /* #1E3564; */
 }
-
-/* Карточки категорий */
 .category-block-m {
     top: 5px;
     display: flex;
@@ -459,16 +403,12 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Добавление тени для эффекта */
 }
-
-/* Картинка внутри карточки */
 .category-block-m img {
     align-items: center;
     justify-content: center;
     max-width: 115px; /* Максимальная ширина изображения */
     margin-right: 10px; /* Отступ между изображением и текстом */
 }
-
-/* Текст внутри карточки */
 .category-text-m {
     color: black;
     text-align: center; /* По центру текста */
@@ -479,8 +419,6 @@
     justify-content: center; /* Выравнивание по горизонтали */
     text-align: center; /* Центрируем текст внутри блока */
 }
-
-/* Эффект при наведении */
 .category-block-m:hover {
     border-radius: 10px;
     transform: translateY(-5px);
@@ -501,8 +439,6 @@
     justify-content: center;
     padding: 20px;
 }
-
-/* Стили для формы */
 .contact-form {
     max-width: 450px; /* Ширина формы */
     margin: 0 auto; /* Центрируем форму */
@@ -511,13 +447,11 @@
     background-color: rgba(255, 255, 255, 0.1); /* Легкий фон для формы */
     border-radius: 10px;
 }
-
 .contact-form h2 {
     color: white;
     text-align: left;
     margin-bottom: 20px;
 }
-
 .contact-form input,
 .contact-form textarea {
     width: 100%;
@@ -528,37 +462,28 @@
     font-size: 16px;
     box-sizing: border-box; /* Учитываем padding в ширине */
 }
-
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
     color: #999;
 }
-
 .contact-form textarea {
     resize: vertical; /* Разрешаем изменение высоты textarea */
 }
-
-/* Блок для кнопки и чекбокса */
 .form-actions {
     display: flex; /* Используем flex для выравнивания */
     justify-content: space-between; /* Кнопка слева, чекбокс справа */
     align-items: center; /* Выравниваем по вертикали */
     margin-top: 5px; /* Отступ сверху */
 }
-
-/* Стили для чекбокса */
 .newsletter-label {
     display: flex; /* Используем flex для выравнивания */
     align-items: center; /* Выравниваем по вертикали */
     font-size: 14px;
     color: white;
 }
-
 .newsletter-label input[type="checkbox"] {
     margin-right: 2px; /* Отступ между checkbox и текстом */
 }
-
-/* Стили для кнопки */
 .contact-form button {
     padding: 10px 20px;
     background-color: #2654A2;
@@ -568,11 +493,9 @@
     font-size: 16px;
     cursor: pointer;
 }
-
 .contact-form button:hover {
     background-color: #0056b3;
 }
-
 /* Кнопка отправки формы */
 #submitButton {
     background-color: #2654A2;
@@ -582,7 +505,6 @@
     border-radius: 5px;
     cursor: pointer;
 }
-
 #submitButton:hover {
     background-color: #0056b3;
 }
@@ -798,7 +720,6 @@
     border-radius: 50%;
     transition: transform 0.3s ease-in-out;
 }
-
 .d-icon-m img:hover {
     transform: scale(1.1);
 }
@@ -856,5 +777,52 @@
 .p-text-content p {
     font-size: 24px;
     line-height: 1.6;
+    text-align: left;
+}
+
+/** Мобильная версия **/
+.section7-title-m {
+    text-align: center;
+    /* padding: 20px 0; */
+}
+.pay-title-m h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
+.section7-m {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 20px; */
+}
+.p-container-m {
+    max-width: 800px;
+    width: 100%;
+}
+.p-content-m {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.p-text-m {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+.p-image-m img {
+    max-width: 300px;
+    height: auto;
+    /* border-radius: 10px; */
+}
+.p-text-content-m {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.5;
     text-align: left;
 }

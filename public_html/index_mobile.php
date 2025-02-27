@@ -265,6 +265,32 @@ while ($section = $sections->Fetch()) {
 
 <!-- -->
 
+<div class="section7-title-m" id="pay-title">
+    <div class="pay-title-m">
+        <h2>Оплата</h2>
+    </div>
+</div>
+
+<div class="section7-m" id="pay">
+	<div class="p-container-m">
+	     <div class="p-content-m">
+            <div class="p-text-m">
+                <div class="p-image-m">
+                    <img alt="Image" src="/resources/img/block/312asd.png">
+                </div>
+                <div class="p-text-content-m">
+                    <p>Оплата заказа возможна по безналичному расчету через любой банк РФ.
+                    Для выставления счета потребуются: карточка организации с реквизитами,
+                    телефон, адрес доставки и электронная почта. Средства зачисляются на
+                    следующий день после оплаты. Статус платежа можно уточнить у менеджера.</p>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+<!-- -->
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let slideIndex = 0;
