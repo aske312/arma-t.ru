@@ -157,6 +157,13 @@ if ($element = $res->Fetch()) {
             return storedData && storedData.cartItems ? storedData.cartItems : [];
         }
 
+        document.addEventListener("DOMContentLoaded", function() {
+            let errorBox = document.querySelector('.bitrix-error-box');
+            if (errorBox) {
+                errorBox.style.display = 'none';
+            }
+        });
+
         function setCartItems(cartItems) {
             const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;
             const cartData = { cartItems, expiry: expiryDate };
