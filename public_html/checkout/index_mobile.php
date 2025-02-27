@@ -39,7 +39,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
             <button onclick="history.back()" class="back-button-m">Назад</button>
             <button id="order-btn" class="order-button-m">Оформить заказ</button>
         </div>
-
+<!--
         <div id="order-form-container" class="modal-m">
             <div class="modal-content-m">
                 <span class="close-button-m" id="close-modal">&times;</span>
@@ -68,7 +68,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                 </form>
             </div>
         </div>
-
+-->
     </div>
 </div>
 
