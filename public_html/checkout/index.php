@@ -11,7 +11,6 @@ if ($isMobile) {
     include 'index_mobile.php';
     return;
 }
-
 ?>
 
 <!-- Yandex.Metrika counter -->
