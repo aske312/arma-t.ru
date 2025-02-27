@@ -74,82 +74,151 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        loadCart();
+    document.getElementById('order-form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Предотвращаем перезагрузку страницы
 
-        const orderForm = document.getElementById('order-form');
-        orderForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            processOrder();
-        });
+        // Получаем данные корзины из localStorage
+        const cartItems = localStorage.getItem('cartItems');
+        if (!cartItems) {
+            alert('Корзина пуста. Добавьте товары перед оформлением заказа.');
+            return;
+        }
 
-        document.getElementById('order-btn').addEventListener('click', function () {
-            document.querySelector('.modal-m').style.display = 'flex';
-        });
+        // Добавляем данные корзины в скрытое поле формы
+        document.getElementById('cartData').value = cartItems;
 
-        document.getElementById('close-modal').addEventListener('click', function () {
-            document.querySelector('.modal-m').style.display = 'none';
-        });
+        // Собираем данные формы
+        const formData = new FormData(this);
+
+        // Отправляем данные на сервер
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/resources/src/send_order.php', true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                alert('Заказ успешно оформлен!');
+                localStorage.removeItem('cartItems'); // Очищаем корзину
+                window.location.href = '/'; // Перенаправляем на главную страницу
+            } else {
+                alert('Произошла ошибка при оформлении заказа.');
+            }
+        };
+
+        xhr.onerror = function () {
+            alert('Произошла ошибка при отправке заказа.');
+        };
+
+        xhr.send(formData); // Отправляем данные формы
     });
 
     function loadCart() {
         let cartDataString = localStorage.getItem('cartItems');
-        if (!cartDataString) return;
+        if (cartDataString) {
+            let cartData = JSON.parse(cartDataString);
 
-        let cartData = JSON.parse(cartDataString);
-        if (!cartData || !Array.isArray(cartData.cartItems)) return;
+            if (cartData && Array.isArray(cartData.cartItems)) {
+                let cartItemsContainer = document.getElementById('product-checkout');
+                cartItemsContainer.innerHTML = '';
 
-        let cartItemsContainer = document.getElementById('product-checkout');
-        cartItemsContainer.innerHTML = '';
+                cartData.cartItems.forEach((item, index) => {
+                    let itemDiv = document.createElement('div');
+                    itemDiv.classList.add('cart-item');
 
-        cartData.cartItems.forEach((item, index) => {
-            let itemDiv = document.createElement('div');
-            itemDiv.classList.add('cart-item');
+                    let imageHTML = item.image ?
+                        `<div class="product-image-m"><img src="${item.image}" alt="${item.name}"></div>` :
+                        `<div class="product-image-m"><img src="/resources/img/production/0.png" alt="Нет изображения"></div>`;
 
-            let imageHTML = item.image ?
-                `<div class="product-image-m"><img src="${item.image}" alt="${item.name}"></div>` :
-                `<div class="product-image-m"><img src="/resources/img/production/0.png" alt="Нет изображения"></div>`;
+                    let priceText = item.price == 0 || !item.price ? "под заказ" : `${item.price} ₽`;
+                    let totalItemPrice = item.price == 0 || !item.price ? "под заказ" : `${(item.price * item.quantity).toFixed(2)} ₽`;
 
-            let priceText = item.price && item.price > 0 ? `${item.price} ₽` : "под заказ";
+                    itemDiv.innerHTML = `
+                        ${imageHTML}
+                        <div class="product-info-m">
+                            <span><strong>${item.name}</strong></span>
+                            <span>Артикул: <strong>${item.article}</strong></span>
+                            <span class="price">Цена за единицу: <strong>
+                                ${!isNaN(priceText) && priceText !== null && priceText > 0 ? priceText + ' руб.' : ''}
+                            </strong></span>
+                            <span class="total-item-price-m">В сумме: <strong>
+                                ${!isNaN(totalItemPrice) && totalItemPrice !== null && totalItemPrice > 0 ? totalItemPrice + ' руб.' : ''}
+                            </strong></span>
+                            <div class="quantity-control-m">
+                                <button class="quantity-btn-m minus" data-index="${index}">-</button>
+                                <input type="number" value="${item.quantity}" min="0" class="quantity-input-m" data-index="${index}" />
+                                <button class="quantity-btn-m plus" data-index="${index}">+</button>
+                            </div>
+                            <button class="remove-button-m" data-index="${index}">&times;</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemDiv);
+                });
 
-            itemDiv.innerHTML = `
-                ${imageHTML}
-                <div class="product-info-m">
-                    <span><strong>${item.name}</strong></span>
-                    <span>Артикул: <strong>${item.article}</strong></span>
-                    <span class="price-m">Цена за единицу: <strong>${priceText}</strong></span>
-                    <div class="quantity-control-m">
-                        <button class="quantity-btn-m minus" data-index="${index}">-</button>
-                        <input type="number" value="${item.quantity}" min="1" class="quantity-input-m" data-index="${index}" />
-                        <button class="quantity-btn-m plus" data-index="${index}">+</button>
-                    </div>
-                    <button class="remove-button-m" data-index="${index}">&times;</button>
-                </div>
-            `;
-            cartItemsContainer.appendChild(itemDiv);
-        });
+                document.querySelectorAll('.quantity-input-m').forEach(input => {
+                    input.addEventListener('change', updateQuantity);
+                });
+                document.querySelectorAll('.quantity-btn-m').forEach(button => {
+                    button.addEventListener('click', adjustQuantity);
+                });
+                document.querySelectorAll('.remove-button-m').forEach(button => {
+                    button.addEventListener('click', removeItem);
+                });
+                updateTotal(cartData.cartItems);
+            }
+        }
+    }
 
-        document.querySelectorAll('.quantity-btn-m').forEach(button => {
-            button.addEventListener('click', adjustQuantity);
-        });
+    function updateQuantity(event) {
+        const index = event.target.getAttribute('data-index');
+        let cartData = JSON.parse(localStorage.getItem('cartItems'));
+        cartData.cartItems[index].quantity = parseInt(event.target.value) || 1;
 
-        document.querySelectorAll('.remove-button-m').forEach(button => {
-            button.addEventListener('click', removeItem);
-        });
+        if (cartData.cartItems[index].quantity <= 0) {
+            removeItem({ target: document.querySelector(`.remove-button[data-index="${index}"]`) });
+        } else {
+            localStorage.setItem('cartItems', JSON.stringify(cartData));
+            loadCart();
+        }
+    }
 
-        updateTotal(cartData.cartItems);
+    // Функция для получения изображения товара
+    function getItemImage(item) {
+        if (item.image) {
+            return item.image; // если картинка есть, то возвращаем её
+        }
+
+        let infoblockImage = getInfoblockImage(item.sku);
+        if (infoblockImage) {
+            return infoblockImage; // возвращаем картинку из инфоблока
+        }
+        return '/resources/img/production/0.png'; // путь к заглушке
+    }
+
+    // Имитация функции для получения изображения из инфоблока
+    function getInfoblockImage(sku) {
+        let imageURL = null;
+        return imageURL;
+    }
+
+    function updateTotal(cartItems) {
+        let totalAmount = cartItems.reduce((total, item) => {
+            let price = parseFloat(item.price) || 0; // Преобразуем цену в число
+            return total + (price * item.quantity); // Умножаем цену на количество
+        }, 0);
+        if (totalAmount === 0) {
+            document.getElementById('total-amount').innerText = `Итоговая сумма: под заказ`;
+        } else {
+            document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount.toFixed(2)} ₽`;
+        }
     }
 
     function adjustQuantity(event) {
         const index = event.target.getAttribute('data-index');
         let cartData = JSON.parse(localStorage.getItem('cartItems'));
-
         if (event.target.classList.contains('plus')) {
             cartData.cartItems[index].quantity++;
         } else if (event.target.classList.contains('minus') && cartData.cartItems[index].quantity > 1) {
             cartData.cartItems[index].quantity--;
         }
-
         localStorage.setItem('cartItems', JSON.stringify(cartData));
         loadCart();
     }
@@ -162,6 +231,33 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         loadCart();
     }
 
+    function updateTotal(cartItems) {
+        let totalAmount = cartItems.reduce((total, item) => {
+            let price = parseFloat(item.price) || 0;
+            return total + (price * item.quantity);
+        }, 0);
+        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount}₽`;
+    }
+
+    // Открытие формы оформления заказа
+    document.getElementById('order-btn').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'flex';
+    });
+
+    // Закрытие формы
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'none';
+    });
+
+    // Закрытие формы при отправке
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Заказ оформлен!');
+        document.querySelector('.modal').style.display = 'none';
+    });
+
+    // Загружаем корзину при загрузке страницы
+    window.onload = loadCart;
 </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
