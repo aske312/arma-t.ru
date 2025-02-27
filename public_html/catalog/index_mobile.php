@@ -144,27 +144,17 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
 <div class="catalog-container-m">
     <div class="catalog-content-m">
-        <!-- Заголовок для фильтров (кнопка) -->
-        <button class="filter-title-m" onclick="toggleFilters()">
-            Фильтры  <span id="filters-arrow">▼</span>
-        </button>
 
-        <!-- Фильтры -->
-        <div class="catalog-filters-m">
-            <?php
-            // Массив с соответствиями названий и единиц измерения
-            $filterLabels = [
-                'EL_DN_DIAMETER_MM' => ['label' => 'Диаметр DN', 'unit' => 'мм'],
-                'EL_PN_PRESSURE_KGF_CM2' => ['label' => 'Давление PN', 'unit' => 'кгс/см²'],
-                'EL_CONNECTION_TYPE' => ['label' => 'Тип присоединения'],
-                'EL_DRIVE_TYPE' => ['label' => 'Тип привода'],
-                'EL_BODY_MATERIAL' => ['label' => 'Материал корпуса'],
-                'EL_FIGURE_TABLE' => ['label' => 'Таблица фигур']
-            ];
+        <!-- Кнопки "Фильтры" и "Разделы" в одной линии -->
+        <div class="catalog-controls-m">
+            <button class="filter-title-m" onclick="toggleFilters()">Фильтры <span id="filters-arrow">▼</span></button>
+            <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
+        </div>
 
-            foreach ($filterValues as $propertyCode => $values):
-                if (empty($values) || !isset($filterLabels[$propertyCode])) continue; // Пропуск, если нет значений или не в списке
-            ?>
+        <!-- Выпадающий список фильтров -->
+        <div id="catalog-filters" class="catalog-filters-m">
+            <?php foreach ($filterValues as $propertyCode => $values): ?>
+                <?php if (empty($values) || !isset($filterLabels[$propertyCode])) continue; ?>
                 <div class="filter-m">
                     <div class="filter-item-m">
                         <label for="<?= $propertyCode ?>" class="filter-label-m"><?= $filterLabels[$propertyCode]['label'] ?>:</label>
@@ -186,15 +176,11 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <?php endforeach; ?>
         </div>
 
-        <!-- Кнопка для открытия разделов -->
-        <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
-
-        <!-- Модальное окно с категориями -->
+        <!-- Модальное окно с разделами -->
         <div id="category-modal" class="category-modal-m">
             <div class="category-modal-content-m">
                 <span class="close-modal-m" onclick="toggleCategoryModal()">&times;</span>
                 <h2>Выберите раздел</h2>
-
                 <ul class="category-list-m">
                     <?php if (!empty($arResult['SECTIONS'])): ?>
                         <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
@@ -288,14 +274,21 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 <script>
-function toggleCategoryModal() {
-    const modal = document.getElementById("category-modal");
-    modal.style.display = modal.style.display === "block" ? "none" : "block";
-}
+    function toggleFilters() {
+        const filters = document.getElementById("catalog-filters");
+        const arrow = document.getElementById("filters-arrow");
+        filters.classList.toggle("open");
+        arrow.textContent = filters.classList.contains("open") ? "▲" : "▼";
+    }
 
-function redirectToSection(sectionId) {
-    window.location.href = "?SECTION_ID=" + sectionId;
-}
+    function toggleCategoryModal() {
+        const modal = document.getElementById("category-modal");
+        modal.style.display = modal.style.display === "block" ? "none" : "block";
+    }
+
+    function redirectToSection(sectionId) {
+        window.location.href = "?SECTION_ID=" + sectionId;
+    }
 </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
