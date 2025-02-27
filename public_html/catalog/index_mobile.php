@@ -146,30 +146,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     <!-- Боковое меню категорий -->
 
-    <!--
-    <div class="catalog-sidebar-m">
-        <h2>Разделы</h2>
-
-        <ul id="catalog-menu" class="catalog-menu-m">
-            <?php if (!empty($arResult['SECTIONS'])): ?>
-                <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-                    <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
-                    <li>
-                        <div class="category-block-m <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
-                            <?php if ($arSection['PICTURE']): ?>
-                                <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                                <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                            <?php else: ?>
-                                <img alt="Нет изображения" src="/resources/img/no_image.png">
-                            <?php endif; ?>
-                            <!-- <div class="category-text-m"> <?= $arSection['NAME']; ?> </div> -->
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </ul>
-    </div> -->
-
     <!-- Выпадающее боковое меню -->
     <div class="catalog-sidebar-m">
         <div class="sidebar-toggle-m" onclick="toggleSidebar()">
@@ -189,7 +165,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <?php else: ?>
                                     <img alt="Нет изображения" src="/resources/img/no_image.png">
                                 <?php endif; ?>
-                                <div class="category-text-m"><?= $arSection['NAME']; ?></div>
+                                <!-- <div class="category-text-m"><?= $arSection['NAME']; ?></div> -->
                             </div>
                         </li>
                     <?php endforeach; ?>
