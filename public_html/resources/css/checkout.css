@@ -285,15 +285,16 @@
 }
 .product-image-m img {
     width: 80px;
-    height: 80px;
+    height: auto;
     object-fit: cover;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 .product-info-m {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    /* gap: 5px; */
+    padding: 5px;
     color: #333; /* 🔥 Тёмный текст */
 }
 .product-info-m p {
@@ -343,6 +344,7 @@
 }
 .back-button-m,
 .order-button-m {
+    top: 20px;
     background-color: #2654A2;
     color: white;
     border: none;
