@@ -235,6 +235,7 @@
 /** мобильная версия **/
 .checkout-title-m {
     text-align: center;
+    margin-bottom: 5px;
     padding: 5px;
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover;
@@ -258,13 +259,11 @@
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 #cart-items {/*
     background: #f8f8f8;
     padding: 15px;
-    border-radius: 8px;
-    text-align: left;*/
+    border-radius: 8px;*/
 }
 .product-checkout-m {
     display: flex;
@@ -277,13 +276,21 @@
 }
 .product-image-m img {
     width: 80px;
-    height: auto;
-    /* border-radius: 5px; */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 .product-info-m {
     flex: 1;
     text-align: left;
-    color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.product-price-m {
+    font-size: 16px;
+    font-weight: bold;
+    color: #d9534f;
 }
 .quantity-control-m {
     display: flex;
@@ -307,12 +314,24 @@
     text-align: center;
     font-size: 16px;
 }
+.remove-button-m {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}
+.remove-button-m:hover {
+    color: darkred;
+}
 .total-price-m {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
     text-align: right;
     margin-top: 10px;
-    color: red;
 }
 .button-group-m {
     display: flex;
