@@ -47,29 +47,6 @@
                 ?>
             </div>
         </div>
-
-        <!-- Блок с картой -->
-        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-        <!--
-        <div class="map-m">
-            <div id="map" style="width: 425px; height: 425px;"></div>
-            <script>
-                ymaps.ready(init);
-                function init() {
-                    var myMap = new ymaps.Map("map", {
-                        center: [55.681717, 37.269466], // Координаты центра карты
-                        zoom: 15 // Уровень масштабирования
-                    });
-
-                    // Добавление метки
-                    var myPlacemark = new ymaps.Placemark([55.681717, 37.269466], {
-                        balloonContent: 'Улица Маршала Жукова, 36'
-                    });
-
-                    myMap.geoObjects.add(myPlacemark);
-                }
-            </script>
-        </div> -->
     </div>
 </div>
 
