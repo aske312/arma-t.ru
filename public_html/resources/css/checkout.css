@@ -237,7 +237,7 @@
     text-align: center;
     padding: 5px;
     background: url('/resources/img/block/pattern.png') no-repeat center;
-    background-size: cover; /* Заполнение всей доступной области без растягивания */
+    background-size: cover;
 }
 .empty-cart-m {
     text-align: center;
@@ -247,9 +247,12 @@
     background: #f8f8f8;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
     margin: 0 auto;
 }
 .checkout-block-m {
+    /* width: 100%; */
+    max-width: 800px;
     margin: 0 auto;
     padding: 5px;
     background: white;
@@ -260,35 +263,54 @@
 /*
 #cart-items {
     background: #f8f8f8;
-    padding: 5px;
+    padding: 15px;
     border-radius: 8px;
     text-align: left;
 } */
 .product-checkout-m {
-    border-bottom: 1px solid #ddd;
-    padding: 5px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 15px;
-    flex-wrap: wrap;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
 }
-.product-checkout-m img {
+.product-image-m img {
     width: 80px;
     height: auto;
+    /* border-radius: 5px; */
 }
-.product-checkout-m .product-info-m {
+.product-info-m {
     flex: 1;
     text-align: left;
-    color: black;
 }
-
+.quantity-control-m {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.quantity-btn-m {
+    padding: 5px 10px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.quantity-btn-m:hover {
+    background: #0056b3;
+}
+.quantity-input-m {
+    width: 40px;
+    text-align: center;
+    font-size: 16px;
+}
 .total-price-m {
     font-size: 14px;
     font-weight: bold;
     text-align: right;
     margin-top: 10px;
-    color: red;
 }
 .button-group-m {
     display: flex;
@@ -301,19 +323,12 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
 }
 .back-button-m {
     background: #6c757d;
     color: white;
 }
-.back-button-m:hover {
-    background: #5a6268;
-}
 .order-button-m {
     background: #007bff;
     color: white;
-}
-.order-button-m:hover {
-    background: #0056b3;
 }
