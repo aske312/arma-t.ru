@@ -336,15 +336,16 @@
     color: darkred;
 }
 .total-price-m {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
     text-align: right;
     margin-top: 10px;
+    margin-bottom: 20px;
     color: #222;
 }
 .back-button-m, .order-button-m {
     padding: 10px 20px;
-    font-size: 14px;
+    font-size: 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
