@@ -195,7 +195,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         </button>
 
         <!-- Фильтры -->
-        <div class="catalog-filters-m">
+        <div class="catalog-filters">
             <?php
             // Массив с соответствиями названий и единиц измерения
             $filterLabels = [
@@ -210,10 +210,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             foreach ($filterValues as $propertyCode => $values):
                 if (empty($values) || !isset($filterLabels[$propertyCode])) continue; // Пропуск, если нет значений или не в списке
             ?>
-                <div class="filter-m">
-                    <div class="filter-item-m">
-                        <label for="<?= $propertyCode ?>" class="filter-label-m"><?= $filterLabels[$propertyCode]['label'] ?>:</label>
-                        <div class="filter-content-m">
+                <div class="filter">
+                    <div class="filter-item">
+                        <label for="<?= $propertyCode ?>" class="filter-label"><?= $filterLabels[$propertyCode]['label'] ?>:</label>
+                        <div class="filter-content">
                             <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
                                 <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
                                 <?php foreach ($values as $value): ?>
@@ -223,7 +223,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                 <?php endforeach; ?>
                             </select>
                             <?php if (!empty($filterLabels[$propertyCode]['unit'])): ?>
-                                <span class="unit-m"><?= $filterLabels[$propertyCode]['unit'] ?></span>
+                                <span class="unit"><?= $filterLabels[$propertyCode]['unit'] ?></span>
                             <?php endif; ?>
                         </div>
                     </div>
