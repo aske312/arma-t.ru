@@ -39,12 +39,13 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
             <button onclick="history.back()" class="back-button-m">Назад</button>
             <button id="order-btn" class="order-button-m">Оформить заказ</button>
         </div>
+
+<!--
         <div id="order-form-container" class="modal-m">
             <div class="modal-content-m">
                 <span class="close-button-m" id="close-modal">&times;</span>
                 <form class="order-form-m" id="order-form">
                     <h2>Ваши данные</h2>
-                    <!-- Поля для ввода данных -->
                     <label for="name">Имя:</label>
                     <input type="text" id="name" name="name" required>
                     <label for="phone">Телефон:</label>
@@ -58,8 +59,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                     <label for="address">Адрес:</label>
                     <textarea id="address" name="address" required></textarea>
                     <input type="hidden" id="cartData" name="cartData">
-
-                    <!-- Checkbox для согласия на рассылку -->
                     <div class="newsletter-checkbox-m">
                         <label for="newsletter">
                             <input type="checkbox" id="newsletter" name="newsletter" required>
@@ -69,7 +68,8 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                     <button type="submit">Оформить заказ</button>
                 </form>
             </div>
-        </div>
+        </div> -->
+
     </div>
 </div>
 
