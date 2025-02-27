@@ -438,6 +438,7 @@ pre { /* DEBUG */
     cursor: pointer;
 }
 .category-list-m {
+    color: black;
     list-style: none;
     padding: 0;
 }
