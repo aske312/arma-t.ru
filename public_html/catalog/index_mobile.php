@@ -369,6 +369,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                                 <!-- Краткое описание элемента -->
 
+                                <!--
                                 <div class="catalog-item-properties-m">
                                     <table>
                                         <?php if (!empty($arProps['EL_CONNECTION_TYPE']['VALUE'])): ?>
@@ -388,6 +389,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         <?php endif; ?>
                                     </table>
                                 </div>
+                                -->
                             </a>
                         </div>
                     <?php endif; ?>
