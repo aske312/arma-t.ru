@@ -48,6 +48,7 @@ if ($element = $res->Fetch()) {
 ?>
 <div id="panel"><?php $APPLICATION->ShowPanel(); ?></div>
 
+<!--
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -61,6 +62,7 @@ if ($element = $res->Fetch()) {
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 <body>
+-->
     <header id="siteHeader" class="header">
         <div class="header-content">
             <div class="logo">
