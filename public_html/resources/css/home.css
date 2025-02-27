@@ -783,7 +783,7 @@
 /** Мобильная версия **/
 .section7-title-m {
     text-align: center;
-    /* padding: 20px 0; */
+    background-color: #DCDCDC;
 }
 .pay-title-m h2 {
     font-size: 24px;
@@ -796,7 +796,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding: 20px; */
+    background-color: #DCDCDC;
 }
 .p-container-m {
     max-width: 800px;
