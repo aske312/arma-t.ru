@@ -467,7 +467,8 @@ pre { /* DEBUG */
     border-radius: 8px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.1s;
+    color: black;
 }
 .catalog-item-m:hover {
     transform: translateY(-5px);
@@ -477,7 +478,7 @@ pre { /* DEBUG */
     color: inherit;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    /* height: 100%; */
 }
 .catalog-item-header-m {
     text-align: center;
@@ -486,14 +487,14 @@ pre { /* DEBUG */
 .catalog-item-image-m {
     max-width: 50%;
     height: auto;
-    border-radius: 8px;
+    /* border-radius: 8px; */
 }
 .catalog-item-info-m {
-    padding: 10px;
+    padding: 5px;
     flex-grow: 1;
 }
 .catalog-item-name-m {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     margin-bottom: 5px;
 }
