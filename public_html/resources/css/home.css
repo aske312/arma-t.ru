@@ -649,6 +649,7 @@
     height: 16px;
     accent-color: #007bff; /* Цвет чекбокса */
     cursor: pointer;
+    bottom: 5px;
 }
 
 /*********** Блок доставки ************/
