@@ -10,6 +10,15 @@ $sectionId = isset($_GET['SECTION_ID']) ? $_GET['SECTION_ID'] : 'all';
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/catalog.css");
 
+// MOBILE VERSION
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
+
+if ($isMobile) {
+    include 'index_mobile.php';
+    return;
+}
+
 // Фильтр для текущей секции
 $sectionFilter = [
     'IBLOCK_ID' => 1,
