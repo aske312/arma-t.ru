@@ -84,11 +84,11 @@
 }
 
 /** мобильная версия **/
+
 .footer-m {
     width: 100%;
     background: #1f1f1f;
     color: white;
-    /* padding: 40px 20px; */
     display: flex;
     justify-content: center;
 }
@@ -98,7 +98,6 @@
     align-items: flex-start;
     max-width: 800px;
     width: 100%;
-    /* gap: 30px; */
 }
 .cont-info-m {
     flex: 1;
@@ -110,7 +109,7 @@
     margin-bottom: 10px;
 }
 .cont-details-m p {
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1.5;
     margin: 5px 0;
 }
@@ -131,17 +130,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 400px;
     margin: 0 auto;
     color: white;
 }
 .footer-left-m h1 {
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.1;
     font-size: 14px;
 }
 .footer-left-m p {
     margin: 0;
-    line-height: 1.4;
-    font-size: 12px;
+    line-height: 1.1;
+    font-size: 11px;
 }
