@@ -83,7 +83,7 @@ if ($isMobile) {
     </div>
 </div>
 
-<!-- Подпись о разработке -->
+<!-- Политика -->
 
 <div class="footer-title">
     <div class="developer-credit">
