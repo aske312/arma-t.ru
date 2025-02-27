@@ -680,27 +680,6 @@
     text-align: center;
 }
 
-/* 📱 Адаптив: на мобильных всё в колонку */
-@media (max-width: 768px) {
-    .d-text-m {
-        flex-direction: column; /* Картинка сверху, текст снизу */
-        text-align: center;
-    }
-
-    .d-text-content-m {
-        text-align: center;
-    }
-
-    .d-icons-m {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .d-icon-m img {
-        max-width: 80px;
-    }
-}
-
 /** Блок доставки  **/
 
 .section6 {
