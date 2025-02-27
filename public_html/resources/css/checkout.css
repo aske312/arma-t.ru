@@ -235,7 +235,7 @@
 /** мобильная версия **/
 .checkout-title-m {
     text-align: center;
-    /* padding: 20px; */
+    padding: 5px;
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Заполнение всей доступной области без растягивания */
 }
@@ -251,7 +251,7 @@
 }
 .checkout-block-m {
     margin: 0 auto;
-    padding: 20px;
+    padding: 5px;
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
