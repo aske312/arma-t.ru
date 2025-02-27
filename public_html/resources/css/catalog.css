@@ -372,6 +372,25 @@ pre { /* DEBUG */
     font-size: 14px;
     color: #ddd;
 }
+        /* filter */
+.catalog-content-m {
+    flex: 1;
+    padding-left: 10px;
+}
+.filter-title-m {
+    cursor: pointer;
+    user-select: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left;
+    padding-left: 15px;
+    background: none;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+}
         /* section */
 .category-button-m {
     display: block;

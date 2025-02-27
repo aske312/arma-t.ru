@@ -143,15 +143,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 </div>
 
 <div class="catalog-container-m">
-
     <div class="catalog-content-m">
-
         <!-- Заголовок для фильтров (кнопка) -->
         <button class="filter-title-m" onclick="toggleFilters()">
             Фильтры  <span id="filters-arrow">▼</span>
         </button>
 
-        <!-- Фильтры --> <!--
+        <!-- Фильтры -->
         <div class="catalog-filters-m">
             <?php
             // Массив с соответствиями названий и единиц измерения
@@ -186,7 +184,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     </div>
                 </div>
             <?php endforeach; ?>
-        </div> -->
+        </div>
 
         <!-- Кнопка для открытия разделов -->
         <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
