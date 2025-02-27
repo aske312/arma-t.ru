@@ -144,34 +144,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
 <div class="catalog-container-m">
 
-    <!-- Кнопка для открытия разделов -->
-    <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
-
-    <!-- Модальное окно с категориями -->
-    <div id="category-modal" class="category-modal-m">
-        <div class="category-modal-content-m">
-            <span class="close-modal-m" onclick="toggleCategoryModal()">&times;</span>
-            <h2>Выберите раздел</h2>
-
-            <ul class="category-list-m">
-                <?php if (!empty($arResult['SECTIONS'])): ?>
-                    <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-                        <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
-                        <li class="category-item-m <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
-                            <?php if ($arSection['PICTURE']): ?>
-                                <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
-                                <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
-                            <?php else: ?>
-                                <img alt="Нет изображения" src="/resources/img/no_image.png">
-                            <?php endif; ?>
-                            <span><?= $arSection['NAME']; ?></span>
-                        </li>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </ul>
-        </div>
-    </div>
-
     <div class="catalog-content-m">
 
         <!-- Заголовок для фильтров (кнопка) -->
@@ -216,7 +188,35 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <?php endforeach; ?>
         </div> -->
 
-        <!-- Список элементов каталога --><!--
+        <!-- Кнопка для открытия разделов -->
+        <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
+
+        <!-- Модальное окно с категориями -->
+        <div id="category-modal" class="category-modal-m">
+            <div class="category-modal-content-m">
+                <span class="close-modal-m" onclick="toggleCategoryModal()">&times;</span>
+                <h2>Выберите раздел</h2>
+
+                <ul class="category-list-m">
+                    <?php if (!empty($arResult['SECTIONS'])): ?>
+                        <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+                            <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
+                            <li class="category-item-m <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                                <?php if ($arSection['PICTURE']): ?>
+                                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                                    <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
+                                <?php else: ?>
+                                    <img alt="Нет изображения" src="/resources/img/no_image.png">
+                                <?php endif; ?>
+                                <span><?= $arSection['NAME']; ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Список элементов каталога --> <!--
         <div class="catalog-items-m">
             <?php
             $itemsFound = false;
@@ -281,10 +281,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <?php endif; ?>
         </div>
 -->
-        <!-- Пагинация -->
+        <!-- Пагинация --> <!--
         <div class="pagination-m">
             <?= $arResult['NAV_STRING']; ?>
-        </div>
+        </div> -->
     </div>
 </div>
 
