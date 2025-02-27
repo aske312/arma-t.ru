@@ -638,9 +638,9 @@
     padding: 5px;
 }
 .newsletter-label-m {
-    /* display: flex; */
+    display: inline;
     align-items: center;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     color: white;
 }
