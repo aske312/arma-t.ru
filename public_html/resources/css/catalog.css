@@ -402,8 +402,7 @@ pre { /* DEBUG */
     position: absolute;
     left: -350px;
     top: 0;
-    width: 75px;
-    height: 75px;
+    width: 100px;
     /* background: white; */
     color: black;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
