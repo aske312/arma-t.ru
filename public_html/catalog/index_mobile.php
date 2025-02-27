@@ -242,9 +242,9 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <div class="catalog-item-info-m">
                         <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
                         <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
-                        <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                        <p>Срок изготовления: <?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
                         <p>
-                            <span class="catalog-item-price-m">
+                            <span class="catalog-item-price-m"> Цена:
                                 <?php
                                 $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
                                 echo ($price == 0 || empty($price)) ? 'По запросу' : $price . ' руб.';
