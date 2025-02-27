@@ -685,6 +685,7 @@
 
 /* Центрируем заголовок */
 .section6-title-m {
+    top: 10px;
     text-align: center;
     /* padding: 20px 0; */
 }
@@ -759,6 +760,8 @@
 .d-icon-m img {
     max-width: 100px;
     height: auto;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     transition: transform 0.3s ease-in-out;
 }
