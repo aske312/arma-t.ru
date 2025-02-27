@@ -594,8 +594,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding: 40px 20px; */
-    background: #f8f8f8; /* Лёгкий фон */
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)),
+        url('/resources/img/head_title/steel-slide_4.jpg') no-repeat center;
+    background-size: cover;
 }
 .form-container-m {
     background: white;
@@ -608,6 +609,7 @@
 .contact-form-m h2 {
     font-size: 24px;
     margin-bottom: 20px;
+    color: black;
 }
 .contact-form-m input,
 .contact-form-m textarea {
@@ -632,12 +634,14 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
+    padding: 10px;
 }
 .newsletter-label-m {
     display: flex;
     align-items: center;
     font-size: 14px;
     cursor: pointer;
+    color: black;
 }
 .newsletter-label-m input {
     margin-right: 8px;
