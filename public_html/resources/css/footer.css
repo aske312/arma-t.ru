@@ -97,7 +97,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    max-width: 400px;
+    max-width: 350px;
     width: 100%;
 }
 .cont-info-m {
@@ -111,14 +111,14 @@
     font-size: 15px;
 }
 .cont-details-m p {
-    font-size: 11px;
+    font-size: 13px;
     line-height: 1.5;
     margin: 5px 0;
 }
 .map-m {
     flex: 1;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
 }
 .map-m iframe {
     max-width: 250px;
@@ -140,14 +140,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 400px;
+    max-width: 350px;
     margin: 0 auto;
     color: white;
 }
 .footer-left-m h1 {
     margin: 0;
     line-height: 1.1;
-    font-size: 11px;
+    font-size: 12px;
 }
 .footer-left-m p {
     margin: 0;
