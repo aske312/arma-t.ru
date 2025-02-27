@@ -32,7 +32,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 </div>
 
 <div class="checkout-block-m" id="checkout-block" style="display: none;">
-    <div id="cart-items">
+    <div id="cart-items" class="cart-items-m">
         <div class="product-checkout-m" id="product-checkout"></div>
         <div class="total-price-m" id="total-amount"><strong>Итоговая сумма: 0 ₽</strong></div>
     </div>
@@ -79,6 +79,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
             let priceText = item.price && item.price !== "По запросу" ? `${item.price} ₽` : "По запросу";
 
             itemDiv.innerHTML = `
+                <button class="remove-button-m" data-index="${index}">&times;</button>
                 <div class="product-image-m">
                     <img src="${item.image || '/resources/img/production/0.png'}" alt="${item.name}">
                 </div>
@@ -91,9 +92,8 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                         <input type="number" class="quantity-input-m" data-index="${index}" value="${item.quantity}" min="0">
                         <button class="quantity-btn-m plus" data-index="${index}">+</button>
                     </div>
-                    <p>В сумме: <strong>${priceText}</strong></p>
+                    <p>В сумме: <strong>${(item.price * item.quantity).toFixed(2) || "По запросу"} ₽</strong></p>
                 </div>
-                <button class="remove-button-m" data-index="${index}">&times;</button>
             `;
             cartItemsContainer.appendChild(itemDiv);
         });
