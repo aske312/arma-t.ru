@@ -27,16 +27,14 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
     <p>Товары в корзине</p>
 </div>
 
+<!-- Сообщение, если корзина пуста -->
 <div id="empty-cart-message" class="empty-cart-m" style="display: none;">
     <p>Вы пока что ничего не добавили в корзину.</p>
 </div>
 
 <div class="checkout-block-m" id="checkout-block" style="display: none;">
-    <div id="cart-items" class="cart-items-m">
-        <div class="product-checkout-m" id="product-checkout"></div>
-        <div class="total-price-m" id="total-amount"><strong>Итоговая сумма: 0 ₽</strong></div>
-    </div>
-
+    <div id="cart-items" class="cart-items-m"></div>
+    <div class="total-price-m" id="total-amount"><strong>Итоговая сумма: 0 ₽</strong></div>
     <div class="button-group-m">
         <button onclick="history.back()" class="back-button-m">Назад</button>
         <button id="order-btn" class="order-button-m">Оформить заказ</button>
