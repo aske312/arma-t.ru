@@ -93,8 +93,12 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                     <p>В сумме: <strong>${(parseFloat(item.price) * item.quantity).toFixed(2) || "По запросу"} ₽</strong></p>
                 </div>
             `;
-            itemDiv.addEventListener('click', function () {
-                window.location.href = `/catalog/detail.php?ID=${item.id}`;
+
+            itemDiv.addEventListener('click', function (event) {
+                // Если клик был на кнопках `+` или `-`, отменяем переход
+                if (!event.target.classList.contains('quantity-btn-m')) {
+                    window.location.href = `/catalog/detail.php?ID=${item.id}`;
+                }
             });
 
             cartItemsContainer.appendChild(itemDiv);
@@ -111,6 +115,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         updateTotal(cartData.cartItems);
     }
 
+    // Коррекция итоговой суммы с учётом количества товаров
     function updateTotal(cartItems) {
         let totalAmount = cartItems.reduce((total, item) => {
             let price = parseFloat(item.price) || 0;
