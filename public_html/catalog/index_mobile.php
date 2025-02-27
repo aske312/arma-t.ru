@@ -321,14 +321,14 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     document.querySelectorAll('.catalog-item').forEach(item => {
         item.addEventListener('click', (event) => {
             // Если клик произошел не на кнопке "В корзину", переходим на детальную страницу
-            if (!event.target.closest('.catalog-item-add-to-cart')) {
+            if (!event.target.closest('.catalog-item-add-to-cart-m')) {
                 window.location.href = `/catalog/detail.php?ID=${item.getAttribute('data-id')}`;
             }
         });
     });
 
     // Обработка кликов на кнопки "В корзину"
-    document.querySelectorAll('.catalog-item-add-to-cart').forEach(button => {
+    document.querySelectorAll('.catalog-item-add-to-cart-m').forEach(button => {
         button.addEventListener('click', (event) => {
             event.stopPropagation(); // Останавливаем всплытие события
             event.preventDefault(); // Предотвращаем стандартное поведение (если кнопка внутри <a>)
@@ -496,7 +496,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     // Обработчики для детальных ссылок
     document.querySelectorAll('.catalog-item-link').forEach(link => {
         link.addEventListener('click', event => {
-            const buttonClicked = event.target.closest('.catalog-item-add-to-cart');
+            const buttonClicked = event.target.closest('.catalog-item-add-to-cart-m');
             if (!buttonClicked) {
                 return;
             }
