@@ -74,7 +74,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 </div>
 
 <script>
-    document.getElementById('order-form').addEventListener('submit', function (e) {
+    document.getElementById('order-form-m').addEventListener('submit', function (e) {
         e.preventDefault(); // Предотвращаем перезагрузку страницы
 
         // Получаем данные корзины из localStorage
@@ -250,7 +250,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
     });
 
     // Закрытие формы при отправке
-    document.getElementById('order-form').addEventListener('submit', function(e) {
+    document.getElementById('order-form-m').addEventListener('submit', function(e) {
         e.preventDefault();
         alert('Заказ оформлен!');
         document.querySelector('.modal').style.display = 'none';
