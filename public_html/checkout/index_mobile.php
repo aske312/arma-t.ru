@@ -40,7 +40,6 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
             <button id="order-btn" class="order-button-m">Оформить заказ</button>
         </div>
 
-<!--
         <div id="order-form-container" class="modal-m">
             <div class="modal-content-m">
                 <span class="close-button-m" id="close-modal">&times;</span>
@@ -68,7 +67,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                     <button type="submit">Оформить заказ</button>
                 </form>
             </div>
-        </div> -->
+        </div>
 
     </div>
 </div>
@@ -117,7 +116,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
             let cartData = JSON.parse(cartDataString);
 
             if (cartData && Array.isArray(cartData.cartItems)) {
-                let cartItemsContainer = document.getElementById('product-checkout');
+                let cartItemsContainer = document.getElementById('product-checkout-m');
                 cartItemsContainer.innerHTML = '';
 
                 cartData.cartItems.forEach((item, index) => {
@@ -173,7 +172,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         cartData.cartItems[index].quantity = parseInt(event.target.value) || 1;
 
         if (cartData.cartItems[index].quantity <= 0) {
-            removeItem({ target: document.querySelector(`.remove-button[data-index="${index}"]`) });
+            removeItem({ target: document.querySelector(`.remove-button-m[data-index="${index}"]`) });
         } else {
             localStorage.setItem('cartItems', JSON.stringify(cartData));
             loadCart();
