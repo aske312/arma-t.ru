@@ -267,9 +267,9 @@
     text-align: left;
 }
 .product-checkout-m {
-    display: flex;
+    /* display: flex; */
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 15px;
     padding: 5px;
     border-bottom: 1px solid #ddd;
