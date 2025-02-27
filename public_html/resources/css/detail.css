@@ -101,35 +101,30 @@
 }
 
 /** мобильная версия **/
-/* Заголовок страницы */
 .section-title-m {
     text-align: center;
-    padding: 20px;
+    background: url('/resources/img/block/pattern.png') no-repeat center;
+    background-size: cover; /* Заполнение всей доступной области без растягивания */
+    color: #fff;
 }
-
 .section-title-m h2 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
 }
-
-/* Хлебные крошки */
 .breadcrumbs-m {
     font-size: 14px;
     color: #555;
     margin-top: 10px;
+    text-align: left;
 }
-
 .breadcrumbs-m a {
     color: #007bff;
     text-decoration: none;
 }
-
 .breadcrumbs-m a:hover {
     text-decoration: underline;
 }
-
-/* Контейнер товара */
 .product-detail-m {
     background-color: white;
     border-radius: 5px;
@@ -138,24 +133,18 @@
     max-width: 1000px;
     margin: 0 auto;
 }
-
-/* Контент товара */
 .product-content-m {
     display: flex;
     align-items: center;
     gap: 20px;
     justify-content: space-between;
 }
-
-/* Изображение товара */
 .product-image-m img {
     max-width: 300px;
     height: auto;
     border-radius: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-/* Информация о товаре */
 .product-info-m {
     flex: 1;
 }
@@ -199,13 +188,12 @@
     border-collapse: collapse;
 }
 .product-attributes-m td {
-    padding: 10px;
+    /* padding: 10px; */
     border: 1px solid #ddd;
 }
 .product-attributes-m tr:nth-child(even) {
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
 }
-/* Кнопка "Назад" */
 .back-button-m {
     display: block;
     margin: 20px auto 0;
