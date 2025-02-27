@@ -50,6 +50,7 @@
 
         <!-- Блок с картой -->
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+        <!--
         <div class="map-m">
             <div id="map" style="width: 425px; height: 425px;"></div>
             <script>
@@ -68,7 +69,7 @@
                     myMap.geoObjects.add(myPlacemark);
                 }
             </script>
-        </div>
+        </div> -->
     </div>
 </div>
 
