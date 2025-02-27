@@ -129,16 +129,6 @@ while ($section = $sections->Fetch()) {
     </div>
 </div>
 
-<!--
-<div class="section-2-m">
-    <div class="text-m">
-        <p>АРМА-Т специализируется на продаже запорной арматуры.
-        У нас широкий ассортимент продукции для надежной работы трубопроводных систем.
-        Гарантируем быструю доставку, высокое качество и отличный сервис!</p>
-    </div>
-</div>
--->
-
 <!-- -->
 
 <div class="section3-m" id="Delivery">
@@ -202,6 +192,52 @@ while ($section = $sections->Fetch()) {
             <?php else: ?>
                 Нет доступных категорий
             <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<!-- -->
+
+<div class="section6-title-m" id="delivery-title-m">
+    <div class="delivery-title-m">
+        <h2>Доставка</h2>
+    </div>
+</div>
+
+<div class="section6-m" id="delivery">
+    <div class="d-container-m">
+        <div class="d-content-m">
+            <div class="d-text-m">
+                <div class="d-image-m">
+                    <img alt="Image" src="/resources/img/block/312asd.png">
+                </div>
+                <div class="d-text-content-m">
+                    <p>Доступен самовывоз продукции со склада.
+                    В случае самовывоза потребуется печать или доверенность от организации.
+                    Осуществим доставку транспортной компанией по вашему выбору.
+                    При необходимости доставки вы можете уведомить об этом менеджера перед оформлением заказа
+                    (сообщите адрес и способ доставки).</p>
+                </div>
+            </div>
+            <div class="d-list-m">
+                <div class="d-icons-m">
+                    <div class="d-icon-m">
+                        <img src="/resources/img/companies/dellin.png" alt="Деловые Линии">
+                    </div>
+                    <div class="d-icon-m">
+                        <img src="/resources/img/companies/pek.jpg" alt="ПЭК">
+                    </div>
+                    <div class="d-icon-m">
+                        <img src="/resources/img/companies/baikal.jpg" alt="Байкал Сервис">
+                    </div>
+                    <div class="d-icon-m">
+                        <img src="/resources/img/companies/sdek.png" alt="СДЭК">
+                    </div>
+                </div>
+            </div>
+            <div class="d-title-list-m">
+                <p>Мы работаем с известными транспортными компаниями.</p>
+            </div>
         </div>
     </div>
 </div>

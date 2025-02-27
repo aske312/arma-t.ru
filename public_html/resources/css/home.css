@@ -587,6 +587,120 @@
     background-color: #0056b3;
 }
 
+/** мобильная версия **/
+
+/* Центрируем заголовок */
+.section6-title-m {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.delivery-title-m h2 {
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
+
+/* Основной контейнер */
+.section6-m {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Контейнер для контента */
+.d-container-m {
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Основной контент (текст + картинка) */
+.d-content-m {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Блок с текстом и картинкой */
+.d-text-m {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Картинка */
+.d-image-m img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Текст */
+.d-text-content-m {
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* Блок с логотипами */
+.d-list-m {
+    margin-top: 20px;
+}
+
+.d-icons-m {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Логотипы */
+.d-icon-m img {
+    max-width: 100px;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.d-icon-m img:hover {
+    transform: scale(1.1);
+}
+
+/* Текст под логотипами */
+.d-title-list-m {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 📱 Адаптив: на мобильных всё в колонку */
+@media (max-width: 768px) {
+    .d-text-m {
+        flex-direction: column; /* Картинка сверху, текст снизу */
+        text-align: center;
+    }
+
+    .d-text-content-m {
+        text-align: center;
+    }
+
+    .d-icons-m {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .d-icon-m img {
+        max-width: 80px;
+    }
+}
+
 /** Блок доставки  **/
 
 .section6 {
