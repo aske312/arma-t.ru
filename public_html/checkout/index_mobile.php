@@ -38,7 +38,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         <p>Товары в корзине</p>
     </div>
 
-    <div class="checkout-block-m">
+    <div class="checkout-block">
         <div id="cart-items">
             <div class="product-checkout" id="product-checkout">
                 <!-- Здесь будет вывод корзины -->
