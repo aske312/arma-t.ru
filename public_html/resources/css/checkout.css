@@ -362,6 +362,19 @@
     background: #007bff;
     color: white;
 }
+.modal-m {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 80%;
+    height: 80%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    justify-content: center;
+    align-items: center;
+}
 .modal-content-m {
     margin-top: 40px;
     background-color: #fff;

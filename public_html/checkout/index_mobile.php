@@ -39,7 +39,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         <button onclick="history.back()" class="back-button-m">Назад</button>
         <button id="order-btn" class="order-button-m">Оформить заказ</button>
     </div>
-    <div id="order-form-container" class="modal">
+    <div id="order-form-container" class="modal-m">
         <div class="modal-content-m">
             <span class="close-button" id="close-modal">&times;</span>
             <form class="order-form" id="order-form">
@@ -210,19 +210,19 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 
     // Открытие формы оформления заказа
     document.getElementById('order-btn').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'flex';
+        document.querySelector('.modal-m').style.display = 'flex';
     });
 
     // Закрытие формы
     document.getElementById('close-modal').addEventListener('click', function() {
-        document.querySelector('.modal').style.display = 'none';
+        document.querySelector('.modal-m').style.display = 'none';
     });
 
     // Закрытие формы при отправке
     document.getElementById('order-form').addEventListener('submit', function(e) {
         e.preventDefault();
         alert('Заказ оформлен!');
-        document.querySelector('.modal').style.display = 'none';
+        document.querySelector('.modal-m').style.display = 'none';
     });
 
     // Загружаем корзину при загрузке страницы
