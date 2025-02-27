@@ -451,13 +451,6 @@ pre { /* DEBUG */
     border-bottom: 1px solid #ddd;
     cursor: pointer;
 }
-/*
-.category-item-m img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-*/
 .category-item-m.active {
     font-weight: bold;
     background: #f0f0f0;
@@ -491,7 +484,7 @@ pre { /* DEBUG */
     padding: 10px;
 }
 .catalog-item-image-m {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     border-radius: 8px;
 }
