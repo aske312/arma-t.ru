@@ -39,6 +39,38 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         <button onclick="history.back()" class="back-button-m">Назад</button>
         <button id="order-btn" class="order-button-m">Оформить заказ</button>
     </div>
+    <div id="order-form-container" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <form class="order-form" id="order-form">
+                <h2>Ваши данные</h2>
+                <!-- Поля для ввода данных -->
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="phone">Телефон:</label>
+                <input type="text" id="phone" name="phone" required>
+                <label for="company">Компания:</label>
+                <input type="text" id="company" name="company" required>
+                <label for="inn">ИНН:</label>
+                <input type="text" id="inn" name="inn" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="address">Адрес:</label>
+                <textarea id="address" name="address" required></textarea>
+                <input type="hidden" id="cartData" name="cartData">
+
+                <!-- Checkbox для согласия на рассылку -->
+                <div class="newsletter-checkbox">
+                    <label for="newsletter">
+                        <input type="checkbox" id="newsletter" name="newsletter" required>
+                        Согласие на рассылку
+                    </label>
+                </div>
+                <button type="submit">Оформить заказ</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -175,6 +207,26 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         localStorage.setItem('cartItems', JSON.stringify(cartData));
         loadCart();
     }
+
+    // Открытие формы оформления заказа
+    document.getElementById('order-btn').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'flex';
+    });
+
+    // Закрытие формы
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.querySelector('.modal').style.display = 'none';
+    });
+
+    // Закрытие формы при отправке
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Заказ оформлен!');
+        document.querySelector('.modal').style.display = 'none';
+    });
+
+    // Загружаем корзину при загрузке страницы
+    window.onload = loadCart;
 </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>

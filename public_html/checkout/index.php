@@ -78,11 +78,11 @@ if ($isMobile) {
                             Согласие на рассылку
                         </label>
                     </div>
-
                     <button type="submit">Оформить заказ</button>
                 </form>
             </div>
         </div>
+
     </div>
 </div>
 
