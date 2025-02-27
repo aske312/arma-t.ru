@@ -359,9 +359,8 @@ pre { /* DEBUG */
     padding: 10px;
     text-align: left;
     margin-bottom: 20px;
-    width: 350px; /* Максимальная ширина контейнера */
+    width: 400px; /* Максимальная ширина контейнера */
     margin: 0 auto; /* Центрирование контейнера */
-    /* height: 100%; /* Высота контейнера */
 }
 .section-title-m h2 {
     margin: 0;
@@ -399,11 +398,11 @@ pre { /* DEBUG */
     display: none;
     background: white;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     padding: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     position: absolute;
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     left: 50%;
     transform: translateX(-50%);
@@ -411,6 +410,7 @@ pre { /* DEBUG */
 }
 .catalog-filters-m.open {
     display: block;
+    color: black;
 }
 .category-modal-m {
     display: none;
