@@ -414,12 +414,15 @@ pre { /* DEBUG */
     gap: 10px; /* Отступ между кнопками */
 }
 .clear-filters-m {
-    display: none; /* По умолчанию скрыто */
-    cursor: pointer;
+    display: none;
+    background: transparent;
+    border: none;
     font-size: 18px;
     color: red;
-    transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+    margin-left: 10px;
 }
+
 .clear-filters-m:hover {
     opacity: 0.7;
 }

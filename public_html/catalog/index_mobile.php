@@ -303,33 +303,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         });
     }
 
-    // Перенаправление на раздел с учетом фильтров
-    function redirectToSection(sectionId) {
-        let urlParams = new URLSearchParams(window.location.search);
-
-        // Добавляем/обновляем параметр SECTION_ID
-        urlParams.set('SECTION_ID', sectionId);
-
-        // Передаем все фильтры
-        const filterProperties = [
-            'EL_CONNECTION_TYPE',
-            'EL_DRIVE_TYPE',
-            'EL_DN_DIAMETER_MM',
-            'EL_PN_PRESSURE_KGF_CM2',
-            'EL_BODY_MATERIAL',
-            'EL_FIGURE_TABLE'
-        ];
-
-        filterProperties.forEach(property => {
-            let filterValue = document.getElementById(property)
-                ? document.getElementById(property).value
-                : 'all';
-            urlParams.set(property, filterValue);
-        });
-
-        window.location.href = '/catalog/index.php?' + urlParams.toString();
-    }
-
     // Обработка кликов на элемент каталога
     document.querySelectorAll('.catalog-item').forEach(item => {
         item.addEventListener('click', (event) => {
@@ -559,13 +532,30 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         modal.style.display = modal.style.display === "block" ? "none" : "block";
     }
 
-    // Перенаправление на новую категорию, сбрасывая пагинацию
+    // Перенаправление на раздел с учетом фильтров
     function redirectToSection(sectionId) {
         let urlParams = new URLSearchParams();
         urlParams.set('SECTION_ID', sectionId);
         urlParams.delete('PAGEN_1'); // Сброс пагинации
 
-        window.location.href = '?' + urlParams.toString();
+        // Передаем все фильтры
+        const filterProperties = [
+            'EL_CONNECTION_TYPE',
+            'EL_DRIVE_TYPE',
+            'EL_DN_DIAMETER_MM',
+            'EL_PN_PRESSURE_KGF_CM2',
+            'EL_BODY_MATERIAL',
+            'EL_FIGURE_TABLE'
+        ];
+
+        filterProperties.forEach(property => {
+            let filterValue = document.getElementById(property)
+                ? document.getElementById(property).value
+                : 'all';
+            urlParams.set(property, filterValue);
+        });
+
+        window.location.href = '/catalog/index.php?' + urlParams.toString();
     }
 
     // Функция для проверки активных фильтров
@@ -573,7 +563,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         let urlParams = new URLSearchParams(window.location.search);
         let filterKeys = ['EL_CONNECTION_TYPE', 'EL_DRIVE_TYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGURE_TABLE'];
         let hasFilters = filterKeys.some(key => urlParams.has(key) && urlParams.get(key) !== 'all');
-        document.querySelector('.clear-filters-m').style.display = hasFilters ? 'inline' : 'none';
+        document.querySelector('.clear-filters-m').style.display = hasFilters ? 'inline-block' : 'none';
     }
 
     // Функция сброса всех фильтров
