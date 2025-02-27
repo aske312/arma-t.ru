@@ -627,9 +627,10 @@
     outline: none;
 }
 .contact-form-m textarea {
+    transition: border-color 0.3s ease-in-out;
+    border: 1px solid #ccc;
     resize: none;
-    border-color: #007bff;
-    outline: none;
+    font-size: 16px;
 }
 .form-actions-m {
     display: flex;
