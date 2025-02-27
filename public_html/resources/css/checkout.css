@@ -236,6 +236,8 @@
 .checkout-title-m {
     text-align: center;
     margin-bottom: 20px;
+    background: url('/resources/img/block/pattern.png') no-repeat center;
+    background-size: cover; /* Заполнение всей доступной области без растягивания */
 }
 .empty-cart-m {
     text-align: center;
@@ -250,7 +252,7 @@
 }
 .checkout-block-m {
     width: 100%;
-    max-width: 800px;
+    max-width: 750px;
     margin: 0 auto;
     padding: 20px;
     background: white;
@@ -281,6 +283,7 @@
 .product-checkout-m .product-info-m {
     flex: 1;
     text-align: left;
+    color: black;
 }
 
 .total-price-m {
@@ -288,6 +291,7 @@
     font-weight: bold;
     text-align: right;
     margin-top: 10px;
+    color: red;
 }
 .button-group-m {
     display: flex;
