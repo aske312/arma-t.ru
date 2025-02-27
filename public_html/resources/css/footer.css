@@ -68,9 +68,16 @@
     align-items: center;
 }
 .developer-credit {
+    background: black;
     display: flex;
     width: 800px;
     text-align: left;
+}
+.developer-credit h1 {
+    font-size: 10px;
+}
+.developer-credit p {
+    font-size: 8px;
 }
 
 /** мобильная версия **/
