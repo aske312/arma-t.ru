@@ -24,7 +24,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 
 <div class="checkout-title-m">
     <h2>Оформление заказа</h2>
-    <p>Товары в корзине</p>
+    <!-- <p>Товары в корзине</p> -->
 </div>
 
 <!-- Сообщение, если корзина пуста -->
