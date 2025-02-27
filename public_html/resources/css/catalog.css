@@ -379,11 +379,36 @@ pre { /* DEBUG */
     align-items: flex-start;
 }
 .catalog-sidebar-m {
+    position: fixed;
+    left: 0;
+    top: 100px;
+    height: auto;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    z-index: 1000;
+    transition: left 0.3s ease-in-out;
+}
+.sidebar-toggle-m {
+    writing-mode: vertical-rl; /* Поворачиваем текст вертикально */
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+}
+.sidebar-content-m {
+    position: absolute;
+    left: -250px;
+    top: 0;
     width: 250px;
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background: white;
+    color: black;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 0 6px 6px 0;
+    transition: left 0.3s ease-in-out;
 }
 .catalog-menu-m {
     list-style: none;
@@ -398,7 +423,7 @@ pre { /* DEBUG */
     align-items: center;
     gap: 10px;
     padding: 10px;
-    background: white;
+    background: #f9f9f9;
     border-radius: 6px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
@@ -414,6 +439,9 @@ pre { /* DEBUG */
 }
 .catalog-content-m {
     flex: 1;
+}
+.sidebar-open {
+    left: 0 !important;
 }
 .filter-title-m {
     display: flex;

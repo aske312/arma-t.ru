@@ -145,6 +145,8 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 <div class="catalog-container-m">
 
     <!-- Боковое меню категорий -->
+
+    <!--
     <div class="catalog-sidebar-m">
         <h2>Разделы</h2>
 
@@ -166,6 +168,34 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <?php endforeach; ?>
             <?php endif; ?>
         </ul>
+    </div> -->
+
+    <!-- Выпадающее боковое меню -->
+    <div class="catalog-sidebar-m">
+        <div class="sidebar-toggle-m" onclick="toggleSidebar()">
+            <span>Разделы</span>
+        </div>
+
+        <div id="sidebar-content" class="sidebar-content-m">
+            <ul id="catalog-menu" class="catalog-menu-m">
+                <?php if (!empty($arResult['SECTIONS'])): ?>
+                    <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+                        <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
+                        <li>
+                            <div class="category-block-m <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                                <?php if ($arSection['PICTURE']): ?>
+                                    <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
+                                    <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
+                                <?php else: ?>
+                                    <img alt="Нет изображения" src="/resources/img/no_image.png">
+                                <?php endif; ?>
+                                <div class="category-text-m"><?= $arSection['NAME']; ?></div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </ul>
+        </div>
     </div>
 
     <div class="catalog-content-m">
@@ -607,6 +637,20 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
     document.addEventListener("DOMContentLoaded", function () {
         loadCart(); // Загружаем корзину при загрузке страницы
     });
+
+    function toggleSidebar() {
+        let sidebarContent = document.getElementById("sidebar-content");
+
+        if (sidebarContent.style.left === "-250px" || sidebarContent.style.left === "") {
+            sidebarContent.style.left = "0";
+        } else {
+            sidebarContent.style.left = "-250px";
+        }
+    }
+
+    function redirectToSection(sectionId) {
+        window.location.href = `/catalog/index.php?SECTION_ID=${sectionId}`;
+    }
 
     function toggleFilters() {
         let filters = document.querySelector(".catalog-filters-m");
