@@ -208,7 +208,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             </div>
         </div>
 
-        <!-- Список элементов каталога -->
+        <!-- Список элементов каталога --> <!--
         <div class="catalog-items-m">
             <?php
             $itemsFound = false;
@@ -271,7 +271,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <?php if (!$itemsFound): ?>
                 <p>Ничего не найдено</p>
             <?php endif; ?>
-        </div>
+        </div> -->
 
         <!-- Пагинация -->
         <div class="pagination-m">
