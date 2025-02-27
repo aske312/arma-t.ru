@@ -105,11 +105,11 @@
     margin: 5px 0;
 }
 .map-m {
-    flex: 0 0 475px;
+    flex: 0 0 350px;
 }
 #map {
     width: 100%;
-    height: 475px;
+    height: auto;
     border-radius: 10px;
 }
 .footer-title-m {
