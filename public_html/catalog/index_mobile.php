@@ -149,13 +149,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 <div class="catalog-container-m">
     <div class="catalog-content-m">
 
-        <!-- Кнопки "Фильтры" и "Разделы" в одной линии -->
+        <!-- Кнопки "Фильтры" и "Разделы" в одной линии --> <!--
         <div class="catalog-controls-m">
             <div class="filters-wrapper-m">
                 <button class="filter-title-m" onclick="toggleFilters()">Фильтры <span id="filters-arrow">▼</span></button>
                 <span class="clear-filters-m" onclick="clearFilters()" style="display: none;">❌</span>
             </div>
             <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
+        </div> -->
+
+        <div class="catalog-controls-m">
+            <button class="filter-title-m" onclick="toggleFilters()">Фильтры <span id="filters-arrow">▼</span></button>
+            <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
+            <button class="clear-filters-m" onclick="clearFilters()" style="display: none;">✖</button>
         </div>
 
         <!-- Выпадающий список фильтров -->
