@@ -414,12 +414,40 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         <?php endif; ?>
 
         filters.forEach(filter => {
-            let [key, value] = filter.split('=');
-            urlParams.set(key, value);
+//            let [key, value] = filter.split('=');
+//            urlParams.set(key, value);
+            let value = document.getElementById(filter)?.value || 'all';
+            urlParams.set(filter, value);
         });
 
         window.location.search = urlParams.toString();
     }
+
+    function updateClearFiltersButton() {
+        const allFilters = document.querySelectorAll(".catalog-filters-m select");
+        const clearButton = document.querySelector(".clear-filters-m");
+
+        let hasActiveFilters = false;
+        allFilters.forEach(filter => {
+            if (filter.value !== "all") {
+                hasActiveFilters = true;
+            }
+        });
+
+        if (hasActiveFilters) {
+            clearButton.style.display = "inline-block"; // Показываем кнопку
+        } else {
+            clearButton.style.display = "none"; // Скрываем кнопку
+        }
+    }
+
+    // Сброс фильтров
+    document.querySelector(".clear-filters-m").addEventListener("click", function () {
+        const allFilters = document.querySelectorAll(".catalog-filters-m select");
+        allFilters.forEach(filter => filter.value = "all");
+
+        applyFilter();
+    });
 
     // Логика работы корзины
     const EXPIRY_DAYS = 3;

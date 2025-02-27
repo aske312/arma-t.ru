@@ -414,6 +414,7 @@ pre { /* DEBUG */
     gap: 10px; /* Отступ между кнопками */
 }
 .clear-filters-m {
+    display: none; /* По умолчанию скрыто */
     cursor: pointer;
     font-size: 18px;
     color: red;
