@@ -381,7 +381,7 @@ pre { /* DEBUG */
 .filter-title-m,
 .category-button-m {
     flex: 1;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: #2654A2;
     color: white;
     border: none;
     padding: 10px 15px;
