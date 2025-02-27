@@ -422,7 +422,8 @@ pre { /* DEBUG */
     background: rgba(0, 0, 0, 0.6);
 }
 .category-modal-content-m {
-    /* background: white; */
+    background: white;
+    color: black;
     width: 80%;
     max-width: 400px;
     margin: 10% auto;
