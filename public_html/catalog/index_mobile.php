@@ -194,12 +194,13 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
                             <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
                             <li class="category-item-m <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+                            <!--
                                 <?php if ($arSection['PICTURE']): ?>
                                     <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
                                     <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
                                 <?php else: ?>
                                     <img alt="Нет изображения" src="/resources/img/no_image.png">
-                                <?php endif; ?>
+                                <?php endif; ?> -->
                                 <span><?= $arSection['NAME']; ?></span>
                             </li>
                         <?php endforeach; ?>

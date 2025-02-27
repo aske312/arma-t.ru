@@ -450,11 +450,13 @@ pre { /* DEBUG */
     border-bottom: 1px solid #ddd;
     cursor: pointer;
 }
+/*
 .category-item-m img {
     width: 40px;
     height: 40px;
     margin-right: 10px;
 }
+*/
 .category-item-m.active {
     font-weight: bold;
     background: #f0f0f0;
