@@ -51,7 +51,8 @@
         <!-- Блок с картой -->
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
         <div class="map-m">
-            <div id="map" style="width: 350px; height: 350px;"></div>
+            <!-- <div id="map" style="width: 350px; height: 350px;"></div> -->
+            <div id="map"></div>
             <script>
                 ymaps.ready(init);
                 function init() {

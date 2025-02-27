@@ -105,7 +105,7 @@
     margin: 5px 0;
 }
 .map-m {
-    flex: 0 0 350px;
+    /* flex: 0 0 350px; */
 }
 #map {
     width: 100%;
