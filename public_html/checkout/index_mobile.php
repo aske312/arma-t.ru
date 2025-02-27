@@ -74,7 +74,8 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
             let itemDiv = document.createElement('div');
             itemDiv.classList.add('product-checkout-m');
 
-            let priceText = item.price && item.price !== "По запросу" ? `${item.price} ₽` : "По запросу";
+            let priceText = isNaN(parseFloat(item.price)) ? "По запросу" : `${item.price} ₽`;
+            let totalPrice = isNaN(parseFloat(item.price)) ? "По запросу" : `${(parseFloat(item.price) * item.quantity).toFixed(2)} ₽`;
 
             itemDiv.innerHTML = `
                 <button class="remove-button-m" data-index="${index}">&times;</button>
@@ -90,7 +91,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                         <input type="number" class="quantity-input-m" data-index="${index}" value="${item.quantity}" min="0">
                         <button class="quantity-btn-m plus" data-index="${index}">+</button>
                     </div>
-                    <p>В сумме: <strong>${(parseFloat(item.price) * item.quantity).toFixed(2) || "По запросу"} ₽</strong></p>
+                    <p>В сумме: <strong>${totalPrice}</strong></p>
                 </div>
             `;
 
@@ -143,8 +144,8 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
 
     function updateTotal(cartItems) {
         let totalAmount = cartItems.reduce((total, item) => {
-            let price = parseFloat(item.price) || 0;
-            return total + (price * item.quantity);
+            let price = parseFloat(item.price);
+            return isNaN(price) ? total : total + (price * item.quantity);
         }, 0);
         document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount > 0 ? totalAmount.toFixed(2) + " ₽" : "По запросу"}`;
     }
