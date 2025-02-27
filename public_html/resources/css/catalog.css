@@ -404,7 +404,7 @@ pre { /* DEBUG */
     width: 100%;
     max-width: 350px;
     left: 50%;
-    transform: translateX(-40%);
+    transform: translateX(-50%);
     z-index: 1000;
 }
 .catalog-filters-m.open {
