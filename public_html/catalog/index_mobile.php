@@ -137,107 +137,262 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 <!-- /Yandex.Metrika counter -->
 
 <!-- Названия каталога и описания -->
-
 <div class="section-title-m">
     <h2><?= isset($selectedSection['NAME']) ? $selectedSection['NAME'] : 'Применен фильтр'; ?></h2>
-    <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберите необходимые позиции'; ?></p>
+    <p><?= isset($selectedSection['DESCRIPTION']) && !empty($selectedSection['DESCRIPTION']) ? $selectedSection['DESCRIPTION'] : 'Выберете необходимые позиции'; ?></p>
 </div>
 
 <div class="catalog-container-m">
 
-    <div class="catalog-controls-m">
-        <button class="section-btn-m" onclick="toggleSections()">
-            Разделы <span id="sections-arrow">▼</span>
-        </button>
+    <!-- Кнопка для открытия разделов -->
+    <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
 
-        <button class="filter-title-m" onclick="toggleFilters()">
-            Фильтры <span id="filters-arrow">▼</span>
-        </button>
-    </div>
+    <!-- Модальное окно с категориями -->
+    <div id="category-modal" class="category-modal-m">
+        <div class="category-modal-content-m">
+            <span class="close-modal-m" onclick="toggleCategoryModal()">&times;</span>
+            <h2>Выберите раздел</h2>
 
-    <div id="catalog-sections" class="catalog-sections-m">
-        <ul class="catalog-menu-m">
-            <?php if (!empty($arResult['SECTIONS'])): ?>
-                <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
-                    <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
-                    <li>
-                        <div class="category-block-m <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
+            <ul class="category-list-m">
+                <?php if (!empty($arResult['SECTIONS'])): ?>
+                    <?php foreach ($arResult['SECTIONS'] as $arSection): ?>
+                        <?php $isActive = ($arSection['ID'] == $sectionId) ? 'active' : ''; ?>
+                        <li class="category-item-m <?= $isActive; ?>" onclick="redirectToSection(<?= $arSection['ID']; ?>)">
                             <?php if ($arSection['PICTURE']): ?>
                                 <?php $imgPath = CFile::GetPath($arSection['PICTURE']); ?>
                                 <img alt="<?= $arSection['NAME']; ?>" src="<?= $imgPath; ?>">
                             <?php else: ?>
                                 <img alt="Нет изображения" src="/resources/img/no_image.png">
                             <?php endif; ?>
-                            <div class="category-text-m"><?= $arSection['NAME']; ?></div>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </ul>
-    </div>
-
-    <div id="catalog-filters" class="catalog-filters-m">
-        <?php foreach ($filterValues as $propertyCode => $values): ?>
-            <?php if (empty($values)) continue; ?>
-            <div class="filter-m">
-                <div class="filter-item-m">
-                    <label for="<?= $propertyCode ?>" class="filter-label-m">
-                        <?= getFilterLabel($propertyCode) ?>:
-                    </label>
-                    <div class="filter-content-m">
-                        <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
-                            <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
-                            <?php foreach ($values as $value): ?>
-                                <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
-                                    <?= $value ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
-                            <span class="unit-m">мм</span>
-                        <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
-                            <span class="unit-m">кгс/см²</span>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
+                            <span><?= $arSection['NAME']; ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </ul>
+        </div>
     </div>
 
     <div class="catalog-content-m">
-        <!-- Здесь будет список товаров -->
+
+        <!-- Заголовок для фильтров (кнопка) -->
+        <button class="filter-title-m" onclick="toggleFilters()">
+            Фильтры  <span id="filters-arrow">▼</span>
+        </button>
+
+        <!-- Фильтры -->
+        <div class="catalog-filters-m">
+            <?php foreach ($filterValues as $propertyCode => $values): ?>
+                <?php if (empty($values)) continue; ?> <!-- Если значений нет, пропускаем этот фильтр -->
+                <div class="filter-m">
+                    <!-- Фильтр для диаметра -->
+                    <?php if ($propertyCode == 'EL_DN_DIAMETER_MM'): ?>
+                        <div class="filter-item-m">
+                            <label for="<?= $propertyCode ?>" class="filter-label-m">Диаметр DN:</label>
+                            <div class="filter-content-m">
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($values as $value): ?>
+                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="unit-m">мм</span>
+                            </div>
+                        </div>
+                    <?php elseif ($propertyCode == 'EL_PN_PRESSURE_KGF_CM2'): ?>
+                        <!-- Фильтр для давления -->
+                        <div class="filter-item-m">
+                            <label for="<?= $propertyCode ?>" class="filter-label-m">Давление PN:</label>
+                            <div class="filter-content-m">
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($values as $value): ?>
+                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="unit-m">кгс/см²</span>
+                            </div>
+                        </div>
+                    <?php elseif ($propertyCode == 'EL_CONNECTION_TYPE'): ?>
+                        <!-- Фильтр для типа соединения -->
+                        <div class="filter-item-m">
+                            <label for="<?= $propertyCode ?>" class="filter-label-m">Тип присоединения:</label>
+                            <div class="filter-content-m">
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($values as $value): ?>
+                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    <?php elseif ($propertyCode == 'EL_DRIVE_TYPE'): ?>
+                        <!-- Фильтр для типа привода -->
+                        <div class="filter-item-m">
+                            <label for="<?= $propertyCode ?>" class="filter-label-m">Тип привода:</label>
+                            <div class="filter-content-m">
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($values as $value): ?>
+                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    <?php elseif ($propertyCode == 'EL_BODY_MATERIAL'): ?>
+                        <!-- Фильтр для материала корпуса -->
+                        <div class="filter-item-m">
+                            <label for="<?= $propertyCode ?>" class="filter-label-m">Материал корпуса:</label>
+                            <div class="filter-content-m">
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($values as $value): ?>
+                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    <?php elseif ($propertyCode == 'EL_FIGURE_TABLE'): ?>
+                        <!-- Фильтр для таблиц фигур -->
+                        <div class="filter-item-m">
+                            <label for="<?= $propertyCode ?>" class="filter-label-m">Таблица фигур:</label>
+                            <div class="filter-content-m">
+                                <select id="<?= $propertyCode ?>" name="<?= $propertyCode ?>" onchange="applyFilter()">
+                                    <option value="all" <?= (empty($_GET[$propertyCode]) || $_GET[$propertyCode] == 'all') ? 'selected' : ''; ?>>Все</option>
+                                    <?php foreach ($values as $value): ?>
+                                        <option value="<?= $value ?>" <?= ($_GET[$propertyCode] == $value) ? 'selected' : ''; ?>>
+                                            <?= $value ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Анимация загрузки -->
+        <div id="loader" class="loader-m" style="display: none;">Загрузка...</div>
+
+        <!-- Чекбокс для выбора всех товаров -->
+        <!--
+        <div class="select-all-m">
+            <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
+            <label for="select-all">Выбрать все</label>
+            <button class="catalog-add-all-m">В корзину</button>
+        </div> -->
+
+        <!-- Список элементов каталога -->
+        <div class="catalog-items-m">
+            <?php
+            $itemsFound = false;
+
+            // Внутри цикла, где формируются элементы каталога
+            while ($ob = $res->GetNextElement()):
+                $arFields = $ob->GetFields();
+                $arProps = $ob->GetProperties();
+                foreach ($arResult['SECTIONS'] as $arSection):
+                    if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
+                        $itemsFound = true;
+
+                        // Получаем путь к изображению
+                        $productImage = '';
+                        if (!empty($arProps['EL_IMAGES']['VALUE'])) {
+                            $productImage = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
+                        } elseif ($arFields['PREVIEW_PICTURE']) {
+                            $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+                        } elseif ($arFields['PICTURE']) {
+                            $productImage = CFile::GetPath($arFields['PICTURE']);
+                        } elseif ($arSection['PICTURE']) {
+                            $productImage = CFile::GetPath($arSection['PICTURE']);
+                        } else {
+                            $productImage = "/resources/img/no_image.png";
+                        }
+            ?>
+
+                        <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
+                            <!-- Ссылка на детальную страницу -->
+                            <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link-m">
+                                <div class="catalog-item-header-m">
+                                    <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image-m">
+                                    <div class="catalog-item-info-m">
+                                        <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
+                                        <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
+                                        <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                                        <p>
+                                            <div class="catalog-item-price-m">
+                                                <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
+                                                if ($price == 0 || empty($price)) {
+                                                    echo 'По запросу';
+                                                } else {
+                                                    echo $price . ' руб.';
+                                                } ?>
+                                            </div>
+                                        </p>
+                                    </div>
+
+                                    <div class="catalog-item-controls-m">
+                                        <button class="catalog-item-add-to-cart-m"
+                                                data-id="<?= $arFields['ID']; ?>"
+                                                data-image="<?= $productImage; ?>"
+                                                data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
+                                                data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
+                                                data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
+                                            В корзину
+                                        </button>
+                                    </div>
+                                </div>
+                                                                <!-- Краткое описание элемента -->
+                                <div class="catalog-item-properties-m">
+                                    <table>
+                                        <?php if (!empty($arProps['EL_CONNECTION_TYPE']['VALUE'])): ?>
+                                            <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
+                                        <?php endif; ?>
+                                        <?php if (!empty($arProps['EL_DRIVE_TYPE']['VALUE'])): ?>
+                                            <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
+                                        <?php endif; ?>
+                                        <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
+                                            <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
+                                        <?php endif; ?>
+                                        <?php if (!empty($arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE'])): ?>
+                                            <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
+                                        <?php endif; ?>
+                                        <?php if (!empty($arProps['EL_BODY_MATERIAL']['VALUE'])): ?>
+                                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                                        <?php endif; ?>
+                                    </table>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endwhile; ?>
+
+            <?php if (!$itemsFound): ?>
+                <p>Ничего не найдено</p>
+            <?php endif; ?>
+        </div>
+
+        <!-- Пагинация -->
+        <div class="pagination-m">
+            <?= $arResult['NAV_STRING']; ?>
+        </div>
     </div>
-
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 <script>
-    function toggleSections() {
-        const menu = document.getElementById("catalog-sections");
-        const arrow = document.getElementById("sections-arrow");
-        menu.classList.toggle("open");
-        arrow.textContent = menu.classList.contains("open") ? "▲" : "▼";
-    }
 
-    function toggleFilters() {
-        const filters = document.getElementById("catalog-filters");
-        const arrow = document.getElementById("filters-arrow");
-        filters.classList.toggle("open");
-        arrow.textContent = filters.classList.contains("open") ? "▲" : "▼";
-    }
-
-    function redirectToSection(sectionId) {
-        window.location.href = "?section=" + sectionId;
-    }
-
-    function applyFilter() {
-        let params = new URLSearchParams(window.location.search);
-        document.querySelectorAll('.catalog-filters-m select').forEach(select => {
-            params.set(select.name, select.value);
-        });
-        window.location.search = params.toString();
-    }
 </script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
