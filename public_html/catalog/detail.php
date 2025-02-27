@@ -2,6 +2,15 @@
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/detail.css"); // css
 
+// MOBILE VERSION
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
+
+if ($isMobile) {
+    include 'detail_mobile.php';
+    return;
+}
+
 if (CModule::IncludeModule("iblock")) {
     $productId = intval($_GET['ID']);
     $res = CIBlockElement::GetByID($productId);

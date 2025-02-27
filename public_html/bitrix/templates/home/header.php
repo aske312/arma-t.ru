@@ -80,7 +80,7 @@ if ($element = $res->Fetch()) {
                 <!-- Расширенная поисковая строка -->
                 <form class="nav-search-form" method="GET" action="index.php">
                     <input type="text" id="search" class="full-width-search" placeholder="Поиск...">
-                    <div id="suggestions"></div> <!-- Здесь будут отображаться предложения -->
+                    <div id="suggestions"></div>
                 </form>
             </div>
 
