@@ -253,34 +253,3 @@
 .back-button-m:hover {
     background: #5a6268;
 }
-.pagination-m {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-.pagination-m a,
-.pagination-m span {
-    display: inline-block;
-    padding: 8px 12px;
-    border-radius: 5px;
-    background: #f0f0f0;
-    color: #333;
-    text-decoration: none;
-    font-size: 14px;
-    transition: background 0.2s, color 0.2s;
-}
-.pagination-m a:hover {
-    background: #007BFF;
-    color: white;
-}
-.pagination-m .current {
-    background: #007BFF;
-    color: white;
-    font-weight: bold;
-}
-.pagination-m .prev, .pagination-m .next {
-    font-weight: bold;
-}
