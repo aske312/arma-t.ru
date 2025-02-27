@@ -269,7 +269,7 @@
 .product-checkout-m {
     /* display: flex; */
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     gap: 15px;
     padding: 5px;
     border-bottom: 1px solid #ddd;
