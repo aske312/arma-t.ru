@@ -91,12 +91,13 @@
     color: white;
     display: flex;
     justify-content: center;
+    padding: 10px;
 }
 .conts-wrapper-m {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    max-width: 800px;
+    max-width: 400px;
     width: 100%;
 }
 .cont-info-m {
@@ -107,7 +108,7 @@
 .cont-info-m h3 {
     color: #f8f8f8;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 15px;
 }
 .cont-details-m p {
     font-size: 11px;
@@ -120,8 +121,8 @@
     padding: 20px;
 }
 .map-m iframe {
-    max-width: 350px;
-    height: 350px;
+    max-width: 250px;
+    height: 250px;
     border: none;
     display: block;
 }
