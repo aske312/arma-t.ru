@@ -235,22 +235,6 @@
 /** мобильная версия **/
 .checkout-m {
     width: 100%;
-    /* max-width: 800px; */
-    margin: 0 auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-
-    /*
-    font-family: Arial, sans-serif;
-    color: #333;
-    margin: 0;
-    padding: 0; */
-}
-.section-title-m {
-    width: 100%;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -258,6 +242,11 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+.section-title-m {
+    background: url('/resources/img/block/pattern.png') no-repeat center;
+    background-size: cover; /* Заполнение всей доступной области без растягивания */
+    color: #fff;
 }
 .section-title-m h2 {
     font-size: 24px;
