@@ -105,12 +105,16 @@ foreach ($filterValues as $propertyCode => $values) {
     sort($filterValues[$propertyCode]);
 }
 
-// Получаем элементы с учётом фильтров и пагинации
+// Принудительно устанавливаем страницу 1, если параметра PAGEN_1 нет
+if (!isset($_GET['PAGEN_1'])) {
+    $_GET['PAGEN_1'] = 1;
+}
+
 $res = CIBlockElement::GetList(
     ['ID' => 'ASC'],
     $elementFilter,
     false,
-    ['nPageSize' => 10],
+    ['nPageSize' => 10, 'iNumPage' => $_GET['PAGEN_1']],
     $elementSelect
 );
 
