@@ -94,7 +94,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                 </div>
             `;
             itemDiv.addEventListener('click', function () {
-                window.location.href = `/catalog/detail.php?id=${item.id}`;
+                window.location.href = `/catalog/detail.php?ID=${item.id}`;
             });
 
             cartItemsContainer.appendChild(itemDiv);
