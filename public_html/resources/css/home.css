@@ -602,6 +602,7 @@
     background: white;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1); /* Легкий фон для формы */
     max-width: 350px;
     width: 100%;
     text-align: center;
@@ -609,7 +610,7 @@
 .contact-form-m h2 {
     font-size: 24px;
     margin-bottom: 20px;
-    color: black;
+    color: white;
 }
 .contact-form-m input,
 .contact-form-m textarea {
@@ -634,7 +635,7 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
-    padding: 10px;
+    padding: 5px;
 }
 .newsletter-label-m {
     display: flex;
@@ -644,7 +645,7 @@
     color: black;
 }
 .newsletter-label-m input {
-    margin-right: 8px;
+    /* margin-right: 8px; */
 }
 
 /*********** Блок доставки ************/
