@@ -580,6 +580,7 @@ header {
     font-size: 12px;
     cursor: pointer;
     gap: 8px; /* Отступ между чекбоксом и текстом */
+    color: black;
 }
 .newsletter-label-header input[type="checkbox"] {
     width: 16px;
