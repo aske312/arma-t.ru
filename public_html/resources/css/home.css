@@ -588,7 +588,6 @@
 }
 
 /** Мобильная версия **/
-/* Основной контейнер формы */
 .section5-m {
     width: 100%;
     display: flex;
@@ -638,14 +637,18 @@
     padding: 5px;
 }
 .newsletter-label-m {
-    display: inline;
-    /* align-items: center; */
+    display: flex; /* Делаем чекбокс и текст в одной строке */
+    align-items: center; /* Выравниваем по вертикали */
     font-size: 12px;
     cursor: pointer;
     color: white;
+    gap: 8px; /* Отступ между чекбоксом и текстом */
 }
-.newsletter-label-m input {
-    /* margin-right: 10px; */
+.newsletter-label-m input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #007bff; /* Цвет чекбокса */
+    cursor: pointer;
 }
 
 /*********** Блок доставки ************/
