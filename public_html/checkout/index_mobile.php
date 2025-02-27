@@ -55,60 +55,84 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
         let emptyCartMessage = document.getElementById('empty-cart-message');
 
         if (!cartDataString) {
-            // Показываем сообщение о пустой корзине, скрываем блок с товарами
             emptyCartMessage.style.display = "block";
             checkoutBlock.style.display = "none";
             return;
         }
 
         let cartData = JSON.parse(cartDataString);
-
         if (!cartData || !Array.isArray(cartData.cartItems) || cartData.cartItems.length === 0) {
             emptyCartMessage.style.display = "block";
             checkoutBlock.style.display = "none";
             return;
         }
 
-        // Показываем блок с корзиной, скрываем сообщение о пустой корзине
         emptyCartMessage.style.display = "none";
         checkoutBlock.style.display = "block";
 
-        // Очищаем контейнер перед добавлением новых элементов
         cartItemsContainer.innerHTML = '';
 
         cartData.cartItems.forEach((item, index) => {
             let itemDiv = document.createElement('div');
-            itemDiv.classList.add('cart-item');
-
-            let imageHTML = item.image ?
-                `<div class="product-image-m"><img src="${item.image}" alt="${item.name}"></div>` :
-                `<div class="product-image-m"><img src="/resources/img/production/0.png" alt="Нет изображения"></div>`;
+            itemDiv.classList.add('product-checkout-m');
 
             let priceText = item.price && item.price !== "По запросу" ? `${item.price} ₽` : "По запросу";
 
             itemDiv.innerHTML = `
-                ${imageHTML}
+                <div class="product-image-m">
+                    <img src="${item.image || '/resources/img/production/0.png'}" alt="${item.name}">
+                </div>
                 <div class="product-info-m">
                     <span><strong>${item.name}</strong></span>
-                    <span>Артикул: <strong>${item.article}</strong></span>
-                    <span class="price-m">Цена за единицу: <strong>${priceText}</strong></span>
-                    <span class="total-item-price-m">В сумме: <strong>${priceText}</strong></span>
+                    <p>Артикул: <strong>${item.article}</strong></p>
+                    <p>Цена за единицу: <strong>${priceText}</strong></p>
+                    <div class="quantity-control-m">
+                        <button class="quantity-btn-m minus" data-index="${index}">-</button>
+                        <input type="number" class="quantity-input-m" data-index="${index}" value="${item.quantity}" min="0">
+                        <button class="quantity-btn-m plus" data-index="${index}">+</button>
+                    </div>
+                    <p>В сумме: <strong>${priceText}</strong></p>
                 </div>
+                <button class="remove-button-m" data-index="${index}">&times;</button>
             `;
             cartItemsContainer.appendChild(itemDiv);
+        });
+
+        document.querySelectorAll('.quantity-btn-m').forEach(button => {
+            button.addEventListener('click', adjustQuantity);
+        });
+
+        document.querySelectorAll('.remove-button-m').forEach(button => {
+            button.addEventListener('click', removeItem);
         });
 
         updateTotal(cartData.cartItems);
     }
 
-    // Обновление итоговой суммы
-    function updateTotal(cartItems) {
-        let totalAmount = cartItems.reduce((total, item) => {
-            let price = isNaN(parseFloat(item.price)) ? 0 : parseFloat(item.price);
-            return total + (price * item.quantity);
-        }, 0);
+    function adjustQuantity(event) {
+        let index = event.target.getAttribute('data-index');
+        let cartData = JSON.parse(localStorage.getItem('cartItems'));
 
-        document.getElementById('total-amount').innerText = `Итоговая сумма: ${totalAmount > 0 ? totalAmount.toFixed(2) + " ₽" : "По запросу"}`;
+        if (event.target.classList.contains('plus')) {
+            cartData.cartItems[index].quantity++;
+        } else if (event.target.classList.contains('minus')) {
+            cartData.cartItems[index].quantity--;
+        }
+
+        if (cartData.cartItems[index].quantity <= 0) {
+            cartData.cartItems.splice(index, 1);
+        }
+
+        localStorage.setItem('cartItems', JSON.stringify(cartData));
+        loadCart();
+    }
+
+    function removeItem(event) {
+        let index = event.target.getAttribute('data-index');
+        let cartData = JSON.parse(localStorage.getItem('cartItems'));
+        cartData.cartItems.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cartData));
+        loadCart();
     }
 </script>
 
