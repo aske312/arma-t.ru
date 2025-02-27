@@ -438,7 +438,7 @@
 .category-table-m {
     display: grid;
     grid-template-columns: repeat(1, 1fr); /* 3 колонки по умолчанию */
-    max-width: 800px;
+    max-width: auto;
     width: 100%;
     margin: 0 auto;
     background-color: #DCDCDC; /* #1E3564; */
@@ -446,11 +446,11 @@
 
 /* Карточки категорий */
 .category-block-m {
-    top: 20px;
+    top: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 450px; /* Ширина блока фиксированная */
+    width: auto; /* Ширина блока фиксированная */
     margin: 10px;
     padding: 15px;
     cursor: pointer;
