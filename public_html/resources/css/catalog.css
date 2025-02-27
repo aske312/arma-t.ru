@@ -381,7 +381,7 @@ pre { /* DEBUG */
 .catalog-sidebar-m {
     position: fixed;
     left: 0;
-    top: 100px;
+    top: 250px;
     height: auto;
     background: #007bff;
     color: white;
@@ -394,13 +394,13 @@ pre { /* DEBUG */
 .sidebar-toggle-m {
     writing-mode: vertical-rl; /* Поворачиваем текст вертикально */
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
-    padding: 10px;
+    padding: 5px;
 }
 .sidebar-content-m {
     position: absolute;
-    left: -250px;
+    left: -350px;
     top: 0;
     width: 250px;
     background: white;
