@@ -102,15 +102,20 @@
 
 /** мобильная версия **/
 .section-title-m {
-    text-align: center;
+    text-align: left;
+    padding: 20px;
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Заполнение всей доступной области без растягивания */
-    color: #fff;
 }
 .section-title-m h2 {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 10px;
+}
+.section-title-m p {
+    text-align: left; /* Выравнивание по левому краю */
+    font-size: 18px;
+    color: #333;
 }
 .breadcrumbs-m {
     font-size: 14px;
@@ -119,11 +124,11 @@
     text-align: left;
 }
 .breadcrumbs-m a {
-    color: #007bff;
+    color: inherit; /* Обычный текст */
     text-decoration: none;
 }
 .breadcrumbs-m a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 .product-detail-m {
     background-color: white;
@@ -135,9 +140,17 @@
 }
 .product-content-m {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
-    justify-content: space-between;
+    text-align: center;
+}
+.product-info-m h1 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.product-image-m {
+    margin-bottom: 15px;
 }
 .product-image-m img {
     max-width: 300px;
@@ -145,17 +158,18 @@
     border-radius: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
-.product-info-m {
-    flex: 1;
-}
-.product-info-m h1 {
-    font-size: 22px;
-    margin-bottom: 10px;
+.product-meta-m {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 350px;
+    margin-top: 10px;
 }
 .product-articul-availability-m {
     font-size: 16px;
     color: #555;
-    margin-bottom: 10px;
 }
 .product-price-m p {
     font-size: 20px;
@@ -171,13 +185,13 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
-    margin-top: 10px;
 }
 .add-to-cart-m:hover {
     background: #0056b3;
 }
 .product-attributes-m {
     margin-top: 20px;
+    text-align: left;
 }
 .product-attributes-m h2 {
     font-size: 22px;
@@ -188,11 +202,18 @@
     border-collapse: collapse;
 }
 .product-attributes-m td {
-    /* padding: 10px; */
-    border: 1px solid #ddd;
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Только линия-разделитель */
 }
-.product-attributes-m tr:nth-child(even) {
-    /* background-color: #f9f9f9; */
+.product-attributes-m tr:last-child td {
+    border-bottom: none;
+}
+.product-attributes-m td:first-child {
+    font-weight: bold;
+    color: #333;
+}
+.product-attributes-m td:last-child {
+    color: #444;
 }
 .back-button-m {
     display: block;

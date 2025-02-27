@@ -91,13 +91,18 @@ if (CModule::IncludeModule("iblock")) {
     </div>
 </div>
 
-<div class="product-detail-m" style="background-color: white; border-radius: 5px; padding: 20px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+<div class="product-detail-m">
     <div class="product-content-m">
-        <div class="product-image-m">
-            <img src="<?php echo htmlspecialchars($productImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>"> <!-- Изображение товара -->
-        </div>
+        <!-- Название товара над картинкой -->
         <div class="product-info-m">
             <h1><?php echo htmlspecialchars($productName); ?></h1>
+        </div>
+        <!-- Картинка товара -->
+        <div class="product-image-m">
+            <img src="<?php echo htmlspecialchars($productImage); ?>" alt="<?php echo htmlspecialchars($productName); ?>">
+        </div>
+        <!-- Блок с артикулом, ценой и кнопкой -->
+        <div class="product-meta-m">
             <div class="product-articul-availability-m">Артикул: <?php echo htmlspecialchars($productArticul); ?> &nbsp; Срок изготовления: <?php echo htmlspecialchars($productAvailability); ?></div>
             <div class="product-price-m">
                 <p>Цена: <?php echo htmlspecialchars($productPrice); ?></p>
@@ -112,6 +117,7 @@ if (CModule::IncludeModule("iblock")) {
             </button>
         </div>
     </div>
+    <!-- Характеристики -->
     <?php if (!empty($productProperties)): ?>
         <div class="product-attributes-m">
             <h2>Характеристики</h2>
@@ -127,7 +133,7 @@ if (CModule::IncludeModule("iblock")) {
             </table>
         </div>
     <?php endif; ?>
-    <button class="back-button-m" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
+    <button class="back-button-m" onclick="history.back()">Назад</button>
 </div>
 
 <script>
