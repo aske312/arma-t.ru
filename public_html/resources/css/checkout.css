@@ -336,16 +336,20 @@
     color: darkred;
 }
 .total-price-m {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     text-align: right;
     margin-top: 10px;
-    margin-bottom: 20px;
     color: #222;
+}
+.button-group-m {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 .back-button-m, .order-button-m {
     padding: 10px 20px;
-    font-size: 20px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
