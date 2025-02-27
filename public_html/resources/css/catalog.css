@@ -408,6 +408,20 @@ pre { /* DEBUG */
     transform: translateX(-50%);
     z-index: 1000;
 }
+.filters-wrapper-m {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Отступ между кнопками */
+}
+.clear-filters-m {
+    cursor: pointer;
+    font-size: 18px;
+    color: red;
+    transition: opacity 0.2s ease-in-out;
+}
+.clear-filters-m:hover {
+    opacity: 0.7;
+}
 .catalog-filters-m.open {
     display: block;
     color: black;

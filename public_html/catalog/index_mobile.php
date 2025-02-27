@@ -151,7 +151,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
         <!-- Кнопки "Фильтры" и "Разделы" в одной линии -->
         <div class="catalog-controls-m">
-            <button class="filter-title-m" onclick="toggleFilters()">Фильтры <span id="filters-arrow">▼</span></button>
+            <div class="filters-wrapper-m">
+                <button class="filter-title-m" onclick="toggleFilters()">Фильтры <span id="filters-arrow">▼</span></button>
+                <span class="clear-filters-m" onclick="clearFilters()" style="display: none;">❌</span>
+            </div>
             <button class="category-button-m" onclick="toggleCategoryModal()">Разделы</button>
         </div>
 
@@ -524,14 +527,32 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
     // Перенаправление на новую категорию, сбрасывая пагинацию
     function redirectToSection(sectionId) {
-        let urlParams = new URLSearchParams(window.location.search);
+        let urlParams = new URLSearchParams();
         urlParams.set('SECTION_ID', sectionId);
         urlParams.delete('PAGEN_1'); // Сброс пагинации
 
         window.location.href = '?' + urlParams.toString();
     }
 
-    // Инициализация
+    // Функция для проверки активных фильтров
+    function checkActiveFilters() {
+        let urlParams = new URLSearchParams(window.location.search);
+        let filterKeys = ['EL_CONNECTION_TYPE', 'EL_DRIVE_TYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGURE_TABLE'];
+        let hasFilters = filterKeys.some(key => urlParams.has(key) && urlParams.get(key) !== 'all');
+        document.querySelector('.clear-filters-m').style.display = hasFilters ? 'inline' : 'none';
+    }
+
+    // Функция сброса всех фильтров
+    function clearFilters() {
+        let urlParams = new URLSearchParams(window.location.search);
+        // Очищаем все фильтры
+        ['EL_CONNECTION_TYPE', 'EL_DRIVE_TYPE', 'EL_DN_DIAMETER_MM', 'EL_PN_PRESSURE_KGF_CM2', 'EL_BODY_MATERIAL', 'EL_FIGURE_TABLE'].forEach(filter => {
+            urlParams.delete(filter);
+        });
+        window.location.search = urlParams.toString(); // Перезагрузка страницы с очищенными параметрами
+    }
+
+    document.addEventListener('DOMContentLoaded', checkActiveFilters);
     document.addEventListener('DOMContentLoaded', updateCartCounter);
 </script>
 
