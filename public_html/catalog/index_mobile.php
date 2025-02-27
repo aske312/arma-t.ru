@@ -281,31 +281,16 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <?php endforeach; ?>
         </div>
 
-        <!-- Анимация загрузки -->
-        <div id="loader" class="loader-m" style="display: none;">Загрузка...</div>
-
-        <!-- Чекбокс для выбора всех товаров -->
-        <!--
-        <div class="select-all-m">
-            <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
-            <label for="select-all">Выбрать все</label>
-            <button class="catalog-add-all-m">В корзину</button>
-        </div> -->
-
-        <!-- Список элементов каталога -->
+        <!-- Список элементов каталога --><!--
         <div class="catalog-items-m">
             <?php
             $itemsFound = false;
-
-            // Внутри цикла, где формируются элементы каталога
             while ($ob = $res->GetNextElement()):
                 $arFields = $ob->GetFields();
                 $arProps = $ob->GetProperties();
                 foreach ($arResult['SECTIONS'] as $arSection):
                     if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
                         $itemsFound = true;
-
-                        // Получаем путь к изображению
                         $productImage = '';
                         if (!empty($arProps['EL_IMAGES']['VALUE'])) {
                             $productImage = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
@@ -320,69 +305,47 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         }
             ?>
 
-                        <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
-                            <!-- Ссылка на детальную страницу -->
-                            <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link-m">
-                                <div class="catalog-item-header-m">
-                                    <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image-m">
-                                    <div class="catalog-item-info-m">
-                                        <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
-                                        <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
-                                        <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
-                                        <p>
-                                            <div class="catalog-item-price-m">
-                                                <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
-                                                if ($price == 0 || empty($price)) {
-                                                    echo 'По запросу';
-                                                } else {
-                                                    echo $price . ' руб.';
-                                                } ?>
-                                            </div>
-                                        </p>
+                <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
+                    <a href="detail.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link-m">
+                        <div class="catalog-item-header-m">
+                            <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image-m">
+                            <div class="catalog-item-info-m">
+                                <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
+                                <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
+                                <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                                <p>
+                                    <div class="catalog-item-price-m">
+                                        <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
+                                        if ($price == 0 || empty($price)) {
+                                            echo 'По запросу';
+                                        } else {
+                                            echo $price . ' руб.';
+                                        } ?>
                                     </div>
+                                </p>
+                            </div>
 
-                                    <div class="catalog-item-controls-m">
-                                        <button class="catalog-item-add-to-cart-m"
-                                                data-id="<?= $arFields['ID']; ?>"
-                                                data-image="<?= $productImage; ?>"
-                                                data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
-                                                data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
-                                                data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
-                                            В корзину
-                                        </button>
-                                    </div>
-                                </div>
-                                                                <!-- Краткое описание элемента -->
-                                <div class="catalog-item-properties-m">
-                                    <table>
-                                        <?php if (!empty($arProps['EL_CONNECTION_TYPE']['VALUE'])): ?>
-                                            <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_DRIVE_TYPE']['VALUE'])): ?>
-                                            <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
-                                            <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE'])): ?>
-                                            <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_BODY_MATERIAL']['VALUE'])): ?>
-                                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                    </table>
-                                </div>
-                            </a>
+                            <div class="catalog-item-controls-m">
+                                <button class="catalog-item-add-to-cart-m"
+                                        data-id="<?= $arFields['ID']; ?>"
+                                        data-image="<?= $productImage; ?>"
+                                        data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
+                                        data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
+                                        data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
+                                    В корзину
+                                </button>
+                            </div>
                         </div>
-                    <?php endif; ?>
+                    </a>
+                </div>
+                <?php endif; ?>
                 <?php endforeach; ?>
-            <?php endwhile; ?>
-
-            <?php if (!$itemsFound): ?>
+                <?php endwhile; ?>
+                <?php if (!$itemsFound): ?>
                 <p>Ничего не найдено</p>
             <?php endif; ?>
         </div>
-
+-->
         <!-- Пагинация -->
         <div class="pagination-m">
             <?= $arResult['NAV_STRING']; ?>
