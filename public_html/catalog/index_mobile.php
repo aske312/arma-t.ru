@@ -162,7 +162,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                             <?php else: ?>
                                 <img alt="Нет изображения" src="/resources/img/no_image.png">
                             <?php endif; ?>
-                            <div class="category-text-m"> <?= $arSection['NAME']; ?> </div>
+                            <!-- <div class="category-text-m"> <?= $arSection['NAME']; ?> </div> -->
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -366,30 +366,6 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                         </button>
                                     </div>
                                 </div>
-
-                                <!-- Краткое описание элемента -->
-
-                                <!--
-                                <div class="catalog-item-properties">
-                                    <table>
-                                        <?php if (!empty($arProps['EL_CONNECTION_TYPE']['VALUE'])): ?>
-                                            <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_DRIVE_TYPE']['VALUE'])): ?>
-                                            <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
-                                            <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE'])): ?>
-                                            <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_BODY_MATERIAL']['VALUE'])): ?>
-                                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                    </table>
-                                </div>
-                                -->
                             </a>
                         </div>
                     <?php endif; ?>
