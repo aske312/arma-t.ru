@@ -628,6 +628,8 @@
 }
 .contact-form-m textarea {
     resize: none;
+    border-color: #007bff;
+    outline: none;
 }
 .form-actions-m {
     display: flex;
@@ -649,7 +651,6 @@
     height: 16px;
     accent-color: #007bff; /* Цвет чекбокса */
     cursor: pointer;
-    bottom: 25px;
 }
 
 /*********** Блок доставки ************/
