@@ -446,16 +446,18 @@
 
 /* Карточки категорий */
 .category-block-m {
-    weight: 100px;
-    height: auto;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
+    top: 20px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 450px; /* Ширина блока фиксированная */
+    margin: 10px;
+    padding: 15px;
+    cursor: pointer;
+    height: 160px;
+    background: white; /* Цвет фона блока */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Добавление тени для эффекта */
 }
 
 /* Картинка внутри карточки */
