@@ -13,9 +13,9 @@ if ($isMobile) {
 }
 ?>
 
-<div></div>
-
-<script>
-</script>
+<div class="policy-title">
+    <h2> Политики использования </h2>
+    <p> Подробности </p>
+</div>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>

@@ -1,4 +1,4 @@
-<?php require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/policy.css");
@@ -17,10 +17,5 @@ if ($isMobile) {
     <h2> Политики использования </h2>
     <p> Подробности </p>
 </div>
-
-<div></div>
-
-<script>
-</script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
