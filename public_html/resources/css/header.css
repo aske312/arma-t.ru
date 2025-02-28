@@ -46,7 +46,6 @@ h1, h2, p, div, input, button, textarea, label {
   font-weight: bold;
 }
 
-
 /********** Шапка **********/
 header {
     background-color: #162139;
@@ -619,4 +618,31 @@ header {
     height: 16px;
     accent-color: #007bff; /* Цвет чекбокса */
     cursor: pointer;
+}
+.cookie-banner-m {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2654A2;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.cookie-banner-m a {
+  color: #2654A2;
+  text-decoration: underline;
+}
+.cookie-banner-m button {
+  background: #f8d71c;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
 }
