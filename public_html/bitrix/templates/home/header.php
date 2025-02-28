@@ -144,10 +144,14 @@ if ($element = $res->Fetch()) {
                 </div>
             </div>
 
+        <div id="cookie-banner" class="cookie-banner">
+            <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="/policy">политикой использования cookie</a>.</p>
+            <button id="accept-cookies">Принять</button>
+        </div>
         </div>
     </header>
 
-    <script>
+<script>
         window.addEventListener('scroll', function() {
             document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
         });
@@ -468,4 +472,20 @@ if ($element = $res->Fetch()) {
             loadCartData();
             setupCartModalResize();
         });
-    </script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const banner = document.getElementById("cookie-banner");
+      const acceptBtn = document.getElementById("accept-cookies");
+
+      // Проверяем, согласился ли пользователь ранее
+      if (localStorage.getItem("cookiesAccepted")) {
+        banner.style.display = "none";
+      }
+
+      // При нажатии скрываем и запоминаем согласие
+      acceptBtn.addEventListener("click", function () {
+        localStorage.setItem("cookiesAccepted", "true");
+        banner.style.display = "none";
+      });
+    });
+</script>
