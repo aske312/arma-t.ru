@@ -624,7 +624,7 @@ header {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: #2654A2;
+  background: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 15px 20px;
   border-radius: 8px;
@@ -639,7 +639,7 @@ header {
   text-decoration: underline;
 }
 .cookie-banner-m button {
-  background: #f8d71c;
+  background: #2654A2;
   border: none;
   padding: 8px 15px;
   cursor: pointer;
