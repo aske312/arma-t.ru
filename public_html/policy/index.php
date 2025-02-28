@@ -1,5 +1,4 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/policy.css");
 
@@ -12,6 +11,11 @@ if ($isMobile) {
     return;
 }
 ?>
+
+<div class="policy-title">
+    <h2> Политики использования </h2>
+    <p> Подробности </p>
+</div>
 
 <div></div>
 
