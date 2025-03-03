@@ -14,6 +14,7 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 session_start(); // Запуск сессии
 $cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
+document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
@@ -126,12 +127,10 @@ if ($element = $res->Fetch()) {
         </div>
     </header>
 
-<!--
 <div id="cookie-banner" class="cookie-banner-m">
   <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="/policy">политикой использования cookie</a>.</p>
   <button id="accept-cookies">Принять</button>
 </div>
--->
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -506,19 +505,17 @@ if ($element = $res->Fetch()) {
         setupCartModalResize();
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const banner = document.getElementById("cookie-banner-m");
-      const acceptBtn = document.getElementById("accept-cookies");
+    document.addEventListener("DOMContentLoaded", function() {
+        const banner = document.getElementById("cookie-banner-m");
+        const acceptBtn = document.getElementById("accept-cookies");
 
-      // Проверяем, согласился ли пользователь ранее
-      if (localStorage.getItem("cookiesAccepted")) {
-        banner.style.display = "none";
-      }
+        if (!localStorage.getItem("cookiesAccepted")) {
+            banner.style.display = "block";
+        }
 
-      // При нажатии скрываем и запоминаем согласие
-      acceptBtn.addEventListener("click", function () {
-        localStorage.setItem("cookiesAccepted", "true");
-        banner.style.display = "none";
-      });
+        acceptBtn.addEventListener("click", function() {
+            localStorage.setItem("cookiesAccepted", "true");
+            banner.style.display = "none";
+        });
     });
 </script>
