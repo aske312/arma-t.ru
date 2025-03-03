@@ -339,7 +339,6 @@ header {
 }
 .cart-counter-m {
     position: absolute;
-    top: -30px;
     background: red;
     color: white;
     font-size: 3px;
