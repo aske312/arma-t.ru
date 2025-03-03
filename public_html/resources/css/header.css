@@ -341,7 +341,8 @@ header {
     position: absolute;
     background: red;
     color: white;
-    top: -2px;
+    top: -1px;
+    right: -1px;
     font-size: 3px;
     font-weight: bold;
     border-radius: 50%;
