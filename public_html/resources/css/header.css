@@ -331,6 +331,9 @@ header {
 .menu-toggle-m {
     position: relative;
     font-size: 18px;
+    background: none;
+    border: none;
+    color: white;
     cursor: pointer;
 }
 .cart-counter-m {
