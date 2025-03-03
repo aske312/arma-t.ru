@@ -107,7 +107,7 @@ if ($element = $res->Fetch()) {
             <nav id="mobileMenu">
                 <ul class="menu-list-m">
                     <a href="/">О компании</a>
-                    <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
+                    <a href="/catalog/m/index.php?SECTION_ID=1">Каталог</a>
                     <a href="/#contact">Контакты</a>
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
