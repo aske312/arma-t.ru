@@ -120,13 +120,14 @@ if ($element = $res->Fetch()) {
                 </form>
             </nav>
 
-            <div id="cookie-banner" class="cookie-banner-m">
-              <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="/policy">политикой использования cookie</a>.</p>
-              <button id="accept-cookies">Принять</button>
-            </div>
+
         </div>
     </header>
 
+<div id="cookie-banner" class="cookie-banner-m">
+  <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="/policy">политикой использования cookie</a>.</p>
+  <button id="accept-cookies">Принять</button>
+</div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const menuButton = document.querySelector('.menu-toggle-m');
