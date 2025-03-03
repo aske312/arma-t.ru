@@ -86,7 +86,9 @@
 .footer-left a {
     text-align: right;
     text-decoration: none;
-    top: 5px;
+}
+.footer-left a:hover {
+    text-decoration: underline;
 }
 
 /** мобильная версия **/
@@ -162,4 +164,7 @@
 }
 .footer-left-m a {
     text-decoration: none;
+}
+.footer-left-m a:hover {
+    text-decoration: underline;
 }
