@@ -14,7 +14,7 @@ $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
 
 if ($isMobile) {
-    include 'index_mobile.php';
+    include 'm/index.php';
     return;
 }
 

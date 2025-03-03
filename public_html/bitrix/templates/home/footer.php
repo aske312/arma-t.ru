@@ -6,7 +6,7 @@ $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod/i', $userAgent);
 
 if ($isMobile) {
-    include 'footer_mobile.php';
+    include 'm/footer.php';
     return;
 }
 ?>

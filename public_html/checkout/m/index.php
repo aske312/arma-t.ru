@@ -139,7 +139,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
                     return;
                 }
 
-                window.location.href = `/catalog/detail.php?ID=${item.id}`;
+                window.location.href = `/detail/index.php?ID=${item.id}`;
             });
 
             cartItemsContainer.appendChild(itemDiv);

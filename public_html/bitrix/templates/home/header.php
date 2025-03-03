@@ -11,7 +11,7 @@ $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|Opera Mini|IEMobile/i', $userAgent);
 
 if ($isMobile) {
-    include 'header_mobile.php';
+    include 'm/header.php';
     return;
 }
 

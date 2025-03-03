@@ -291,7 +291,7 @@ if ($element = $res->Fetch()) {
 
             const cartItemHTML = `
                 <div class="cart-item-card">
-                    <a href="/catalog/detail.php?ID=${item.id}" class="cart-item-link">
+                    <a href="/detail/index.php?ID=${item.id}" class="cart-item-link">
                         <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
                         <div class="cart-item-details">
                             <p class="cart-item-name">${item.name}</p>
