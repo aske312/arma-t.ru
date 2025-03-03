@@ -149,11 +149,11 @@ header {
     margin: 0;
 }
 .menu-list-m li {
-    margin: 10px 0;
+    margin: 5px 0;
 }
 .menu-list-m a {
     display: block;
-    padding: 10px 15px;
+    padding: 10px 5px;
     text-decoration: none;
     color: white;
 }
@@ -329,10 +329,10 @@ header {
 /** toggle-menu-mobile **/
 
 .menu-toggle-m {
-    /* position: relative; */
-    background: white;
+    position: relative;
+    background: none;
     border: none;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
 }
 .cart-counter-m {
@@ -341,11 +341,11 @@ header {
     right: -5px;
     background: red;
     color: white;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
     border-radius: 50%;
-    width: 13px;
-    height: 13px;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
