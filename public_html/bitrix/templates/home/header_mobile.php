@@ -114,10 +114,12 @@ if ($element = $res->Fetch()) {
                     <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
                 </ul>
 
+                <!--
                 <form class="nav-search-form-m" method="GET" action="index.php">
                     <input type="text" id="search" class="full-width-search-m" placeholder="Поиск...">
                     <div id="suggestions"></div>
                 </form>
+                -->
             </nav>
 
 
