@@ -60,6 +60,13 @@ if ($element = $res->Fetch()) {
             </div>
 
             <div class="contact-container">
+                <?php if ($mail): ?>
+                    <p><a href="email:<?= preg_replace('/\D/', '', $mail) ?>" class="phone-link"><?= $mail ?></a></p>
+                <?php else: ?>
+                    <p><a href="email:info@arma-t.ru" class="phone-link">info@arma-t.ru</a></p>
+                <?php endif; ?>
+
+
                 <?php if ($phone): ?>
                     <p><a href="tel:<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
                 <?php else: ?>
