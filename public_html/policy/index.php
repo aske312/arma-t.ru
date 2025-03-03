@@ -199,5 +199,4 @@ if ($isMobile) {
     <button class="back-button" onclick="history.back()">Назад</button> <!-- Кнопка Назад -->
 </div>
 
-
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
