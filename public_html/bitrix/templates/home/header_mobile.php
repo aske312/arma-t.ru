@@ -126,7 +126,7 @@ if ($element = $res->Fetch()) {
         </div>
     </header>
 
-<div id="cookie-banner" class="cookie-banner-m">
+<div id="cookie-banner-m" class="cookie-banner-m">
   <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="/policy">политикой использования cookie</a>.</p>
   <button id="accept-cookies">Принять</button>
 </div>
