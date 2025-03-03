@@ -45,20 +45,20 @@
     background: url('/resources/img/block/pattern.png') no-repeat center;
     background-size: cover; /* Заполнение всей доступной области без растягивания */
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     text-align: left;
     margin-bottom: 20px;
-    width: 100%; /* Максимальная ширина контейнера */
+    width: 90%; /* Максимальная ширина контейнера */
     margin: 0 auto; /* Центрирование контейнера */
     height: 100%; /* Высота контейнера */
 }
 .policy-title-m  h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 22px;
 }
 /* Область Доставка */
 .policy-desc-m {
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
     color: #333;
     background-color: white;
