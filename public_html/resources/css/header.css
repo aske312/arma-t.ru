@@ -330,8 +330,6 @@ header {
 
 .menu-toggle-m {
     position: relative;
-    background: none;
-    border: none;
     font-size: 18px;
     cursor: pointer;
 }
@@ -340,8 +338,7 @@ header {
     top: -5px;
     right: -5px;
     background: red;
-    color: white;
-    font-size: 12px;
+    font-size: 5px;
     font-weight: bold;
     border-radius: 50%;
     width: 18px;
