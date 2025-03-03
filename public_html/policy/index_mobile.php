@@ -180,9 +180,9 @@ Asset::getInstance()->addCss("/resources/css/policy.css");
         <p> 4.2.1. Пользователь может отключить работу Файлов Cookies и/или удалить их, путем изменения настроек своего браузера (при этом возможно также удаление/отключение файлов Cookies, установленных другими веб-сайтами): </p>
         <ol>
             <li> Для Google Chrome, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=ru">support.google.com</a>.</li>
-            <li> Для Firefox, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.mozilla.org/ru/kb/uluchshennaya-zashita-ot-otslezhivaniya-v-firefox-?redirectlocale=en-US&redirectslug=enable-and-disable-cookies-website-preferences">support.mozilla.org</a></li>
-            <li> Для Internet Explorer, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.microsoft.com/ru-ru/help/17442/windows-internet-explorer-delete-manage-cookies">support.microsoft.com</a> https://support.microsoft.com/ru-ru/help/17442/windows-internet-explorer-delete-manage-cookies.</li>
-            <li> Для Safari, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.apple.com/ru-ru/guide/safari/sfri11471/mac">support.apple.com</a>. </li>
+            <li> Для Firefox, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.mozilla.org/ru/kb/uluchshennaya-zashita-ot-otslezhivaniya-v-firefox-?redirectlocale=en-US&redirectslug=enable-and-disable-cookies-website-preferences">support.mozilla.org</a>.</li>
+            <li> Для Internet Explorer, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.microsoft.com/ru-ru/help/17442/windows-internet-explorer-delete-manage-cookies">support.microsoft.com</a>.</li>
+            <li> Для Safari, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.apple.com/ru-ru/guide/safari/sfri11471/mac">support.apple.com</a>.</li>
         </ol>
         <p> 4.2.2. Более подробную информацию о включении, отключении и удалении файлов Cookies можно найти в настройках к используемому браузеру или в его справке. </p>
     </div>
