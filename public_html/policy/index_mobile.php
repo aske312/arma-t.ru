@@ -49,11 +49,11 @@ Asset::getInstance()->addCss("/resources/css/policy.css");
         </p>
     </div>
 
-<div class="policy-title">
+<div class="policy-title-m">
     <h2> Политика использования Cookies </h2>
 </div>
 
-<div class="policy-desc">
+<div class="policy-desc-m">
     <div>
         <h1> 1.1. Общие положения </h1>
         <p>
