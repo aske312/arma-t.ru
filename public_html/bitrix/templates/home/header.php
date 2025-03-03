@@ -45,7 +45,29 @@ if ($element = $res->Fetch()) {
         $phone = $element["PROPERTY_EL_DESCRIPTION_VALUE"];
     }
 }
+
+$mail = "";
+$res = CIBlockElement::GetList(
+    [],
+    [
+        "IBLOCK_ID" => 4,  // ID инфоблока
+        //"SECTION_ID" => 3, // Раздел
+        "ID" => 22377,      // ID элемента
+        "ACTIVE" => "Y"     // Только активные элементы
+    ],
+    false,
+    false,
+    ["ID", "NAME", "PROPERTY_EL_DESCRIPTION"] // Получаем свойство EL_DESCRIPTION
+);
+
+if ($element = $res->Fetch()) {
+    // Проверяем, что свойство EL_DESCRIPTION существует и содержит номер телефона
+    if (!empty($element["PROPERTY_EL_DESCRIPTION_VALUE"])) {
+        $mail = $element["PROPERTY_EL_DESCRIPTION_VALUE"];
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -84,6 +106,12 @@ if ($element = $res->Fetch()) {
             </div>
 
             <div class="contact-container">
+                <?php if ($mail): ?>
+                    <p><a href="tel:<?= preg_replace('/\D/', '', $mail) ?>" class="phone-link"><?= $mail ?></a></p>
+                <?php else: ?>
+                    <p><a href="email:info@arma-t.ru" class="phone-link">info@arma-t.ru</a></p>
+                <?php endif; ?>
+
                 <?php if ($phone): ?>
                     <p><a href="tel:<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
                 <?php else: ?>
