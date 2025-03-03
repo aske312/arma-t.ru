@@ -340,14 +340,13 @@ header {
 .cart-counter-m {
     position: absolute;
     top: -20px;
-    right: -20px;
     background: red;
     color: white;
     font-size: 3px;
     font-weight: bold;
     border-radius: 50%;
-    width: 5px;
-    height: 5px;
+    width: 10px;
+    height: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
