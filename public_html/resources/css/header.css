@@ -328,7 +328,7 @@ header {
 
 /** toggle-menu-mobile **/
 
-.menu-toggle {
+.menu-toggle-m {
     display: block;
     font-size: 28px;
     background: none;
@@ -337,7 +337,7 @@ header {
     cursor: pointer;
     position: relative;
 }
-.cart-counter {
+.cart-counter-m {
     position: absolute;
     top: -5px;
     right: -10px;
