@@ -128,6 +128,7 @@ if ($element = $res->Fetch()) {
   <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="/policy">политикой использования cookie</a>.</p>
   <button id="accept-cookies">Принять</button>
 </div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const menuButton = document.querySelector('.menu-toggle-m');
@@ -502,7 +503,7 @@ if ($element = $res->Fetch()) {
     });
 
     document.addEventListener("DOMContentLoaded", function () {
-      const banner = document.getElementById("cookie-banner");
+      const banner = document.getElementById("cookie-banner-m");
       const acceptBtn = document.getElementById("accept-cookies");
 
       // Проверяем, согласился ли пользователь ранее
