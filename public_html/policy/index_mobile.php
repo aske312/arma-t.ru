@@ -3,6 +3,7 @@
 use Bitrix\Main\Page\Asset;
 Asset::getInstance()->addCss("/resources/css/policy.css");
 
+?>
 
 <div class="policy-title-m">
     <h2> Соглашение на обработку персональных данных </h2>
