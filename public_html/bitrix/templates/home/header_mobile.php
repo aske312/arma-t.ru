@@ -98,8 +98,8 @@ if ($element = $res->Fetch()) {
                 </div>
             </div>
 
-            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-            <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
+            <button id="cartItemCount" class="menu-toggle" onclick="toggleMenu()">☰</button>
+
             <nav id="mobileMenu">
                 <ul class="menu-list-m">
                     <a href="/">О компании</a>
