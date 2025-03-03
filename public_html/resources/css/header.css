@@ -218,11 +218,11 @@ header {
 
 /** Мобильная версия поиска **/
 .nav-search-form-m {
-    width: 100%;
+    width: 80%;
     margin-top: 10px;
 }
 .full-width-search-m {
-    width: 100%;
+    width: 80%;
     padding: 8px;
     box-sizing: border-box;
 }

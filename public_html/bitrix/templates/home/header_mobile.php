@@ -99,8 +99,8 @@ if ($element = $res->Fetch()) {
             </div>
 
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
             <nav id="mobileMenu">
-                <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
                 <ul class="menu-list-m">
                     <a href="/">О компании</a>
                     <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
@@ -110,17 +110,16 @@ if ($element = $res->Fetch()) {
                     <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
                 </ul>
 
-                <!---
                 <form class="nav-search-form-m" method="GET" action="index.php">
                     <input type="text" id="search" class="full-width-search-m" placeholder="Поиск...">
                     <div id="suggestions"></div>
-                </form> -->
+                </form>
             </nav>
-            <!--
+
             <div id="cookie-banner" class="cookie-banner-m">
               <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="/policy">политикой использования cookie</a>.</p>
               <button id="accept-cookies">Принять</button>
-            </div> -->
+            </div>
         </div>
     </header>
 
