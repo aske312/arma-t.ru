@@ -83,6 +83,9 @@
     line-height: 1.4;
     font-size: 12px;
 }
+.footer-left a {
+    text-decoration: none;
+}
 
 /** мобильная версия **/
 
@@ -154,4 +157,7 @@
     margin: 0;
     line-height: 1.1;
     font-size: 8px;
+}
+.footer-left-m a {
+    text-decoration: none;
 }
