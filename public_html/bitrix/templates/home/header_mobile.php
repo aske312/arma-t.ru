@@ -60,18 +60,18 @@ if ($element = $res->Fetch()) {
             </div>
 
             <div class="contact-container">
-                <?php if ($mail): ?>
-                    <p><a href="email:<?= preg_replace('/\D/', '', $mail) ?>" class="phone-link"><?= $mail ?></a></p>
+                <?php if ($email): ?>
+                    <p><a href="mailto:<?= htmlspecialchars($email) ?>" class="phone-link"><?= htmlspecialchars($email) ?></a></p>
                 <?php else: ?>
-                    <p><a href="email:info@arma-t.ru" class="phone-link">info@arma-t.ru</a></p>
+                    <p><a href="mailto:info@arma-t.ru" class="phone-link">info@arma-t.ru</a></p>
                 <?php endif; ?>
-
 
                 <?php if ($phone): ?>
                     <p><a href="tel:<?= preg_replace('/\D/', '', $phone) ?>" class="phone-link"><?= $phone ?></a></p>
                 <?php else: ?>
                     <p><a href="tel:+70000000000" class="phone-link">+7(000) 000-00-00</a></p>
                 <?php endif; ?>
+
                 <div class="form-header-containers">
                     <button onclick="openForm()">Оставить заявку</button>
 
