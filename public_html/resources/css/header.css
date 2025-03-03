@@ -219,11 +219,11 @@ header {
 /** Мобильная версия поиска **/
 .nav-search-form-m {
     width: 80%;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 .full-width-search-m {
     width: 80%;
-    padding: 8px;
+    padding: 5px;
     box-sizing: border-box;
 }
 .cart-wrapper-m {
@@ -231,6 +231,10 @@ header {
     align-items: center;
     margin-left: auto;
 }
+.suggestion-item-m {
+    width: 80%;
+}
+
 
 /********** Контактная информация **********/
 .contact-container {
