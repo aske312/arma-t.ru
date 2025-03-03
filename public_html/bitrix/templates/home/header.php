@@ -107,7 +107,7 @@ if ($element = $res->Fetch()) {
 
             <div class="contact-container">
                 <?php if ($mail): ?>
-                    <p><a href="tel:<?= preg_replace('/\D/', '', $mail) ?>" class="phone-link"><?= $mail ?></a></p>
+                    <p><a href="email:<?= preg_replace('/\D/', '', $mail) ?>" class="phone-link"><?= $mail ?></a></p>
                 <?php else: ?>
                     <p><a href="email:info@arma-t.ru" class="phone-link">info@arma-t.ru</a></p>
                 <?php endif; ?>
