@@ -343,11 +343,11 @@ header {
     right: -10px;
     background: red;
     color: white;
-    font-size: 12px;
+    font-size: 3px;
     font-weight: bold;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 5px;
+    height: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
