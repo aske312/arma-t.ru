@@ -84,7 +84,9 @@
     font-size: 12px;
 }
 .footer-left a {
+    text-align: right;
     text-decoration: none;
+    top: 5px;
 }
 
 /** мобильная версия **/
