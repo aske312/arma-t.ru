@@ -328,28 +328,29 @@ header {
 
 /** toggle-menu-mobile **/
 
-    .menu-toggle-m {
-        position: relative;
-        background: white;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    .cart-counter-m {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: red;
-        color: white;
-        font-size: 11px;
-        font-weight: bold;
-        border-radius: 50%;
-        width: 13px;
-        height: 13px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.menu-toggle-m {
+    /* position: relative; */
+    background: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+.cart-counter-m {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 50%;
+    /*
+    width: 13px;
+    height: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+}
 
 /********** Модальное окно корзины **********/
 .cart-wrapper {
