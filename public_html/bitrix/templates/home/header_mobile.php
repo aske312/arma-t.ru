@@ -226,7 +226,7 @@ if ($element = $res->Fetch()) {
                     data.forEach(item => {
                         const div = document.createElement('div');
                         div.textContent = item.name;
-                        div.classList.add('suggestion-item');  // Добавляем класс для стилей
+                        div.classList.add('suggestion-item-m');  // Добавляем класс для стилей
                         div.onclick = () => window.location.href = item.url;  // Перенаправление при клике
                         suggestionsDiv.appendChild(div);
                     });
