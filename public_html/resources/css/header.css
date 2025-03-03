@@ -235,7 +235,6 @@ header {
     width: 80%;
 }
 
-
 /********** Контактная информация **********/
 .contact-container {
     display: flex;
@@ -326,6 +325,31 @@ header {
 .close-form-header:hover {
     color: #ff0000;
 }
+
+/** toggle-menu-mobile **/
+
+    .menu-toggle-m {
+        position: relative;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    .cart-counter-m {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: red;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
 /********** Модальное окно корзины **********/
 .cart-wrapper {

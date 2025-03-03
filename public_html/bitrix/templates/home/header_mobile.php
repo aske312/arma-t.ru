@@ -98,8 +98,12 @@ if ($element = $res->Fetch()) {
                 </div>
             </div>
 
-            <button id="cartItemCount" class="menu-toggle" onclick="toggleMenu()">☰</button>
-
+            <button class="menu-toggle-m" onclick="toggleMenu()">
+                ☰
+                <?php if (!empty($cartItemCount)): ?>
+                    <span class="cart-counter-m"><?= $cartItemCount ?></span>
+                <?php endif; ?>
+            </button>
             <nav id="mobileMenu">
                 <ul class="menu-list-m">
                     <a href="/">О компании</a>
@@ -125,7 +129,7 @@ if ($element = $res->Fetch()) {
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const menuButton = document.querySelector('.menu-toggle');
+        const menuButton = document.querySelector('.menu-toggle-m');
         const mobileMenu = document.getElementById('mobileMenu');
 
         if (menuButton && mobileMenu) {
