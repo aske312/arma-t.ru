@@ -78,7 +78,7 @@ if ($isMobile) {
         </ul>
         <p>
             Каждый Пользователь имеет право ознакомиться с текстом настоящей Политики по следующей ссылке: <br>
-            http://arma-t.ru/policy/
+            <a href="http://arma-t.ru/policy/">arma-t.ru/policy/</a>
             <br><br>
 
             Продолжая использовать данный сайт, Вы даете свое согласие на обработку Файлов Cookies.
@@ -97,8 +97,8 @@ if ($isMobile) {
 
             Сайт – это совокупность текстов, графических элементов, дизайна, изображений, программного
             кода, фото- и видеоматериалов и иных результатов интеллектуальной деятельности,
-            содержащихся в сети Интернет под доменным именем http://arma-t.ru/.
-            <br><br>
+            содержащихся в сети Интернет под доменным именем <a href="http://arma-t.ru/">arma-t.ru</a>.
+            <br>
         </p>
         <p> 2. ДЛЯ ЧЕГО ИСПОЛЬЗУЮТСЯ ФАЙЛЫ COOKIES? </p>
         <br>
@@ -138,6 +138,7 @@ if ($isMobile) {
             <li> дата и время посещения Сайта, а также возможное количество совершенных кликов Пользователем. </li>
         </ol>
 
+        <br><br>
         <h1> 3. КАКИЕ ФАЙЛЫ COOKIES ИСПОЛЬЗУЮТСЯ? </h1>
         <p>
             Согласно общепринятым классификациям, на данный момент существуют следующие виды Файлов Cookies:
@@ -188,10 +189,10 @@ if ($isMobile) {
         <h1> 4.2. Порядок отключения файлов Cookies </h1>
         <p> 4.2.1. Пользователь может отключить работу Файлов Cookies и/или удалить их, путем изменения настроек своего браузера (при этом возможно также удаление/отключение файлов Cookies, установленных другими веб-сайтами): </p>
         <ol>
-            <li> Для Google Chrome, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=ru.</li>
-            <li> Для Firefox, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: https://support.mozilla.org/ru/kb/uluchshennaya-zashita-ot-otslezhivaniya-v-firefox-?redirectlocale=en-US&redirectslug=enable-and-disable-cookies-website-preferences.</li>
-            <li> Для Internet Explorer, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: https://support.microsoft.com/ru-ru/help/17442/windows-internet-explorer-delete-manage-cookies.</li>
-            <li> Для Safari, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: https://support.apple.com/ru-ru/guide/safari/sfri11471/mac. </li>
+            <li> Для Google Chrome, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=ru">support.google.com</a>.</li>
+            <li> Для Firefox, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.mozilla.org/ru/kb/uluchshennaya-zashita-ot-otslezhivaniya-v-firefox-?redirectlocale=en-US&redirectslug=enable-and-disable-cookies-website-preferences">support.mozilla.org</a></li>
+            <li> Для Internet Explorer, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.microsoft.com/ru-ru/help/17442/windows-internet-explorer-delete-manage-cookies">support.microsoft.com</a> https://support.microsoft.com/ru-ru/help/17442/windows-internet-explorer-delete-manage-cookies.</li>
+            <li> Для Safari, необходимо изменить параметры и конфигурацию браузера согласно следующим инструкциям по ссылке: <a href="https://support.apple.com/ru-ru/guide/safari/sfri11471/mac">support.apple.com</a>. </li>
         </ol>
         <p> 4.2.2. Более подробную информацию о включении, отключении и удалении файлов Cookies можно найти в настройках к используемому браузеру или в его справке. </p>
     </div>
