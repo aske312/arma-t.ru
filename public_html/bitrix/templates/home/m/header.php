@@ -136,6 +136,8 @@ if ($element = $res->Fetch()) {
     document.addEventListener("DOMContentLoaded", function() {
         const menuButton = document.querySelector('.menu-toggle-m');
         const mobileMenu = document.getElementById('mobileMenu');
+        const banner = document.getElementById("cookie-banner-m");
+        const acceptBtn = document.getElementById("accept-cookies");
 
         if (menuButton && mobileMenu) {
             // Открытие/закрытие меню при клике на кнопку
@@ -153,52 +155,58 @@ if ($element = $res->Fetch()) {
         } else {
             console.error("Элементы меню не найдены!");
         }
+
+        if (!localStorage.getItem("cookiesAccepted")) {
+            banner.style.display = "block";
+        }
+
+        acceptBtn.addEventListener("click", function() {
+            localStorage.setItem("cookiesAccepted", "true");
+            banner.style.display = "none";
+        });
+
+        updateCartCount(); // Первый запуск
+        setInterval(updateCartCount, 1000); // Обновление каждую секунду
     });
 
     window.addEventListener('scroll', function() {
         document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        function updateCartCount() {
-            // Обновление счетчика в шапке
-            const cartCounter = document.querySelector('.cart-counter-m');
-            let cartData = localStorage.getItem('cartItems');
-            let count = 0;
+    function updateCartCount() {
+        // Обновление счетчика в шапке
+        const cartCounter = document.querySelector('.cart-counter-m');
+        let cartData = localStorage.getItem('cartItems');
+        let count = 0;
 
-            if (cartData) {
-                try {
-                    const parsed = JSON.parse(cartData);
-                    if (parsed.cartItems && Array.isArray(parsed.cartItems)) {
-                        count = parsed.cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
-                    }
-                } catch (e) {
-                    console.error('Ошибка парсинга cartItems:', e);
+        if (cartData) {
+            try {
+                const parsed = JSON.parse(cartData);
+                if (parsed.cartItems && Array.isArray(parsed.cartItems)) {
+                    count = parsed.cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
                 }
-            }
-
-            // Обновление счетчика в мобильном меню
-            if (cartCounter) {
-                cartCounter.textContent = count;
-                cartCounter.style.display = count > 0 ? 'inline-block' : 'none';
-            }
-
-            // Обновление ссылки на корзину (существующая логика)
-            const cartLink = document.getElementById("cart-link");
-            if (cartLink) {
-                if (count > 0) {
-                    cartLink.innerHTML = `Корзина <span class="cart-count-m">${count}</span>`;
-                    cartLink.style.display = "inline-block";
-                } else {
-                    cartLink.style.display = "none";
-                }
+            } catch (e) {
+                console.error('Ошибка парсинга cartItems:', e);
             }
         }
 
-        // Обновляем корзину каждые 1 секунду
-        updateCartCount(); // Первый запуск при загрузке
-        setInterval(updateCartCount, 1000);
-    });
+        // Обновление счетчика в мобильном меню
+        if (cartCounter) {
+            cartCounter.textContent = count;
+            cartCounter.style.display = count > 0 ? 'inline-block' : 'none';
+        }
+
+        // Обновление ссылки на корзину (существующая логика)
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+            if (count > 0) {
+                cartLink.innerHTML = `Корзина <span class="cart-count-m">${count}</span>`;
+                cartLink.style.display = "inline-block";
+            } else {
+                cartLink.style.display = "none";
+            }
+        }
+    }
 
     function getCartItems() {
         const storedData = JSON.parse(localStorage.getItem('cartItems'));
@@ -508,20 +516,6 @@ if ($element = $res->Fetch()) {
         cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
         loadCartData();
         setupCartModalResize();
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const banner = document.getElementById("cookie-banner-m");
-        const acceptBtn = document.getElementById("accept-cookies");
-
-        if (!localStorage.getItem("cookiesAccepted")) {
-            banner.style.display = "block";
-        }
-
-        acceptBtn.addEventListener("click", function() {
-            localStorage.setItem("cookiesAccepted", "true");
-            banner.style.display = "none";
-        });
     });
 
     document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
