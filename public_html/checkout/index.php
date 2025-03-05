@@ -150,10 +150,10 @@ if ($isMobile) {
                             <span><strong>${item.name}</strong></span>
                             <span>Артикул: <strong>${item.article}</strong></span>
                             <span class="price">Цена за единицу: <strong>
-                                ${!isNaN(priceText) && priceText !== null && priceText > 0 ? priceText + ' руб.' : ''}
+                                ${!isNaN(priceText) && priceText !== null && priceText > 0 ? priceText + ' руб.' : 'По запросу'}
                             </strong></span>
                             <span class="total-item-price">В сумме: <strong>
-                                ${!isNaN(totalItemPrice) && totalItemPrice !== null && totalItemPrice > 0 ? totalItemPrice + ' руб.' : ''}
+                                ${!isNaN(totalItemPrice) && totalItemPrice !== null && totalItemPrice > 0 ? totalItemPrice + ' руб.' : 'По запросу'}
                             </strong></span>
                             <div class="quantity-control">
                                 <button class="quantity-btn minus" data-index="${index}">-</button>
