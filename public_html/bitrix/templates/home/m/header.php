@@ -98,11 +98,12 @@ if ($element = $res->Fetch()) {
                 </div>
             </div>
 
-        <button class="menu-toggle-m" onclick="toggleMenu()">
-            ☰
-            <span class="cart-counter-m" style="display: none;"></span>
-        </button>
-
+            <button class="menu-toggle-m" onclick="toggleMenu()">
+                ☰
+                <?php if (!empty($cartItemCount)): ?>
+                    <span class="cart-counter-m"><?= $cartItemCount ?></span>
+                <?php endif; ?>
+            </button>
             <nav id="mobileMenu">
                 <ul class="menu-list-m">
                     <a href="/">О компании</a>
@@ -133,51 +134,67 @@ if ($element = $res->Fetch()) {
 -->
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuButton = document.querySelector('.menu-toggle-m');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (menuButton && mobileMenu) {
+            // Открытие/закрытие меню при клике на кнопку
+            menuButton.addEventListener('click', function(event) {
+                event.stopPropagation(); // Остановка всплытия, чтобы клик на кнопку не закрывал меню
+                mobileMenu.classList.toggle('open');
+            });
+
+            // Закрытие меню при клике вне него
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) {
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        } else {
+            console.error("Элементы меню не найдены!");
+        }
+    });
+
     window.addEventListener('scroll', function() {
         document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
     });
 
-    document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
+    document.addEventListener("DOMContentLoaded", function () {
+        function updateCartCount() {
+            let cartData = localStorage.getItem("cartItems");
+            let cartCount = 0;
 
-    function updateCartCount() {
-        // Обновление счетчика в шапке
-        const cartItems = getCartItems();
-        const cartCounter = document.querySelector('.cart-counter-m');
-        const count = cartItems.reduce((total, item) => total + item.quantity, 0);
-
-        let cartData = localStorage.getItem('cartItems');
-        let count = 0;
-
-        if (cartData) {
-            try {
-                const parsed = JSON.parse(cartData);
-                if (parsed.cartItems && Array.isArray(parsed.cartItems)) {
-                    count = parsed.cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
+            if (cartData) {
+                let parsedCart = JSON.parse(cartData);
+                if (parsedCart.cartItems && Array.isArray(parsedCart.cartItems)) {
+                    cartCount = parsedCart.cartItems.reduce((sum, item) => sum + item.quantity, 0);
                 }
-            } catch (e) {
-                console.error('Ошибка парсинга cartItems:', e);
+            }
+
+            let cartLink = document.getElementById("cart-link");
+            if (!cartLink && cartCount > 0) {
+                // Создаем ссылку на корзину, если она еще не существует
+                cartLink = document.createElement("a");
+                cartLink.href = "/checkout";
+                cartLink.id = "cart-link";
+                document.querySelector(".menu-list-m").appendChild(cartLink);
+            }
+
+            if (cartLink) {
+                if (cartCount > 0) {
+                    cartLink.innerHTML = `Корзина <span class="cart-count-m">${cartCount}</span>`;
+                    cartLink.style.display = "inline-block";
+                } else {
+                    cartLink.style.display = "none"; // Скрываем, если корзина пуста
+                }
             }
         }
 
-        // Обновление счетчика в мобильном меню
-        if (cartCounter) {
-            cartCounter.textContent = count;
-            cartCounter.style.display = count > 0 ? 'inline-block' : 'none';
-        }
-
-        // Обновление ссылки на корзину (существующая логика)
-        const cartLink = document.getElementById("cart-link");
-        if (cartLink) {
-            if (count > 0) {
-                cartLink.innerHTML = `Корзина <span class="cart-count-m">${count}</span>`;
-                cartLink.style.display = "inline-block";
-            } else {
-                cartLink.style.display = "none";
-            }
-        }
-
-        document.getElementById('cart-count').textContent = count;
-    }
+        // Обновляем корзину каждые 1 секунду
+        updateCartCount(); // Первый запуск при загрузке
+        setInterval(updateCartCount, 1000);
+    });
 
     function getCartItems() {
         const storedData = JSON.parse(localStorage.getItem('cartItems'));
@@ -188,6 +205,12 @@ if ($element = $res->Fetch()) {
         const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;
         const cartData = { cartItems, expiry: expiryDate };
         localStorage.setItem('cartItems', JSON.stringify(cartData));
+    }
+
+    function updateCartCount() {
+        const cartItems = getCartItems();
+        const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cart-count').textContent = count;
     }
 
     // *** Поиск ***//
@@ -244,6 +267,138 @@ if ($element = $res->Fetch()) {
         }
     }
 
+    function loadCartData() {
+        const cartItems = getCartItems();
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '';
+        let totalSum = 0;
+
+        if (cartItems.length === 0) {
+            cartItemsContainer.innerHTML = '<p>Корзина пуста</p>';
+            document.getElementById('cart-total').innerText = 'Общая сумма: Под заказ';
+            return;
+        }
+
+        cartItems.forEach(async (item) => {
+            const itemTotal = (item.price * item.quantity).toFixed(2);
+            totalSum += parseFloat(itemTotal); // Считаем общую сумму здесь
+
+            // Если у товара нет изображения, запрашиваем изображение раздела
+            let imageUrl = item.image || '/resources/img/production/0.png';
+            if (!item.image) {
+                imageUrl = await fetchSectionImage(item.id);
+            }
+
+            const cartItemHTML = `
+                <div class="cart-item-card">
+                    <a href="/detail/index.php?ID=${item.id}" class="cart-item-link">
+                        <img src="${imageUrl}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <p class="cart-item-name">${item.name}</p>
+                            <p class="cart-item-article">Артикул: ${item.article}</p>
+                            <p class="cart-item-price">
+                                ${item.price && item.price > 0 ? item.price + ' руб./шт.' : 'Цена под заказ'}
+                            </p>
+                        </div>
+                    </a>
+                        <div class="cart-item-actions">
+                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">&#8722;</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" onchange="updateQuantityManual('${item.id}', this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">&#43;</button>
+                            <span class="cart-item-total">
+                                ${!isNaN(itemTotal) && itemTotal !== null && itemTotal > 0 ? itemTotal + ' руб.' : ''}
+                            </span>
+                            <span class="remove-item-btn" onclick="removeCartItem('${item.id}')">&#10005;</span>
+                        </div>
+                </div>
+            `;
+
+            cartItemsContainer.innerHTML += cartItemHTML;
+        });
+
+        // Проверяем общую сумму и выводим "Под заказ", если сумма равна 0
+        document.getElementById('cart-total').innerText = totalSum > 0
+            ? `Общая сумма: ${totalSum.toFixed(2)} руб.`
+            : 'Общая сумма: под заказ';
+    }
+
+    // Функция для получения изображения раздела
+    async function fetchSectionImage(itemId) {
+        try {
+            const response = await fetch(`/getSectionImage.php?itemId=${itemId}`);
+            const data = await response.json();
+            return data.imageUrl;
+        } catch (error) {
+            console.error('Ошибка при получении изображения раздела:', error);
+            return '/resources/img/production/0.png';
+        }
+    }
+
+    function updateQuantity(productId, delta) {
+        const cartItems = getCartItems();
+        const item = cartItems.find(item => item.id === productId);
+
+        if (item) {
+            item.quantity += delta;
+            if (item.quantity < 1) {
+                removeCartItem(productId);
+            } else {
+                setCartItems(cartItems);
+                loadCartData();
+            }
+        }
+    }
+
+    function updateQuantityManual(productId, value) {
+        const cartItems = getCartItems();
+        const item = cartItems.find(item => item.id === productId);
+
+        if (item) {
+            item.quantity = Math.max(1, parseInt(value) || 1);
+            setCartItems(cartItems);
+            loadCartData();
+        }
+    }
+
+    function removeCartItem(productId) {
+        let cartItems = getCartItems();
+        cartItems = cartItems.filter(item => item.id !== productId);
+        setCartItems(cartItems);
+        loadCartData();
+    }
+
+    document.getElementById('clear-cart').addEventListener('click', function() {
+        localStorage.removeItem('cartItems');
+        loadCartData();
+        updateCartCount();
+    });
+
+    updateCartCount();
+
+    document.getElementById('checkout').addEventListener('click', function() {
+        window.location.href = '/checkout';
+    });
+
+    document.getElementById('close-cart-modal').addEventListener('click', function() {
+        document.getElementById('cart-modal').style.display = 'none';
+    });
+
+    document.getElementById('cart-modal-overlay').addEventListener('click', function() {
+        document.getElementById('cart-modal').style.display = 'none';
+    });
+
+    // Закрытие модального окна при клике вне формы
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('Form')) {
+            document.getElementById('Form').classList.remove('active');
+        }
+    };
+
+    // Закрытие формы по кнопке
+    document.querySelector('.close-form-header').addEventListener('click', function() {
+        document.getElementById('Form').classList.remove('active');
+    });
+
     document.getElementById('contactForm-header').addEventListener('submit', function (e) {
         e.preventDefault();  // Предотвращаем перезагрузку страницы
 
@@ -276,28 +431,84 @@ if ($element = $res->Fetch()) {
         xhr.send(formData);
     });
 
+    // Функция для изменения размеров окна корзины
+    function setupCartModalResize() {
+        const cartModalContent = document.querySelector('.cart-modal-content');
+        const resizeHandle = document.createElement('div');
+        resizeHandle.className = 'resize-handle';
+        cartModalContent.appendChild(resizeHandle);
+
+        let isResizing = false;
+
+        resizeHandle.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            isResizing = true;
+            document.addEventListener('mousemove', resizeModal);
+            document.addEventListener('mouseup', stopResize);
+        });
+
+        function resizeModal(e) {
+            if (isResizing) {
+                const newWidth = e.clientX - cartModalContent.getBoundingClientRect().left;
+                const newHeight = e.clientY - cartModalContent.getBoundingClientRect().top;
+
+                if (newWidth > 400 && newWidth < 800) {
+                    cartModalContent.style.width = `${newWidth}px`;
+                }
+                if (newHeight > 400 && newHeight < 600) {
+                    cartModalContent.style.height = `${newHeight}px`;
+                }
+            }
+        }
+
+        function stopResize() {
+            isResizing = false;
+            document.removeEventListener('mousemove', resizeModal);
+            document.removeEventListener('mouseup', stopResize);
+        }
+    }
+
+    // Функция для перетаскивания окна корзины
+    function setupCartModalDrag() {
+        const cartModalContent = document.querySelector('.cart-modal-content');
+        const cartHeader = cartModalContent.querySelector('h2');
+
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        cartHeader.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - cartModalContent.getBoundingClientRect().left;
+            offsetY = e.clientY - cartModalContent.getBoundingClientRect().top;
+            document.addEventListener('mousemove', dragModal);
+            document.addEventListener('mouseup', stopDrag);
+        });
+
+        function dragModal(e) {
+            if (isDragging) {
+                cartModalContent.style.left = `${e.clientX - offsetX}px`;
+                cartModalContent.style.top = `${e.clientY - offsetY}px`;
+            }
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            document.removeEventListener('mousemove', dragModal);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+    }
+
+    // Инициализация функций при открытии корзины
+    document.getElementById('cart-button').addEventListener('click', function() {
+        const cartModal = document.getElementById('cart-modal');
+        cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+        loadCartData();
+        setupCartModalResize();
+    });
+
     document.addEventListener("DOMContentLoaded", function() {
-        const menuButton = document.querySelector('.menu-toggle-m');
-        const mobileMenu = document.getElementById('mobileMenu');
         const banner = document.getElementById("cookie-banner-m");
         const acceptBtn = document.getElementById("accept-cookies");
-
-        if (menuButton && mobileMenu) {
-            // Открытие/закрытие меню при клике на кнопку
-            menuButton.addEventListener('click', function(event) {
-                event.stopPropagation(); // Остановка всплытия, чтобы клик на кнопку не закрывал меню
-                mobileMenu.classList.toggle('open');
-            });
-
-            // Закрытие меню при клике вне него
-            document.addEventListener('click', function(event) {
-                if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) {
-                    mobileMenu.classList.remove('open');
-                }
-            });
-        } else {
-            console.error("Элементы меню не найдены!");
-        }
 
         if (!localStorage.getItem("cookiesAccepted")) {
             banner.style.display = "block";
@@ -307,8 +518,7 @@ if ($element = $res->Fetch()) {
             localStorage.setItem("cookiesAccepted", "true");
             banner.style.display = "none";
         });
-
-        updateCartCount(); // Первый запуск
-        setInterval(updateCartCount, 1000); // Обновление каждую секунду
     });
+
+    document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
 </script>
