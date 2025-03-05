@@ -100,7 +100,7 @@ if ($element = $res->Fetch()) {
 
             <button class="menu-toggle-m" onclick="toggleMenu()">
                 ☰
-                <?php if (!empty($cartItemCount)): ?>
+                <?php if (!empty($cartItems)): ?>
                     <span class="cart-counter-m"><?= $cartItemCount ?></span>
                 <?php endif; ?>
             </button>
