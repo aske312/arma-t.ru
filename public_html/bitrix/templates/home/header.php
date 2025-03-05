@@ -94,7 +94,7 @@ if ($element = $res->Fetch()) {
                     <a href="/">О компании</a>
                     <a href="/catalog/index.php?SECTION_ID=1">Каталог</a>
                     <a href="/#contact">Контакты</a>
-                    <a href="/#delivery">Доставка</a>
+                    <a href="/#delivery-title">Доставка</a>
                     <a href="/#pay">Оплата</a>
                 </nav>
 

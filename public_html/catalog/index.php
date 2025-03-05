@@ -272,7 +272,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                         <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
                             <!-- Ссылка на детальную страницу -->
-                            <a href="detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
+                            <a href="/detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
                                 <div class="catalog-item-header">
                                     <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                                     <div class="catalog-item-info">
