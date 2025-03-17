@@ -31,7 +31,7 @@ $res = CIBlockElement::GetList(
     [
         "IBLOCK_ID" => 4,  // ID инфоблока
         //"SECTION_ID" => 3, // Раздел
-        "ID" => 22371,      // ID элемента
+        "ID" => 10,      // ID элемента
         "ACTIVE" => "Y"     // Только активные элементы
     ],
     false,
@@ -52,7 +52,7 @@ $res = CIBlockElement::GetList(
     [
         "IBLOCK_ID" => 4,  // ID инфоблока
         //"SECTION_ID" => 3, // Раздел
-        "ID" => 22377,      // ID элемента
+        "ID" => 9,      // ID элемента
         "ACTIVE" => "Y"     // Только активные элементы
     ],
     false,
