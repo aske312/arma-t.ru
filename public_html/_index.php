@@ -25,7 +25,7 @@ Asset::getInstance()->addJs("/resources/js/script.js"); // JS
 $sliderItems = [];
 $res = CIBlockElement::GetList(
     ["SORT" => "ASC"],
-    ["IBLOCK_ID" => 2, "ACTIVE" => "Y"],
+    ["IBLOCK_ID" => 1, "ACTIVE" => "Y"],
     false,
     false,
     ["ID", "NAME", "PREVIEW_PICTURE", "PREVIEW_TEXT"]
@@ -73,7 +73,7 @@ while ($arItem = $res->GetNext()) {
 
 // Получение данных для каталога (ID = 5)
 $sectionsFilter = [
-    'IBLOCK_ID' => 1,
+    'IBLOCK_ID' => 2,
     'ACTIVE' => 'Y',
     'GLOBAL_ACTIVE' => 'Y',
 ];

@@ -21,7 +21,7 @@ if ($isMobile) {
 
 // Фильтр для текущей секции
 $sectionFilter = [
-    'IBLOCK_ID' => 1,
+    'IBLOCK_ID' => 2,
     'ACTIVE' => 'Y',
 ];
 
@@ -36,7 +36,7 @@ $selectedSection = ($sectionId !== 'all')
 
 // Получаем список всех активных секций для бокового меню
 $sectionsFilter = [
-    'IBLOCK_ID' => 1,
+    'IBLOCK_ID' => 2,
     'ACTIVE' => 'Y',
     'GLOBAL_ACTIVE' => 'Y',
 ];
@@ -63,7 +63,7 @@ $filterValues = [
 
 // Фильтр для элементов каталога
 $elementFilter = [
-    'IBLOCK_ID' => 1,
+    'IBLOCK_ID' => 2,
     'ACTIVE' => 'Y',
     'INCLUDE_SUBSECTIONS' => 'Y', // Включаем подкатегории, если они есть
 ];
