@@ -715,3 +715,5 @@ public_html/bitrix/components/bitrix/voting.vote.edit/
 /public_html/bitrix/components/bitrix/catalog.section.list/templates/bootstrap_v4/template.php
 /public_html/bitrix/components/bitrix/catalog.section/templates/.default/template.php
 /public_html/bitrix/components/bitrix/catalog.top/templates/slider/template.php
+/.bitrix_setup/
+/.venv/
