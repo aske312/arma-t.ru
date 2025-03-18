@@ -342,6 +342,12 @@ header {
     position: relative;
 }
 .cart-counter-m {
+    background: red;
+    font-size: 0px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
 /*
     position: absolute;
     background: red;
