@@ -238,18 +238,18 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     // Получаем путь к изображению
                     $productImage = '';
 
-                    // Проверяем, есть ли изображение в свойстве EL_IMAGES
-                    if (!empty($arProps['EL_IMAGES']['VALUE'])) {
-                        $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
-                    } elseif ($arFields['PREVIEW_PICTURE']) {
-                        $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
-                    } elseif ($arFields['PICTURE']) {
-                        $productImage = CFile::GetPath($arFields['PICTURE']);
-                    } elseif ($arSection['PICTURE']) {
-                        $productImage = CFile::GetPath($arSection['PICTURE']);
-                    } else {
-                        $productImage = "/resources/img/production/0.jpg";
-                    }
+//                     // Проверяем, есть ли изображение в свойстве EL_IMAGES
+//                     if (!empty($arProps['EL_IMAGES']['VALUE'])) {
+//                         $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
+//                     } elseif ($arFields['PREVIEW_PICTURE']) {
+//                         $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+//                     } elseif ($arFields['PICTURE']) {
+//                         $productImage = CFile::GetPath($arFields['PICTURE']);
+//                     } elseif ($arSection['PICTURE']) {
+//                         $productImage = CFile::GetPath($arSection['PICTURE']);
+//                     } else {
+//                         $productImage = "/resources/img/production/0.jpg";
+//                     }
                 ?>
 
             <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
