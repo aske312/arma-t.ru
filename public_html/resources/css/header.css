@@ -242,8 +242,8 @@ header {
     align-items: center;
 }
 .contact-container p {
-  margin: 0;
-  padding: 0;
+  margin: 5;
+  padding: 5;
 }
 .phone-link {
     color: white;
