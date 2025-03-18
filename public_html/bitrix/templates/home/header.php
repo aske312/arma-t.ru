@@ -21,8 +21,14 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сторедж
 session_start(); // Запуск сессии
+
+$cartItems = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartItems'])) {
     $cartItems = json_decode($_POST['cartItems'], true);
+} else {
+    $cartItems = 0;
+}
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
