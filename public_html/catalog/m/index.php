@@ -238,18 +238,18 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     // Получаем путь к изображению
                     $productImage = '';
 
-//                     // Проверяем, есть ли изображение в свойстве EL_IMAGES
-//                     if (!empty($arProps['EL_IMAGES']['VALUE'])) {
-//                         $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
-//                     } elseif ($arFields['PREVIEW_PICTURE']) {
-//                         $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
-//                     } elseif ($arFields['PICTURE']) {
-//                         $productImage = CFile::GetPath($arFields['PICTURE']);
-//                     } elseif ($arSection['PICTURE']) {
-//                         $productImage = CFile::GetPath($arSection['PICTURE']);
-//                     } else {
-//                         $productImage = "/resources/img/production/0.jpg";
-//                     }
+                    // Проверяем, есть ли изображение в свойстве EL_IMAGES
+                    if (!empty($arProps['EL_IMAGES']['VALUE'])) {
+                        $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
+                    } elseif ($arFields['PREVIEW_PICTURE']) {
+                        $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+                    } elseif ($arFields['PICTURE']) {
+                        $productImage = CFile::GetPath($arFields['PICTURE']);
+                    } elseif ($arSection['PICTURE']) {
+                        $productImage = CFile::GetPath($arSection['PICTURE']);
+                    } else {
+                        $productImage = "/resources/img/production/0.jpg";
+                    }
                 ?>
 
             <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
@@ -259,7 +259,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     </div>
                     <div class="catalog-item-info-m">
                         <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
-                        <p>Артикул: <?= htmlspecialchars($arProps['EL_ARTICLE']['VALUE']; ?: 'Отсутствует'); ?></p>
+                        <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
                         <p>Срок изготовления: <?= htmlspecialchars($arProps['EL_PRODUCTION_TIME']['VALUE'] ?: 'По запросу'); ?></p>
                         <p>
                             <span class="catalog-item-price-m"> Цена:

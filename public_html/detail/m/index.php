@@ -11,7 +11,27 @@ if (CModule::IncludeModule("iblock")) {
         $productName = $ar_res['NAME'];
         $productShortName = $ar_res['PREVIEW_TEXT'];
         $productDescription = $ar_res['DETAIL_TEXT'];
-        $productImage = CFile::GetPath($ar_res['EL_IMAGES']['VALUE']);
+        $productImage = '';
+
+        // Получаем свойства товара
+        $properties = CIBlockElement::GetProperty($ar_res['IBLOCK_ID'], $productId, array("sort" => "asc"), array());
+        $arProps = [];
+        while ($prop = $properties->Fetch()) {
+            $arProps[$prop['CODE']] = $prop;
+        }
+
+        if (!empty($arProps['EL_IMAGES']['VALUE'])) {
+            $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
+        } elseif ($ar_res['PREVIEW_PICTURE']) {
+            $productImage = CFile::GetPath($ar_res['PREVIEW_PICTURE']);
+        } elseif ($ar_res['DETAIL_PICTURE']) {
+            $productImage = CFile::GetPath($ar_res['DETAIL_PICTURE']);
+        } elseif ($ar_res['PICTURE']) {
+            $productImage = CFile::GetPath($ar_res['PICTURE']);
+        } else {
+            $productImage = "/resources/img/production/0.jpg";
+        }
+
         $productPrice = ''; // Цена
         $productArticul = ''; // Артикул
         $productAvailability = ''; // Срок изготовления
