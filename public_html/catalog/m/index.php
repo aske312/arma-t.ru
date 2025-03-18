@@ -234,23 +234,29 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
                         $itemsFound = true;
                         $productImage = '';
+                        // Проверяем, есть ли изображение в свойстве EL_IMAGES
                         if (!empty($arProps['EL_IMAGES']['VALUE'])) {
-                            $productImage = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
+                            // Если это ID файла, используем CFile::GetPath
+                            $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
                         } elseif ($arFields['PREVIEW_PICTURE']) {
+                            // Если есть изображение превью, используем его
                             $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
                         } elseif ($arFields['PICTURE']) {
+                            // Если есть картинка товара, используем её
                             $productImage = CFile::GetPath($arFields['PICTURE']);
                         } elseif ($arSection['PICTURE']) {
+                            // Если есть картинка раздела, используем её
                             $productImage = CFile::GetPath($arSection['PICTURE']);
                         } else {
-                            $productImage = "/resources/img/no_image.png";
+                            // Если нет картинок, выводим изображение по умолчанию
+                            $productImage = "/resources/img/0.jpg";
                         }
             ?>
 
             <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
                 <a href="/detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link-m">
                     <div class="catalog-item-header-m">
-                        <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image-m">
+                        <img src="<?= $productImage; ?>" alt="<?= htmlspecialchars($arFields['NAME']); ?>" class="catalog-item-image-m">
                     </div>
                     <div class="catalog-item-info-m">
                         <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>

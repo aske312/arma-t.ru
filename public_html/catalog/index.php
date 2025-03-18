@@ -260,20 +260,15 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                     // Проверяем, есть ли изображение в свойстве EL_IMAGES
                     if (!empty($arProps['EL_IMAGES']['VALUE'])) {
-                        // Если это ID файла, используем CFile::GetPath
                         $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
                     } elseif ($arFields['PREVIEW_PICTURE']) {
-                        // Если есть изображение превью, используем его
                         $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
                     } elseif ($arFields['PICTURE']) {
-                        // Если есть картинка товара, используем её
                         $productImage = CFile::GetPath($arFields['PICTURE']);
                     } elseif ($arSection['PICTURE']) {
-                        // Если есть картинка раздела, используем её
                         $productImage = CFile::GetPath($arSection['PICTURE']);
                     } else {
-                        // Если нет картинок, выводим изображение по умолчанию
-                        $productImage = "/resources/img/no_image.png";
+                        $productImage = "/resources/img/0.jpg";
                     }
                 ?>
 
