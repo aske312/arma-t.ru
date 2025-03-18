@@ -334,7 +334,7 @@ header {
 
 .menu-toggle-m {
     display: block;
-    font-size: 24px;
+    font-size: 28px;
     background: none;
     border: none;
     color: white;
@@ -349,7 +349,7 @@ header {
     color: #fff;              /* цвет текста */
     border-radius: 50%;       /* скругление углов, чтобы получился кружок */
     padding: 2px 5px;         /* отступы внутри кружка */
-    font-size: 8px;          /* размер текста */
+    font-size: 7px;          /* размер текста */
 }
 
 /********** Модальное окно корзины **********/
