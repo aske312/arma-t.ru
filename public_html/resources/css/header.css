@@ -241,6 +241,10 @@ header {
     flex-direction: column;
     align-items: center;
 }
+.contact-container p {
+  margin: 0;
+  padding: 0;
+}
 .phone-link {
     color: white;
     text-decoration: none;
@@ -249,7 +253,7 @@ header {
     color: #0056b3;
 }
 .contact-container button {
-    padding: 5px 10px;
+    padding: 10px 20px;
     background-color: #2654A2;
     border: none;
     color: white;
