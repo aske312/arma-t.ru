@@ -257,82 +257,75 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                         // Получаем путь к изображению
                         $productImage = '';
-
-                        // Проверяем, есть ли изображение в свойстве EL_IMAGES
                         if (!empty($arProps['EL_IMAGES']['VALUE'])) {
-                            // Если это ID файла, используем CFile::GetPath
-                            $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
+                            $productImage = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
                         } elseif ($arFields['PREVIEW_PICTURE']) {
-                            // Если есть изображение превью, используем его
                             $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
                         } elseif ($arFields['PICTURE']) {
-                            // Если есть картинка товара, используем её
                             $productImage = CFile::GetPath($arFields['PICTURE']);
                         } elseif ($arSection['PICTURE']) {
-                            // Если есть картинка раздела, используем её
                             $productImage = CFile::GetPath($arSection['PICTURE']);
                         } else {
-                            // Если нет картинок, выводим изображение по умолчанию
                             $productImage = "/resources/img/no_image.png";
                         }
-                        ?>
+            ?>
 
-                        <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
-                            <!-- Ссылка на детальную страницу -->
-                            <a href="/detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
-                                <div class="catalog-item-header">
-                                    <img src="<?= $productImage; ?>" alt="<?= htmlspecialchars($arFields['NAME']); ?>" class="catalog-item-image">
-                                    <div class="catalog-item-info">
-                                        <h3 class="catalog-item-name"><?= $arFields['PREVIEW_TEXT']; ?></h3>
-                                        <p>Артикул: <?= htmlspecialchars($arProps['EL_ARTICLE']['VALUE']; ?: 'Отсутствует'); ?></p>
-                                        <p>Срок изготовления: <?= htmlspecialchars($arProps['EL_PRODUCTION_TIME']['VALUE'] ?: 'По запросу'); ?></p>
-                                        <p>
-                                            <div class="catalog-item-price">Цена:
-                                                <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
-                                                if ($price == 0 || empty($price)) {
-                                                    echo 'По запросу';
-                                                } else {
-                                                    echo $price . ' руб.';
-                                                } ?>
-                                            </div>
-                                        </p>
+                <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
+                    <!-- Ссылка на детальную страницу -->
+                    <a href="/detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
+                        <div class="catalog-item-header">
+                            <img src="<?= $productImage; ?>" alt="<?= htmlspecialchars($arFields['NAME']); ?>" class="catalog-item-image">
+                            <div class="catalog-item-info">
+                                <h3 class="catalog-item-name"><?= $arFields['PREVIEW_TEXT']; ?></h3>
+                                <p>Артикул: <?= htmlspecialchars($arProps['EL_ARTICLE']['VALUE']; ?: 'Отсутствует'); ?></p>
+                                <p>Срок изготовления: <?= htmlspecialchars($arProps['EL_PRODUCTION_TIME']['VALUE'] ?: 'По запросу'); ?></p>
+                                <p>
+                                    <div class="catalog-item-price">Цена:
+                                        <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
+                                        if ($price == 0 || empty($price)) {
+                                            echo 'По запросу';
+                                        } else {
+                                            echo $price . ' руб.';
+                                        } ?>
                                     </div>
+                                </p>
+                            </div>
 
-                                    <div class="catalog-item-controls">
-                                        <button class="catalog-item-add-to-cart"
-                                                data-id="<?= $arFields['ID']; ?>"
-                                                data-image="<?= $productImage; ?>"
-                                                data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
-                                                data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
-                                                data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
-                                            В корзину
-                                        </button>
-                                    </div>
-                                </div>
-                                                                <!-- Краткое описание элемента -->
-                                <div class="catalog-item-properties">
-                                    <table>
-                                        <?php if (!empty($arProps['EL_CONNECTION_TYPE']['VALUE'])): ?>
-                                            <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_DRIVE_TYPE']['VALUE'])): ?>
-                                            <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
-                                            <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE'])): ?>
-                                            <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
-                                        <?php endif; ?>
-                                        <?php if (!empty($arProps['EL_BODY_MATERIAL']['VALUE'])): ?>
-                                            <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
-                                        <?php endif; ?>
-                                    </table>
-                                </div>
-                            </a>
+                            <div class="catalog-item-controls">
+                                <button class="catalog-item-add-to-cart"
+                                        data-id="<?= $arFields['ID']; ?>"
+                                        data-image="<?= $productImage; ?>"
+                                        data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
+                                        data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
+                                        data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
+                                    В корзину
+                                </button>
+                            </div>
                         </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                                                        <!-- Краткое описание элемента -->
+                        <div class="catalog-item-properties">
+                            <table>
+                                <?php if (!empty($arProps['EL_CONNECTION_TYPE']['VALUE'])): ?>
+                                    <th>Тип присоединения: <?= $arProps['EL_CONNECTION_TYPE']['VALUE']; ?></th>
+                                <?php endif; ?>
+                                <?php if (!empty($arProps['EL_DRIVE_TYPE']['VALUE'])): ?>
+                                    <th>Тип привода: <?= $arProps['EL_DRIVE_TYPE']['VALUE']; ?></th>
+                                <?php endif; ?>
+                                <?php if (!empty($arProps['EL_DN_DIAMETER_MM']['VALUE'])): ?>
+                                    <th>Диаметр DN: <?= $arProps['EL_DN_DIAMETER_MM']['VALUE']; ?>мм</th>
+                                <?php endif; ?>
+                                <?php if (!empty($arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE'])): ?>
+                                    <th>Давление PN: <?= $arProps['EL_PN_PRESSURE_KGF_CM2']['VALUE']; ?>кгс/см²</th>
+                                <?php endif; ?>
+                                <?php if (!empty($arProps['EL_BODY_MATERIAL']['VALUE'])): ?>
+                                    <th>Материал корпуса: <?= $arProps['EL_BODY_MATERIAL']['VALUE']; ?></th>
+                                <?php endif; ?>
+                            </table>
+                        </div>
+                    </a>
+                </div>
+            <?php endif; ?>
+            <?php endforeach; ?>
             <?php endwhile; ?>
 
             <?php if (!$itemsFound): ?>
