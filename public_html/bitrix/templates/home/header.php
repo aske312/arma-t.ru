@@ -145,6 +145,10 @@ if ($element = $res->Fetch()) {
                 </div>
             </div>
 
+<pre>
+    <?php print_r($cartItems); ?>
+</pre>
+
             <div class="cart-wrapper">
                 <div class="cart-icon">
                     <button id="cart-button" class="cart-btn">
@@ -153,8 +157,6 @@ if ($element = $res->Fetch()) {
                                 <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
                                 <span id="cart-count" class="cart-count"><?= count($cartItems) ?></span> <!-- Количество товаров в корзине -->
                             <?php else: ?>
-                                <!-- Если корзина пуста, ничего не показываем или показываем альтернативу -->
-                                <img src="/resources/img/block/checkout_empty.png" alt="Корзина пуста" class="cart-icon-img">
                                 <span id="cart-count" class="cart-count" style="display: none;"></span>
                             <?php endif; ?>
                         </div>
