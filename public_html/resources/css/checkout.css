@@ -358,6 +358,9 @@
     background: #6c757d;
     color: white;
 }
+.total-amount {
+    color: black;
+}
 .order-button-m {
     background: #007bff;
     color: white;
