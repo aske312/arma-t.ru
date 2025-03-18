@@ -112,7 +112,7 @@ Asset::getInstance()->addCss("/resources/css/checkout.css");
             itemDiv.innerHTML = `
                 <button class="remove-button-m" data-index="${index}">&times;</button>
                 <div class="product-image-m">
-                    <img src="${item.image || '/resources/img/production/0.png'}" alt="${item.name}">
+                    <img src="${item.image}" alt="${item.name}">
                 </div>
                 <div class="product-info-m">
                     <span class="product-name-m"><strong>${item.name}</strong></span>
