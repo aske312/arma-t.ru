@@ -23,24 +23,11 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 session_start(); // Запуск сессии
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartItems'])) {
-    // Декодируем JSON-данные, полученные из localStorage
     $cartItems = json_decode($_POST['cartItems'], true);
-
-    // Проверяем, что данные не пустые
     if (is_array($cartItems) && count($cartItems['cartItems']) > 0) {
-        // Если корзина не пуста, выводим элементы
-        echo "<pre>";
         print_r($cartItems);
-        echo "</pre>";
-
-        // Если нужно, можете обработать и вывести количество товаров
         $cartItemCount = count($cartItems['cartItems']);
-        echo "Количество товаров в корзине: $cartItemCount";
-    } else {
-        echo "Корзина пуста.";
     }
-} else {
-    echo "Данные корзины не получены.";
 }
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
@@ -164,6 +151,7 @@ if ($element = $res->Fetch()) {
             </div>
             <pre>
                 <?php print_r($cartItems); ?>
+                <?php print_r($cartItemCount); ?>
             </pre>
 
 
