@@ -149,7 +149,7 @@ if ($element = $res->Fetch()) {
                     <button id="cart-button" class="cart-btn">
                         <div class="cart-icon-wrapper">
                             <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                            <span id="cart-count" class="cart-count" style="display: none;">0</span>
+                            <span id="cart-count" class="cart-count">0</span>
                         </div>
                     </button>
                 </div>
