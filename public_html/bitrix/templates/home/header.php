@@ -21,9 +21,8 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
-$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
-$cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
-$cartItemCount = count($cartItems);
+//$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
+$cartItems = isset($data['cartItems']) ? $data['cartItems'] : [];
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
@@ -146,6 +145,7 @@ if ($element = $res->Fetch()) {
             </div>
 
 <pre>
+    <?php print_r($cartItems); ?>
     <?php print_r($cartItems); ?>
 </pre>
 
