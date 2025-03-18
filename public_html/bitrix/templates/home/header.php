@@ -517,5 +517,23 @@ if ($element = $res->Fetch()) {
         });
     });
 
+    const storedData = localStorage.getItem('cartItems');
+
+    if (storedData) {
+      // Парсим строку в объект
+      const dataObject = JSON.parse(storedData);
+
+      // Проверяем, что существует свойство cartItems и оно является массивом
+      if (Array.isArray(dataObject.cartItems)) {
+        // Получаем количество элементов в массиве
+        const itemCount = dataObject.cartItems.length;
+        console.log(`Количество элементов в массиве: ${itemCount}`);
+      } else {
+        console.log('Объект не содержит массива cartItems');
+      }
+    } else {
+      console.log('localStorage не содержит ключа "cartItems"');
+    }
+
     document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
 </script>
