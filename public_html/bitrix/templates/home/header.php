@@ -21,6 +21,7 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
+//$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
@@ -146,10 +147,10 @@ if ($element = $res->Fetch()) {
 
             <div class="cart-wrapper">
                 <div class="cart-icon">
-                    <button id="cart-button" class="cart-btn">
+                    <button id="cart-button" class="cart-btn disabled" disabled>
                         <div class="cart-icon-wrapper">
                             <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                            <span id="cart-count" class="cart-count">0</span>
+                            <span id="cart-count" class="cart-count" style="display: none;">0</span>
                         </div>
                     </button>
                 </div>
@@ -186,17 +187,24 @@ if ($element = $res->Fetch()) {
         return storedData && storedData.cartItems ? storedData.cartItems : [];
     }
 
+    document.addEventListener("DOMContentLoaded", function() {
+        let errorBox = document.querySelector('.bitrix-error-box');
+        if (errorBox) {
+            errorBox.style.display = 'none';
+        }
+    });
+
     function setCartItems(cartItems) {
         const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;
         const cartData = { cartItems, expiry: expiryDate };
         localStorage.setItem('cartItems', JSON.stringify(cartData));
     }
 
-    function updateCartCount() {
-        const cartItems = getCartItems();
-        const count = cartItems.reduce((total, item) => total + item.quantity, 0);
-        document.getElementById('cart-count').textContent = count;
-    }
+//     function updateCartCount() {
+//         const cartItems = getCartItems();
+//         const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+//         document.getElementById('cart-count').textContent = count;
+//     }
 
     // *** Поиск ***//
     document.getElementById('search').addEventListener('input', function() {
@@ -355,10 +363,10 @@ if ($element = $res->Fetch()) {
     document.getElementById('clear-cart').addEventListener('click', function() {
         localStorage.removeItem('cartItems');
         loadCartData();
-        updateCartCount();
+        //updateCartCount();
     });
 
-    updateCartCount();
+    //updateCartCount();
 
     document.getElementById('checkout').addEventListener('click', function() {
         window.location.href = '/checkout';
@@ -494,14 +502,9 @@ if ($element = $res->Fetch()) {
     document.addEventListener("DOMContentLoaded", function() {
         const banner = document.getElementById("cookie-banner");
         const acceptBtn = document.getElementById("accept-cookies");
-        let errorBox = document.querySelector('.bitrix-error-box');
 
         if (!localStorage.getItem("cookiesAccepted")) {
             banner.style.display = "block";
-        }
-
-        if (errorBox) {
-            errorBox.style.display = 'none';
         }
 
         acceptBtn.addEventListener("click", function() {
@@ -510,19 +513,46 @@ if ($element = $res->Fetch()) {
         });
     });
 
+    // Функция для обновления количества товаров и состояния кнопки корзины
     function updateCartCount() {
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        const count = cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0);
+        // Получаем данные из localStorage (ожидаем, что они хранятся в виде JSON-объекта с массивом cartItems)
+        const storedData = localStorage.getItem('cartItems');
+        let count = 0;
+        if (storedData) {
+            try {
+                const data = JSON.parse(storedData);
+                if (Array.isArray(data.cartItems)) {
+                    // Суммируем количество товаров. Если у товара не задано quantity, считаем его за 1.
+                    count = data.cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+                }
+            } catch (e) {
+                console.error("Ошибка парсинга cartItems:", e);
+            }
+        }
 
+        // Получаем элементы DOM для индикатора и кнопки
         const cartCountElement = document.getElementById('cart-count');
+        const cartButton = document.getElementById('cart-button');
+
+        // Если в корзине есть товары, показываем число и делаем кнопку кликабельной
         if (count > 0) {
             cartCountElement.textContent = count;
             cartCountElement.style.display = 'inline-block';
+            cartButton.removeAttribute('disabled');
+            cartButton.classList.remove('disabled');
         } else {
+            // Если корзина пуста, скрываем индикатор и блокируем кнопку
+            cartCountElement.textContent = 0;
             cartCountElement.style.display = 'none';
+            cartButton.setAttribute('disabled', 'disabled');
+            cartButton.classList.add('disabled');
         }
     }
 
+    // Вызываем функцию при загрузке страницы
     document.addEventListener("DOMContentLoaded", updateCartCount);
+
+    // Обновляем количество товаров каждые 2 секунды
+    setInterval(updateCartCount, 2000);
     document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
 </script>
