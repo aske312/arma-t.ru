@@ -143,17 +143,18 @@ if ($element = $res->Fetch()) {
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="cart-wrapper">
                 <div class="cart-icon">
                     <button id="cart-button" class="cart-btn">
                         <div class="cart-icon-wrapper">
-                            <?php if (empty($cartItems)): ?>
+                            <?php if (count($cartItems) > 0): ?> <!-- Проверяем, что массив не пустой -->
                                 <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                                <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
+                                <span id="cart-count" class="cart-count"><?= count($cartItems) ?></span> <!-- Количество товаров в корзине -->
                             <?php else: ?>
+                                <!-- Если корзина пуста, ничего не показываем или показываем альтернативу -->
+                                <img src="/resources/img/block/checkout_empty.png" alt="Корзина пуста" class="cart-icon-img">
                                 <span id="cart-count" class="cart-count" style="display: none;"></span>
                             <?php endif; ?>
                         </div>
@@ -164,7 +165,21 @@ if ($element = $res->Fetch()) {
                     <div class="cart-modal-content">
                         <span class="close-btn" id="close-cart-modal">&times;</span>
                         <h2>Корзина</h2>
-                        <div id="cart-items" class="cart-items-container"></div>
+                        <div id="cart-items" class="cart-items-container">
+                            <!-- Здесь будут отображаться товары из корзины -->
+                            <?php if (count($cartItems) > 0): ?>
+                                <!-- Перебираем товары в корзине и выводим их -->
+                                <?php foreach ($cartItems as $item): ?>
+                                    <div class="cart-item">
+                                        <img src="<?= $item['image']; ?>" alt="<?= $item['name']; ?>" class="cart-item-image">
+                                        <span class="cart-item-name"><?= $item['name']; ?></span>
+                                        <span class="cart-item-price"><?= $item['price']; ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>Ваша корзина пуста.</p>
+                            <?php endif; ?>
+                        </div>
                         <div class="cart-modal-footer">
                             <button id="clear-cart" class="button">Очистить корзину</button>
                             <button id="checkout" class="button">Оформить заказ</button>
