@@ -274,7 +274,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                 <div class="catalog-item-controls-m">
                     <button class="catalog-item-add-to-cart-m"
                             data-id="<?= $arFields['ID']; ?>"
-                            data-image="<?= $productImage; ?>"
+
                             data-name="<?= $arFields['PREVIEW_TEXT']; ?>"
                             data-price="<?= $arProps['EL_PURCHASE_PRICE']['VALUE']; ?>"
                             data-article="<?= $arProps['EL_ARTICLE']['VALUE']; ?>">
