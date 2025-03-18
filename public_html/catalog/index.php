@@ -255,32 +255,39 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     if ($arSection['ID'] == $arFields['IBLOCK_SECTION_ID']):
                         $itemsFound = true;
 
-                        // Получаем путь к изображению
-                        $productImage = '';
-                        if (!empty($arProps['EL_IMAGES']['VALUE'])) {
-                            $productImage = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
-                        } elseif ($arFields['PREVIEW_PICTURE']) {
-                            $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
-                        } elseif ($arFields['PICTURE']) {
-                            $productImage = CFile::GetPath($arFields['PICTURE']);
-                        } elseif ($arSection['PICTURE']) {
-                            $productImage = CFile::GetPath($arSection['PICTURE']);
-                        } else {
-                            $productImage = "/resources/img/no_image.png";
-                        }
-            ?>
+                    // Получаем путь к изображению
+                    $productImage = '';
+
+                    // Проверяем, есть ли изображение в свойстве EL_IMAGES
+                    if (!empty($arProps['EL_IMAGES']['VALUE'])) {
+                        // Если это ID файла, используем CFile::GetPath
+                        $productImage = CFile::GetPath($arProps['EL_IMAGES']['VALUE']);
+                    } elseif ($arFields['PREVIEW_PICTURE']) {
+                        // Если есть изображение превью, используем его
+                        $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+                    } elseif ($arFields['PICTURE']) {
+                        // Если есть картинка товара, используем её
+                        $productImage = CFile::GetPath($arFields['PICTURE']);
+                    } elseif ($arSection['PICTURE']) {
+                        // Если есть картинка раздела, используем её
+                        $productImage = CFile::GetPath($arSection['PICTURE']);
+                    } else {
+                        // Если нет картинок, выводим изображение по умолчанию
+                        $productImage = "/resources/img/no_image.png";
+                    }
+                ?>
 
                 <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
                     <!-- Ссылка на детальную страницу -->
                     <a href="/detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
                         <div class="catalog-item-header">
-                            <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
+                            <img src="<?= $productImage; ?>" alt="<?= htmlspecialchars($arFields['NAME']); ?>" class="catalog-item-image">
                             <div class="catalog-item-info">
                                 <h3 class="catalog-item-name"><?= $arFields['PREVIEW_TEXT']; ?></h3>
                                 <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
                                 <p>Срок изготовления: <?= htmlspecialchars($arProps['EL_PRODUCTION_TIME']['VALUE'] ?: 'По запросу'); ?></p>
-                                <p>Цена:
-                                    <div class="catalog-item-price">
+                                <p>
+                                    <div class="catalog-item-price">Цена:
                                         <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
                                         if ($price == 0 || empty($price)) {
                                             echo 'По запросу';
