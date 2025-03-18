@@ -100,9 +100,7 @@ if ($element = $res->Fetch()) {
 
             <button class="menu-toggle-m" onclick="toggleMenu()">
                 ☰
-                <?php if (!empty($cartItemCount)): ?>
-                    <span class="cart-counter-m"><?= $cartItemCount ?></span>
-                <?php endif; ?>
+                <span id="cart-counter-m" class="cart-counter-m"></span>
             </button>
             <nav id="mobileMenu">
                 <ul class="menu-list-m">
@@ -111,7 +109,7 @@ if ($element = $res->Fetch()) {
                     <a href="/#contact">Контакты</a>
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
-                    <input type="hidden" id="cartItemCount" name="cartItemCount" value="0">
+                    <!-- <input type="hidden" id="cartItemCount" name="cartItemCount" value="0"> -->
                 </ul>
 
                 <!--
@@ -162,19 +160,31 @@ if ($element = $res->Fetch()) {
 
     document.addEventListener("DOMContentLoaded", function () {
         function updateCartCount() {
+            // Получаем данные из localStorage
             let cartData = localStorage.getItem("cartItems");
             let cartCount = 0;
 
             if (cartData) {
-                let parsedCart = JSON.parse(cartData);
-                if (parsedCart.cartItems && Array.isArray(parsedCart.cartItems)) {
-                    cartCount = parsedCart.cartItems.reduce((sum, item) => sum + item.quantity, 0);
+                try {
+                    let parsedCart = JSON.parse(cartData);
+                    if (parsedCart.cartItems && Array.isArray(parsedCart.cartItems)) {
+                        cartCount = parsedCart.cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                    }
+                } catch (error) {
+                    console.error("Ошибка при парсинге cartItems:", error);
                 }
             }
 
+            // Обновляем скрытое поле с id="cartItemCount"
+            let cartInput = document.getElementById("cartItemCount");
+            if (cartInput) {
+                cartInput.value = cartCount;
+            }
+
+            // Работа с пунктом меню "Корзина"
             let cartLink = document.getElementById("cart-link");
             if (!cartLink && cartCount > 0) {
-                // Создаем ссылку на корзину, если она еще не существует
+                // Создаем ссылку на корзину, если она еще не существует и есть товары
                 cartLink = document.createElement("a");
                 cartLink.href = "/checkout";
                 cartLink.id = "cart-link";
@@ -183,16 +193,29 @@ if ($element = $res->Fetch()) {
 
             if (cartLink) {
                 if (cartCount > 0) {
+                    // Обновляем содержимое ссылки и делаем её видимой
                     cartLink.innerHTML = `Корзина <span class="cart-count-m">${cartCount}</span>`;
                     cartLink.style.display = "inline-block";
                 } else {
-                    cartLink.style.display = "none"; // Скрываем, если корзина пуста
+                    // Если товаров нет, скрываем ссылку
+                    cartLink.style.display = "none";
+                }
+            }
+
+            const cartCounterElement = document.getElementById('cart-counter-m');
+            if (cartCounterElement) {
+                if (cartCount > 0) {
+                    cartCounterElement.textContent = cartCount;
+                    cartCounterElement.style.display = "inline";
+                } else {
+                    cartCounterElement.style.display = "none";
                 }
             }
         }
 
-        // Обновляем корзину каждые 1 секунду
-        updateCartCount(); // Первый запуск при загрузке
+        // Первый запуск при загрузке страницы
+        updateCartCount();
+        // Обновляем каждую секунду
         setInterval(updateCartCount, 1000);
     });
 
