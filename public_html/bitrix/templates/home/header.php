@@ -19,10 +19,10 @@ if ($isMobile) {
 Asset::getInstance()->addCss("/resources/css/header.css");
 Asset::getInstance()->addCss("/resources/css/footer.css");
 
-// Получаем товары в корзине из сессии
+// Получаем товары в корзине из сторедж
 session_start(); // Запуск сессии
-//$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
-$cartItems = isset($data['cartItems']) ? $data['cartItems'] : [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartItems'])) {
+    $cartItems = json_decode($_POST['cartItems'], true);
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
@@ -145,7 +145,6 @@ if ($element = $res->Fetch()) {
             </div>
 
 <pre>
-    <?php print_r($cartItems); ?>
     <?php print_r($cartItems); ?>
 </pre>
 
@@ -534,6 +533,40 @@ if ($element = $res->Fetch()) {
             banner.style.display = "none";
         });
     });
+
+    function sendCartData() {
+        // Получаем данные из localStorage
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        // Проверяем, есть ли товары в корзине
+        if (cartItems.length > 0) {
+            // Создаем объект для отправки данных на сервер
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '', true); // Отправка данных на текущую страницу
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            // Подготовка данных
+            let data = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems));
+
+            // Отправка данных
+            xhr.send(data);
+
+            // Обработка ответа сервера
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    console.log('Данные корзины отправлены на сервер');
+                    console.log(xhr.responseText);  // Выводим ответ от сервера
+                }
+            };
+        } else {
+            console.log("Корзина пуста");
+        }
+    }
+
+
+    setInterval(function() {
+        sendCartData(); // Отправляем данные каждую 2 секунды
+    }, 2000);  // Интервал 2000 миллисекунд (2 секунды)
 
     document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
 </script>
