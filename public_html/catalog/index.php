@@ -274,7 +274,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     <!-- Ссылка на детальную страницу -->
                     <a href="/detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
                         <div class="catalog-item-header">
-                            <img src="<?= $productImage; ?>" alt="<?= htmlspecialchars($arFields['NAME']); ?>" class="catalog-item-image">
+                            <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                             <div class="catalog-item-info">
                                 <h3 class="catalog-item-name"><?= $arFields['PREVIEW_TEXT']; ?></h3>
                                 <p>Артикул: <?= htmlspecialchars($arProps['EL_ARTICLE']['VALUE']; ?: 'Отсутствует'); ?></p>
