@@ -256,18 +256,19 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                         $itemsFound = true;
 
                         // Получаем путь к изображению
-                        $productImage = '';
-                        if (!empty($arProps['EL_IMAGES']['VALUE'])) {
-                            $productImage = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
-                        } elseif ($arFields['PREVIEW_PICTURE']) {
-                            $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
-                        } elseif ($arFields['PICTURE']) {
-                            $productImage = CFile::GetPath($arFields['PICTURE']);
-                        } elseif ($arSection['PICTURE']) {
-                            $productImage = CFile::GetPath($arSection['PICTURE']);
-                        } else {
-                            $productImage = "/resources/img/no_image.png";
-                        }
+                        $productImage = CFile::GetFileArray($arProps["EL_IMAGES"]["VALUE"]);
+
+//                         if (!empty($arProps['EL_IMAGES']['VALUE'])) {
+//                             $productImage = "/resources/img/production/" . $arProps['EL_IMAGES']['VALUE'];
+//                         } elseif ($arFields['PREVIEW_PICTURE']) {
+//                             $productImage = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+//                         } elseif ($arFields['PICTURE']) {
+//                             $productImage = CFile::GetPath($arFields['PICTURE']);
+//                         } elseif ($arSection['PICTURE']) {
+//                             $productImage = CFile::GetPath($arSection['PICTURE']);
+//                         } else {
+//                             $productImage = "/resources/img/no_image.png";
+//                         }
             ?>
 
                         <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
@@ -277,10 +278,10 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <img src="<?= $productImage; ?>" alt="<?= $arFields['NAME']; ?>" class="catalog-item-image">
                                     <div class="catalog-item-info">
                                         <h3 class="catalog-item-name"><?= $arFields['PREVIEW_TEXT']; ?></h3>
-                                        <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
-                                        <p>Срок изготовления: <?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                                        <p>Артикул: <?= htmlspecialchars($arProps['EL_ARTICLE']['VALUE']; ?: 'Отсутствует'); ?></p>
+                                        <p>Срок изготовления: <?= htmlspecialchars($arProps['EL_PRODUCTION_TIME']['VALUE'] ?: 'По запросу'); ?></p>
                                         <p>
-                                            <div class="catalog-item-price">
+                                            <div class="catalog-item-price">Цена:
                                                 <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];
                                                 if ($price == 0 || empty($price)) {
                                                     echo 'По запросу';
