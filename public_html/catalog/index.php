@@ -278,7 +278,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                                     <div class="catalog-item-info">
                                         <h3 class="catalog-item-name"><?= $arFields['PREVIEW_TEXT']; ?></h3>
                                         <p>Артикул: <?= $arProps['EL_ARTICLE']['VALUE']; ?></p>
-                                        <p><?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
+                                        <p>Срок изготовления: <?= $arProps['EL_PRODUCTION_TIME']['VALUE']; ?></p>
                                         <p>
                                             <div class="catalog-item-price">
                                                 <?php $price = $arProps['EL_PURCHASE_PRICE']['VALUE'];

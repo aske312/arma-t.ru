@@ -107,7 +107,8 @@ if (CModule::IncludeModule("iblock")) {
         </div>
         <div class="product-info">
             <h1><?php echo htmlspecialchars($productName); ?></h1>
-            <div class="product-articul-availability">Артикул: <?php echo htmlspecialchars($productArticul); ?> &nbsp; Срок изготовления: <?php echo htmlspecialchars($productAvailability); ?></div>
+            <div class="product-articul-availability">Артикул: <?php echo htmlspecialchars($productArticul ?: 'Отсутствует'); ?> &nbsp; Срок изготовления: <?php echo htmlspecialchars($productAvailability ?: 'По запросу'); ?>
+            </div>
             <div class="product-price">
                 <p>Цена: <?php echo htmlspecialchars($productPrice); ?></p>
             </div>
