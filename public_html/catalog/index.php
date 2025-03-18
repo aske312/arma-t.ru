@@ -268,7 +268,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
                     } elseif ($arSection['PICTURE']) {
                         $productImage = CFile::GetPath($arSection['PICTURE']);
                     } else {
-                        $productImage = "/resources/img/0.jpg";
+                        $productImage = "/resources/img/production/0.jpg";
                     }
                 ?>
 
