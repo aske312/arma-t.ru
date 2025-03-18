@@ -342,6 +342,7 @@ header {
     position: relative;
 }
 .cart-counter-m {
+/*
     position: absolute;
     background: red;
     color: white;
@@ -355,7 +356,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); */
 }
 
 /********** Модальное окно корзины **********/
