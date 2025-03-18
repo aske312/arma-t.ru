@@ -334,7 +334,7 @@ header {
 
 .menu-toggle-m {
     display: block;
-    font-size: 28px;
+    font-size: 24px;
     background: none;
     border: none;
     color: white;
@@ -342,27 +342,14 @@ header {
     position: relative;
 }
 .cart-counter-m {
-    background: red;
-    font-size: 0px;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 14px;
-    height: 14px;
-/*
     position: absolute;
-    background: red;
-    color: white;
-    top: -0.4px;
-    left: -0.1px;
-    font-size: 0px;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 14px;
-    height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); */
+    top: 0;
+    right: 0;
+    background-color: red;    /* фон, например, красный */
+    color: #fff;              /* цвет текста */
+    border-radius: 50%;       /* скругление углов, чтобы получился кружок */
+    padding: 2px 5px;         /* отступы внутри кружка */
+    font-size: 12px;          /* размер текста */
 }
 
 /********** Модальное окно корзины **********/
