@@ -21,7 +21,6 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 
 // Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
-$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
@@ -150,11 +149,7 @@ if ($element = $res->Fetch()) {
                     <button id="cart-button" class="cart-btn">
                         <div class="cart-icon-wrapper">
                             <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                            <?php if ($cartItems > 0): ?>
-                                <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
-                            <?php else: ?>
-                                <span id="cart-count" class="cart-count" style="display: none;"></span>
-                            <?php endif; ?>
+                            <span id="cart-count" class="cart-count" style="display: none;">0</span>
                         </div>
                     </button>
                 </div>
@@ -190,13 +185,6 @@ if ($element = $res->Fetch()) {
         const storedData = JSON.parse(localStorage.getItem('cartItems'));
         return storedData && storedData.cartItems ? storedData.cartItems : [];
     }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        let errorBox = document.querySelector('.bitrix-error-box');
-        if (errorBox) {
-            errorBox.style.display = 'none';
-        }
-    });
 
     function setCartItems(cartItems) {
         const expiryDate = Date.now() + 3 * 24 * 60 * 60 * 1000;
@@ -506,9 +494,14 @@ if ($element = $res->Fetch()) {
     document.addEventListener("DOMContentLoaded", function() {
         const banner = document.getElementById("cookie-banner");
         const acceptBtn = document.getElementById("accept-cookies");
+        let errorBox = document.querySelector('.bitrix-error-box');
 
         if (!localStorage.getItem("cookiesAccepted")) {
             banner.style.display = "block";
+        }
+
+        if (errorBox) {
+            errorBox.style.display = 'none';
         }
 
         acceptBtn.addEventListener("click", function() {
@@ -517,23 +510,19 @@ if ($element = $res->Fetch()) {
         });
     });
 
-    const storedData = localStorage.getItem('cartItems');
+    function updateCartCount() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const count = cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
-    if (storedData) {
-      // Парсим строку в объект
-      const dataObject = JSON.parse(storedData);
-
-      // Проверяем, что существует свойство cartItems и оно является массивом
-      if (Array.isArray(dataObject.cartItems)) {
-        // Получаем количество элементов в массиве
-        const itemCount = dataObject.cartItems.length;
-        console.log(`Количество элементов в массиве: ${itemCount}`);
-      } else {
-        console.log('Объект не содержит массива cartItems');
-      }
-    } else {
-      console.log('localStorage не содержит ключа "cartItems"');
+        const cartCountElement = document.getElementById('cart-count');
+        if (count > 0) {
+            cartCountElement.textContent = count;
+            cartCountElement.style.display = 'inline-block';
+        } else {
+            cartCountElement.style.display = 'none';
+        }
     }
 
+    document.addEventListener("DOMContentLoaded", updateCartCount);
     document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
 </script>
