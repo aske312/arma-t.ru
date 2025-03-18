@@ -23,11 +23,25 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 session_start(); // Запуск сессии
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartItems'])) {
+    // Декодируем JSON-данные, полученные из localStorage
     $cartItems = json_decode($_POST['cartItems'], true);
+
+    // Проверяем, что данные не пустые
     if (is_array($cartItems) && count($cartItems['cartItems']) > 0) {
+        // Если корзина не пуста, выводим элементы
+        echo "<pre>";
         print_r($cartItems);
+        echo "</pre>";
+
+        // Если нужно, можете обработать и вывести количество товаров
         $cartItemCount = count($cartItems['cartItems']);
+        echo "Количество товаров в корзине: $cartItemCount";
+    } else {
+        echo "Корзина пуста.";
     }
+} else {
+    // Выводим ошибку, если не получены данные
+    echo "Данные корзины не получены. Ошибка с POST-запросом.";
 }
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
@@ -500,29 +514,26 @@ if ($element = $res->Fetch()) {
         });
     });
 
-    // Функция для отправки данных из localStorage на сервер
     function sendCartData() {
-        // Получаем данные из localStorage
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-        // Проверяем, есть ли товары в корзине
         if (cartItems.length > 0) {
-            // Создаем объект для отправки данных на сервер
+            console.log('Данные корзины:', cartItems);
+
             let xhr = new XMLHttpRequest();
             xhr.open('POST', '', true); // Отправка данных на текущую страницу
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-            // Подготовка данных
             let data = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems));
 
-            // Отправка данных
             xhr.send(data);
 
-            // Обработка ответа сервера
             xhr.onload = function () {
                 if (xhr.status == 200) {
                     console.log('Данные корзины отправлены на сервер');
                     console.log(xhr.responseText);  // Выводим ответ от сервера
+                } else {
+                    console.log('Ошибка при отправке данных на сервер:', xhr.status, xhr.statusText);
                 }
             };
         } else {
