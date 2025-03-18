@@ -23,6 +23,7 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 session_start(); // Запуск сессии
 $cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
 $cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
+$cartItemCount = count($cartItems);
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
@@ -149,8 +150,8 @@ if ($element = $res->Fetch()) {
                 <div class="cart-icon">
                     <button id="cart-button" class="cart-btn">
                         <div class="cart-icon-wrapper">
-                            <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
-                            <?php if ($cartItems > 0): ?>
+                            <?php if (empty($cartItems)): ?>
+                                <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
                                 <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
                             <?php else: ?>
                                 <span id="cart-count" class="cart-count" style="display: none;"></span>
