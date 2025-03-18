@@ -22,12 +22,25 @@ Asset::getInstance()->addCss("/resources/css/footer.css");
 // Получаем товары в корзине из сторедж
 session_start(); // Запуск сессии
 
-$cartItems = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartItems'])) {
+    // Декодируем JSON-данные, полученные из localStorage
     $cartItems = json_decode($_POST['cartItems'], true);
+
+    // Проверяем, что данные не пустые
+    if (is_array($cartItems) && count($cartItems['cartItems']) > 0) {
+        // Если корзина не пуста, выводим элементы
+        echo "<pre>";
+        print_r($cartItems);
+        echo "</pre>";
+
+        // Если нужно, можете обработать и вывести количество товаров
+        $cartItemCount = count($cartItems['cartItems']);
+        echo "Количество товаров в корзине: $cartItemCount";
+    } else {
+        echo "Корзина пуста.";
+    }
 } else {
-    $cartItems = 0;
+    echo "Данные корзины не получены.";
 }
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
@@ -499,6 +512,7 @@ if ($element = $res->Fetch()) {
         });
     });
 
+    // Функция для отправки данных из localStorage на сервер
     function sendCartData() {
         // Получаем данные из localStorage
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -528,10 +542,10 @@ if ($element = $res->Fetch()) {
         }
     }
 
-
-    setInterval(function() {
-        sendCartData(); // Отправляем данные каждую 2 секунды
-    }, 2000);  // Интервал 2000 миллисекунд (2 секунды)
+    // Отправка данных на сервер при загрузке страницы
+    window.onload = function() {
+        sendCartData(); // Отправляем данные сразу при загрузке
+    };
 
     document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
 </script>
