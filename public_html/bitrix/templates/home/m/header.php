@@ -109,7 +109,6 @@ if ($element = $res->Fetch()) {
                     <a href="/#contact">Контакты</a>
                     <a href="/#delivery">Доставка</a>
                     <a href="/#pay">Оплата</a>
-                    <!-- <input type="hidden" id="cartItemCount" name="cartItemCount" value="0"> -->
                 </ul>
 
                 <!--
