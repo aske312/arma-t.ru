@@ -19,30 +19,10 @@ if ($isMobile) {
 Asset::getInstance()->addCss("/resources/css/header.css");
 Asset::getInstance()->addCss("/resources/css/footer.css");
 
-// Получаем товары в корзине из сторедж
+// Получаем товары в корзине из сессии
 session_start(); // Запуск сессии
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartItems'])) {
-    // Декодируем JSON-данные, полученные из localStorage
-    $cartItems = json_decode($_POST['cartItems'], true);
-
-    // Проверяем, что данные не пустые
-    if (is_array($cartItems) && count($cartItems['cartItems']) > 0) {
-        // Если корзина не пуста, выводим элементы
-        echo "<pre>";
-        print_r($cartItems);
-        echo "</pre>";
-
-        // Если нужно, можете обработать и вывести количество товаров
-        $cartItemCount = count($cartItems['cartItems']);
-        echo "Количество товаров в корзине: $cartItemCount";
-    } else {
-        echo "Корзина пуста.";
-    }
-} else {
-    // Выводим ошибку, если не получены данные
-    echo "Данные корзины не получены. Ошибка с POST-запросом.";
-}
+$cartItemCount = "<script>document.write(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')).reduce((acc, item) => acc + item.quantity, 0) : 0);</script>";
+$cartItems = isset($_SESSION['cartItems']['cartItems']) ? $_SESSION['cartItems']['cartItems'] : []; // Получаем массив товаров
 
 // Получаем значение свойства EL_DESCRIPTION элемента инфоблока (ID = 67102, IBLOCK_ID = 3, SECTION_ID = 35)
 $phone = "";
@@ -162,12 +142,35 @@ if ($element = $res->Fetch()) {
                         </div>
                     </div>
                 </div>
-            </div>
-            <pre>
-                <?php print_r($cartItems); ?>
-                <?php print_r($cartItemCount); ?>
-            </pre>
 
+            </div>
+
+            <div class="cart-wrapper">
+                <div class="cart-icon">
+                    <button id="cart-button" class="cart-btn">
+                        <div class="cart-icon-wrapper">
+                            <img src="/resources/img/block/checkout.png" alt="Корзина" class="cart-icon-img">
+                            <?php if ($cartItems > 0): ?>
+                                <span id="cart-count" class="cart-count"><?= $cartItemCount ?></span>
+                            <?php else: ?>
+                                <span id="cart-count" class="cart-count" style="display: none;"></span>
+                            <?php endif; ?>
+                        </div>
+                    </button>
+                </div>
+                <div id="cart-modal" class="cart-modal">
+                    <div class="cart-modal-overlay" id="cart-modal-overlay"></div>
+                    <div class="cart-modal-content">
+                        <span class="close-btn" id="close-cart-modal">&times;</span>
+                        <h2>Корзина</h2>
+                        <div id="cart-items" class="cart-items-container"></div>
+                        <div class="cart-modal-footer">
+                            <button id="clear-cart" class="button">Очистить корзину</button>
+                            <button id="checkout" class="button">Оформить заказ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <!--
         <div id="cookie-banner" class="cookie-banner">
@@ -513,38 +516,6 @@ if ($element = $res->Fetch()) {
             banner.style.display = "none";
         });
     });
-
-    function sendCartData() {
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-        if (cartItems.length > 0) {
-            console.log('Данные корзины:', cartItems);
-
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', '', true); // Отправка данных на текущую страницу
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            let data = 'cartItems=' + encodeURIComponent(JSON.stringify(cartItems));
-
-            xhr.send(data);
-
-            xhr.onload = function () {
-                if (xhr.status == 200) {
-                    console.log('Данные корзины отправлены на сервер');
-                    console.log(xhr.responseText);  // Выводим ответ от сервера
-                } else {
-                    console.log('Ошибка при отправке данных на сервер:', xhr.status, xhr.statusText);
-                }
-            };
-        } else {
-            console.log("Корзина пуста");
-        }
-    }
-
-    // Отправка данных на сервер при загрузке страницы
-    window.onload = function() {
-        sendCartData(); // Отправляем данные сразу при загрузке
-    };
 
     document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
 </script>
