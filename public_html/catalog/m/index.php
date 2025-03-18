@@ -255,7 +255,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
             <div class="catalog-item-m" data-id="<?= $arFields['ID']; ?>">
                 <a href="/detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link-m">
                     <div class="catalog-item-header-m">
-                        <!-- <img src="<?= $productImage; ?>" alt="<?= htmlspecialchars($arFields['NAME']); ?>" class="catalog-item-image-m"> -->
+                        <img src="<?= $productImage; ?>" alt="<?= htmlspecialchars($arFields['NAME']); ?>" class="catalog-item-image-m">
                     </div>
                     <div class="catalog-item-info-m">
                         <h3 class="catalog-item-name-m"><?= $arFields['PREVIEW_TEXT']; ?></h3>
