@@ -334,7 +334,7 @@ if ($element = $res->Fetch()) {
             if (item.quantity < 1) {
                 removeCartItem(productId);
             } else {
-                setCartItems(cartItems);
+//                 setCartItems(cartItems);
                 loadCartData();
             }
         }
@@ -346,7 +346,7 @@ if ($element = $res->Fetch()) {
 
         if (item) {
             item.quantity = Math.max(1, parseInt(value) || 1);
-            setCartItems(cartItems);
+//             setCartItems(cartItems);
             loadCartData();
         }
     }
@@ -354,7 +354,7 @@ if ($element = $res->Fetch()) {
     function removeCartItem(productId) {
         let cartItems = getCartItems();
         cartItems = cartItems.filter(item => item.id !== productId);
-        setCartItems(cartItems);
+//         setCartItems(cartItems);
         loadCartData();
     }
 

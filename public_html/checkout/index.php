@@ -177,6 +177,8 @@ if ($isMobile) {
                 });
                 updateTotal(cartData.cartItems);
             }
+
+           window.location.href = `/detail/index.php?ID=${item.id}`;
         }
     }
 
