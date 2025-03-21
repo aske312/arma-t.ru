@@ -274,7 +274,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
 
                 <div class="catalog-item" data-id="<?= $arFields['ID']; ?>">
                     <!-- Ссылка на детальную страницу -->
-                    <a href="detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
+                    <a href="/detail/index.php?ID=<?= $arFields['ID']; ?>" class="catalog-item-link">
                         <div class="catalog-item-header">
                             <img src="<?= $productImage; ?>" alt="<?= htmlspecialchars($arFields['NAME']); ?>" class="catalog-item-image">
                             <div class="catalog-item-info">
@@ -385,7 +385,7 @@ $arResult['NAV_STRING'] = $res->GetPageNavStringEx($navComponentObject, "", ".de
         item.addEventListener('click', (event) => {
             // Если клик произошел не на кнопке "В корзину", переходим на детальную страницу
             if (!event.target.closest('.catalog-item-add-to-cart')) {
-                window.location.href = `detail/index.php?ID=${item.getAttribute('data-id')}`;
+                window.location.href = `/detail/index.php?ID=${item.getAttribute('data-id')}`;
             }
         });
     });
