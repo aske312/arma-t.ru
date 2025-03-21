@@ -180,10 +180,10 @@ if ($element = $res->Fetch()) {
         document.getElementById('siteHeader').classList.toggle('fixed', window.scrollY > 100);
     });
 
-//     function getCartItems() {
-//         const storedData = JSON.parse(localStorage.getItem('cartItems'));
-//         return storedData && storedData.cartItems ? storedData.cartItems : [];
-//     }
+    function getCartItems() {
+        const storedData = JSON.parse(localStorage.getItem('cartItems'));
+        return storedData && storedData.cartItems ? storedData.cartItems : [];
+    }
 
     document.addEventListener("DOMContentLoaded", function() {
         let errorBox = document.querySelector('.bitrix-error-box');
