@@ -60,26 +60,8 @@ if ($isMobile) {
         </div>
 
         <!-- Блок с картой -->
-        <!-- <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script> -->
         <div class="map">
-            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=168551027459" width="475" height="475" frameborder="1"></iframe>
-            <!-- <div id="map" style="width: 475px; height: 475px;"></div> -->
-            <!-- <script>
-//                 ymaps.ready(init);
-//                 function init() {
-//                     var myMap = new ymaps.Map("map", {
-//                         center: [55.677254, 37.271138], // Координаты центра карты
-//                         zoom: 15 // Уровень масштабирования
-//                     });
-//
-//                     // Добавление метки
-//                     var myPlacemark = new ymaps.Placemark([55.677254, 37.271138], {
-//                         balloonContent: 'Молодёжная улица, 46'
-//                     });
-//
-//                     myMap.geoObjects.add(myPlacemark);
-//                 }
-            </script>-->
+            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=168551027459" width="475" height="475" frameborder="6"></iframe>
         </div>
     </div>
 </div>
