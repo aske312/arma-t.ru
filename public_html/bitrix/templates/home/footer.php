@@ -62,7 +62,7 @@ if ($isMobile) {
         <!-- Блок с картой -->
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
         <div class="map">
-            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=168551027459" width="475" height="475" frameborder="0"></iframe>
+            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=168551027459" width="475" height="475" frameborder="1"></iframe>
             <!-- <div id="map" style="width: 475px; height: 475px;"></div> -->
             <script>
 //                 ymaps.ready(init);
