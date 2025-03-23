@@ -57,13 +57,13 @@
                 ymaps.ready(init);
                 function init() {
                     var myMap = new ymaps.Map("map", {
-                        center: [55.681717, 37.269466], // Координаты центра карты
+                        center: [55.677254, 37.271138], // Координаты центра карты
                         zoom: 15 // Уровень масштабирования
                     });
 
                     // Добавление метки
-                    var myPlacemark = new ymaps.Placemark([55.681717, 37.269466], {
-                        balloonContent: 'Улица Маршала Жукова, 36'
+                    var myPlacemark = new ymaps.Placemark([55.677254, 37.271138], {
+                        balloonContent: 'Молодёжная улица, 46'
                     });
 
                     myMap.geoObjects.add(myPlacemark);
