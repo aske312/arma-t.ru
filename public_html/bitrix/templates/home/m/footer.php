@@ -49,26 +49,8 @@
         </div>
 
         <!-- Блок с картой -->
-
-        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
         <div class="map-m">
-            <div id="map" style="width: 200px; height: 325px;"></div>
-            <script>
-                ymaps.ready(init);
-                function init() {
-                    var myMap = new ymaps.Map("map", {
-                        center: [55.677254, 37.271138], // Координаты центра карты
-                        zoom: 15 // Уровень масштабирования
-                    });
-
-                    // Добавление метки
-                    var myPlacemark = new ymaps.Placemark([55.677254, 37.271138], {
-                        balloonContent: 'Молодёжная улица, 46'
-                    });
-
-                    myMap.geoObjects.add(myPlacemark);
-                }
-            </script>
+            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=168551027459" width="200" height="325" frameborder="0"></iframe>
         </div>
     </div>
 </div>

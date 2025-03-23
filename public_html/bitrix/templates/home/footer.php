@@ -61,7 +61,7 @@ if ($isMobile) {
 
         <!-- Блок с картой -->
         <div class="map">
-            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=168551027459" width="475" height="475" frameborder="6"></iframe>
+            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=168551027459" width="475" height="475" frameborder="0"></iframe>
         </div>
     </div>
 </div>
